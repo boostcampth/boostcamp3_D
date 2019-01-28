@@ -19,7 +19,7 @@ gen/
 out/
 
 # Gradle files
-.gradle/
+ .gradle/
 build/
 
 # Local configuration file (sdk path, etc)
@@ -262,7 +262,6 @@ modules.xml
 # Mobile Tools for Java (J2ME)
 
 # Package Files #
-*.jar
 *.nar
 *.zip
 *.tar.gz
