@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">EatTo</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <!--Main BottomNavigationView-->
+    <string name="bnv_title_home">홈</string>
+    <string name="bnv_title_map">지도</string>
+    <string name="bnv_title_board">게시글</string>
+    <string name="bnv_title_mypage">마이페이지</string>
 </resources>
