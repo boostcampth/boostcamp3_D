@@ -54,6 +54,8 @@ dependencies {
     //stetho
     implementation "com.facebook.stetho:stetho:$stethoVersion"
     //unit test
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
     testImplementation "junit:junit:$junitVersion"
     //runner
     androidTestImplementation "androidx.test:runner:$runnerVersion"
