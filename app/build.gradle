@@ -43,6 +43,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rxJavaAdapterVersion"
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    //okHttp
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    //gson converter
+    implementation "com.squareup.retrofit2:converter-gson:$gsonVersion"
     //glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     //stetho

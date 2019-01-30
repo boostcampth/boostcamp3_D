@@ -51,11 +51,14 @@ ext{
     //glide
     glideVersion = '4.8.0'
 
+    //retrofit2
+    retrofitVersion= '2.0.0-beta3'
+
     //okHttp
     okHttpVersion= '3.12.1'
 
     //gSon
-    gSonVersion = '2.8.5'
+    gsonVersion = '2.4.0'
 
     //stetho
     stethoVersion = '1.5.0'
