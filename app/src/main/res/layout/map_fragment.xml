@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.main.map.MapFragment">
+
+    <data>
+
+        <variable
+                name = "viewmodel"
+                type = "com.teamdonut.eatto.ui.map.MapViewModel" />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp">
+
+
+        <!-- Map Search -->
+
+        <FrameLayout
+                android:id="@+id/fl_search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+
+            <EditText  android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"/>
+
+
+            <ImageButton android:layout_width="0dp" android:layout_height="match_parent"
+                         android:layout_weight="1"
+                         android:src="@drawable/ic_search_24dp"
+                         android:onClick="@{viewmodel::onClickSearchButton}"/>
+
+        </LinearLayout>
+
+
+        </FrameLayout>
+
+
+        <!-- Map View -->
+
+        <FrameLayout
+                android:id="@+id/fl_map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/fl_search_layout">
+
+
+
+        </FrameLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_board_add"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:onClick="@{viewmodel::onClickBoardAdd}"/>
+
+
+        <!-- Bottom Sheet -->
+
+
+
+        <!-- -->
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</layout>
