@@ -7,6 +7,9 @@
 *.ap_
 *.aab
 
+# Kakao App key
+kakao_string.xml
+
 # Files for the ART/Dalvik VM
 *.dex
 
@@ -19,7 +22,7 @@ gen/
 out/
 
 # Gradle files
-.gradle/
+ .gradle/
 build/
 
 # Local configuration file (sdk path, etc)
@@ -180,7 +183,6 @@ fabric.properties
 
 ### AndroidStudio Patch ###
 
-!/gradle/wrapper/gradle-wrapper.jar
 
 ### Intellij+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -263,7 +265,6 @@ modules.xml
 # Mobile Tools for Java (J2ME)
 
 # Package Files #
-*.jar
 *.nar
 *.zip
 *.tar.gz
