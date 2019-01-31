@@ -23,5 +23,4 @@ public class GPSService extends Service {
     public void onCreate() {
         super.onCreate();
     }
-    }
 }
