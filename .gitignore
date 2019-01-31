@@ -7,6 +7,9 @@
 *.ap_
 *.aab
 
+# Kakao App key
+kakao_string.xml
+
 # Files for the ART/Dalvik VM
 *.dex
 
