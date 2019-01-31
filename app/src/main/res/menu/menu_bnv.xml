@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id = "@+id/menu_home"
+        android:icon = "@drawable/ic_home_24dp"
+        android:title = "@string/bnv_title_home" />
+
+    <item
+        android:id = "@+id/menu_map"
+        android:icon = "@drawable/ic_map_24dp"
+        android:title = "@string/bnv_title_map" />
+
+    <item
+        android:id = "@+id/menu_board"
+        android:icon = "@drawable/ic_board_24dp"
+        android:title = "@string/bnv_title_board" />
+
+    <item
+        android:id = "@+id/menu_mypage"
+        android:icon = "@drawable/ic_mypage_24dp"
+        android:title = "@string/bnv_title_mypage" />
+
+</menu>
