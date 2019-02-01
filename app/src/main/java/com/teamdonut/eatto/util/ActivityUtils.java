@@ -1,16 +1,17 @@
 package com.teamdonut.eatto.util;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.teamdonut.eatto.ui.login.LoginActivity;
+import com.teamdonut.eatto.ui.main.MainActivity;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.teamdonut.eatto.ui.login.LoginActivity;
-import com.teamdonut.eatto.ui.main.MainActivity;
 
 import static android.content.Context.MODE_PRIVATE;
 import static androidx.core.util.Preconditions.checkNotNull;
