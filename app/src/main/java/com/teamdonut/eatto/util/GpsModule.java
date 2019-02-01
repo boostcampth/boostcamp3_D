@@ -6,6 +6,8 @@ import android.location.Location;
 import android.os.Looper;
 import com.google.android.gms.location.*;
 
+import java.lang.ref.WeakReference;
+
 public class GpsModule {
     private LocationRequest locationRequest;
     private static final long UPDATE_INTERVAL = 15000, FASTEST_INTERVAL = 10000;
@@ -13,8 +15,8 @@ public class GpsModule {
     private LocationCallback mLocationCallback;
     private final Context mContext;
 
-    public GpsModule(Context context){
-        mContext = context;
+    public GpsModule(WeakReference<Context> context){
+        mContext = context.get().getApplicationContext();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
         mLocationCallback = new LocationCallback(){
