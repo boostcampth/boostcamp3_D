@@ -55,7 +55,10 @@ dependencies {
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     //stetho
     implementation "com.facebook.stetho:stetho:$stethoVersion"
-    //unit test
+
+    //gms location
+    implementation "com.google.android.gms:play-services-location:$gmsLocationVersion"
+
     testImplementation "junit:junit:$junitVersion"
     //runner
     androidTestImplementation "androidx.test:runner:$runnerVersion"
