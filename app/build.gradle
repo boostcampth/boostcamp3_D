@@ -61,4 +61,10 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     //espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
+
+    //daum map api
+    implementation files('libs/libDaumMapAndroid.jar')
+
+
 }
