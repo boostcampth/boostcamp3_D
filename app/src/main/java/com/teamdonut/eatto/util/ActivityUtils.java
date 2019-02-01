@@ -41,14 +41,14 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void saveValueSharedPreferences(Context context, String name,String key, String value){
+    public static void saveStrValueSharedPreferences(Context context, String name,String key, String value){
         SharedPreferences pref = context.getSharedPreferences(name, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    public static String getValueSharedPreferences(Context context, String name, String Key){
+    public static String getStrValueSharedPreferences(Context context, String name, String Key){
         SharedPreferences pref = context.getSharedPreferences(name, MODE_PRIVATE);
         return pref.getString(Key, "");
     }
