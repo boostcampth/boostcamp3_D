@@ -5,5 +5,5 @@ import androidx.fragment.app.Fragment;
 
 interface MainNavigator {
 
-    void changeScreen(Fragment fragment);
+    void changeScreen(int itemId, Fragment fragment);
 }

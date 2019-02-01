@@ -27,14 +27,16 @@ public class MainViewModel {
     }
 
     public boolean onNavigationItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        int itemId = item.getItemId();
+
+        switch (itemId) {
             case R.id.menu_home: {
                 // 이렇게 호출해주시면 됩니다.
                 //   navigator.changeScreen(HomeFragment.newInstance());
                 return true;
             }
             case R.id.menu_map: {
-                navigator.changeScreen(MapFragment.newInstance());
+                navigator.changeScreen(itemId, MapFragment.newInstance());
                 return true;
             }
             case R.id.menu_board: {
