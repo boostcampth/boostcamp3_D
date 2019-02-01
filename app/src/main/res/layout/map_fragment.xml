@@ -18,8 +18,6 @@
 
 
         <!-- Map Search -->
-
-
         <EditText
             android:id="@+id/et_serach"
             android:layout_width="match_parent"
@@ -64,11 +62,11 @@
             android:id="@+id/fab_board_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_create_24dp"
+            app:srcCompat="@drawable/ic_create_24dp"
             app:fabSize="normal"
             app:useCompatPadding="true"
             android:onClick="@{viewmodel::onClickBoardAdd}"
-            android:backgroundTint="@color/colorHungryRed"
+            app:backgroundTint="@color/colorHungryRed"
             app:layout_constraintBottom_toBottomOf="@+id/fl_map_view"
             app:layout_constraintEnd_toEndOf="@+id/fl_map_view" />
 
@@ -101,8 +99,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.9" />
-
-        <!-- -->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
