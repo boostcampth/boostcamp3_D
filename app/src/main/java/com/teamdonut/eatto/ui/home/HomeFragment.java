@@ -1,16 +1,18 @@
 package com.teamdonut.eatto.ui.home;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.databinding.HomeFragmentBinding;
 
 public class HomeFragment extends Fragment {
+    private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
 
     public static HomeFragment newInstance() {
@@ -20,14 +22,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
+        mViewModel = new HomeViewModel();
+        binding.setViewmodel(mViewModel);
+        View view = binding.getRoot();
+        return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }
