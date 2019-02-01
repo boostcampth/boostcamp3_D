@@ -28,8 +28,8 @@ public class GpsModule {
                 }
                 for (Location location : locationResult.getLocations()) {
                     if(location != null){
-                        ActivityUtils.saveValueSharedPreferences(mContext, "gps", "longitude", String.valueOf(location.getLongitude()));
-                        ActivityUtils.saveValueSharedPreferences(mContext, "gps", "latitude", String.valueOf(location.getLatitude()));
+                        ActivityUtils.saveStrValueSharedPreferences(mContext, "gps", "longitude", String.valueOf(location.getLongitude()));
+                        ActivityUtils.saveStrValueSharedPreferences(mContext, "gps", "latitude", String.valueOf(location.getLatitude()));
                         stopLocationUpdates();
                     }
                 }
