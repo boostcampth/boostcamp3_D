@@ -1,17 +1,19 @@
 package com.teamdonut.eatto.ui.login;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.kakao.auth.Session;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.LoginActivityBinding;
+import com.teamdonut.eatto.ui.main.MainActivity;
 import com.teamdonut.eatto.util.ActivityUtils;
 import com.teamdonut.eatto.util.kakao.LoginSessionCallback;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 public class LoginActivity extends AppCompatActivity implements LoginNavigator {
 
