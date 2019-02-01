@@ -7,6 +7,7 @@ import com.teamdonut.eatto.R;
 
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
+import com.teamdonut.eatto.ui.map.MapFragment;
 
 @BindingMethods({
         @BindingMethod(
@@ -33,6 +34,7 @@ public class MainViewModel {
                 return true;
             }
             case R.id.menu_map: {
+                navigator.changeScreen(MapFragment.newInstance());
                 return true;
             }
             case R.id.menu_board: {

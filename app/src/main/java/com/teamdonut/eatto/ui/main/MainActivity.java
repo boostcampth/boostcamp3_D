@@ -14,14 +14,14 @@ import com.teamdonut.eatto.util.ActivityUtils;
 public class MainActivity extends AppCompatActivity implements MainNavigator {
 
     private MainActivityBinding binding;
-    private MainViewModel viewModel = new MainViewModel(this);
+    private MainViewModel mViewModel = new MainViewModel(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        binding.setViewmodel(viewModel); //set viewModel.
+        binding.setViewmodel(mViewModel); //set viewModel.
     }
 
     @Override
