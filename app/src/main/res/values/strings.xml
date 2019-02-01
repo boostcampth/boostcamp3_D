@@ -6,7 +6,5 @@
     <string name="bnv_title_map">지도</string>
     <string name="bnv_title_board">게시글</string>
     <string name="bnv_title_mypage">마이페이지</string>
-
-    <string name="kakao_app_key">13108fe01301fd4a2e9f31eafe073a7f</string>
     <string name="permission_reject">권한을 거부하시면, 서비스 이용에 문제가 있습니다.\n권한을 설정해주세요. [설정] > [권한]</string>
 </resources>
