@@ -70,6 +70,6 @@ dependencies {
     implementation files('libs/libDaumMapAndroid.jar')
 
     //CircleImageView
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 
 }
