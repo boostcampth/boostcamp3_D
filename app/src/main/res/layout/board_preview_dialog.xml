@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -94,7 +94,7 @@
 
         <TextView
                 android:id="@+id/tv_title"
-                android:text="여어 강남역 ㄱㄱ"
+                tools:text="여어 강남역 ㄱㄱ"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                 android:textAlignment="center"/>
         <TextView
                 android:id="@+id/tv_address"
-                android:text="서울특별시 강남구 역삼동"
+                tools:text="서울특별시 강남구 역삼동"
                 android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:textAlignment="center"/>
         <TextView
                 android:id="@+id/tv_budget"
-                android:text="최대 15000원"
+                tools:text="최대 15000원"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
@@ -121,7 +121,7 @@
 
         <TextView
                 android:id="@+id/tv_age"
-                android:text="21세 ~ 29세"
+                tools:text="21세 ~ 29세"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
@@ -132,7 +132,7 @@
 
         <Button
                 android:id="@+id/btn_join_board"
-                android:text="쪼인"
+                tools:text="쪼인"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_gravity="center"
