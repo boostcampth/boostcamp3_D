@@ -9,7 +9,6 @@
                 name="viewmodel"
                 type="com.teamdonut.eatto.ui.home.HomeViewModel"/>
     </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -136,6 +135,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
