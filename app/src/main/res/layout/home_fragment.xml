@@ -1,18 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.main.home.HomeFragment">
     <data>
-
         <variable
                 name="viewmodel"
                 type="com.teamdonut.eatto.ui.home.HomeViewModel"/>
     </data>
-    <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.home.HomeFragment">
+            android:background="@color/colorHungryGray">
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorHungryGray">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsingToolbarLayout01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorHungryGray"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_collapseMode="parallax"
+                        android:layout_marginRight="@dimen/activity_medium_margin"
+                        android:layout_marginLeft="@dimen/activity_medium_margin"
+                        android:layout_marginTop="@dimen/activity_medium_margin"
+                        android:layout_marginBottom="?attr/actionBarSize">
+                    <ImageView
+                            android:layout_width="233dp"
+                            android:layout_height="70dp"
+                            android:layout_marginBottom="@dimen/activity_medium_margin"
+                            android:background="#ffff92"/>
+                    <TextView
+                            android:id="@+id/tv_below_logo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/activity_medium_margin"
+                            android:text="혼밥이 싫다면 여기로 고고!\n고고고!"/>
+                </LinearLayout>
+                <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="@dimen/activity_medium_margin"
+                        android:layout_marginRight="@dimen/activity_medium_margin"
+                        android:background="#ffff92"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/AppTheme"/>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <TextView
+                        android:id="@+id/tv_waiting_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_recommend_board"
+                        android:layout_marginTop="@dimen/activity_small_margin"
+                        android:layout_marginLeft="@dimen/activity_medium_margin"
+                        android:layout_marginRight="@dimen/activity_medium_margin"
+                        android:layout_marginBottom="@dimen/activity_large_margin"
+                        android:text="@string/home_tv_waiting_num"/>
+
+                <TextView
+                        android:id="@+id/tv_recommend_board"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_waiting_num"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/rcv_recommend_board"
+                        android:layout_marginLeft="@dimen/activity_medium_margin"
+                        android:layout_marginRight="@dimen/activity_medium_margin"
+                        android:layout_marginBottom="@dimen/activity_small_margin"
+                        android:text="@string/home_tv_recommend_board"/>
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcv_recommend_board"
+                        app:layout_constraintTop_toBottomOf="@id/tv_recommend_board"
+                        app:layout_constraintBottom_toTopOf="@id/tv_ranking"
+                        android:background="#ffff92"
+                        android:layout_marginBottom="@dimen/activity_large_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1:0.4"/>
+
+                <TextView
+                        android:id="@+id/tv_ranking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/rcv_recommend_board"
+                        app:layout_constraintBottom_toTopOf="@id/iv_myrank"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginLeft="@dimen/activity_medium_margin"
+                        android:layout_marginRight="@dimen/activity_medium_margin"
+                        android:layout_marginBottom="@dimen/activity_small_margin"
+                        android:text="@string/home_tv_ranking"/>
+                <ImageView
+                        android:id="@+id/iv_myrank"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="#ffff92"
+                        android:layout_marginRight="@dimen/activity_medium_margin"
+                        android:layout_marginLeft="@dimen/activity_medium_margin"
+                        android:layout_marginBottom="@dimen/activity_medium_margin"
+                        app:layout_constraintBottom_toTopOf="@id/rcv_rank"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ranking"/>
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcv_rank"
+                        app:layout_constraintTop_toBottomOf="@id/iv_myrank"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:background="#ffff92"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
 
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
