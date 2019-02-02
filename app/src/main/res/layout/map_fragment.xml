@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".ui.main.map.MapFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.map.MapFragment">
 
     <data>
 
         <variable
-                name="viewmodel"
-                type="com.teamdonut.eatto.ui.map.MapViewModel"/>
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.map.MapViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
         <!-- Map Search -->
 
 
         <EditText
-                android:id="@+id/et_serach"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/et_search_hint"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/et_serach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/et_search_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageButton
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/ic_search_24dp"
-                android:onClick="@{viewmodel::onClickSearchButton}"
-                app:layout_constraintBottom_toBottomOf="@+id/et_serach"
-                app:layout_constraintEnd_toEndOf="@+id/et_serach"
-                app:layout_constraintTop_toTopOf="@+id/et_serach"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_search_24dp"
+            android:onClick="@{viewmodel::onClickSearchButton}"
+            app:layout_constraintBottom_toBottomOf="@+id/et_serach"
+            app:layout_constraintEnd_toEndOf="@+id/et_serach"
+            app:layout_constraintTop_toTopOf="@+id/et_serach" />
 
 
         <!-- Map View -->
 
         <FrameLayout
-                android:id="@+id/fl_map_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="13dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_serach"
-                app:layout_constraintVertical_bias="0.0"/>
+            android:id="@+id/fl_map_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_serach"
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <!-- Bottom Sheet -->
@@ -64,45 +64,45 @@
             android:id="@+id/fab_board_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_create_24dp"
-            app:fabSize="normal"
-            app:useCompatPadding="true"
             android:onClick="@{viewmodel::onClickBoardAdd}"
             app:backgroundTint="@color/colorHungryRed"
+            app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="@+id/fl_map_view"
-            app:layout_constraintEnd_toEndOf="@+id/fl_map_view" />
+            app:layout_constraintEnd_toEndOf="@+id/fl_map_view"
+            app:srcCompat="@drawable/ic_create_24dp"
+            app:useCompatPadding="true" />
 
 
         <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left|center"
-                android:padding="11dp"
-                android:text="@string/tv_bottom_sheet_show"
-                android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@id/gl_end"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"/>
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:padding="11dp"
+            android:text="@string/tv_bottom_sheet_show"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/gl_end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <ImageButton
-                android:id="@+id/ib_show_bottom_sheet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/ic_eject_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView"/>
+            android:id="@+id/ib_show_bottom_sheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_eject_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.9"/>
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
 
         <!-- -->
 
