@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,8 +17,6 @@
 
 
         <!-- Map Search -->
-
-
         <EditText
             android:id="@+id/et_serach"
             android:layout_width="match_parent"
@@ -49,6 +46,7 @@
             android:id="@+id/fl_map_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+
             android:layout_marginBottom="13dp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +79,11 @@
             android:padding="11dp"
             android:text="@string/tv_bottom_sheet_show"
             android:textSize="13sp"
+
             app:layout_constraintBottom_toBottomOf="@id/gl_end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+
             app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -96,6 +96,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_end"
