@@ -50,18 +50,6 @@ public class MapFragment extends Fragment {
         MapView mapView = new MapView(getActivity());
         binding.flMapView.addView(mapView);
 
-
-        binding.ibShowBottomSheet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BoardPreviewDialog dialog = new BoardPreviewDialog();
-                dialog.setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
-
-                dialog.show(getFragmentManager(),"boardpreviewdialog");
-
-            }
-        });
-
         return view;
     }
 
