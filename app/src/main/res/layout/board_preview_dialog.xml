@@ -26,7 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ll_shape"
-
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/gl_end_of_linear"
         app:layout_constraintEnd_toEndOf="parent"
