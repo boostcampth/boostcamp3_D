@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".ui.main.map.MapFragment">
-
     <data>
-
         <variable
                 name="viewmodel"
                 type="com.teamdonut.eatto.ui.map.MapViewModel"/>
@@ -16,10 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
         <!-- Map Search -->
-
-
         <EditText
                 android:id="@+id/et_serach"
                 android:layout_width="match_parent"
