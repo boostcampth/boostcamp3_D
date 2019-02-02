@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     @Override
     public void changeScreen(int itemId, Fragment fragment) {
         if (itemId != binding.bnvMain.getSelectedItemId()) { //같은 탭을 누르지 않았을 경우만 이동.
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.frame_main);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fl_main);
         }
     }
 }
