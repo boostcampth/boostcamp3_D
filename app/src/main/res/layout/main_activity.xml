@@ -15,7 +15,7 @@
 
         <!--Frame for bottom navigation tabs-->
         <FrameLayout
-                android:id="@+id/frame_main"
+                android:id="@+id/fl_main"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@id/bnv_main"
