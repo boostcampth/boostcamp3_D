@@ -16,7 +16,6 @@ import com.teamdonut.eatto.R;
 
 public class BoardPreviewDialog extends DialogFragment {
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -24,7 +23,11 @@ public class BoardPreviewDialog extends DialogFragment {
         Dialog dialog = getDialog();
         if(dialog != null) {
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
+
             dialog.getWindow().setLayout(900 , height);
+
+            // remove dialog background
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 
     }
@@ -32,7 +35,9 @@ public class BoardPreviewDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.DialogTheme);
+
     }
 
     @Nullable
@@ -40,9 +45,6 @@ public class BoardPreviewDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.board_preview_dialog, container, false);
-        // remove dialog background
-        getDialog().getWindow().setBackgroundDrawable(
-                new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         return v;
     }
