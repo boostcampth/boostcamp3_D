@@ -6,7 +6,12 @@
     <string name="bnv_title_map">지도</string>
     <string name="bnv_title_board">게시글</string>
     <string name="bnv_title_mypage">마이페이지</string>
-  
+
+    <!-- Home -->
+    <string name="home_tv_recommend_board">추천 모임 게시글</string>
+    <string name="home_tv_ranking">유저 랭킹</string>
+    <string name="home_tv_below_logo">혼밥이 싫다면 여기로 고고!\n고고고!</string>
+    <string name="home_tv_waiting_num">개의 방에서 혼밥러들이 당신을 기다리고 있습니다.</string>
     <!-- Map -->
     <string name="et_search_hint">위치 검색</string>
     <string name="tv_bottom_sheet_show">이 지역 모든 혼밥러</string>
