@@ -7,4 +7,5 @@
     <color name="colorHungryRed">#FE1D2A</color>
     <color name="colorDeskBrown">#444343</color>
     <color name="colorStatusBar">#b4b4b4</color>
+    <color name="colorHungryGray">#f9f9f9</color>
 </resources>
