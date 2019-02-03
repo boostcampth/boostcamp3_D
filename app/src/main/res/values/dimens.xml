@@ -3,4 +3,8 @@
     <dimen name="space_large_margin">24dp</dimen>
     <dimen name="space_medium_margin">16dp</dimen>
     <dimen name="space_small_margin">8dp</dimen>
+
+    <dimen name="space_large_padding">24dp</dimen>
+    <dimen name="space_medium_padding">16dp</dimen>
+    <dimen name="space_small_padding">8dp</dimen>
 </resources>
