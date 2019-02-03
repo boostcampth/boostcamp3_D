@@ -17,4 +17,9 @@
     <string name="et_search_hint">위치 검색</string>
     <string name="tv_bottom_sheet_show">이 지역 모든 혼밥러</string>
 
+    <!-- Board -->
+    <string name="board_tv_toolbar">게시글</string>
+    <string name="board_tv_my_board">내가 쓴 게시글</string>
+    <string name="board_tv_other_board">내가 참여중인 게시글</string>
+
 </resources>
