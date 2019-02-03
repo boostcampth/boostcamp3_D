@@ -8,4 +8,5 @@
     <color name="colorDeskBrown">#444343</color>
     <color name="colorStatusBar">#b4b4b4</color>
     <color name="colorHungryGray">#f9f9f9</color>
+    <color name="colorWhite">#f9f9f9</color>
 </resources>
