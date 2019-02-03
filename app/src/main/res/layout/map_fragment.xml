@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <!-- Map Search -->
         <EditText
             android:id="@+id/et_serach"
@@ -45,10 +46,15 @@
             android:id="@+id/fl_map_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+
+            android:layout_marginBottom="13dp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_serach" />
+            app:layout_constraintTop_toBottomOf="@+id/et_serach"
+            app:layout_constraintVertical_bias="0.0" />
+
 
         <!-- Bottom Sheet -->
 
@@ -64,6 +70,7 @@
             app:srcCompat="@drawable/ic_create_24dp"
             app:useCompatPadding="true" />
 
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -72,12 +79,16 @@
             android:padding="11dp"
             android:text="@string/tv_bottom_sheet_show"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintBottom_toBottomOf="@id/gl_end"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
             app:layout_constraintStart_toStartOf="parent" />
 
 
         <ImageButton
+            android:id="@+id/ib_show_bottom_sheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -85,6 +96,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <!-- -->
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

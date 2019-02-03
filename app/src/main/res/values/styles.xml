@@ -9,4 +9,9 @@
         <item name="android:statusBarColor">@color/colorStatusBar</item>
     </style>
 
+    <!-- board preview -->
+    <style name="DialogTheme" parent="@style/Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
 </resources>
