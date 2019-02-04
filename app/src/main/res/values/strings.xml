@@ -17,4 +17,8 @@
     <string name="et_search_hint">위치 검색</string>
     <string name="tv_bottom_sheet_show">이 지역 모든 혼밥러</string>
 
+    <!-- Board -->
+    <string name="board_add_title">게시글 생성</string>
+    <string name="board_menu_write">등록</string>
+
 </resources>

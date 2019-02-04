@@ -59,12 +59,12 @@ dependencies {
     //gms location
     implementation "com.google.android.gms:play-services-location:$gmsLocationVersion"
 
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     testImplementation "junit:junit:$junitVersion"
     //runner
     androidTestImplementation "androidx.test:runner:$runnerVersion"
     //espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-
 
     //daum map api
     implementation files('libs/libDaumMapAndroid.jar')
