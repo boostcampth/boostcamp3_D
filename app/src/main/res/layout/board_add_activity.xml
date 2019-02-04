@@ -10,7 +10,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <androidx.appcompat.widget.Toolbar
@@ -28,9 +28,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tb_board_add"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
+
                 android:text="@string/board_tv_title"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -40,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin" />
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin" />
 
 
             <TextView
@@ -49,8 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_input_title"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_address"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -60,8 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_address"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin" />
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin" />
 
 
             <TextView
@@ -69,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_input_address"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
                 android:text="@string/board_tv_time"
                 android:textSize="@dimen/board_tv_text_size"
@@ -80,9 +81,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_address"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_toRightOf="@+id/tv_time"
+                android:layout_toEndOf="@+id/tv_time"
                 android:background="@color/colorHungryRed"
                 android:text="@string/board_tv_time_warning"
                 android:textColor="@color/design_default_color_on_primary"
@@ -94,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_time"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_to_item_distance_margin"
                 android:hint="@string/board_tv_time_hint"
                 android:textSize="@dimen/board_tv_text_size" />
@@ -103,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_time"
-                android:layout_toRightOf="@+id/tv_input_time"
+                android:layout_toEndOf="@+id/tv_input_time"
                 android:backgroundTint="@android:color/transparent"
                 app:srcCompat="@drawable/ic_access_time_24dp" />
 
@@ -113,9 +114,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_input_time"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_max_person"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -125,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_max_person"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:hint="@string/board_et_max_person_hint"
                 android:inputType="numberDecimal"
                 android:textSize="@dimen/board_tv_text_size" />
@@ -135,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_max_person"
                 android:layout_alignBaseline="@+id/et_input_max_person"
-                android:layout_toRightOf="@+id/et_input_max_person"
+                android:layout_toEndOf="@+id/et_input_max_person"
                 android:text="@string/board_tv_max_peson_count" />
 
             <TextView
@@ -165,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_age"
-                android:layout_toRightOf="@+id/tv_age_hint"
+                android:layout_toEndOf="@+id/tv_age_hint"
                 android:text="left" />
 
             <TextView
@@ -173,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_age"
-                android:layout_toRightOf="@+id/tv_min_age"
+                android:layout_toEndOf="@+id/tv_min_age"
                 android:text=" ~ " />
 
             <TextView
@@ -181,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_age"
-                android:layout_toRightOf="@+id/tv_age_range"
+                android:layout_toEndOf="@+id/tv_age_range"
                 android:text="right" />
 
             <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -189,8 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_age_hint"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 app:mrb_pinColor="@color/colorRangeBar"
                 app:mrb_pinMaxFont="15sp"
                 app:mrb_pinMinFont="12sp"
@@ -216,9 +217,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rb_choice_age"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_budget"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -228,8 +229,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_budget"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_budget_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
@@ -239,7 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_budget_hint"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:hint="@string/board_et_budget_hint"
                 android:inputType="numberDecimal"
                 android:textSize="@dimen/board_tv_text_size" />
@@ -249,8 +250,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_budget_hint"
                 android:layout_alignBaseline="@+id/et_input_budget"
-                android:layout_toRightOf="@id/et_input_budget"
-                android:text="(단위 : 원)" />
+                android:layout_toEndOf="@id/et_input_budget"
+                android:text="@string/board_tv_budget_unit" />
 
 
             <TextView
@@ -258,9 +259,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_budget"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_content"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -270,8 +271,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_content"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_content_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
@@ -281,11 +282,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_content_hint"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_to_item_distance_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:background="@drawable/et_shape"
-                android:gravity="left|top"
+                android:gravity="start"
                 android:lines="15"
                 android:textSize="@dimen/board_tv_text_size" />
 
