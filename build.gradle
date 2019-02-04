@@ -71,4 +71,10 @@ ext{
 
     //google-play-services location
     gmsLocationVersion = '16.0.0'
+
+    //CircleImageView
+    circleImageViewVersion = '3.0.0'
+
+    //material-range-bar
+    materialRangeBarVersion = '1.4.4'
 }

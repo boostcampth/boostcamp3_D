@@ -9,4 +9,9 @@
     <color name="colorStatusBar">#b4b4b4</color>
     <color name="colorHungryGray">#f9f9f9</color>
     <color name="colorWhite">#f9f9f9</color>
+
+    <!-- Board -->
+    <color name="colorRangeBar">#3F51B5</color>
+    <color name="colorRangeBarSelector">#9A3F51B5</color>
+
 </resources>

@@ -65,9 +65,13 @@ dependencies {
     //espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
-
     //daum map api
     implementation files('libs/libDaumMapAndroid.jar')
 
+    //CircleImageView
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+
+    //material-range-bar
+    implementation "com.appyvet:materialrangebar:$materialRangeBarVersion"
 
 }
