@@ -3,4 +3,11 @@
     <dimen name="space_large_margin">24dp</dimen>
     <dimen name="space_medium_margin">16dp</dimen>
     <dimen name="space_small_margin">8dp</dimen>
+
+    <!-- Board -->
+    <dimen name="board_tv_text_size">13sp</dimen>
+    <dimen name="board_tv_time_warning">11sp</dimen>
+    <dimen name="board_item_margin">20dp</dimen>
+    <dimen name="board_item_to_item_distance_margin">15sp</dimen>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.teamdonut.eatto.ui.map;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 
+import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.board.BoardPreviewDialog;
 import net.daum.mf.map.api.MapView;
 

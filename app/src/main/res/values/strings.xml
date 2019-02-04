@@ -17,4 +17,24 @@
     <string name="et_search_hint">위치 검색</string>
     <string name="tv_bottom_sheet_show">이 지역 모든 혼밥러</string>
 
+    <!-- Board -->
+    <string name="board_add_title">게시글 생성</string>
+    <string name="board_menu_write">등록</string>
+    <string name="board_tv_title">제목</string>
+    <string name="board_tv_address">장소</string>
+    <string name="board_tv_time">시간</string>
+    <string name="board_tv_time_hint">시간을 설정해주세요</string>
+    <string name="board_tv_time_warning">지킬 수 있는 시간으로 설정해주세요!</string>
+    <string name="board_tv_max_person">인원</string>
+    <string name="board_et_max_person_hint">인원을 입력해주세요</string>
+    <string name="board_tv_max_peson_count">명</string>
+    <string name="board_tv_age">나이</string>
+    <string name="board_tv_age_hint">함께 밥 먹고 싶은 혼밥러들의 나이를 설정해주세요.</string>
+    <string name="board_tv_budget">가격</string>
+    <string name="board_tv_budget_hint">한 사람당 얼마까지 쓸까요?</string>
+    <string name="board_et_budget_hint">최대 사용 금액 입력</string>
+    <string name="board_tv_budget_unit">(단위 : 원)</string>
+    <string name="board_tv_content">내용</string>
+    <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
+
 </resources>
