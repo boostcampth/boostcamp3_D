@@ -72,4 +72,7 @@ dependencies {
     //CircleImageView
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 
+    //material-range-bar
+    implementation "com.appyvet:materialrangebar:$materialRangeBarVersion"
+
 }

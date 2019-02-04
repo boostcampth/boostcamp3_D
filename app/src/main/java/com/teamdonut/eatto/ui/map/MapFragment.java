@@ -52,13 +52,6 @@ public class MapFragment extends Fragment {
         MapView mapView = new MapView(getActivity());
         binding.flMapView.addView(mapView);
 
-        binding.ibShowBottomSheet.setOnClickListener(
-                (v)->{
-                    Intent intent = new Intent(getContext(), BoardAddActivity.class);
-                    startActivity(intent);
-                }
-        );
-
         return view;
     }
 

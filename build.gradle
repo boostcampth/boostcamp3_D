@@ -74,4 +74,7 @@ ext{
 
     //CircleImageView
     circleImageViewVersion = '3.0.0'
+
+    //material-range-bar
+    materialRangeBarVersion = '1.4.4'
 }
