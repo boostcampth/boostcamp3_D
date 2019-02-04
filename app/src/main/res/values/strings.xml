@@ -14,8 +14,9 @@
     <string name="home_tv_waiting_num">개의 방에서 혼밥러들이 당신을 기다리고 있습니다.</string>
 
     <!-- Map -->
-    <string name="et_search_hint">위치 검색</string>
-    <string name="tv_bottom_sheet_show">이 지역 모든 혼밥러</string>
+    <string name="map_search_hint">위치 검색</string>
+    <string name="map_sheet_hide_title">이 지역 모든 혼밥러보기</string>
+    <string name="map_sheet_show_title">현재 %d개의 방에서 혼밥러가 당신을 기다리고 있습니다.</string>
 
     <!-- Board -->
     <string name="board_add_title">게시글 생성</string>
@@ -36,8 +37,5 @@
     <string name="board_tv_budget_unit">(단위 : 원)</string>
     <string name="board_tv_content">내용</string>
     <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
-
-    <string name="map_sheet_hide_title">이 지역 모든 혼밥러보기</string>
-    <string name="map_sheet_show_title">현재 %d개의 방에서 혼밥러가 당신을 기다리고 있습니다.</string>
 
 </resources>
