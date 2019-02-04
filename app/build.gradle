@@ -59,7 +59,6 @@ dependencies {
     //gms location
     implementation "com.google.android.gms:play-services-location:$gmsLocationVersion"
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     testImplementation "junit:junit:$junitVersion"
     //runner
     androidTestImplementation "androidx.test:runner:$runnerVersion"
