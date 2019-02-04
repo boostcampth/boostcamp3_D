@@ -44,10 +44,8 @@ public class BoardAddActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(this, "뒤로가기 버튼 클릭", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_write:
-                Toast.makeText(this, "등록 버튼 클릭", Toast.LENGTH_LONG).show();
                 return true;
         }
 
