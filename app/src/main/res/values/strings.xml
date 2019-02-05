@@ -41,5 +41,12 @@
     <string name="board_tv_content">내용</string>
     <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
 
-
+    <!-- Mypage -->
+    <string name="mypage_tv_normal">잘 먹었습니다</string>
+    <string name="mypage_tv_good">다음에 또 먹어요!</string>
+    <string name="mypage_tv_great">매일 같이 먹어요!</string>
+    <string name="mypage_tv_modify">편집하기</string>
+    <string name="mypage_tv_logout">로그아웃</string>
+    <string name="mypage_tv_age">나이</string>
+    <string name="mypage_tv_gender">성별</string>
 </resources>
