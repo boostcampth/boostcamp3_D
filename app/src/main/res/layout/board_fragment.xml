@@ -79,7 +79,7 @@
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_medium_margin"
-                    android:text="@string/board_tv_other_board"
+                    android:text="@string/board_tv_joined_board"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/rcv_other_board"
                     app:layout_constraintStart_toStartOf="parent"

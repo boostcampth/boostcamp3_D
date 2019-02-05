@@ -20,7 +20,7 @@
     <!-- Board -->
     <string name="board_tv_toolbar">게시글</string>
     <string name="board_tv_my_board">내가 쓴 게시글</string>
-    <string name="board_tv_other_board">내가 참여중인 게시글</string>
+    <string name="board_tv_joined_board">내가 참여중인 게시글</string>
 
     <string name="board_add_title">게시글 생성</string>
     <string name="board_menu_write">등록</string>
