@@ -98,13 +98,13 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_recommend_board"
-                    app:layout_constraintBottom_toTopOf="@id/rcv_recommend_board"
+                    app:layout_constraintBottom_toTopOf="@id/rv_recommend_board"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_waiting_num" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcv_recommend_board"
+                    android:id="@+id/rv_recommend_board"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginBottom="@dimen/space_large_margin"
@@ -124,7 +124,7 @@
                     app:layout_constraintBottom_toTopOf="@id/iv_myrank"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rcv_recommend_board" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_recommend_board" />
 
                 <ImageView
                     android:id="@+id/iv_myrank"
@@ -134,13 +134,13 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_medium_margin"
                     android:background="#ffff92"
-                    app:layout_constraintBottom_toTopOf="@id/rcv_rank"
+                    app:layout_constraintBottom_toTopOf="@id/rv_rank"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ranking" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcv_rank"
+                    android:id="@+id/rv_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffff92"
