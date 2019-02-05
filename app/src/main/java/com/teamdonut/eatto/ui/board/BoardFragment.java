@@ -27,8 +27,7 @@ public class BoardFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.board_fragment, container, false);
         mViewModel = new BoardViewModel();
         binding.setViewmodel(mViewModel);
-        View view = binding.getRoot();
-        return view;
+        return binding.getRoot();
     }
 
 
