@@ -14,4 +14,8 @@
     <dimen name="board_item_margin">20dp</dimen>
     <dimen name="board_item_to_item_distance_margin">15sp</dimen>
 
+    <dimen name="space_search_vertical_padding">12dp</dimen>
+    <dimen name="space_search_horizontal_padding">7dp</dimen>
+    <dimen name="space_img_btn_padding">5dp</dimen>
+
 </resources>
