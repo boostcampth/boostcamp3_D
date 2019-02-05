@@ -1,15 +1,15 @@
 package com.teamdonut.eatto.ui.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
+import com.teamdonut.eatto.ui.home.HomeFragment;
 import com.teamdonut.eatto.util.ActivityUtils;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity implements MainNavigator {
 
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setViewmodel(mViewModel); //set viewModel.
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.fl_main);
     }
 
     @Override
