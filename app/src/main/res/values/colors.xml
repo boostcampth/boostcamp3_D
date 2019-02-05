@@ -6,12 +6,13 @@
 
     <color name="colorHungryRed">#FE1D2A</color>
     <color name="colorDeskBrown">#444343</color>
-    <color name="colorStatusBar">#b4b4b4</color>
-    <color name="colorHungryGray">#f9f9f9</color>
+    <color name="colorStatusBar">#B4B4B4</color>
+    <color name="colorHungryGray">#F9F9F9</color>
+    <color name="colorHungryBlack">#181818</color>
     <!-- Board -->
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
-
+  
     <!-- MyPage -->
     <color name="colorBtnLogoutText">#898787</color>
     <color name="colorViewBackground">#cacacaca</color>
