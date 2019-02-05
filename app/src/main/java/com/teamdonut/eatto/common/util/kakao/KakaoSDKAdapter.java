@@ -1,4 +1,4 @@
-package com.teamdonut.eatto.util.kakao;
+package com.teamdonut.eatto.common.util.kakao;
 
 import com.kakao.auth.*;
 import com.teamdonut.eatto.ETApplication;

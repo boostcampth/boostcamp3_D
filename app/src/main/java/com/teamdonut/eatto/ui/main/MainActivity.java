@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
-import com.teamdonut.eatto.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity implements MainNavigator {
 

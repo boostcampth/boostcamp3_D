@@ -4,7 +4,7 @@ import android.app.Application;
 import com.bumptech.glide.Glide;
 import com.facebook.stetho.Stetho;
 import com.kakao.auth.KakaoSDK;
-import com.teamdonut.eatto.util.kakao.KakaoSDKAdapter;
+import com.teamdonut.eatto.common.util.kakao.KakaoSDKAdapter;
 
 public class ETApplication extends Application {
 
