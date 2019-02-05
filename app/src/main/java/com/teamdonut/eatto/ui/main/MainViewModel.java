@@ -7,6 +7,7 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.ui.board.BoardFragment;
 import com.teamdonut.eatto.ui.home.HomeFragment;
 import com.teamdonut.eatto.ui.map.MapFragment;
+import com.teamdonut.eatto.ui.mypage.MypageFragment;
 
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
@@ -45,6 +46,7 @@ public class MainViewModel {
                 return true;
             }
             case R.id.menu_mypage: {
+                navigator.changeScreen(itemId, MypageFragment.newInstance());
                 return true;
             }
             default: {

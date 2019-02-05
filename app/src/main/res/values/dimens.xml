@@ -14,6 +14,12 @@
     <dimen name="board_item_margin">20dp</dimen>
     <dimen name="board_item_to_item_distance_margin">15sp</dimen>
 
+
+    <!-- MyPage -->
+    <dimen name="mypage_tv_margin">4dp</dimen>
+    <dimen name="mypage_view_height">2dp</dimen>
+  
+    <!-- Map -->
     <dimen name="space_search_vertical_padding">12dp</dimen>
     <dimen name="space_search_horizontal_padding">7dp</dimen>
     <dimen name="space_img_btn_padding">5dp</dimen>

@@ -144,9 +144,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_max_person"
-                android:layout_marginLeft="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
                 android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_age"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -156,8 +156,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_age"
-                android:layout_marginLeft="@dimen/board_item_margin"
-                android:layout_marginRight="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_item_margin"
                 android:text="@string/board_tv_age_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
