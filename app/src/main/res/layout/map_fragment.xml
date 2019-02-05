@@ -71,7 +71,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center"
+            android:gravity="start|center"
             android:padding="11dp"
             android:text="@string/tv_bottom_sheet_show"
             android:textSize="13sp"
