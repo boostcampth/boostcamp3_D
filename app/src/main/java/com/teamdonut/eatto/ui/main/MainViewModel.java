@@ -4,10 +4,12 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.ui.board.BoardFragment;
+import com.teamdonut.eatto.ui.home.HomeFragment;
+import com.teamdonut.eatto.ui.map.MapFragment;
 
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
-import com.teamdonut.eatto.ui.map.MapFragment;
 
 @BindingMethods({
         @BindingMethod(
@@ -31,8 +33,7 @@ public class MainViewModel {
 
         switch (itemId) {
             case R.id.menu_home: {
-                // 이렇게 호출해주시면 됩니다.
-                //   navigator.changeScreen(HomeFragment.newInstance());
+                navigator.changeScreen(itemId, HomeFragment.newInstance());
                 return true;
             }
             case R.id.menu_map: {
@@ -40,6 +41,7 @@ public class MainViewModel {
                 return true;
             }
             case R.id.menu_board: {
+                navigator.changeScreen(itemId, BoardFragment.newInstance());
                 return true;
             }
             case R.id.menu_mypage: {
