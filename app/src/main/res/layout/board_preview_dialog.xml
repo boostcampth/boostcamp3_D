@@ -71,13 +71,13 @@
                 android:id="@+id/tv_greate_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="77"
                 android:textSize="@dimen/board_tv_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/iv_good"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@id/iv_great"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="77" />
 
 
             <ImageView
@@ -95,13 +95,13 @@
                 android:id="@+id/tv_good_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="66"
                 android:textSize="@dimen/board_tv_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/iv_normal"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@id/iv_good"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="66" />
 
             <ImageView
                 android:id="@+id/iv_normal"
@@ -119,13 +119,13 @@
                 android:id="@+id/tv_normal_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="55"
                 android:textSize="@dimen/board_tv_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="@id/iv_normal"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="55" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
