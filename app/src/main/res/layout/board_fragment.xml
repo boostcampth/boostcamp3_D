@@ -25,7 +25,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorWhite"
+                android:background="@android:color/white"
                 android:paddingStart="@dimen/space_medium_padding"
                 android:paddingEnd="@dimen/space_medium_padding"
                 app:popupTheme="@style/AppTheme">
