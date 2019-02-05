@@ -12,4 +12,7 @@
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
 
+    <!-- MyPage -->
+    <color name="colorBtnLogoutText">#898787</color>
+    <color name="colorViewBackground">#cacacaca</color>
 </resources>
