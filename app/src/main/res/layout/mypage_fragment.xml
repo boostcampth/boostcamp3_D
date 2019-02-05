@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.mypage.MypageFragment">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.mypage.MypageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.27" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_below_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_below_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toStartOf="@id/iv_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="혼밥시러" />
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_large_margin"
+            android:layout_marginEnd="@dimen/space_large_margin"
+            android:background="@drawable/btn_mypage_border"
+            android:padding="@dimen/space_small_padding"
+            android:src="@drawable/kakaoaccount_icon"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.33" />
+
+        <ImageView
+            android:id="@+id/iv_great"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_large_margin"
+            android:src="@drawable/kakaoaccount_icon"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/tv_great"
+            app:layout_constraintStart_toStartOf="@id/tv_great"
+            app:layout_constraintTop_toBottomOf="@id/gl_top"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.1" />
+
+        <TextView
+            android:id="@+id/tv_great_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium_margin"
+            app:layout_constraintEnd_toEndOf="@id/tv_great"
+            app:layout_constraintStart_toStartOf="@id/tv_great"
+            app:layout_constraintTop_toBottomOf="@id/iv_great"
+            tools:text="33" />
+
+        <TextView
+            android:id="@+id/tv_great"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mypage_tv_great"
+            app:layout_constraintEnd_toStartOf="@id/tv_good"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_great_score" />
+
+        <ImageView
+            android:id="@+id/iv_good"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_large_margin"
+            android:src="@drawable/kakaoaccount_icon"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/tv_good"
+            app:layout_constraintStart_toStartOf="@id/tv_good"
+            app:layout_constraintTop_toBottomOf="@id/gl_top"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.1" />
+
+        <TextView
+            android:id="@+id/tv_good_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium_margin"
+            app:layout_constraintEnd_toEndOf="@id/iv_good"
+            app:layout_constraintStart_toStartOf="@id/iv_good"
+            app:layout_constraintTop_toBottomOf="@id/iv_good"
+            tools:text="33" />
+
+        <TextView
+            android:id="@+id/tv_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mypage_tv_good"
+            app:layout_constraintEnd_toStartOf="@id/tv_normal"
+            app:layout_constraintStart_toEndOf="@id/tv_great"
+            app:layout_constraintTop_toBottomOf="@id/tv_good_score" />
+
+        <ImageView
+            android:id="@+id/iv_normal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_large_margin"
+            android:src="@drawable/kakaoaccount_icon"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/tv_normal"
+            app:layout_constraintStart_toStartOf="@id/tv_normal"
+            app:layout_constraintTop_toBottomOf="@id/gl_top"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.1" />
+
+        <TextView
+            android:id="@+id/tv_normal_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium_margin"
+            app:layout_constraintEnd_toEndOf="@id/iv_normal"
+            app:layout_constraintStart_toStartOf="@id/iv_normal"
+            app:layout_constraintTop_toBottomOf="@id/iv_normal"
+            tools:text="33" />
+
+        <TextView
+            android:id="@+id/tv_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mypage_tv_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_good"
+            app:layout_constraintTop_toBottomOf="@id/tv_normal_score" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mypage_tv_margin"
+            android:layout_marginBottom="@dimen/space_small_margin"
+            android:text="@string/mypage_tv_gender"
+            app:layout_constraintBottom_toTopOf="@id/view_gender"
+            app:layout_constraintStart_toStartOf="@id/view_gender" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/mypage_tv_margin"
+            android:layout_marginBottom="@dimen/space_small_margin"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/view_gender"
+            app:layout_constraintEnd_toEndOf="@id/view_gender"
+            tools:text="남자" />
+
+        <View
+            android:id="@+id/view_gender"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mypage_view_height"
+            android:layout_marginBottom="@dimen/space_large_margin"
+            android:background="@color/colorViewBackground"
+            app:layout_constraintBottom_toTopOf="@id/gl_below_gender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.8" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/mypage_tv_margin"
+            android:layout_marginBottom="@dimen/space_small_margin"
+            android:text="@string/mypage_tv_age"
+            app:layout_constraintBottom_toTopOf="@id/view_age"
+            app:layout_constraintStart_toStartOf="@id/view_age" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/mypage_tv_margin"
+            android:layout_marginBottom="@dimen/space_small_margin"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/view_age"
+            app:layout_constraintEnd_toEndOf="@id/view_age"
+            tools:text="26" />
+
+        <View
+            android:id="@+id/view_age"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mypage_view_height"
+            android:layout_marginBottom="@dimen/space_large_margin"
+            android:background="@color/colorViewBackground"
+            app:layout_constraintBottom_toTopOf="@id/gl_below_age"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.8" />
+
+        <Button
+            android:id="@+id/btn_modify"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/space_medium_margin"
+            android:background="@drawable/btn_shape"
+            android:text="@string/mypage_tv_modify"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/btn_logout"
+            app:layout_constraintDimensionRatio="1:0.25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/space_medium_margin"
+            android:background="@drawable/btn_mypage_border"
+            android:text="@string/mypage_tv_logout"
+            android:textColor="@color/colorBtnLogoutText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.25"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
