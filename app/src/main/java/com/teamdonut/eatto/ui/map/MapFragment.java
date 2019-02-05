@@ -10,6 +10,10 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import net.daum.mf.map.api.MapView;
 
 import androidx.databinding.DataBindingUtil;
