@@ -6,14 +6,12 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.kakao.auth.Session;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.LoginActivityBinding;
-import com.teamdonut.eatto.ui.main.MainActivity;
-import com.teamdonut.eatto.util.ActivityUtils;
-import com.teamdonut.eatto.util.kakao.LoginSessionCallback;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.kakao.LoginSessionCallback;
 
 public class LoginActivity extends AppCompatActivity implements LoginNavigator {
 

@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
+import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.ui.home.HomeFragment;
-import com.teamdonut.eatto.util.ActivityUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;

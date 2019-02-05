@@ -1,4 +1,4 @@
-package com.teamdonut.eatto.util;
+package com.teamdonut.eatto.common.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
