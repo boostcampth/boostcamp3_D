@@ -185,7 +185,7 @@
                 android:layout_toEndOf="@+id/tv_age_range"
                 android:text="right" />
 
-            <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.appyvet.materialrangebar.RangeBar
                 android:id="@+id/rb_choice_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
