@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
+import com.teamdonut.eatto.ui.board.BoardDetailActivity;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel;
 
 import androidx.annotation.Nullable;

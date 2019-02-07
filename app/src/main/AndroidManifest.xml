@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.board.BoardAddActivity"></activity>
+        <activity android:name=".ui.board.BoardDetailActivity"></activity>
+        <activity android:name=".ui.board.BoardAddActivity" />
         <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

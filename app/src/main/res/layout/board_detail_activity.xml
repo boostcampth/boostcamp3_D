@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.board.BoardDetailActivity">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.board.BoardViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_board_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ib_board_detail_back_button"
+                android:layout_marginTop="@dimen/board_detail_static_edittext_size"
+                android:textAlignment="center"
+                android:textSize="@dimen/board_detail_title_size"
+                android:textStyle="bold"
+                tools:text="7시 강남역 6명 ㄱㄱㄱ" />
+
+
+            <ImageView
+                android:id="@+id/iv_location_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_board_detail_title"
+                android:layout_marginStart="@dimen/board_detail_static_edittext_size"
+                android:layout_marginTop="@dimen/board_item_margin"
+                android:layout_toEndOf="@+id/ib_board_detail_back_button"
+                app:srcCompat="@drawable/ic_location_on_24dp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_board_detail_title"
+                android:layout_marginTop="@dimen/board_item_margin"
+                android:textAlignment="center"
+                android:textSize="@dimen/board_tv_text_size"
+                tools:text="서울특별시 강남구 역삼동" />
+
+            <TextView
+                android:id="@+id/tv_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_location_icon"
+                android:textAlignment="center"
+                android:textSize="@dimen/board_tv_text_size"
+                tools:text="서래갈매기" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/board_detail_info_box_size"
+                android:layout_below="@+id/tv_restaurant">
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    style="@style/board_detail_left_item"
+                    android:text="@string/board_tv_age"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_budget"
+                    app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_budget"
+                    style="@style/board_detail_left_item"
+                    android:text="@string/board_detail_tv_budget"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_time"
+                    app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_age" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/board_detail_left_item"
+                    android:text="@string/board_tv_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_budget" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_center_of_detail_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+
+                <TextView
+                    android:id="@+id/tv_input_age"
+                    style="@style/board_detail_right_item"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_input_budget"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="25~30세" />
+
+                <TextView
+                    android:id="@+id/tv_input_budget"
+                    style="@style/board_detail_right_item"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_input_time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
+                    app:layout_constraintTop_toTopOf="@+id/tv_input_age"
+                    tools:text="~50000원" />
+
+                <TextView
+                    android:id="@+id/tv_input_time"
+                    style="@style/board_detail_right_item"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
+                    app:layout_constraintTop_toTopOf="@+id/tv_input_budget"
+                    tools:text="1월 24일 오후 7시" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_board_detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cl_detail_info"
+                android:layout_marginStart="@dimen/board_detail_static_edittext_size"
+                android:layout_marginTop="@dimen/board_item_margin"
+                android:layout_marginEnd="@dimen/board_detail_static_edittext_size"
+                android:layout_marginBottom="@dimen/board_item_margin"
+                android:background="@color/colorHungryRed"
+                android:gravity="start"
+                android:lines="10"
+                android:textSize="@dimen/board_tv_text_size" />
+
+            <TextView
+                android:id="@+id/tv_current_person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_board_detail_content"
+                android:layout_marginEnd="@dimen/space_small_margin"
+                android:textAlignment="textEnd"
+                android:textSize="@dimen/board_tv_detail"
+                tools:text="3명참여중 / 6명" />
+
+            <FrameLayout
+                android:id="@+id/fl_comment_border"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_current_person"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:layout_marginBottom="@dimen/space_small_margin"
+                android:background="@color/colorBorderColor" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_edittext_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fl_comment_border">
+
+                <EditText
+                    android:id="@+id/et_input_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/board_detail_static_edittext_size"
+                    android:layout_marginStart="@dimen/board_item_margin"
+                    android:background="@drawable/et_radius_shape"
+                    android:textSize="@dimen/board_tv_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent="0.75" />
+
+                <TextView
+                    android:id="@+id/btn_input_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/board_detail_static_edittext_size"
+                    android:gravity="center"
+                    android:onClick="@{viewmodel::onClickCommentAdd}"
+                    android:text="@string/board_btn_input_comment"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent="0.2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_board_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cl_edittext_box"
+                android:layout_margin="@dimen/board_item_margin"
+                android:background="@color/colorHungryRed"
+                android:orientation="vertical" />
+
+            <ImageButton
+                android:id="@+id/ib_board_detail_back_button"
+                android:layout_width="@dimen/board_detail_back_button_size"
+                android:layout_height="@dimen/board_detail_back_button_size"
+                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginTop="@dimen/board_item_margin"
+                android:background="@color/colorHungryGray"
+                app:srcCompat="@drawable/ic_chevron_left_24dp" />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+</layout>
