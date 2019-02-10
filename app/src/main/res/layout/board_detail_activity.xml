@@ -158,8 +158,8 @@
                 android:textSize="@dimen/board_tv_detail"
                 tools:text="3명참여중 / 6명" />
 
-            <FrameLayout
-                android:id="@+id/fl_comment_border"
+            <View
+                android:id="@+id/v_comment_border"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/tv_current_person"
@@ -172,7 +172,7 @@
                 android:id="@+id/cl_edittext_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fl_comment_border">
+                android:layout_below="@+id/v_comment_border">
 
                 <EditText
                     android:id="@+id/et_input_comment"
