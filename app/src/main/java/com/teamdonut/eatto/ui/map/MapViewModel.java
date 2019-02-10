@@ -8,11 +8,8 @@ public class MapViewModel {
     private Context mContext;
     private MapNavigator mNavigator;
 
-    public MapViewModel(Context context) {
+    public MapViewModel(Context context, MapNavigator navigator) {
         mContext = context.getApplicationContext();
-    }
-
-    void setNavigator(MapNavigator navigator) {
         mNavigator = navigator;
     }
 

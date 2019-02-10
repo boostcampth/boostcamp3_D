@@ -45,8 +45,7 @@ public class MapFragment extends Fragment implements MapNavigator {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
 
-        mViewModel = new MapViewModel(getContext().getApplicationContext());
-        mViewModel.setNavigator(this);
+        mViewModel = new MapViewModel(getContext().getApplicationContext(), this);
         mBottomSheetViewModel = new MapBottomSheetViewModel(this);
         binding.setViewmodel(mViewModel);
         binding.setBottomsheetviewmodel(mBottomSheetViewModel);
