@@ -12,6 +12,8 @@
     <!-- Board -->
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
+
+    <!-- Board_detail -->
     <color name="colorBorderColor">#D0D0D0</color>
   
     <!-- MyPage -->

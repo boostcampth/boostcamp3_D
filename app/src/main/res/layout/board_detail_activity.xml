@@ -193,7 +193,7 @@
                     android:layout_height="@dimen/board_detail_static_edittext_size"
                     android:gravity="center"
                     android:onClick="@{viewmodel::onClickCommentAdd}"
-                    android:text="@string/board_btn_input_comment"
+                    android:text="@string/board_detail_btn_input_comment"
                     android:textAlignment="center"
                     android:textSize="@dimen/board_tv_text_size"
                     android:textStyle="bold"

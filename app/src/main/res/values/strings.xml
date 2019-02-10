@@ -41,7 +41,10 @@
     <string name="board_tv_budget_unit">(단위 : 원)</string>
     <string name="board_tv_content">내용</string>
     <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
-    <string name="board_btn_input_comment">작성</string>
+
+
+    <!-- Board_detail -->
+    <string name="board_detail_btn_input_comment">작성</string>
     <string name="board_detail_tv_budget">금액</string>
 
     <!-- Mypage -->
