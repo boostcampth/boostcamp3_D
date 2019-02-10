@@ -28,9 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tb_board_add"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
 
                 android:text="@string/board_tv_title"
                 android:textSize="@dimen/board_tv_text_size"
@@ -41,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_title"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin" />
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin" />
 
 
             <TextView
@@ -50,8 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_input_title"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_address"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -61,8 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_address"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin" />
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin" />
 
 
             <TextView
@@ -70,8 +70,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_input_address"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_time"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -81,8 +81,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_address"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
                 android:layout_toEndOf="@+id/tv_time"
                 android:background="@color/colorHungryRed"
                 android:text="@string/board_tv_time_warning"
@@ -95,8 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_time"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_to_item_distance_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_to_item_distance_margin"
                 android:hint="@string/board_tv_time_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
@@ -114,9 +114,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_input_time"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_max_person"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_max_person"
-                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
                 android:hint="@string/board_et_max_person_hint"
                 android:inputType="numberDecimal"
                 android:textSize="@dimen/board_tv_text_size" />
@@ -144,9 +144,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_max_person"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_age"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -156,8 +156,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_age"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_age_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
@@ -190,8 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_age_hint"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 app:mrb_pinColor="@color/colorRangeBar"
                 app:mrb_pinMaxFont="15sp"
                 app:mrb_pinMinFont="12sp"
@@ -217,9 +217,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rb_choice_age"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_budget"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -229,8 +229,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_budget"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_budget_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
@@ -240,7 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_budget_hint"
-                android:layout_marginStart="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
                 android:hint="@string/board_et_budget_hint"
                 android:inputType="numberDecimal"
                 android:textSize="@dimen/board_tv_text_size" />
@@ -259,9 +259,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_input_budget"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_content"
                 android:textSize="@dimen/board_tv_text_size"
                 android:textStyle="bold" />
@@ -271,8 +271,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_content"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:text="@string/board_tv_content_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
@@ -282,9 +282,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_content_hint"
-                android:layout_marginStart="@dimen/board_item_margin"
-                android:layout_marginTop="@dimen/board_item_to_item_distance_margin"
-                android:layout_marginEnd="@dimen/board_item_margin"
+                android:layout_marginStart="@dimen/space_board_item_margin"
+                android:layout_marginTop="@dimen/space_board_item_to_item_distance_margin"
+                android:layout_marginEnd="@dimen/space_board_item_margin"
                 android:background="@drawable/et_shape"
                 android:gravity="start"
                 android:lines="15"
