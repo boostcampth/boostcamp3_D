@@ -74,4 +74,6 @@ dependencies {
     //material-range-bar
     implementation "com.appyvet:materialrangebar:$materialRangeBarVersion"
 
+    //tedPermission
+    implementation "gun0912.ted:tedpermission-rx2:$tedPermissionVersion"
 }
