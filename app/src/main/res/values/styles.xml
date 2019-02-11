@@ -15,4 +15,21 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <!-- board detail -->
+    <style name="board_detail_left_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/board_tv_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="board_detail_right_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/board_tv_text_size</item>
+    </style>
+
+
 </resources>
