@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Looper;
 import com.google.android.gms.location.*;
+import com.teamdonut.eatto.ui.map.MapNavigator;
 
 import java.lang.ref.WeakReference;
 
@@ -14,10 +15,8 @@ public class GpsModule {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
     private final Context mContext;
-
-    public GpsModule(WeakReference<Context> context){
-        mContext = context.get().getApplicationContext();
-
+    public GpsModule(WeakReference<Context> context, MapNavigator mapNavigator){
+        mContext = context.get();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
         mLocationCallback = new LocationCallback(){
             @Override
@@ -31,6 +30,7 @@ public class GpsModule {
                         ActivityUtils.saveStrValueSharedPreferences(mContext, "gps", "longitude", String.valueOf(location.getLongitude()));
                         ActivityUtils.saveStrValueSharedPreferences(mContext, "gps", "latitude", String.valueOf(location.getLatitude()));
                         stopLocationUpdates();
+                        mapNavigator.setMyPosition();
                     }
                 }
             }
