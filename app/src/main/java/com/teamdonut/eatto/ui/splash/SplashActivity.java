@@ -1,0 +1,25 @@
+package com.teamdonut.eatto.ui.splash;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.ui.login.LoginActivity;
+import com.tedpark.tedpermission.rx2.TedRx2Permission;
+
+import java.lang.ref.WeakReference;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SplashActivity extends AppCompatActivity {
+    private final int SPLASH_TIME = 3000;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash_activity);
+}
