@@ -58,4 +58,11 @@
 
     <!-- Permission -->
     <string name="permission_reject">권한 설정을 거부하시면 서비스를 이용하실 수 없습니다.\n\n권한을 설정해주세요. [설정] > [권한]</string>
+
+    <!--Search-->
+    <string name="search_tv_recent_keyword">최근 검색어</string>
+    <string name="search_tv_remove_keyword">기록삭제</string>
+    <string name="filter_tv">나와 맞는 혼밥러 찾기</string>
+    <string name="filter_tv_sub">함께 먹을 사람을 찾는 손쉬운 방법!</string>
+    <string name="search_et_hint">서울특별시 강남구</string>
 </resources>
