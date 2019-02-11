@@ -78,4 +78,7 @@ ext{
 
     //material-range-bar
     materialRangeBarVersion = '1.4.4'
+
+    //tedPermission
+    tedPermissionVersion = '2.2.2'
 }

@@ -55,4 +55,7 @@
     <string name="mypage_tv_logout">로그아웃</string>
     <string name="mypage_tv_age">나이</string>
     <string name="mypage_tv_gender">성별</string>
+
+    <!-- Permission -->
+    <string name="permission_reject">권한 설정을 거부하시면 서비스를 이용하실 수 없습니다.\n\n권한을 설정해주세요. [설정] > [권한]</string>
 </resources>
