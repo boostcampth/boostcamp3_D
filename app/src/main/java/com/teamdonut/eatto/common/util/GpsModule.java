@@ -21,7 +21,7 @@ public class GpsModule {
     private FusedLocationProviderClient mFusedLocationClient;
     private MapNavigator mapNavigator;
     private final Context mContext;
-    private LocationCallback mLocationCallback =  mLocationCallback = new LocationCallback(){
+    private LocationCallback mLocationCallback = new LocationCallback(){
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
