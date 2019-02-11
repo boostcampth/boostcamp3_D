@@ -30,4 +30,6 @@
     <dimen name="space_search_horizontal_padding">7dp</dimen>
     <dimen name="space_img_btn_padding">5dp</dimen>
 
+    <!--Search-->
+    <dimen name="space_search_filter_padding">3dp</dimen>
 </resources>
