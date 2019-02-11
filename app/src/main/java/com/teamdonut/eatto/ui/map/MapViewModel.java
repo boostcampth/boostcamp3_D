@@ -3,8 +3,9 @@ package com.teamdonut.eatto.ui.map;
 import android.view.View;
 
 public class MapViewModel {
-
-    public MapViewModel() {
+    private MapNavigator navigator;
+    public MapViewModel(MapNavigator navigator) {
+        this.navigator = navigator;
     }
 
 
@@ -13,9 +14,12 @@ public class MapViewModel {
 
     }
 
-
     //게시물 추가 리스너
     public void onClickBoardAdd(View view) {
 
+    }
+
+    public void onClickSetMyPosition(View view){
+        navigator.startLocationUpdates();
     }
 }
