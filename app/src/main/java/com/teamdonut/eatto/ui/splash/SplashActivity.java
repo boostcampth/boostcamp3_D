@@ -22,4 +22,21 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
+        TedRx2Permission.with(this)
+                .setDeniedMessage(R.string.permission_reject)
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .request()
+                .subscribe(tedPermissionResult -> {
+                    if (tedPermissionResult.isGranted()) {
+                        GpsModule gpsModule = new GpsModule(new WeakReference<Context>(this), null);
+                        gpsModule.startLocationUpdates();
+                    }
+                    new Handler().postDelayed(() -> {
+                        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    },SPLASH_TIME);
+                }, throwable -> {
+                });
+    }
 }
