@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
                         gpsModule.startLocationUpdates();
                     }
                     new Handler().postDelayed(() -> {
-                        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(i);
                         finish();
                     },SPLASH_TIME);
