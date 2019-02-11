@@ -57,5 +57,5 @@
     <string name="mypage_tv_gender">성별</string>
 
     <!-- Permission -->
-    <string name="permission_reject">If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]</string>
+    <string name="permission_reject">권한 설정을 거부하시면 서비스를 이용하실 수 없습니다.\n\n권한을 설정해주세요. [설정] > [권한]</string>
 </resources>
