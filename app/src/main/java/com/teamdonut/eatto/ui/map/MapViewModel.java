@@ -1,13 +1,12 @@
 package com.teamdonut.eatto.ui.map;
 
-import android.content.Context;
 import android.view.View;
 
 public class MapViewModel {
   
-    private MapNavigator navigator;
+    private MapNavigator mNavigator;
     public MapViewModel(MapNavigator navigator) {
-        this.navigator = navigator;
+        this.mNavigator = navigator;
     }
 
     void onFragmentDestroyed() {
@@ -27,6 +26,6 @@ public class MapViewModel {
     }
 
     public void onClickSetMyPosition(View view){
-        navigator.startLocationUpdates();
+        mNavigator.startLocationUpdates();
     }
 }
