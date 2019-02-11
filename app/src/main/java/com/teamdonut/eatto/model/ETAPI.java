@@ -8,7 +8,7 @@ import retrofit2.http.Header;
 
 public interface ETAPI {
 
-    @GET("/board")
+    @GET("board")
     Observable<Board> getBoards(
             @Header("et-auth-token") String token);
 
