@@ -15,7 +15,7 @@
     </style>
 
     <!-- board detail -->
-    <style name="board_detail_left_item">
+    <style name="BoardDetailLeftItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
@@ -23,7 +23,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="board_detail_right_item">
+    <style name="BoardDetailRightItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
