@@ -55,15 +55,10 @@ dependencies {
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     //stetho
     implementation "com.facebook.stetho:stetho:$stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
     //gms location
     implementation "com.google.android.gms:play-services-location:$gmsLocationVersion"
-
-    testImplementation "junit:junit:$junitVersion"
-    //runner
-    androidTestImplementation "androidx.test:runner:$runnerVersion"
-    //espresso
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
     //daum map api
     implementation files('libs/libDaumMapAndroid.jar')
@@ -74,4 +69,9 @@ dependencies {
     //material-range-bar
     implementation "com.appyvet:materialrangebar:$materialRangeBarVersion"
 
+    testImplementation "junit:junit:$junitVersion"
+    //runner
+    androidTestImplementation "androidx.test:runner:$runnerVersion"
+    //espresso
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
