@@ -78,4 +78,10 @@ public class MapFragment extends Fragment implements MapNavigator {
                 });
     }
 
+    @Override
+    public void setMyPosition() {
+        float latitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude"));
+        float longitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"));
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude),2,true);
+    }
 }
