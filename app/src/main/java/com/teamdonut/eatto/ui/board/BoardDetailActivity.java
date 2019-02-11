@@ -20,4 +20,5 @@ public class BoardDetailActivity extends AppCompatActivity {
         mViewModel = new BoardViewModel();
         binding.setViewmodel(mViewModel);
     }
+
 }

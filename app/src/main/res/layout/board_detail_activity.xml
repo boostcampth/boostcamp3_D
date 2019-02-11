@@ -106,7 +106,7 @@
 
         <TextView
             android:id="@+id/tv_age"
-            style="@style/board_detail_left_item"
+            style="@style/BoardDetailLeftItem"
             android:text="@string/board_tv_age"
             app:layout_constraintBottom_toBottomOf="@+id/tv_budget"
             app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
@@ -115,7 +115,7 @@
 
         <TextView
             android:id="@+id/tv_budget"
-            style="@style/board_detail_left_item"
+            style="@style/BoardDetailLeftItem"
             android:text="@string/board_detail_tv_budget"
             app:layout_constraintBottom_toBottomOf="@+id/tv_time"
             app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
@@ -124,7 +124,7 @@
 
         <TextView
             android:id="@+id/tv_time"
-            style="@style/board_detail_left_item"
+            style="@style/BoardDetailLeftItem"
             android:text="@string/board_tv_time"
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
             app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
@@ -141,7 +141,7 @@
 
         <TextView
             android:id="@+id/tv_input_age"
-            style="@style/board_detail_right_item"
+            style="@style/BoardDetailRightItem"
             app:layout_constraintBottom_toBottomOf="@+id/tv_input_budget"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
@@ -150,7 +150,7 @@
 
         <TextView
             android:id="@+id/tv_input_budget"
-            style="@style/board_detail_right_item"
+            style="@style/BoardDetailRightItem"
             app:layout_constraintBottom_toBottomOf="@+id/tv_input_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
@@ -159,7 +159,7 @@
 
         <TextView
             android:id="@+id/tv_input_time"
-            style="@style/board_detail_right_item"
+            style="@style/BoardDetailRightItem"
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"

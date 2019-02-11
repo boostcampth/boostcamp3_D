@@ -23,10 +23,10 @@ import androidx.databinding.BindingMethods;
 
 public class MainViewModel {
 
-    private MainNavigator navigator;
+    private MainNavigator mNavigator;
 
     MainViewModel(MainNavigator navigator) {
-        this.navigator = navigator;
+        this.mNavigator = navigator;
     }
 
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -34,19 +34,19 @@ public class MainViewModel {
 
         switch (itemId) {
             case R.id.menu_home: {
-                navigator.changeScreen(itemId, HomeFragment.newInstance());
+                mNavigator.changeScreen(itemId, HomeFragment.newInstance());
                 return true;
             }
             case R.id.menu_map: {
-                navigator.changeScreen(itemId, MapFragment.newInstance());
+                mNavigator.changeScreen(itemId, MapFragment.newInstance());
                 return true;
             }
             case R.id.menu_board: {
-                navigator.changeScreen(itemId, BoardFragment.newInstance());
+                mNavigator.changeScreen(itemId, BoardFragment.newInstance());
                 return true;
             }
             case R.id.menu_mypage: {
-                navigator.changeScreen(itemId, MypageFragment.newInstance());
+                mNavigator.changeScreen(itemId, MypageFragment.newInstance());
                 return true;
             }
             default: {
