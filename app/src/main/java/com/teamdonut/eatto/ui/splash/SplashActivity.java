@@ -5,15 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.ui.login.LoginActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
     private final int SPLASH_TIME = 3000;
@@ -33,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
                     new Handler().postDelayed(() -> {
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(i);
+                        startActivity(intent);
                         finish();
                     },SPLASH_TIME);
                 }, throwable -> {
