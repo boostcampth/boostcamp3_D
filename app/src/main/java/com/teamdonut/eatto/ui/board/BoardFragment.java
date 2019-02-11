@@ -26,7 +26,7 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.board_fragment, container, false);
-        mViewModel = new BoardViewModel(getContext().getApplicationContext(), this);
+        mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
         return binding.getRoot();
     }

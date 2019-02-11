@@ -7,15 +7,14 @@ import androidx.lifecycle.ViewModel;
 
 public class BoardViewModel extends ViewModel {
 
-    private Context mContext;
+
     private BoardNavigator mNavigator;
 
-    public BoardViewModel(Context context) {
-        mContext = context.getApplicationContext();
+    public BoardViewModel() {
+
     }
 
-    public BoardViewModel(Context context, BoardNavigator navigator) {
-        mContext = context.getApplicationContext();
+    public BoardViewModel(BoardNavigator navigator) {
         mNavigator = navigator;
     }
 

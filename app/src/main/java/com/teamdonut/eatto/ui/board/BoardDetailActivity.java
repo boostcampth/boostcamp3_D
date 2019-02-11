@@ -17,7 +17,7 @@ public class BoardDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.board_detail_activity);
-        mViewModel = new BoardViewModel(getApplicationContext());
+        mViewModel = new BoardViewModel();
         binding.setViewmodel(mViewModel);
     }
 
