@@ -5,4 +5,5 @@ public interface MapNavigator {
     void setBottomSheetExpand(Boolean state);
     void startLocationUpdates();
     void setMyPosition();
+    void addBoard();
 }

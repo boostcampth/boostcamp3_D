@@ -1,10 +1,14 @@
 package com.teamdonut.eatto.ui.map;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.teamdonut.eatto.ui.board.BoardAddActivity;
+import com.teamdonut.eatto.ui.board.BoardDetailActivity;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -40,7 +44,6 @@ public class MapFragment extends Fragment implements MapNavigator {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
-
         mViewModel = new MapViewModel(this);
         mBottomSheetViewModel = new MapBottomSheetViewModel(this);
         binding.setViewmodel(mViewModel);
@@ -52,6 +55,12 @@ public class MapFragment extends Fragment implements MapNavigator {
         mapView = new MapView(getActivity());
         binding.flMapView.addView(mapView);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        mViewModel.onFragmentDestroyed();
+        super.onDestroy();
     }
 
     @Override
@@ -83,5 +92,11 @@ public class MapFragment extends Fragment implements MapNavigator {
         float latitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude"));
         float longitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"));
         mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude),2,true);
+    }
+  
+    @Override
+    public void addBoard() {
+        Intent intent = new Intent(getContext(), BoardAddActivity.class);
+        startActivity(intent);
     }
 }

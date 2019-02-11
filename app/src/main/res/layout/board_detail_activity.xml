@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.board.BoardDetailActivity">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.board.BoardViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/ib_board_detail_back_button"
+            android:layout_width="@dimen/board_detail_back_button_size"
+            android:layout_height="@dimen/board_detail_back_button_size"
+            android:layout_marginStart="@dimen/space_board_item_margin"
+            android:layout_marginTop="@dimen/space_board_item_margin"
+            android:background="@color/colorHungryGray"
+            app:layout_constraintEnd_toEndOf="@+id/gl_left_of_detail_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_chevron_left_24dp" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_left_of_detail_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <TextView
+            android:id="@+id/tv_board_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/board_detail_title_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="7시 강남역 6명 ㄱㄱㄱ" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end_of_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+
+        <ImageView
+            android:id="@+id/iv_location_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_address"
+            app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_title"
+            app:srcCompat="@drawable/ic_location_on_24dp" />
+
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/board_tv_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_restaurant"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="@+id/iv_location_icon"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_title"
+            tools:text="서울특별시 강남구 역삼동" />
+
+
+        <TextView
+            android:id="@+id/tv_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_location_icon"
+            android:layout_marginTop="@dimen/space_small_margin"
+            android:textAlignment="center"
+            android:textSize="@dimen/board_tv_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
+            app:layout_constraintTop_toTopOf="@+id/tv_address"
+            tools:text="서래갈매기" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end_of_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.18" />
+
+
+        <TextView
+            android:id="@+id/tv_age"
+            style="@style/board_detail_left_item"
+            android:text="@string/board_tv_age"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_budget"
+            app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_address" />
+
+        <TextView
+            android:id="@+id/tv_budget"
+            style="@style/board_detail_left_item"
+            android:text="@string/board_detail_tv_budget"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_time"
+            app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_age" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/board_detail_left_item"
+            android:text="@string/board_tv_time"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
+            app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_budget" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_center_of_detail_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+        <TextView
+            android:id="@+id/tv_input_age"
+            style="@style/board_detail_right_item"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_input_budget"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_address"
+            tools:text="25~30세" />
+
+        <TextView
+            android:id="@+id/tv_input_budget"
+            style="@style/board_detail_right_item"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_input_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
+            app:layout_constraintTop_toTopOf="@+id/tv_input_age"
+            tools:text="~50000원" />
+
+        <TextView
+            android:id="@+id/tv_input_time"
+            style="@style/board_detail_right_item"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
+            app:layout_constraintTop_toTopOf="@+id/tv_input_budget"
+            tools:text="1월 24일 오후 7시" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end_of_detail_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
+
+
+        <TextView
+            android:id="@+id/tv_board_detail_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/board_detail_static_edittext_size"
+            android:layout_marginTop="@dimen/space_board_item_margin"
+            android:layout_marginEnd="@dimen/board_detail_static_edittext_size"
+            android:layout_marginBottom="@dimen/space_board_item_margin"
+            android:background="@color/colorHungryRed"
+            android:gravity="start"
+            android:lines="10"
+            android:textSize="@dimen/board_tv_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_detail_info" />
+
+
+        <TextView
+            android:id="@+id/tv_current_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/board_tv_detail"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="3명참여중 / 6명" />
+
+        <View
+            android:id="@+id/v_comment_border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorBorderColor"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end_of_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+
+        <EditText
+            android:id="@+id/et_input_comment"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/board_detail_static_edittext_size"
+            android:layout_marginStart="@dimen/space_board_item_margin"
+            android:background="@drawable/et_radius_shape"
+            android:textSize="@dimen/board_tv_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_comment_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_content"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.75" />
+
+        <TextView
+            android:id="@+id/btn_input_comment"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/board_detail_static_edittext_size"
+            android:gravity="center"
+            android:onClick="@{viewmodel::onClickCommentAdd}"
+            android:text="@string/board_detail_btn_input_comment"
+            android:textAlignment="center"
+            android:textSize="@dimen/board_tv_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_comment_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_content"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end_of_comment_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_board_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_board_item_margin"
+            android:background="@color/colorHungryRed"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_comment_input" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
