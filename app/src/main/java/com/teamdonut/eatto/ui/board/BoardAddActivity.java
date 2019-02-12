@@ -2,7 +2,6 @@ package com.teamdonut.eatto.ui.board;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -21,7 +20,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.google.android.gms.common.util.Strings;
+import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAddAPI;
@@ -47,7 +49,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         compositeDisposable = new CompositeDisposable();
 
         initToolbar();
-        EditTextSetMaxLine(binding.etInputContent, 15);
+        editTextSetMaxLine(binding.etInputContent, 15);
     }
 
     public void initToolbar() {
@@ -56,10 +58,9 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         //Toolbar nav button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp);
     }
 
-    public void EditTextSetMaxLine(EditText editText, int lines){
+    public void editTextSetMaxLine(EditText editText, int lines) {
         editText.addTextChangedListener(new TextWatcher() {
             String previousString = "";
 
@@ -123,6 +124,20 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         dialog.show();
     }
 
+    public boolean inputCheck() {
+
+        boolean titleCheck = Strings.isEmptyOrWhitespace(binding.etInputTitle.getText().toString());
+        boolean addressCheck = Strings.isEmptyOrWhitespace(binding.etInputAddress.getText().toString());
+        boolean appointedTimeCheck = binding.tvInputTime.getText().toString().equals(getResources().getText(R.string.board_tv_time_hint).toString());
+        boolean maxPersonCheck = Strings.isEmptyOrWhitespace(binding.etInputMaxPerson.getText().toString());
+
+        if (titleCheck || addressCheck || appointedTimeCheck || maxPersonCheck)
+            return false;
+        else
+            return true;
+
+    }
+
     //게시글 추가에 사용될 Board 객체 생성
     public Board makeBoard() {
 
@@ -131,46 +146,67 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         String appointedTime = df.format(currentTime);
         appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
 
-
-        return new Board(binding.etInputTitle.getText().toString(),
+        Board board = new Board(binding.etInputTitle.getText().toString(),
                 binding.etInputAddress.getText().toString(), appointedTime,
                 "맥도날드",
                 Integer.parseInt(binding.etInputMaxPerson.getText().toString()),
                 mViewModel.getMin_age(), mViewModel.getMax_age(),
-                Integer.parseInt(binding.etInputBudget.getText().toString()),
-                binding.etInputContent.getText().toString(),
                 127.0123,
                 36.123,
                 1
         );
 
+        if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
+            board.setContent("");
+        }else {
+            board.setContent(binding.etInputContent.getText().toString());
+        }
+
+        if (Strings.isEmptyOrWhitespace(binding.etInputBudget.getText().toString())) {
+            board.setBudget("0");
+        }else {
+            board.setBudget(binding.etInputBudget.getText().toString());
+        }
+
+        return board;
     }
 
     //게시글 추가 함수
     public void addBoardProcess() {
 
-        Board board = makeBoard();
+        if (inputCheck()) {
 
-        BoardAddAPI service = ServiceGenerator.createService(BoardAddAPI.class);
-        Single<Board> result = service.addBoard(board);
+            Board board = makeBoard();
 
-        compositeDisposable.add(
-                result.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
-                                    Log.d("result", data.toString());
-                                    finish();
-                                }, (e) -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+            BoardAddAPI service = ServiceGenerator.createService(BoardAddAPI.class);
+            Single<Board> result = service.addBoard(board);
+
+            compositeDisposable.add(
+                    result.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe((data) -> {
+                                        Log.d("result", data.toString());
+
+                                        RxBus.getInstance().sendBus(new String(getResources().getText(R.string.board_add_end).toString()));
+
+                                        finish();
+                                    }, (e) -> {
+                                        e.printStackTrace();
+                                    }
+                            )
+            );
+
+        } else {
+            Snackbar.make(binding.rlBoardAddLayout, R.string.board_add_snack_bar, Snackbar.LENGTH_SHORT).show();
+        }
 
     }
+
 
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();
+        RxBus.setInstanceToNull();
         super.onDestroy();
     }
 

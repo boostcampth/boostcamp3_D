@@ -11,282 +11,287 @@
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
     </data>
 
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_board_add"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/design_default_color_on_primary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/board_add_title" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tb_board_add"
+            <RelativeLayout
+                android:id="@+id/rl_board_add_layout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/design_default_color_on_primary"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:title="@string/board_add_title" />
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tb_board_add"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-
-                android:text="@string/board_tv_title"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_input_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_title"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin" />
+                android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_input_title"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_address"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
 
-            <EditText
-                android:id="@+id/et_input_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_address"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin" />
+                    android:text="@string/board_tv_title"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
 
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_input_address"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_time"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_time_warning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_address"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:layout_toEndOf="@+id/tv_time"
-                android:paddingStart="@dimen/space_small_padding"
-                android:paddingEnd="@dimen/space_small_padding"
-                android:background="@color/colorHungryRed"
-                android:text="@string/board_tv_time_warning"
-                android:textColor="@color/design_default_color_on_primary"
-                android:textSize="@dimen/board_tv_time_warning" />
+                <EditText
+                    android:id="@+id/et_input_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin" />
 
 
-            <TextView
-                android:id="@+id/tv_input_time"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_below="@+id/tv_time"
-                android:gravity="center_vertical"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:text="@{viewmodel.time}"
-                android:layout_marginTop="@dimen/space_medium_margin"
-                android:hint="@string/board_tv_time_hint"
-                android:textSize="@dimen/board_tv_text_size" />
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_input_title"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_address"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/ib_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tv_input_time"
-                android:layout_alignBottom="@+id/tv_input_time"
-                android:layout_toEndOf="@+id/tv_input_time"
-                android:backgroundTint="@android:color/transparent"
-                android:onClick="@{viewmodel::onTimePickerClicked}"
-                app:srcCompat="@drawable/ic_access_time_24dp" />
+                <EditText
+                    android:id="@+id/et_input_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_address"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin" />
 
 
-            <TextView
-                android:id="@+id/tv_max_person"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_input_time"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_max_person"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_input_address"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_time"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_input_max_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_max_person"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:hint="@string/board_et_max_person_hint"
-                android:inputType="numberDecimal"
-                android:textSize="@dimen/board_tv_text_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_max_person"
-                android:layout_alignBaseline="@+id/et_input_max_person"
-                android:layout_toEndOf="@+id/et_input_max_person"
-                android:text="@string/board_tv_max_peson_count" />
-
-            <TextView
-                android:id="@+id/tv_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_max_person"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_age"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_age_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_age"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_age_hint"
-                android:textSize="@dimen/board_tv_text_size" />
-
-            <com.appyvet.materialrangebar.RangeBar
-                android:id="@+id/rb_choice_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_age_hint"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                app:mrb_pinColor="@color/colorRangeBar"
-                app:mrb_pinMaxFont="15sp"
-                app:mrb_pinMinFont="12sp"
-                app:mrb_pinRadius="14dp"
-                app:mrb_pinTextColor="@color/design_default_color_on_primary"
-                app:mrb_rangeBar="true"
-                app:mrb_rangeBarColor="@color/colorRangeBar"
-                app:mrb_rangeBarPaddingBottom="30dp"
-                app:mrb_rangeBar_rounded="true"
-                app:mrb_selectorBoundaryColor="@color/colorRangeBar"
-                app:mrb_selectorBoundarySize="1dp"
-                app:mrb_selectorColor="@color/colorRangeBarSelector"
-                app:mrb_selectorSize="15dp"
-                app:mrb_temporaryPins="false"
-                app:mrb_tickColor="@color/colorRangeBar"
-                onRangeBarChange="@{viewmodel::setOnRangeBarChangeListener}"
-                app:mrb_tickEnd="80"
-                app:mrb_tickInterval="1"
-                app:mrb_tickStart="15" />
+                <TextView
+                    android:id="@+id/tv_time_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_input_address"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:layout_toEndOf="@+id/tv_time"
+                    android:background="@color/colorHungryRed"
+                    android:paddingStart="@dimen/space_small_padding"
+                    android:paddingEnd="@dimen/space_small_padding"
+                    android:text="@string/board_tv_time_warning"
+                    android:textColor="@color/design_default_color_on_primary"
+                    android:textSize="@dimen/board_tv_time_warning" />
 
 
-            <TextView
-                android:id="@+id/tv_budget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rb_choice_age"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_budget"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_input_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/tv_time"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_medium_margin"
+                    android:gravity="center_vertical"
+                    android:hint="@string/board_tv_time_hint"
+                    android:text="@{viewmodel.time}"
+                    android:textSize="@dimen/board_tv_text_size" />
 
-            <TextView
-                android:id="@+id/tv_budget_hint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_budget"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_budget_hint"
-                android:textSize="@dimen/board_tv_text_size" />
-
-
-            <EditText
-                android:id="@+id/et_input_budget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_budget_hint"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:hint="@string/board_et_budget_hint"
-                android:inputType="numberDecimal"
-                android:textSize="@dimen/board_tv_text_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_budget_hint"
-                android:layout_alignBaseline="@+id/et_input_budget"
-                android:layout_toEndOf="@id/et_input_budget"
-                android:text="@string/board_tv_budget_unit" />
+                <ImageButton
+                    android:id="@+id/ib_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_input_time"
+                    android:layout_alignBottom="@+id/tv_input_time"
+                    android:layout_toEndOf="@+id/tv_input_time"
+                    android:backgroundTint="@android:color/transparent"
+                    android:onClick="@{viewmodel::onTimePickerClicked}"
+                    app:srcCompat="@drawable/ic_access_time_24dp" />
 
 
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/et_input_budget"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_content"
-                android:textSize="@dimen/board_tv_text_size"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_max_person"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_input_time"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_max_person"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_content_hint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_content"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:text="@string/board_tv_content_hint"
-                android:textSize="@dimen/board_tv_text_size" />
+                <EditText
+                    android:id="@+id/et_input_max_person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_max_person"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:hint="@string/board_et_max_person_hint"
+                    android:inputType="numberDecimal"
+                    android:textSize="@dimen/board_tv_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_max_person"
+                    android:layout_alignBaseline="@+id/et_input_max_person"
+                    android:layout_toEndOf="@+id/et_input_max_person"
+                    android:text="@string/board_tv_max_peson_count" />
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_input_max_person"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_age"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_age_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_age"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_age_hint"
+                    android:textSize="@dimen/board_tv_text_size" />
+
+                <com.appyvet.materialrangebar.RangeBar
+                    android:id="@+id/rb_choice_age"
+                    onRangeBarChange="@{viewmodel::setOnRangeBarChangeListener}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_age_hint"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    app:mrb_pinColor="@color/colorRangeBar"
+                    app:mrb_pinMaxFont="15sp"
+                    app:mrb_pinMinFont="12sp"
+                    app:mrb_pinRadius="14dp"
+                    app:mrb_pinTextColor="@color/design_default_color_on_primary"
+                    app:mrb_rangeBar="true"
+                    app:mrb_rangeBarColor="@color/colorRangeBar"
+                    app:mrb_rangeBarPaddingBottom="30dp"
+                    app:mrb_rangeBar_rounded="true"
+                    app:mrb_selectorBoundaryColor="@color/colorRangeBar"
+                    app:mrb_selectorBoundarySize="1dp"
+                    app:mrb_selectorColor="@color/colorRangeBarSelector"
+                    app:mrb_selectorSize="15dp"
+                    app:mrb_temporaryPins="false"
+                    app:mrb_tickColor="@color/colorRangeBar"
+                    app:mrb_tickEnd="80"
+                    app:mrb_tickInterval="1"
+                    app:mrb_tickStart="15" />
 
 
-            <EditText
-                android:id="@+id/et_input_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_content_hint"
-                android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_medium_margin"
-                android:layout_marginEnd="@dimen/space_board_item_margin"
-                android:layout_marginBottom="@dimen/space_medium_margin"
-                android:padding="@dimen/space_medium_padding"
-                android:gravity="top"
-                android:background="@drawable/et_shape"
-                android:lines="10"
-                android:textSize="@dimen/board_tv_text_size" />
+                <TextView
+                    android:id="@+id/tv_budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rb_choice_age"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_budget"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_budget_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_budget"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_budget_hint"
+                    android:textSize="@dimen/board_tv_text_size" />
 
-    </ScrollView>
 
+                <EditText
+                    android:id="@+id/et_input_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_budget_hint"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:hint="@string/board_et_budget_hint"
+                    android:inputType="numberDecimal"
+                    android:textSize="@dimen/board_tv_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_budget_hint"
+                    android:layout_alignBaseline="@+id/et_input_budget"
+                    android:layout_toEndOf="@id/et_input_budget"
+                    android:text="@string/board_tv_budget_unit" />
+
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/et_input_budget"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_content"
+                    android:textSize="@dimen/board_tv_text_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_content_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_content"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:text="@string/board_tv_content_hint"
+                    android:textSize="@dimen/board_tv_text_size" />
+
+
+                <EditText
+                    android:id="@+id/et_input_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_content_hint"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:layout_marginBottom="@dimen/space_medium_margin"
+                    android:background="@drawable/et_shape"
+                    android:gravity="top"
+                    android:lines="10"
+                    android:padding="@dimen/space_medium_padding"
+                    android:textSize="@dimen/board_tv_text_size" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
 </layout>
