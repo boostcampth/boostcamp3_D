@@ -3,7 +3,6 @@ package com.teamdonut.eatto.ui.home;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,8 @@ public class HomeFragment extends Fragment {
         binding.setViewmodel(mViewModel);
         initRankRv();
         return binding.getRoot();
+    }
+    
     void initRankRv(){
         RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(this.getContext()){
             @Override
