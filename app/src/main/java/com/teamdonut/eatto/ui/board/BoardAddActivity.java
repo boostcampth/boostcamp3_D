@@ -101,12 +101,12 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String appointed_time = df.format(currentTime);
-        appointed_time += " " + Integer.toString(getHourOfDay()) + ":" + Integer.toString(getMinute()) + ":00";
+        String appointedTime = df.format(currentTime);
+        appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
 
 
         return new Board(binding.etInputTitle.getText().toString(),
-                binding.etInputAddress.getText().toString(), appointed_time,
+                binding.etInputAddress.getText().toString(), appointedTime,
                 "맥도날드",
                 Integer.parseInt(binding.etInputMaxPerson.getText().toString()),
                 mViewModel.getMin_age(), mViewModel.getMax_age(),
@@ -132,7 +132,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((data) -> {
                                     Log.d("result", data.toString());
-
+                                    finish();
                                 }, (e) -> {
                                     e.printStackTrace();
                                 }
@@ -143,20 +143,12 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
     @Override
     protected void onDestroy() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
         super.onDestroy();
-    }
-
-    public int getHourOfDay() {
-        return hourOfDay;
     }
 
     public void setHourOfDay(int hourOfDay) {
         this.hourOfDay = hourOfDay;
-    }
-
-    public int getMinute() {
-        return minute;
     }
 
     public void setMinute(int minute) {
