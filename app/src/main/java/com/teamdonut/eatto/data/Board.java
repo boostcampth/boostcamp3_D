@@ -7,7 +7,6 @@ import java.util.Date;
 public class Board {
 
 
-
     @SerializedName("id")
     private int id;
 
@@ -51,7 +50,7 @@ public class Board {
     private double latitude;
 
     @SerializedName("budget")
-    private int budget;
+    private String budget;
 
     @SerializedName("min_age")
     private int minAge;
@@ -59,8 +58,7 @@ public class Board {
     @SerializedName("max_age")
     private int maxAge;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, int budget,
-                 String content, double longitude, double latitude, int writer_id) {
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age,double longitude, double latitude, int writer_id) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -68,8 +66,6 @@ public class Board {
         this.maxPerson = max_person;
         this.minAge = min_age;
         this.maxAge = max_age;
-        this.budget = budget;
-        this.content = content;
         this.longitude = longitude;
         this.latitude = latitude;
         this.writerId = writer_id;
@@ -131,7 +127,7 @@ public class Board {
         return latitude;
     }
 
-    public int getBudget() {
+    public String getBudget() {
         return budget;
     }
 
@@ -141,5 +137,73 @@ public class Board {
 
     public int getMaxAge() {
         return maxAge;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAppointedTime(String appointedTime) {
+        this.appointedTime = appointedTime;
+    }
+
+    public void setMaxPerson(int maxPerson) {
+        this.maxPerson = maxPerson;
+    }
+
+    public void setCurrentPerson(int currentPerson) {
+        this.currentPerson = currentPerson;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public void setWriterId(int writerId) {
+        this.writerId = writerId;
+    }
+
+    public void setWriteDate(String writeDate) {
+        this.writeDate = writeDate;
+    }
+
+    public void setValidation(int validation) {
+        this.validation = validation;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
+    }
+
+    public void setMinAge(int minAge) {
+        this.minAge = minAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
     }
 }
