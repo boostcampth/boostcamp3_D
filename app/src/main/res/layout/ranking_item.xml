@@ -6,8 +6,8 @@
     <data>
 
         <variable
-                name="user"
-                type="com.teamdonut.eatto.data.User" />
+                name="viewmodel"
+                type="com.teamdonut.eatto.ui.home.UserRankingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +61,7 @@
                 android:id="@+id/tv_nick_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user.nickName}"
+                android:text="@{viewmodel.userNickName}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/gl_nick_name"
                 app:layout_constraintStart_toStartOf="@id/gl_image"
@@ -71,7 +71,7 @@
                 android:id="@+id/tv_score_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user.scoreSum}"
+                android:text="@{viewmodel.userScoreSum}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/gl_nick_name"

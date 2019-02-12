@@ -12,8 +12,8 @@ import com.teamdonut.eatto.databinding.RankingItemBinding;
 
 import java.util.List;
 
-public class RankingAdapter extends BaseRecyclerViewAdapter<User, RankingAdapter.ViewHolder> {
-    public RankingAdapter(List<User> dataSet) {
+public class UserRankingAdapter extends BaseRecyclerViewAdapter<User, UserRankingAdapter.ViewHolder> {
+    public UserRankingAdapter(List<User> dataSet) {
         super(dataSet);
     }
 
@@ -25,7 +25,7 @@ public class RankingAdapter extends BaseRecyclerViewAdapter<User, RankingAdapter
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        holder.binding.setUser(getItem(position));
+        holder.binding.setViewmodel(new UserRankingViewModel(getItem(position)));
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
