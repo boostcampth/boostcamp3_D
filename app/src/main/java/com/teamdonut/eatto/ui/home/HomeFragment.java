@@ -26,5 +26,15 @@ public class HomeFragment extends Fragment {
         mViewModel = new HomeViewModel();
         binding.setViewmodel(mViewModel);
         return  binding.getRoot();
+        initRankRv();
+    void initRankRv(){
+        RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(this.getContext()){
+            @Override
+            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
+                lp.height = (getWidth()/9);
+                return super.checkLayoutParams(lp);
+            }
+        };
+
     }
 }
