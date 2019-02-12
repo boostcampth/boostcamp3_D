@@ -13,19 +13,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-public class MypageFragment extends Fragment {
+public class MyPageFragment extends Fragment implements MyPageNavigator {
 
-    private MypageViewModel mViewModel;
+    private MyPageViewModel mViewModel;
     private MypageFragmentBinding binding;
-    public static MypageFragment newInstance() {
-        return new MypageFragment();
+
+    public static MyPageFragment newInstance() {
+        return new MyPageFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.mypage_fragment, container, false);
-        mViewModel = new MypageViewModel();
+        mViewModel = new MyPageViewModel(this);
         binding.setViewmodel(mViewModel);
         return binding.getRoot();
     }
