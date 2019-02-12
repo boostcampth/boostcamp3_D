@@ -27,7 +27,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
     }
 
     private void setupToolbar() {
-        setSupportActionBar(binding.toolbarMpe);
+        setSupportActionBar(binding.tbMpe);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
