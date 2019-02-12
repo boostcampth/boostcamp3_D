@@ -84,6 +84,8 @@
                 android:layout_marginStart="@dimen/space_board_item_margin"
                 android:layout_marginTop="@dimen/space_board_item_margin"
                 android:layout_toEndOf="@+id/tv_time"
+                android:paddingStart="@dimen/space_small_padding"
+                android:paddingEnd="@dimen/space_small_padding"
                 android:background="@color/colorHungryRed"
                 android:text="@string/board_tv_time_warning"
                 android:textColor="@color/design_default_color_on_primary"
@@ -93,17 +95,20 @@
             <TextView
                 android:id="@+id/tv_input_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:layout_below="@+id/tv_time"
+                android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_to_item_distance_margin"
+                android:layout_marginTop="@dimen/space_medium_margin"
                 android:hint="@string/board_tv_time_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
             <ImageButton
+                android:id="@+id/ib_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_time"
+                android:layout_alignTop="@+id/tv_input_time"
+                android:layout_alignBottom="@+id/tv_input_time"
                 android:layout_toEndOf="@+id/tv_input_time"
                 android:backgroundTint="@android:color/transparent"
                 app:srcCompat="@drawable/ic_access_time_24dp" />
@@ -161,30 +166,6 @@
                 android:text="@string/board_tv_age_hint"
                 android:textSize="@dimen/board_tv_text_size" />
 
-            <TextView
-                android:id="@+id/tv_min_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_age"
-                android:layout_toEndOf="@+id/tv_age_hint"
-                android:text="left" />
-
-            <TextView
-                android:id="@+id/tv_age_range"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_age"
-                android:layout_toEndOf="@+id/tv_min_age"
-                android:text=" ~ " />
-
-            <TextView
-                android:id="@+id/max_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_age"
-                android:layout_toEndOf="@+id/tv_age_range"
-                android:text="right" />
-
             <com.appyvet.materialrangebar.RangeBar
                 android:id="@+id/rb_choice_age"
                 android:layout_width="match_parent"
@@ -205,7 +186,7 @@
                 app:mrb_selectorBoundarySize="1dp"
                 app:mrb_selectorColor="@color/colorRangeBarSelector"
                 app:mrb_selectorSize="15dp"
-                app:mrb_temporaryPins="true"
+                app:mrb_temporaryPins="false"
                 app:mrb_tickColor="@color/colorRangeBar"
                 app:mrb_tickEnd="80"
                 app:mrb_tickInterval="1"
@@ -283,11 +264,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_content_hint"
                 android:layout_marginStart="@dimen/space_board_item_margin"
-                android:layout_marginTop="@dimen/space_board_item_to_item_distance_margin"
+                android:layout_marginTop="@dimen/space_medium_margin"
                 android:layout_marginEnd="@dimen/space_board_item_margin"
+                android:layout_marginBottom="@dimen/space_medium_margin"
+                android:padding="@dimen/space_medium_padding"
+                android:gravity="top"
                 android:background="@drawable/et_shape"
-                android:gravity="start"
-                android:lines="15"
+                android:lines="10"
                 android:textSize="@dimen/board_tv_text_size" />
 
         </RelativeLayout>
