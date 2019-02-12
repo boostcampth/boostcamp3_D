@@ -4,6 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.board.BoardAddActivity">
 
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.board.BoardViewModel" />
+    </data>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -99,6 +107,7 @@
                 android:layout_below="@+id/tv_time"
                 android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/space_board_item_margin"
+                android:text="@{viewmodel.time}"
                 android:layout_marginTop="@dimen/space_medium_margin"
                 android:hint="@string/board_tv_time_hint"
                 android:textSize="@dimen/board_tv_text_size" />
@@ -111,6 +120,7 @@
                 android:layout_alignBottom="@+id/tv_input_time"
                 android:layout_toEndOf="@+id/tv_input_time"
                 android:backgroundTint="@android:color/transparent"
+                android:onClick="@{viewmodel::onTimePickerClicked}"
                 app:srcCompat="@drawable/ic_access_time_24dp" />
 
 
@@ -188,6 +198,7 @@
                 app:mrb_selectorSize="15dp"
                 app:mrb_temporaryPins="false"
                 app:mrb_tickColor="@color/colorRangeBar"
+                onRangeBarChange="@{viewmodel::setOnRangeBarChangeListener}"
                 app:mrb_tickEnd="80"
                 app:mrb_tickInterval="1"
                 app:mrb_tickStart="15" />
