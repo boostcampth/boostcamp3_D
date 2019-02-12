@@ -111,7 +111,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         Calendar cal = Calendar.getInstance();
 
-        TimePickerDialog dialog = new TimePickerDialog(this, R.style.BoardAddTimePicker, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog dialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String setTime = hourOfDay + "시 " + minute + "분";
@@ -121,6 +121,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             }
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), DateFormat.is24HourFormat(getApplicationContext()));
 
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
     }
 

@@ -16,13 +16,6 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <!-- board add -->
-    <style name="BoardAddTimePicker" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:timePickerMode">spinner</item>
-        <item name="colorAccent">@color/colorHungryRed</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
 
     <!-- board detail -->
     <style name="BoardDetailLeftItem">
