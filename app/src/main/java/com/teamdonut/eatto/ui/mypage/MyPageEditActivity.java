@@ -5,14 +5,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.GlideApp;
 import com.teamdonut.eatto.databinding.MypageEditActivityBinding;
-
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MyPageEditActivity extends AppCompatActivity implements MyPageEditNavigator {
 
@@ -64,6 +67,36 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
                 })
                 .show();
     }
+
+    @Override
+    public void selectPhoto() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestStoragePermission();
+        } else {
+            openBottomPicker();
+        }
+    }
+
+    private void openBottomPicker() {
+        new TedBottomPicker.Builder(this)
+                .setOnImageSelectedListener(uri -> {
+                    GlideApp.with(this)
+                            .load(uri)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .transforms(new CenterCrop())
+                            .into(binding.civProfile);
+                })
+                .setImageProvider((imageView, imageUri) -> {
+                    GlideApp.with(this)
+                            .load(imageUri)
+                            .skipMemoryCache(true)
+                            .transforms(new CenterCrop())
+                            .into(imageView);
+                })
+                .create()
+                .show(getSupportFragmentManager());
+    }
+
     private void requestStoragePermission() {
         TedRx2Permission.with(this)
                 .setDeniedMessage(R.string.all_permission_reject)
