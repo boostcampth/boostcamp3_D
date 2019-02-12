@@ -18,7 +18,7 @@ public class User implements RealmModel {
     @SerializedName("sex")
     private int sex; //0 is female 1 is male
 
-    @SerializedName("profile_image")
+    @SerializedName("photo")
     private String profileImage;
 
     @SerializedName("age")
