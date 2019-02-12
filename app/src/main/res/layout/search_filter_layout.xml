@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.search.SearchViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_filter_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/space_filter_side_padding" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_filter_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/space_filter_side_padding" />
+
+        <TextView
+            android:id="@+id/tv_filter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_title"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/view_filter_time"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ib_filter_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_small_margin"
+            android:background="@android:color/transparent"
+            android:onClick="@{() ->viewmodel.onClearFilterClick()}"
+            android:paddingStart="@dimen/space_img_btn_padding"
+            android:paddingEnd="@dimen/space_img_btn_padding"
+            android:paddingBottom="@dimen/space_img_btn_padding"
+            app:layout_constraintBottom_toTopOf="@+id/view_filter_time"
+            app:layout_constraintEnd_toStartOf="@+id/ib_filter_close"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_reset_24dp" />
+
+        <ImageButton
+            android:id="@+id/ib_filter_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:onClick="@{() ->viewmodel.onCloseFilterClick()}"
+            android:paddingStart="@dimen/space_img_btn_padding"
+            android:paddingEnd="@dimen/space_img_btn_padding"
+            android:paddingBottom="@dimen/space_img_btn_padding"
+            app:layout_constraintBottom_toTopOf="@+id/view_filter_time"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_clear_24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_filter_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07" />
+
+        <View
+            android:id="@+id/view_filter_time"
+            style="@style/FilterLine"
+            android:layout_width="match_parent"
+            android:layout_marginTop="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/gl_filter_top" />
+
+        <!--time-->
+        <TextView
+            android:id="@+id/tv_filter_time"
+            style="@style/FilterTitle"
+            android:text="@string/filter_tv_time"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/view_filter_time" />
+
+        <TextView
+            android:id="@+id/tv_filter_time_sub"
+            style="@style/FilterSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_time_sub"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_time" />
+
+        <RadioGroup
+            android:id="@+id/rg_filter_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/space_medium_margin"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_time_sub">
+
+            <RadioButton
+                android:id="@+id/cb_filter_am"
+                style="@android:style/Widget.CompoundButton.CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/all_am"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_filter_time" />
+
+            <RadioButton
+                android:id="@+id/cb_filter_pm"
+                style="@android:style/Widget.CompoundButton.CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/all_pm"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/cb_filter_am"
+                app:layout_constraintTop_toTopOf="@+id/cb_filter_am" />
+        </RadioGroup>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_filter_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/et_filter_time_min"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_filter_side_padding"
+            android:background="@drawable/et_filter_bg"
+            android:entries="@array/hour"
+            android:padding="15dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_filter_range"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/rg_filter_time"
+            tools:text="1" />
+
+        <TextView
+            style="@style/FilterSubText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_si"
+            app:layout_constraintBottom_toBottomOf="@+id/et_filter_time_min"
+            app:layout_constraintEnd_toEndOf="@+id/et_filter_time_min"
+            app:layout_constraintTop_toTopOf="@+id/et_filter_time_min" />
+
+        <TextView
+            android:id="@+id/tv_filter_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/filter_tv_range"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/et_filter_time_min"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_mid"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_mid"
+            app:layout_constraintTop_toTopOf="@+id/et_filter_time_min" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/et_filter_time_max"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_filter_bg"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/hour"
+            android:padding="15dp"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter_range"
+            app:layout_constraintTop_toTopOf="@+id/et_filter_time_min" />
+
+        <TextView
+            style="@style/FilterSubText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_si"
+            app:layout_constraintBottom_toBottomOf="@+id/et_filter_time_min"
+            app:layout_constraintEnd_toEndOf="@+id/et_filter_time_max"
+            app:layout_constraintTop_toTopOf="@+id/et_filter_time_min" />
+
+        <View
+            android:id="@+id/view_filter_age"
+            style="@style/FilterLine"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_filter_time_min" />
+
+        <!--age-->
+        <TextView
+            android:id="@+id/tv_filter_age"
+            style="@style/FilterTitle"
+            android:text="@string/filter_tv_age"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/view_filter_age" />
+
+        <TextView
+            android:id="@+id/tv_filter_age_sub"
+            style="@style/FilterSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_age_sub"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_age" />
+
+        <com.appyvet.materialrangebar.RangeBar
+            android:id="@+id/rb_filter_age"
+            style="@style/FilterRangeBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_age_sub"
+            app:mrb_tickEnd="80"
+            app:mrb_tickStart="15"
+            app:onRangeBarChange="@{viewmodel::onAgeRangeBarChanged}" />
+
+
+        <TextView
+            android:id="@+id/tv_filter_age_min"
+            style="@style/FilterRangeBarValueText"
+            android:text="@{@string/filter_tv_age_format(viewmodel.getMinAge())}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_filter_age_max"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/rb_filter_age"
+            tools:text="25세" />
+
+        <TextView
+            android:id="@+id/tv_filter_age_max"
+            style="@style/FilterRangeBarValueText"
+            android:text="@{@string/filter_tv_age_format(viewmodel.getMaxAge())}"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter_age_min"
+            app:layout_constraintTop_toBottomOf="@+id/rb_filter_age"
+            tools:text="35세" />
+
+
+        <!--people-->
+        <View
+            android:id="@+id/view_filter_people"
+            style="@style/FilterLine"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_age_min" />
+
+        <TextView
+            android:id="@+id/tv_filter_people"
+            style="@style/FilterTitle"
+            android:text="@string/filter_tv_people"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/view_filter_people" />
+
+        <com.appyvet.materialrangebar.RangeBar
+            android:id="@+id/rb_filter_people"
+            style="@style/FilterRangeBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_people"
+            app:mrb_tickEnd="10"
+            app:mrb_tickStart="2"
+            app:onRangeBarChange="@{viewmodel::onPeopleRangeBarChanged}" />
+
+        <TextView
+            android:id="@+id/tv_filter_people_min"
+            style="@style/FilterRangeBarValueText"
+            android:text="@{@string/filter_tv_people_format(viewmodel.getMinPeople())}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_filter_age_max"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/rb_filter_people"
+            tools:text="2명" />
+
+        <TextView
+            android:id="@+id/tv_filter_people_max"
+            style="@style/FilterRangeBarValueText"
+            android:text="@{@string/filter_tv_people_format(viewmodel.getMaxPeople())}"
+            app:layout_constraintEnd_toEndOf="@+id/gl_filter_end"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter_age_min"
+            app:layout_constraintTop_toBottomOf="@+id/rb_filter_people"
+            tools:text="10명" />
+
+        <!--budget-->
+        <View
+            android:id="@+id/view_filter_budget"
+            style="@style/FilterLine"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_people_min" />
+
+
+        <TextView
+            android:id="@+id/tv_filter_budget"
+            style="@style/FilterTitle"
+            android:text="@string/filter_tv_budget"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/view_filter_budget" />
+
+        <TextView
+            android:id="@+id/tv_filter_budget_sub"
+            style="@style/FilterSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_budget_sub"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_budget" />
+
+        <TextView
+            android:id="@+id/tv_filter_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/space_filter_item_margin"
+            android:paddingEnd="@dimen/space_filter_item_margin"
+            android:text="@string/filter_tv_range"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/et_filter_budget"
+            app:layout_constraintStart_toStartOf="@+id/gl_filter_start"
+            app:layout_constraintTop_toTopOf="@+id/et_filter_budget"
+            tools:text="~" />
+
+        <EditText
+            android:id="@+id/et_filter_budget"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium_margin"
+            android:background="@drawable/et_filter_bg"
+            android:gravity="center_vertical"
+            android:inputType="number"
+            android:maxLength="7"
+            android:maxLines="1"
+            android:padding="@dimen/space_small_margin"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter_max"
+            app:layout_constraintTop_toBottomOf="@+id/tv_filter_budget_sub"
+            tools:text="200000" />
+
+        <TextView
+            style="@style/FilterSubText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_tv_won"
+            app:layout_constraintBottom_toBottomOf="@+id/et_filter_budget"
+            app:layout_constraintEnd_toEndOf="@+id/et_filter_budget"
+            app:layout_constraintTop_toTopOf="@+id/et_filter_budget" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_filter_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.98" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_shape"
+            android:gravity="center"
+            android:onClick="@{() -> viewmodel.onSubmitFilterClick()}"
+            android:paddingStart="45dp"
+            android:paddingTop="@dimen/space_small_margin"
+            android:paddingEnd="45dp"
+            android:paddingBottom="@dimen/space_small_margin"
+            android:text="@string/all_ok"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_filter_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

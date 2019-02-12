@@ -6,7 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back_18dp</item>
         <item name="android:statusBarColor">@color/colorStatusBar</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <!-- board preview -->
@@ -30,5 +32,53 @@
         <item name="android:textSize">@dimen/board_tv_text_size</item>
     </style>
 
+    <style name="FilterTitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/colorFilterTitle</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/space_filter_title_padding</item>
+        <item name="android:paddingBottom">@dimen/space_filter_title_padding</item>
+        <item name="android:layout_marginTop">@dimen/space_filter_item_margin</item>
+    </style>
+
+    <style name="FilterSubTitle">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/colorFilterSubTitle</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="FilterSubText">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/colorHungryLightBlack</item>
+        <item name="android:layout_marginEnd">7dp</item>
+    </style>
+
+    <style name="FilterLine">
+        <item name="android:layout_height">7dp</item>
+        <item name="android:background">@color/colorHungryGray</item>
+        <item name="android:layout_marginTop">12dp</item>
+    </style>
+
+    <style name="FilterRangeBarValueText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorHungryBlack</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="FilterRangeBarStyle">
+        <item name="mrb_connectingLineColor">@color/colorHungryRed</item>
+        <item name="mrb_pinColor">@color/colorHungryRed</item>
+        <item name="mrb_pinMaxFont">14sp</item>
+        <item name="mrb_rangeBarColor">@color/colorFilterView</item>
+        <item name="mrb_selectorBoundaryColor">@color/colorHungryRed</item>
+        <item name="mrb_selectorBoundarySize">2dp</item>
+        <item name="mrb_selectorColor">@android:color/white</item>
+        <item name="mrb_selectorSize">10dp</item>
+        <item name="mrb_tickColor">@color/colorHungryRed</item>
+    </style>
 
 </resources>

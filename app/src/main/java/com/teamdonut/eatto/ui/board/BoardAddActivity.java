@@ -17,6 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.data.Board;
@@ -29,7 +32,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
-
     private BoardAddActivityBinding binding;
     private BoardViewModel mViewModel;
     private int hourOfDay;
@@ -42,8 +44,10 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         binding = DataBindingUtil.setContentView(this, R.layout.board_add_activity);
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
-        initToolbar();
         compositeDisposable = new CompositeDisposable();
+
+        initToolbar();
+        EditTextSetMaxLine(binding.etInputContent, 15);
     }
 
     public void initToolbar() {
@@ -53,6 +57,29 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         //Toolbar nav button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp);
+    }
+
+    public void EditTextSetMaxLine(EditText editText, int lines){
+        editText.addTextChangedListener(new TextWatcher() {
+            String previousString = "";
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                previousString = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (editText.getLineCount() >= lines) {
+                    editText.setText(previousString);
+                    editText.setSelection(editText.length());
+                }
+            }
+        });
     }
 
     @Override

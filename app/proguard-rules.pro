@@ -28,3 +28,6 @@
   public *;
 }
 -dontwarn android.support.v4.**,org.slf4j.**,com.google.android.gms.*
+
+## Realm
+-keepnames public class * extends io.realm.RealmObject

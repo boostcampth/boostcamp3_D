@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.search.SearchActivity">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.search.SearchViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/dl_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_search"
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize"
+                android:background="@color/colorHungryGray"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorHungryGray"
+                    android:drawableEnd="@drawable/ic_search_24dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/search_et_hint"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:onClick="@{() -> viewmodel.onGoSearchClick()}"
+                    android:paddingStart="0dp"
+                    android:paddingTop="@dimen/space_search_horizontal_padding"
+                    android:paddingEnd="@dimen/space_medium_margin"
+                    android:paddingBottom="@dimen/space_search_horizontal_padding"
+                    android:textColor="@color/colorHungryLightBlack"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
+            </androidx.appcompat.widget.Toolbar>
+
+
+            <TextView
+                android:id="@+id/tv_search_filter_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/space_large_margin"
+                android:paddingBottom="2dp"
+                android:text="@string/search_filter_tv_sub"
+                android:textColor="@color/colorHungryLightBlack"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/gl_search_start"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
+
+            <TextView
+                android:id="@+id/tv_search_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_filter_24dp"
+                android:drawablePadding="@dimen/space_search_filter_padding"
+                android:onClick="@{()->viewmodel.onOpenFilterClick()}"
+                android:paddingTop="@dimen/space_search_filter_padding"
+                android:paddingBottom="@dimen/space_search_filter_padding"
+                android:text="@string/search_filter_tv"
+                android:textColor="@color/colorHungryRed"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/gl_search_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_search_filter_sub" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/colorHungryGray"
+                app:layout_constraintBottom_toTopOf="@+id/gl_keyword_top"
+                app:layout_constraintEnd_toEndOf="@+id/gl_search_end"
+                app:layout_constraintStart_toStartOf="@+id/gl_search_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_search_filter"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_search_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/space_medium_margin" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_search_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/space_medium_margin" />
+
+            <!-- recent keyword-->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_keyword_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <TextView
+                android:id="@+id/tv_search_recent_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_tv_recent_keyword"
+                android:textColor="@color/colorHungryLightBlack"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/gl_search_start"
+                app:layout_constraintTop_toTopOf="@+id/gl_keyword_top" />
+
+            <TextView
+                android:id="@+id/tv_search_remove_keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/space_medium_margin"
+                android:paddingEnd="0dp"
+                android:text="@string/search_tv_remove_keyword"
+                android:textColor="@color/colorDeskBrown"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="@+id/gl_search_end"
+                app:layout_constraintTop_toTopOf="@+id/gl_keyword_top" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recent_keyword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_medium_margin"
+                app:layout_constraintEnd_toEndOf="@+id/gl_search_end"
+                app:layout_constraintStart_toStartOf="@+id/gl_search_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_search_recent_title" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nv_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fitsSystemWindows="true">
+
+            <include
+                layout="@layout/search_filter_layout"
+                app:viewmodel="@{viewmodel}" />
+
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
