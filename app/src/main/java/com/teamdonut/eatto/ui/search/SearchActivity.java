@@ -51,7 +51,7 @@ public class SearchActivity extends AppCompatActivity implements SearchNavigator
     }
 
     /**
-     * 최근 검색어를 sharedPreference 에 저장.
+     * 최근 검색어 저장
      */
     private void saveRecentKeyword() {
         String input = binding.etSearch.getText().toString();
