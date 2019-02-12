@@ -12,8 +12,8 @@ import com.teamdonut.eatto.databinding.RecommendBoardItemBinding;
 
 import java.util.List;
 
-public class RecommendBoardAdapter extends BaseRecyclerViewAdapter<Board, RecommendBoardAdapter.ViewHolder> {
-    public RecommendBoardAdapter(List<Board> dataSet) {
+public class BoardRecommendAdapter extends BaseRecyclerViewAdapter<Board, BoardRecommendAdapter.ViewHolder> {
+    public BoardRecommendAdapter(List<Board> dataSet) {
         super(dataSet);
     }
 
@@ -25,7 +25,7 @@ public class RecommendBoardAdapter extends BaseRecyclerViewAdapter<Board, Recomm
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        holder.binding.setBoard(getItem(position));
+        holder.binding.setViewmodel(getItem(position));
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
