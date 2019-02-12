@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.HomeFragmentBinding;
 
 public class HomeFragment extends Fragment {
@@ -41,7 +42,7 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        binding.rvRank.addItemDecoration(new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider)));
+        binding.rvRank.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
         binding.rvRank.setHasFixedSize(true);
         binding.rvRank.setLayoutManager(rankingManager);
     }

@@ -1,19 +1,21 @@
-package com.teamdonut.eatto.ui.home;
+package com.teamdonut.eatto.common.util;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DividerItemDecorator extends RecyclerView.ItemDecoration {
+public class HorizontalDividerItemDecorator extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
-    public DividerItemDecorator(Drawable divider) {
+    private Double mWidthPercent;
+    public HorizontalDividerItemDecorator(Drawable divider, Double widthPercent) {
         mDivider = divider;
+        mWidthPercent = widthPercent;
     }
 
     @Override
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
-        int space = (int)(parent.getWidth() * 0.03);
+        int space = (int)(parent.getWidth() * mWidthPercent);
         int dividerLeft = space + parent.getPaddingLeft();
         int dividerRight = parent.getWidth() - parent.getPaddingRight() - space;
 
