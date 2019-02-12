@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FE1D2A</color>
 
     <color name="colorHungryRed">#FE1D2A</color>
     <color name="colorDeskBrown">#444343</color>
@@ -12,11 +12,15 @@
     <!-- Board -->
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
-
     <!-- Board_detail -->
     <color name="colorBorderColor">#D0D0D0</color>
-  
     <!-- MyPage -->
     <color name="colorBtnLogoutText">#898787</color>
     <color name="colorViewBackground">#cacacaca</color>
+    <!--Search-->
+    <color name="colorHungryLightBlack">#3C3C3C</color>
+    <color name="colorFilterTitle">#242424</color>
+    <color name="colorFilterSubTitle">#515151</color>
+    <color name="colorFilterView">#b2b2b2</color>
+
 </resources>

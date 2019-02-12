@@ -15,7 +15,7 @@ import androidx.databinding.BindingMethods;
 @BindingMethods({
         @BindingMethod(
                 type = BottomNavigationView.class,
-                attribute = "onNavigationItemSelected",
+                attribute = "app:onNavigationItemSelected",
                 method = "setOnNavigationItemSelectedListener"
         )
 })
