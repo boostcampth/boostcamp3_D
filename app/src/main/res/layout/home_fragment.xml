@@ -86,8 +86,8 @@
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:text="@string/home_tv_waiting_num"
                     app:layout_constraintBottom_toTopOf="@id/tv_recommend_board"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -99,8 +99,8 @@
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_recommend_board"
                     app:layout_constraintBottom_toTopOf="@id/rv_recommend_board"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_waiting_num" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -108,7 +108,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginBottom="@dimen/space_large_margin"
-                    android:background="#ffff92"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/space_medium_padding"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
                     app:layout_constraintBottom_toTopOf="@id/tv_ranking"
                     app:layout_constraintDimensionRatio="1:0.4"
                     app:layout_constraintTop_toBottomOf="@id/tv_recommend_board" />
@@ -122,8 +125,8 @@
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_ranking"
                     app:layout_constraintBottom_toTopOf="@id/iv_myrank"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rv_recommend_board" />
 
                 <ImageView
@@ -135,15 +138,19 @@
                     android:layout_marginBottom="@dimen/space_medium_margin"
                     android:background="#ffff92"
                     app:layout_constraintBottom_toTopOf="@id/rv_rank"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ranking" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffff92"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_large_margin"
+                    android:background="@drawable/rv_home_ranking_bg"
+                    android:elevation="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_myrank" />
             </androidx.constraintlayout.widget.ConstraintLayout>
