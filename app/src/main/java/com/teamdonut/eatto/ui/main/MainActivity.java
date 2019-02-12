@@ -1,18 +1,15 @@
 package com.teamdonut.eatto.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
 import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.ui.board.BoardEndBus;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.ui.home.HomeFragment;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -40,13 +37,13 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     @Override
     protected void onResume() {
         super.onResume();
-        BoardEndBus.getInstance().getBus()
+        RxBus.getInstance().getBus()
                 .subscribe(result -> {
 
                     if (result instanceof String) {
-                        if (result.toString().equals("BOARD_ADD_END")) {
+                        if (result.toString().equals(getResources().getText(R.string.board_add_end).toString())) {
                             Log.d("result test", result.toString());
-                            Snackbar.make(binding.flMain, "게시글 등록 완료", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(binding.flMain, R.string.main_snack_bar, Snackbar.LENGTH_SHORT).show();
                         }
                     }
 
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
 
     @Override
     protected void onDestroy() {
-        BoardEndBus.setInstanceToNull();
+        RxBus.setInstanceToNull();
         super.onDestroy();
     }
 }
