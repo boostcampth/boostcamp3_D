@@ -6,21 +6,7 @@ import java.util.Date;
 
 public class Board {
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, int budget,
-                 String content, double longitude, double latitude, int writer_id) {
-        this.title = title;
-        this.address = address;
-        this.appointed_time = appointed_time;
-        this.restaurant_name = restaurant_name;
-        this.max_person = max_person;
-        this.min_age = min_age;
-        this.max_age = max_age;
-        this.budget = budget;
-        this.content = content;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.writer_id = writer_id;
-    }
+
 
     @SerializedName("id")
     private int id;
@@ -32,22 +18,22 @@ public class Board {
     private String title;
 
     @SerializedName("appointed_time")
-    private String appointed_time;
+    private String appointedTime;
 
     @SerializedName("max_person")
-    private int max_person;
+    private int maxPerson;
 
     @SerializedName("current_person")
-    private int current_person;
+    private int currentPerson;
 
     @SerializedName("restaurant_name")
-    private String restaurant_name;
+    private String restaurantName;
 
     @SerializedName("writer_id")
-    private int writer_id;
+    private int writerId;
 
     @SerializedName("write_date")
-    private String write_date;
+    private String writeDate;
 
     @SerializedName("validation")
     private int validation;
@@ -56,7 +42,7 @@ public class Board {
     private String content;
 
     @SerializedName("expire_date")
-    private String expire_date;
+    private String expireDate;
 
     @SerializedName("longitude")
     private double longitude;
@@ -68,11 +54,26 @@ public class Board {
     private int budget;
 
     @SerializedName("min_age")
-    private int min_age;
+    private int minAge;
 
     @SerializedName("max_age")
-    private int max_age;
+    private int maxAge;
 
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, int budget,
+                 String content, double longitude, double latitude, int writer_id) {
+        this.title = title;
+        this.address = address;
+        this.appointedTime = appointed_time;
+        this.restaurantName = restaurant_name;
+        this.maxPerson = max_person;
+        this.minAge = min_age;
+        this.maxAge = max_age;
+        this.budget = budget;
+        this.content = content;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.writerId = writer_id;
+    }
 
     public int getId() {
         return id;
@@ -86,28 +87,28 @@ public class Board {
         return title;
     }
 
-    public String getAppointed_time() {
-        return appointed_time;
+    public String getAppointedTime() {
+        return appointedTime;
     }
 
-    public int getMax_person() {
-        return max_person;
+    public int getMaxPerson() {
+        return maxPerson;
     }
 
-    public int getCurrent_person() {
-        return current_person;
+    public int getCurrentPerson() {
+        return currentPerson;
     }
 
-    public String getRestaurant_name() {
-        return restaurant_name;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
-    public int getWriter_id() {
-        return writer_id;
+    public int getWriterId() {
+        return writerId;
     }
 
-    public String getWrite_date() {
-        return write_date;
+    public String getWriteDate() {
+        return writeDate;
     }
 
     public int getValidation() {
@@ -118,8 +119,8 @@ public class Board {
         return content;
     }
 
-    public String getExpire_date() {
-        return expire_date;
+    public String getExpireDate() {
+        return expireDate;
     }
 
     public double getLongitude() {
@@ -134,11 +135,11 @@ public class Board {
         return budget;
     }
 
-    public int getMin_age() {
-        return min_age;
+    public int getMinAge() {
+        return minAge;
     }
 
-    public int getMax_age() {
-        return max_age;
+    public int getMaxAge() {
+        return maxAge;
     }
 }
