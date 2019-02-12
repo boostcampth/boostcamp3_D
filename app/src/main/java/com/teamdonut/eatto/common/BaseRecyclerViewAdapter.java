@@ -3,9 +3,10 @@ package com.teamdonut.eatto.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<T> dataSet;
 
@@ -16,6 +17,14 @@ public abstract class BaseRecyclerViewAdapter<T, H extends RecyclerView.ViewHold
     public T getItem(int position) {
         return dataSet == null ? null : dataSet.get(position);
     }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        onBindView((VH) holder, position);
+    }
+
+    abstract public void onBindView(VH holder, int position);
 
     @Override
     public int getItemCount() {
