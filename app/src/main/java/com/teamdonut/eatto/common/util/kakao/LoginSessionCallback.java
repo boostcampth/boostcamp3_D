@@ -1,7 +1,5 @@
 package com.teamdonut.eatto.common.util.kakao;
 
-import android.util.Log;
-
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.ApiErrorCode;
@@ -14,10 +12,10 @@ import com.teamdonut.eatto.ui.login.LoginNavigator;
 
 public class LoginSessionCallback implements ISessionCallback {
 
-    private LoginNavigator navigator;
+    private LoginNavigator mNavigator;
 
-    public LoginSessionCallback(LoginNavigator navigator) {
-        this.navigator = navigator;
+    public LoginSessionCallback(LoginNavigator mNavigator) {
+        this.mNavigator = mNavigator;
     }
 
     @Override
@@ -36,7 +34,7 @@ public class LoginSessionCallback implements ISessionCallback {
         UserManagement.getInstance().me(new MeV2ResponseCallback() {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
-                navigator.redirectLoginActivity();
+                mNavigator.redirectLoginActivity();
             }
 
             @Override
@@ -46,7 +44,7 @@ public class LoginSessionCallback implements ISessionCallback {
                 if (errorResult.getErrorCode() == ApiErrorCode.CLIENT_ERROR_CODE) {
                     Logger.d("error failed.");
                 } else {
-                    navigator.redirectLoginActivity();
+                    mNavigator.redirectLoginActivity();
                 }
             }
 
