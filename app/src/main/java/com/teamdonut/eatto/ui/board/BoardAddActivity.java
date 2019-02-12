@@ -43,6 +43,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
         initToolbar();
+        compositeDisposable = new CompositeDisposable();
     }
 
     public void initToolbar() {
@@ -126,7 +127,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         BoardAddAPI service = ServiceGenerator.createService(BoardAddAPI.class);
         Single<Board> result = service.addBoard(board);
 
-        compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(
                 result.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
