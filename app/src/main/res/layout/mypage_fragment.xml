@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.mypage.MypageFragment">
+    tools:context=".ui.mypage.MyPageFragment">
 
     <data>
 
         <variable
             name="viewmodel"
-            type="com.teamdonut.eatto.ui.mypage.MypageViewModel" />
+            type="com.teamdonut.eatto.ui.mypage.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
