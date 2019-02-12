@@ -1,22 +1,20 @@
-package com.teamdonut.eatto.ui.board;
-
-import java.io.Serializable;
+package com.teamdonut.eatto.common;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 
 
-public class BoardEndBus {
-    private static BoardEndBus mInstance;
+public class RxBus {
+    private static RxBus mInstance;
     private BehaviorSubject<Object> mSubject;
 
-    private BoardEndBus() {
+    private RxBus() {
         mSubject = BehaviorSubject.create();
     }
 
-    public static BoardEndBus getInstance() {
+    public static RxBus getInstance() {
         if (mInstance == null) {
-            mInstance = new BoardEndBus();
+            mInstance = new RxBus();
         }
         return mInstance;
     }
