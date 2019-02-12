@@ -80,6 +80,8 @@ dependencies {
 
     //tedPermission
     implementation "gun0912.ted:tedpermission-rx2:$tedPermissionVersion"
+    //tedBottomPicker
+    implementation "gun0912.ted:tedbottompicker:$tedBottomPickerVersion"
 
     testImplementation "junit:junit:$junitVersion"
     //runner
