@@ -21,11 +21,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.google.android.gms.common.util.Strings;
+import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAddAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.ui.main.MainActivity;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,7 +64,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_24dp);
     }
 
-    public void EditTextSetMaxLine(EditText editText, int lines){
+    public void EditTextSetMaxLine(EditText editText, int lines) {
         editText.addTextChangedListener(new TextWatcher() {
             String previousString = "";
 
@@ -123,14 +128,34 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         dialog.show();
     }
 
+    public boolean inputCheck() {
+
+        boolean titleCheck = Strings.isEmptyOrWhitespace(binding.etInputTitle.getText().toString());
+        boolean addressCheck = Strings.isEmptyOrWhitespace(binding.etInputAddress.getText().toString());
+        boolean appointedTimeCheck = binding.tvInputTime.getText().toString().equals("시간을 설정해 주세요");
+        boolean maxPersonCheck = Strings.isEmptyOrWhitespace(binding.etInputMaxPerson.getText().toString());
+
+        if (titleCheck || addressCheck || appointedTimeCheck || maxPersonCheck)
+            return false;
+        else
+            return true;
+
+    }
+
     //게시글 추가에 사용될 Board 객체 생성
     public Board makeBoard() {
+
 
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String appointedTime = df.format(currentTime);
         appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
 
+        if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString()))
+            binding.etInputContent.setText("");
+
+        if (Strings.isEmptyOrWhitespace(binding.etInputBudget.getText().toString()))
+            binding.etInputBudget.setText("0");
 
         return new Board(binding.etInputTitle.getText().toString(),
                 binding.etInputAddress.getText().toString(), appointedTime,
@@ -144,33 +169,45 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
                 1
         );
 
+
     }
 
     //게시글 추가 함수
     public void addBoardProcess() {
 
-        Board board = makeBoard();
+        if (inputCheck()) {
 
-        BoardAddAPI service = ServiceGenerator.createService(BoardAddAPI.class);
-        Single<Board> result = service.addBoard(board);
+            Board board = makeBoard();
 
-        compositeDisposable.add(
-                result.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
-                                    Log.d("result", data.toString());
-                                    finish();
-                                }, (e) -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+            BoardAddAPI service = ServiceGenerator.createService(BoardAddAPI.class);
+            Single<Board> result = service.addBoard(board);
+
+            compositeDisposable.add(
+                    result.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe((data) -> {
+                                        Log.d("result", data.toString());
+
+                                        BoardEndBus.getInstance().sendBus(new String("BOARD_ADD_END"));
+
+                                        finish();
+                                    }, (e) -> {
+                                        e.printStackTrace();
+                                    }
+                            )
+            );
+
+        } else {
+            Snackbar.make(binding.rlBoardAddLayout, "모두 입력해주세요", Snackbar.LENGTH_SHORT).show();
+        }
 
     }
+
 
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();
+        BoardEndBus.setInstanceToNull();
         super.onDestroy();
     }
 
