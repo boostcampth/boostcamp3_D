@@ -36,5 +36,9 @@ public class HomeFragment extends Fragment {
             }
         };
 
+        binding.rvRank.addItemDecoration(new DividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider)));
+        binding.rvRank.setHasFixedSize(true);
+        binding.rvRank.setLayoutManager(rankingManager);
+    }
     }
 }
