@@ -1,6 +1,7 @@
 package com.teamdonut.eatto.ui.home;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel();
         binding.setViewmodel(mViewModel);
+        initRecommendBoardRv();
         initRankRv();
         return binding.getRoot();
     }
@@ -46,4 +48,20 @@ public class HomeFragment extends Fragment {
         binding.rvRank.setHasFixedSize(true);
         binding.rvRank.setLayoutManager(rankingManager);
     }
+
+    void initRecommendBoardRv() {
+        RecyclerView.LayoutManager recommendBoardManager = new LinearLayoutManager(this.getContext()) {
+            @Override
+            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
+                int dp = (int) (getResources().getDimension(R.dimen.space_medium_margin) / getResources().getDisplayMetrics().density);
+                float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp * 3, getResources().getDisplayMetrics());
+                lp.width = (getWidth() - (int) px) / 2;
+                return super.checkLayoutParams(lp);
+            }
+        };
+        ((LinearLayoutManager) recommendBoardManager).setOrientation(LinearLayoutManager.HORIZONTAL);
+        binding.rvRecommendBoard.setHasFixedSize(true);
+        binding.rvRecommendBoard.setLayoutManager(recommendBoardManager);
+    }
+
 }
