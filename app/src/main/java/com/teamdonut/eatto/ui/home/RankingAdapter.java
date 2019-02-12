@@ -29,7 +29,7 @@ public class RankingAdapter extends BaseRecyclerViewAdapter<User, RankingAdapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public RankingItemBinding binding;
+        RankingItemBinding binding;
         public ViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
