@@ -1,6 +1,7 @@
 package com.teamdonut.eatto.ui.mypage;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MypageEditActivityBinding;
@@ -24,6 +25,19 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         binding.setViewmodel(mViewModel);
 
         setupToolbar();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
     }
 
     private void setupToolbar() {
