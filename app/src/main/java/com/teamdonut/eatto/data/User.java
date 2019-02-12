@@ -24,6 +24,17 @@ public class User implements RealmModel {
     @SerializedName("age")
     private int age;
 
+    @SerializedName("score_normal")
+    private int scoreNormal;
+
+    @SerializedName("score_good")
+    private int scoreGood;
+
+    @SerializedName("score_great")
+    private int scoreGreat;
+
+    @SerializedName("score_sum")
+    private int scoreSum;
 
     public long getKakaoId() {
         return kakaoId;
@@ -59,5 +70,21 @@ public class User implements RealmModel {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getScoreNormal() {
+        return scoreNormal;
+    }
+
+    public int getScoreGood() {
+        return scoreGood;
+    }
+
+    public int getScoreGreat() {
+        return scoreGreat;
+    }
+
+    public int getScoreSum() {
+        return scoreSum;
     }
 }
