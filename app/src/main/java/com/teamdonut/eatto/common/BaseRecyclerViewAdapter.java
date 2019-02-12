@@ -1,11 +1,10 @@
 package com.teamdonut.eatto.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.ui.home.BoardRecommendViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -15,7 +14,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         this.dataSet = dataSet;
     }
 
-    public BoardRecommendViewModel getItem(int position) {
+    public T getItem(int position) {
         return dataSet == null ? null : dataSet.get(position);
     }
 

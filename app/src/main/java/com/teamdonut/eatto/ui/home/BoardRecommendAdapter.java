@@ -25,7 +25,7 @@ public class BoardRecommendAdapter extends BaseRecyclerViewAdapter<Board, BoardR
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        holder.binding.setViewmodel(getItem(position));
+        holder.binding.setViewmodel(new BoardRecommendViewModel(getItem(position)));
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
