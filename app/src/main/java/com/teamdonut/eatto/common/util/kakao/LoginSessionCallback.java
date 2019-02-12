@@ -51,8 +51,8 @@ public class LoginSessionCallback implements ISessionCallback {
             @Override
             public void onSuccess(MeV2Response result) {
                 if (result != null) {
-                    //여기서 서버로 사용자의 정보를 보냄.
-                    navigator.redirectMainActivity();
+                    mNavigator.saveUser(result.getId(), result.getNickname(), result.getThumbnailImagePath());
+                    mNavigator.redirectMainActivity();
                 }
             }
         });
