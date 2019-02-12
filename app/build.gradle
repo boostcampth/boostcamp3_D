@@ -35,6 +35,10 @@ android {
     dataBinding {
         enabled = true
     }
+
+    packagingOptions {
+        exclude "lib/arm64-v8a/librealm-jni.so"
+    }
 }
 
 dependencies {
@@ -76,7 +80,7 @@ dependencies {
 
     //tedPermission
     implementation "gun0912.ted:tedpermission-rx2:$tedPermissionVersion"
-    
+
     testImplementation "junit:junit:$junitVersion"
     //runner
     androidTestImplementation "androidx.test:runner:$runnerVersion"
