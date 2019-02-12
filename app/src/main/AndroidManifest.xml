@@ -36,6 +36,7 @@
             android:name=".ui.board.BoardDetailActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.board.BoardAddActivity" />
+        <activity android:name=".ui.mypage.MyPageEditActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
