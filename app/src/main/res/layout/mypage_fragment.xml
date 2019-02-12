@@ -43,9 +43,17 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.75" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:id="@+id/gl_"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorHungryBlack"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintEnd_toStartOf="@id/iv_profile"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,6 +176,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/mypage_tv_margin"
             android:layout_marginBottom="@dimen/space_small_margin"
             android:text="@string/mypage_tv_gender"
@@ -178,6 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/mypage_tv_margin"
+            android:textSize="16sp"
             android:layout_marginBottom="@dimen/space_small_margin"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/view_gender"
@@ -233,6 +243,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/space_medium_margin"
             android:background="@drawable/btn_shape"
+            android:onClick="@{() -> viewmodel.onProfileEditClick()}"
             android:text="@string/mypage_tv_modify"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@id/btn_logout"

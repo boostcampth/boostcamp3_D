@@ -1,5 +1,6 @@
 package com.teamdonut.eatto.ui.mypage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,13 @@ public class MyPageFragment extends Fragment implements MyPageNavigator {
         binding = DataBindingUtil.inflate(inflater, R.layout.mypage_fragment, container, false);
         mViewModel = new MyPageViewModel(this);
         binding.setViewmodel(mViewModel);
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void goToProfileEdit() {
+        Intent intent = new Intent(getActivity(), MyPageEditActivity.class);
+        startActivity(intent);
     }
 }
