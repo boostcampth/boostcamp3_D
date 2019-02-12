@@ -66,6 +66,7 @@
             app:layout_constraintTop_toTopOf="@+id/gl_end_of_back_button"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.2"
+            android:onClick="@{viewmodel::onAddressSearchClicked}"
             app:srcCompat="@drawable/ic_search_24dp" />
 
         <androidx.constraintlayout.widget.Guideline

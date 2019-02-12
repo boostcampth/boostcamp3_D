@@ -56,6 +56,13 @@ public class BoardViewModel extends ViewModel {
         }
     }
 
+    //Board_Search 검색 이벤트
+    public void onAddressSearchClicked(View view) {
+        if (mNavigator != null) {
+            mNavigator.onAddressSearchClicked();
+        }
+    }
+
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
         setMin_age(Integer.parseInt(leftPinValue));
         setMax_age(Integer.parseInt(rightPinValue));

@@ -4,4 +4,5 @@ public interface BoardNavigator {
 
     default void addBoard(){};
     default void onTimePickerClicked() {};
+    default void onAddressSearchClicked() {};
 }
