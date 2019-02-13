@@ -59,6 +59,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$gsonVersion"
     //glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
     //kakao
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     //stetho
@@ -80,6 +81,8 @@ dependencies {
 
     //tedPermission
     implementation "gun0912.ted:tedpermission-rx2:$tedPermissionVersion"
+    //tedBottomPicker
+    implementation "gun0912.ted:tedbottompicker:$tedBottomPickerVersion"
 
     testImplementation "junit:junit:$junitVersion"
     //runner

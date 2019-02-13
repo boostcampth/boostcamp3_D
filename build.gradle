@@ -85,6 +85,7 @@ ext{
 
     //tedPermission
     tedPermissionVersion = '2.2.2'
+    tedBottomPickerVersion = '1.1.0'
 
     //Realm
     realmVersion='5.8.0'

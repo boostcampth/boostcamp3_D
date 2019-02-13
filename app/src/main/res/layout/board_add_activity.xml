@@ -54,7 +54,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
                     android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin" />
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:maxLength="30"
+                    android:singleLine="true" />
 
 
                 <TextView
@@ -74,7 +76,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_address"
                     android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin" />
+                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:maxLength="30"
+                    android:singleLine="true" />
 
 
                 <TextView
@@ -124,7 +128,7 @@
                     android:layout_alignBottom="@+id/tv_input_time"
                     android:layout_toEndOf="@+id/tv_input_time"
                     android:backgroundTint="@android:color/transparent"
-                    android:onClick="@{viewmodel::onTimePickerClicked}"
+                    android:onClick="@{() -> viewmodel.onTimePickerClicked()}"
                     app:srcCompat="@drawable/ic_access_time_24dp" />
 
 
@@ -148,6 +152,8 @@
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:hint="@string/board_et_max_person_hint"
                     android:inputType="numberDecimal"
+                    android:maxLength="1"
+                    android:singleLine="true"
                     android:textSize="@dimen/board_tv_text_size" />
 
                 <TextView
@@ -239,6 +245,8 @@
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:hint="@string/board_et_budget_hint"
                     android:inputType="numberDecimal"
+                    android:maxLength="7"
+                    android:singleLine="true"
                     android:textSize="@dimen/board_tv_text_size" />
 
                 <TextView

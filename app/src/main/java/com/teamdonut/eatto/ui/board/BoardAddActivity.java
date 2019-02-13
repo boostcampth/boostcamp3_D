@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -52,14 +51,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         editTextSetMaxLine(binding.etInputContent, 15);
     }
 
-    public void initToolbar() {
-        //setting Toolbar
-        setSupportActionBar(binding.tbBoardAdd);
-
-        //Toolbar nav button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
     public void editTextSetMaxLine(EditText editText, int lines) {
         editText.addTextChangedListener(new TextWatcher() {
             String previousString = "";
@@ -82,6 +73,16 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             }
         });
     }
+
+    public void initToolbar() {
+        //setting Toolbar
+        setSupportActionBar(binding.tbBoardAdd);
+
+        //Toolbar nav button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,7 +112,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         Calendar cal = Calendar.getInstance();
 
-        TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog dialog = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String setTime = hourOfDay + "시 " + minute + "분";
@@ -121,6 +122,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             }
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), DateFormat.is24HourFormat(getApplicationContext()));
 
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
     }
 

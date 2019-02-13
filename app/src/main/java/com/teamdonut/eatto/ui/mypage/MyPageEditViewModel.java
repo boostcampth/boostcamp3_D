@@ -16,4 +16,8 @@ public class MyPageEditViewModel {
         mNavigator.showSelectSexDialog();
     }
 
+    public void onSelectPhotoClick() {
+        mNavigator.selectPhoto();
+    }
+
 }
