@@ -25,7 +25,7 @@ public class UserRankingAdapter extends BaseRecyclerViewAdapter<User, UserRankin
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        holder.binding.setViewmodel(new UserRankingViewModel(getItem(position)));
+        holder.binding.setViewmodel(new UserRankingViewModel(getItem(position), position));
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

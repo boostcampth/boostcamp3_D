@@ -6,6 +6,8 @@
     <string name="all_pm">오후</string>
     <string name="all_ok">확인</string>
     <string name="all_permission_reject">서비스를 이용하시려면 권한을 허용해주세요. [설정] > [권한]</string>
+    <string name="all_male">남자</string>
+    <string name="all_female">여자</string>
 
     <!--Main BottomNavigationView-->
     <string name="bnv_title_home">홈</string>

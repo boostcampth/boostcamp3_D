@@ -4,9 +4,10 @@ import com.teamdonut.eatto.data.User;
 
 public class UserRankingViewModel {
     private User user;
-
-    public UserRankingViewModel(User user){
+    private int rank;
+    public UserRankingViewModel(User user, int rank){
         this.user = user;
+        this.rank = rank;
     }
 
     public String getUserNickName() {
@@ -15,5 +16,9 @@ public class UserRankingViewModel {
 
     public String getUserScoreSum() {
         return String.valueOf(user.getScoreSum());
+    }
+
+    public String getRank(){
+        return String.valueOf(rank+1);
     }
 }
