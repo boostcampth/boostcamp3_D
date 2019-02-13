@@ -154,7 +154,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
                 binding.tvInputAddress.getText().toString(), appointedTime,
                 "맥도날드",
                 Integer.parseInt(binding.etInputMaxPerson.getText().toString()),
-                mViewModel.getMin_age(), mViewModel.getMax_age(),
+                mViewModel.getMinAge(), mViewModel.getMaxAge(),
                 127.0123,
                 36.123,
                 1
@@ -215,7 +215,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     }
 
     @Override
-    public void onBoardSearchshowClick() {
+    public void onBoardSearchShowClick() {
         Intent intent = new Intent(this, BoardSearchActivity.class);
         startActivityForResult(intent, BOARD_SEARCH_REQUEST);
     }

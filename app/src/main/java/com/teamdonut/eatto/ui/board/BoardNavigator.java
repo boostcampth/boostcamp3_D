@@ -5,5 +5,5 @@ public interface BoardNavigator {
     default void onAddBoardClick(){};
     default void onTimePickerClick() {};
     default void onAddressSearchClick() {};
-    default void onBoardSearchshowClick() {};
+    default void onBoardSearchShowClick() {};
 }

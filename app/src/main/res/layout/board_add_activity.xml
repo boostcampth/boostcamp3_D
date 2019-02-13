@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_address"
-                    android:onClick="@{() -> viewmodel.onBoardSearchshowClick()}"
+                    android:onClick="@{() -> viewmodel.onBoardSearchShowClick()}"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
                     android:hint="@string/board_add_tv_search_address" />
