@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void requestLocationPermission() {
         TedRx2Permission.with(this)
-                .setDeniedMessage(R.string.permission_reject)
+                .setDeniedMessage(R.string.all_permission_reject)
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .request()
                 .doAfterSuccess(tedPermissionResult -> {

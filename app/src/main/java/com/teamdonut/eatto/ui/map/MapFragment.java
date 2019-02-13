@@ -75,7 +75,7 @@ public class MapFragment extends Fragment implements MapNavigator {
     @Override
     public void startLocationUpdates() {
         TedRx2Permission.with(getActivity())
-                .setDeniedMessage(R.string.permission_reject)
+                .setDeniedMessage(R.string.all_permission_reject)
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .request()
                 .subscribe(tedPermissionResult -> {
