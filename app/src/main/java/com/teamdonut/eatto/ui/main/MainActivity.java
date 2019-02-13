@@ -1,15 +1,15 @@
 package com.teamdonut.eatto.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.databinding.MainActivityBinding;
 import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.databinding.MainActivityBinding;
 import com.teamdonut.eatto.ui.home.HomeFragment;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
 
     private MainActivityBinding binding;
     private MainViewModel mViewModel = new MainViewModel(this);
+    private final int BOARD_ADD_REQUEST = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +38,20 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     @Override
     protected void onResume() {
         super.onResume();
-        RxBus.getInstance().getBus()
-                .subscribe(result -> {
-
-                    if (result instanceof String) {
-                        if (result.toString().equals(getResources().getText(R.string.board_add_end).toString())) {
-                            Log.d("result test", result.toString());
-                            Snackbar.make(binding.flMain, R.string.main_snack_bar, Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-
-                }, err -> err.printStackTrace());
     }
 
     @Override
     protected void onDestroy() {
-        RxBus.setInstanceToNull();
         super.onDestroy();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == BOARD_ADD_REQUEST) {
+                Snackbar.make(binding.flMain, getResources().getText(R.string.board_add_success).toString(), Snackbar.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }
