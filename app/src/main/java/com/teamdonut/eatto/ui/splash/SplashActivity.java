@@ -3,9 +3,6 @@ package com.teamdonut.eatto.ui.splash;
 import android.Manifest;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -18,13 +15,14 @@ import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     private final int SPLASH_TIME = 2000;
     private ISessionCallback mCallback = new ISessionCallback() {
         @Override
         public void onSessionOpened() {
-
             ActivityUtils.redirectMainActivity(SplashActivity.this);
         }
 
