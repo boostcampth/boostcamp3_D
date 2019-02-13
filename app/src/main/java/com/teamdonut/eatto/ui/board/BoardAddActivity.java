@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -52,14 +51,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         editTextSetMaxLine(binding.etInputContent, 15);
     }
 
-    public void initToolbar() {
-        //setting Toolbar
-        setSupportActionBar(binding.tbBoardAdd);
-
-        //Toolbar nav button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
     public void editTextSetMaxLine(EditText editText, int lines) {
         editText.addTextChangedListener(new TextWatcher() {
             String previousString = "";
@@ -82,6 +73,16 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             }
         });
     }
+
+    public void initToolbar() {
+        //setting Toolbar
+        setSupportActionBar(binding.tbBoardAdd);
+
+        //Toolbar nav button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
