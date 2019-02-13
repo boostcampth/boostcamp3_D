@@ -7,14 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.teamdonut.eatto.R;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
 
 public class BoardPreviewDialog extends DialogFragment {
+
+    BoardPreviewDialogBinding binding;
 
     @Override
     public void onStart() {
@@ -36,8 +38,8 @@ public class BoardPreviewDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.board_preview_dialog, container, false);
-        return view;
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.board_preview_dialog, null, false);
+        return binding.getRoot();
     }
 
 }

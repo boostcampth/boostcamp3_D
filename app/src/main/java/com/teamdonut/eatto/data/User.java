@@ -48,8 +48,8 @@ public class User implements RealmModel {
         this.nickName = nickName;
     }
 
-    public int getSex() {
-        return sex;
+    public String getSex() {
+        return sex == 0 ? "여자" : "남자";
     }
 
     public void setSex(int sex) {
