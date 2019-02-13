@@ -39,7 +39,7 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     }
 
     @Override
-    public void addBoard() {
+    public void onAddBoardClick() {
         Intent intent = new Intent(getContext(), BoardAddActivity.class);
         getActivity().startActivityForResult(intent, BOARD_ADD_REQUEST);
     }

@@ -70,22 +70,22 @@
                     android:textSize="@dimen/board_tv_text_size"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/et_input_address"
+                <TextView
+                    android:id="@+id/tv_input_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_address"
+                    android:onClick="@{() -> viewmodel.onBoardSearchShowClick()}"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    android:maxLength="30"
-                    android:singleLine="true" />
+                    android:hint="@string/board_add_tv_search_address" />
 
 
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/et_input_address"
+                    android:layout_below="@+id/tv_input_address"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginTop="@dimen/space_board_item_margin"
                     android:text="@string/board_tv_time"
@@ -96,7 +96,7 @@
                     android:id="@+id/tv_time_warning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/et_input_address"
+                    android:layout_below="@id/tv_input_address"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginTop="@dimen/space_board_item_margin"
                     android:layout_toEndOf="@+id/tv_time"

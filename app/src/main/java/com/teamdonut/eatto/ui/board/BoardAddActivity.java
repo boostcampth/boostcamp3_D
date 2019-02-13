@@ -1,6 +1,7 @@
 package com.teamdonut.eatto.ui.board;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,6 +37,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     private int hourOfDay;
     private int minute;
     private CompositeDisposable compositeDisposable;
+    private final int BOARD_SEARCH_REQUEST = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +108,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
 
     @Override
-    public void onTimePickerClicked() {
+    public void onTimePickerClick() {
 
         Calendar cal = Calendar.getInstance();
 
@@ -127,7 +129,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     public boolean inputCheck() {
 
         boolean titleCheck = Strings.isEmptyOrWhitespace(binding.etInputTitle.getText().toString());
-        boolean addressCheck = Strings.isEmptyOrWhitespace(binding.etInputAddress.getText().toString());
+        boolean addressCheck = Strings.isEmptyOrWhitespace(binding.tvInputAddress.getText().toString());
         boolean appointedTimeCheck = binding.tvInputTime.getText().toString().equals(getResources().getText(R.string.board_tv_time_hint).toString());
         boolean maxPersonCheck = Strings.isEmptyOrWhitespace(binding.etInputMaxPerson.getText().toString());
 
@@ -147,10 +149,10 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
 
         Board board = new Board(binding.etInputTitle.getText().toString(),
-                binding.etInputAddress.getText().toString(), appointedTime,
+                binding.tvInputAddress.getText().toString(), appointedTime,
                 "맥도날드",
                 Integer.parseInt(binding.etInputMaxPerson.getText().toString()),
-                mViewModel.getMin_age(), mViewModel.getMax_age(),
+                mViewModel.getMinAge(), mViewModel.getMaxAge(),
                 127.0123,
                 36.123,
                 1
@@ -204,6 +206,12 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBoardSearchShowClick() {
+        Intent intent = new Intent(this, BoardSearchActivity.class);
+        startActivityForResult(intent, BOARD_SEARCH_REQUEST);
     }
 
     public void setHourOfDay(int hourOfDay) {

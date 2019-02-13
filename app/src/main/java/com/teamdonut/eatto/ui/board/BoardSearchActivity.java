@@ -44,7 +44,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     @Override
-    public void onAddressSearchClicked() {
+    public void onAddressSearchClick() {
 
     }
 }
