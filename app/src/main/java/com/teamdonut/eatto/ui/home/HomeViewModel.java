@@ -13,4 +13,18 @@ import java.util.ArrayList;
 public class HomeViewModel {
     public MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
 
+    public void fetchRankUsersList(){
+        UserAPI service = ServiceGenerator.createService(UserAPI.class);
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(
+                service.getTopTenUsers().subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((data) -> {
+                                    userList.setValue(data);
+                                }, (e) -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
 }
