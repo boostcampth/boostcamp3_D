@@ -1,167 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27" />
+    <data>
 
-    <Space
-        android:id="@+id/s_vertical_center_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.3"
-        app:layout_constraintTop_toTopOf="@id/gl_top"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:0.5"/>
+        <variable
+                name="user"
+                type="com.teamdonut.eatto.data.User" />
+    </data>
 
-    <View
-        android:id="@+id/v_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/rv_home_ranking_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.32"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/s_vertical_center_profile"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.75"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/lion"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/gl_top"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.3" />
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.27" />
 
-    <TextView
-        android:id="@+id/tv_nick_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="혼밥시러~긴닉네임"
-        app:layout_constraintBottom_toTopOf="@id/tv_age"
-        app:layout_constraintEnd_toEndOf="@id/v_bg"
-        app:layout_constraintStart_toStartOf="@id/v_bg"
-        app:layout_constraintTop_toBottomOf="@id/civ_profile" />
+        <Space
+                android:id="@+id/s_vertical_center_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/gl_top"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.3" />
 
-    <TextView
-        android:id="@+id/tv_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="28세"
-        app:layout_constraintBottom_toTopOf="@id/v_score"
-        app:layout_constraintEnd_toStartOf="@id/tv_gender"
-        app:layout_constraintStart_toStartOf="@id/v_bg"
-        app:layout_constraintTop_toBottomOf="@id/tv_nick_name" />
+        <View
+                android:id="@+id/v_bg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/rv_home_ranking_bg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintHeight_percent="0.32"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/s_vertical_center_profile"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.75" />
 
-    <TextView
-        android:id="@+id/tv_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="남자"
-        app:layout_constraintBottom_toTopOf="@id/v_score"
-        app:layout_constraintEnd_toEndOf="@id/v_bg"
-        app:layout_constraintStart_toEndOf="@id/tv_age"
-        app:layout_constraintTop_toBottomOf="@id/tv_nick_name" />
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profile"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/lion"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/gl_top"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.3" />
 
-    <View
-        android:id="@+id/v_score"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="@color/colorHungryGray"
-        app:layout_constraintTop_toBottomOf="@id/tv_gender"
-        app:layout_constraintStart_toStartOf="@id/v_bg"
-        app:layout_constraintEnd_toEndOf="@id/v_bg"
-        app:layout_constraintBottom_toBottomOf="@id/iv_score_great"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.75"/>
+        <TextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.getNickName}"
+                app:layout_constraintBottom_toTopOf="@id/tv_age"
+                app:layout_constraintEnd_toEndOf="@id/v_bg"
+                app:layout_constraintStart_toStartOf="@id/v_bg"
+                app:layout_constraintTop_toBottomOf="@id/civ_profile"
+                tools:text="혼밥시러~긴닉네임" />
 
-    <ImageView
-        android:id="@+id/iv_score_great"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.1"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintDimensionRatio="1:1"
-        android:src="@drawable/kakaoaccount_icon"
-        app:layout_constraintStart_toStartOf="@id/v_bg"
-        app:layout_constraintEnd_toStartOf="@id/tv_score_great"
-        app:layout_constraintTop_toBottomOf="@id/v_score"
-        app:layout_constraintBottom_toBottomOf="@id/v_bg"/>
+        <TextView
+                android:id="@+id/tv_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/filter_tv_age_format(user.getAge)}"
+                app:layout_constraintBottom_toTopOf="@id/v_score"
+                app:layout_constraintEnd_toStartOf="@id/tv_gender"
+                app:layout_constraintStart_toStartOf="@id/v_bg"
+                app:layout_constraintTop_toBottomOf="@id/tv_nick_name"
+                tools:text="28세" />
 
-    <TextView
-        android:id="@+id/tv_score_great"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_score_great"
-        app:layout_constraintEnd_toStartOf="@id/iv_score_good"
-        app:layout_constraintTop_toBottomOf="@id/v_score"
-        app:layout_constraintBottom_toBottomOf="@id/v_bg"
-        tools:text="77"/>
+        <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.getSex}"
+                app:layout_constraintBottom_toTopOf="@id/v_score"
+                app:layout_constraintEnd_toEndOf="@id/v_bg"
+                app:layout_constraintStart_toEndOf="@id/tv_age"
+                app:layout_constraintTop_toBottomOf="@id/tv_nick_name"
+                tools:text="남자" />
 
-    <ImageView
-        android:id="@+id/iv_score_good"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.1"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintDimensionRatio="1:1"
-        android:src="@drawable/kakaoaccount_icon"
-        app:layout_constraintStart_toEndOf="@id/tv_score_great"
-        app:layout_constraintEnd_toStartOf="@id/tv_score_good"
-        app:layout_constraintTop_toBottomOf="@id/v_score"
-        app:layout_constraintBottom_toBottomOf="@id/v_bg"/>
+        <View
+                android:id="@+id/v_score"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/colorHungryGray"
+                app:layout_constraintBottom_toBottomOf="@id/iv_score_great"
+                app:layout_constraintEnd_toEndOf="@id/v_bg"
+                app:layout_constraintStart_toStartOf="@id/v_bg"
+                app:layout_constraintTop_toBottomOf="@id/tv_gender"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.75" />
 
-    <TextView
-        android:id="@+id/tv_score_good"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_score_good"
-        app:layout_constraintEnd_toStartOf="@id/iv_score_normal"
-        app:layout_constraintTop_toBottomOf="@id/v_score"
-        app:layout_constraintBottom_toBottomOf="@id/v_bg"
-        tools:text="77"/>
+        <ImageView
+                android:id="@+id/iv_score_great"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/kakaoaccount_icon"
+                app:layout_constraintBottom_toBottomOf="@id/v_bg"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/tv_score_great"
+                app:layout_constraintStart_toStartOf="@id/v_bg"
+                app:layout_constraintTop_toBottomOf="@id/v_score"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.1" />
 
-    <ImageView
-        android:id="@+id/iv_score_normal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.1"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintDimensionRatio="1:1"
-        android:src="@drawable/kakaoaccount_icon"
-        app:layout_constraintStart_toEndOf="@id/tv_score_good"
-        app:layout_constraintEnd_toStartOf="@id/tv_score_normal"
-        app:layout_constraintTop_toBottomOf="@id/v_score"
-        app:layout_constraintBottom_toBottomOf="@id/v_bg"/>
+        <TextView
+                android:id="@+id/tv_score_great"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.getScoreGreat}"
+                app:layout_constraintBottom_toBottomOf="@id/v_bg"
+                app:layout_constraintEnd_toStartOf="@id/iv_score_good"
+                app:layout_constraintStart_toEndOf="@id/iv_score_great"
+                app:layout_constraintTop_toBottomOf="@id/v_score"
+                tools:text="77" />
 
-    <TextView
-        android:id="@+id/tv_score_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/iv_score_normal"
-        app:layout_constraintEnd_toEndOf="@id/v_bg"
-        app:layout_constraintTop_toBottomOf="@id/v_score"
-        app:layout_constraintBottom_toBottomOf="@id/v_bg"
-        tools:text="77"/>
+        <ImageView
+                android:id="@+id/iv_score_good"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/kakaoaccount_icon"
+                app:layout_constraintBottom_toBottomOf="@id/v_bg"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/tv_score_good"
+                app:layout_constraintStart_toEndOf="@id/tv_score_great"
+                app:layout_constraintTop_toBottomOf="@id/v_score"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+                android:id="@+id/tv_score_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.getScoreGood}"
+                app:layout_constraintBottom_toBottomOf="@id/v_bg"
+                app:layout_constraintEnd_toStartOf="@id/iv_score_normal"
+                app:layout_constraintStart_toEndOf="@id/iv_score_good"
+                app:layout_constraintTop_toBottomOf="@id/v_score"
+                tools:text="77" />
+
+        <ImageView
+                android:id="@+id/iv_score_normal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/kakaoaccount_icon"
+                app:layout_constraintBottom_toBottomOf="@id/v_bg"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/tv_score_normal"
+                app:layout_constraintStart_toEndOf="@id/tv_score_good"
+                app:layout_constraintTop_toBottomOf="@id/v_score"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.1" />
+
+        <TextView
+                android:id="@+id/tv_score_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.getScoreNormal}"
+                app:layout_constraintBottom_toBottomOf="@id/v_bg"
+                app:layout_constraintEnd_toEndOf="@id/v_bg"
+                app:layout_constraintStart_toEndOf="@id/iv_score_normal"
+                app:layout_constraintTop_toBottomOf="@id/v_score"
+                tools:text="77" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
