@@ -16,6 +16,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+
     <!-- board detail -->
     <style name="BoardDetailLeftItem">
         <item name="android:layout_width">wrap_content</item>
