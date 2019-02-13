@@ -158,13 +158,13 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
             board.setContent("");
-        }else {
+        } else {
             board.setContent(binding.etInputContent.getText().toString());
         }
 
         if (Strings.isEmptyOrWhitespace(binding.etInputBudget.getText().toString())) {
             board.setBudget("0");
-        }else {
+        } else {
             board.setBudget(binding.etInputBudget.getText().toString());
         }
 
@@ -185,10 +185,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
                     result.subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe((data) -> {
-                                        Log.d("result", data.toString());
-
-                                        RxBus.getInstance().sendBus(new String(getResources().getText(R.string.board_add_end).toString()));
-
+                                        setResult(RESULT_OK);
                                         finish();
                                     }, (e) -> {
                                         e.printStackTrace();
@@ -206,7 +203,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();
-        RxBus.setInstanceToNull();
         super.onDestroy();
     }
 
