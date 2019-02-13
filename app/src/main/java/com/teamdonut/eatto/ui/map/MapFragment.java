@@ -32,6 +32,7 @@ public class MapFragment extends Fragment implements MapNavigator {
 
     private BottomSheetBehavior bottomSheetBehavior;
     private MapView mapView;
+    private final int BOARD_ADD_REQUEST = 100;
     public static MapFragment newInstance() {
         Bundle args = new Bundle();
 
@@ -97,6 +98,6 @@ public class MapFragment extends Fragment implements MapNavigator {
     @Override
     public void addBoard() {
         Intent intent = new Intent(getContext(), BoardAddActivity.class);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent, BOARD_ADD_REQUEST);
     }
 }

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 public class BoardFragment extends Fragment implements BoardNavigator {
     private BoardFragmentBinding binding;
     private BoardViewModel mViewModel;
+    private final int BOARD_ADD_REQUEST = 100;
 
     public static BoardFragment newInstance() {
         return new BoardFragment();
@@ -40,6 +41,6 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     @Override
     public void onAddBoardClick() {
         Intent intent = new Intent(getContext(), BoardAddActivity.class);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent, BOARD_ADD_REQUEST);
     }
 }
