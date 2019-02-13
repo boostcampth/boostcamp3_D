@@ -70,11 +70,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
 
     @Override
     public void selectPhoto() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestStoragePermission();
-        } else {
-            openBottomPicker();
-        }
+        requestStoragePermission();
     }
 
     private void openBottomPicker() {
