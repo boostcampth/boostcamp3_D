@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.teamdonut.eatto.R;
+
 import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
 
 public class BoardSearchActivity extends AppCompatActivity implements BoardNavigator {
@@ -17,8 +18,9 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.board_search_activity);
+        binding = DataBindingUtil.setContentView(this, R.layout.board_search_activity);
         mViewModel = new BoardViewModel(this);
+        binding.setViewmodel(mViewModel);
         initToolbar();
     }
 
@@ -39,5 +41,10 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onAddressSearchClicked() {
+
     }
 }

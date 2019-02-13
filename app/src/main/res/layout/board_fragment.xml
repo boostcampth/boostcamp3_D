@@ -101,7 +101,7 @@
             android:id="@+id/fab_board_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{viewmodel::onClickBoardAdd}"
+            android:onClick="@{() -> viewmodel.onClickBoardAdd()}"
             app:backgroundTint="@color/colorHungryRed"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
