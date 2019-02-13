@@ -13,4 +13,8 @@ public class MyPageViewModel extends ViewModel {
     public void onProfileEditClick() {
         mNavigator.goToProfileEdit();
     }
+
+    public void onLogoutClick() {
+       mNavigator.makeUserLogout();
+    }
 }
