@@ -53,6 +53,7 @@
     <!-- Board_Add -->
     <string name="board_add_snack_bar">모두 입력해주세요</string>
     <string name="board_add_end">BOARD_ADD_END</string>
+    <string name="board_add_tv_search_address">장소를 검색해주세요 (클릭)</string>
 
     <!-- Board_detail -->
     <string name="board_detail_btn_input_comment">작성</string>
