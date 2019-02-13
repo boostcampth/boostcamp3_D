@@ -41,7 +41,7 @@ public class BoardViewModel extends ViewModel {
 
     public void onClickBoardAdd() {
 
-        mNavigator.addBoard();
+        mNavigator.onAddBoardClick();
 
     }
 
@@ -52,16 +52,23 @@ public class BoardViewModel extends ViewModel {
 
     public void onTimePickerClicked() {
 
-        mNavigator.onTimePickerClicked();
+        mNavigator.onTimePickerClick();
 
     }
 
     //Board_Search 검색 이벤트
     public void onAddressSearchClicked() {
 
-        mNavigator.onAddressSearchClicked();
+        mNavigator.onAddressSearchClick();
 
     }
+
+    //Board_Search 액티비티 연결 이벤트
+    public void onBoardSearchshowClick() {
+
+        mNavigator.onBoardSearchshowClick();
+    }
+
 
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
         setMin_age(Integer.parseInt(leftPinValue));

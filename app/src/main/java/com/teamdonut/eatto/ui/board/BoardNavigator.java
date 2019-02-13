@@ -2,7 +2,8 @@ package com.teamdonut.eatto.ui.board;
 
 public interface BoardNavigator {
 
-    default void addBoard(){};
-    default void onTimePickerClicked() {};
-    default void onAddressSearchClicked() {};
+    default void onAddBoardClick(){};
+    default void onTimePickerClick() {};
+    default void onAddressSearchClick() {};
+    default void onBoardSearchshowClick() {};
 }
