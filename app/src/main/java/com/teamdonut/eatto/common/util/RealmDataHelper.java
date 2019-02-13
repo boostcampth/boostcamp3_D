@@ -29,14 +29,14 @@ public class RealmDataHelper {
      * @param realm
      * @param kakaoId user's kakao id
      * @param nickName user's nickName
-     * @param profileImage user's profile image url
+     * @param photo user's profile image url
      */
-    public static void insertUser(Realm realm, final long kakaoId, final String nickName, final String profileImage) {
+    public static void insertUser(Realm realm, final long kakaoId, final String nickName, final String photo) {
         realm.executeTransactionAsync(r -> {
             User user = r.createObject(User.class, kakaoId);
 
             user.setNickName(nickName);
-            user.setProfileImage(profileImage);
+            user.setPhoto(photo);
         });
     }
 
@@ -44,15 +44,15 @@ public class RealmDataHelper {
      * update user.
      * @param nickName user's nickName
      * @param sex user's sex
-     * @param profileImage user's profile image url
+     * @param photo user's profile image url
      */
-    public static void updateUser(Realm realm, final String nickName, final int sex, final String profileImage) {
+    public static void updateUser(Realm realm, final String nickName, final int sex, final String photo) {
         realm.executeTransactionAsync(r -> {
             final User user = r.where(User.class).findFirst();
 
             user.setNickName(nickName);
             user.setSex(sex);
-            user.setProfileImage(profileImage);
+            user.setPhoto(photo);
         });
     }
 }

@@ -19,7 +19,7 @@ public class User implements RealmModel {
     private int sex; //0 is female 1 is male
 
     @SerializedName("photo")
-    private String profileImage;
+    private String photo;
 
     @SerializedName("age")
     private int age;
@@ -56,12 +56,12 @@ public class User implements RealmModel {
         this.sex = sex;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public int getAge() {
