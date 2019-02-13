@@ -61,7 +61,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         String[] items = getResources().getStringArray(R.array.sex);
 
         new AlertDialog.Builder(this)
-                .setTitle(R.string.mpe_dialog_sex)
+                .setTitle(R.string.all_sex)
                 .setItems(items, (dialog, position) -> {
                     mViewModel.userSex.set(items[position]);
                 })
