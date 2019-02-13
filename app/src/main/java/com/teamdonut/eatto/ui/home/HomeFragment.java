@@ -73,8 +73,7 @@ public class HomeFragment extends Fragment {
 
     private void setObserver(){
         mViewModel.userList.observe(this, users -> {
-            UserRankingAdapter userRankingAdapter = new UserRankingAdapter(new ArrayList<>());
-            userRankingAdapter.updateItems(users);
+            UserRankingAdapter userRankingAdapter = new UserRankingAdapter(users);
             binding.rvRank.setAdapter(userRankingAdapter);
         });
     }
