@@ -30,7 +30,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
 
         binding.setViewmodel(mViewModel);
 
-        setupToolbar();
+        initToolbar();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         }
     }
 
-    private void setupToolbar() {
+    private void initToolbar() {
         setSupportActionBar(binding.tbMpe);
 
         if (getSupportActionBar() != null) {
