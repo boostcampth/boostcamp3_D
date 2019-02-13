@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.mypage.MyPageEditActivity">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.mypage.MyPageEditViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_mpe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:minHeight="?android:actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mpe_toolbar_title"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tb_mpe" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_large_margin"
+            android:src="@drawable/lion"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/gl_mid"
+            app:layout_constraintStart_toStartOf="@id/gl_mid"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintWidth_percent="0.33" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewmodel.onSelectPhotoClick()}"
+            android:src="@drawable/ic_camera_32dp"
+            app:civ_circle_background_color="#CCF4F4F4"
+            app:layout_constraintBottom_toBottomOf="@id/civ_profile"
+            app:layout_constraintEnd_toEndOf="@id/civ_profile" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_content_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <EditText
+            android:id="@+id/et_nick_name"
+            style="@style/MyPageInfoText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:hint="@string/mpe_tv_nickname_hint"
+            android:inputType="text"
+            android:maxLength="12"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/gl_content_top" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            style="@style/MyPageInfoText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_arrow_right_24dp"
+            android:hint="@string/mpe_tv_sex_hint"
+            android:onClick="@{() -> viewmodel.onShowSelectSexDialogClick()}"
+            android:text="@{viewmodel.userSex}"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/et_nick_name" />
+        
+        <EditText
+            android:id="@+id/tv_age"
+            style="@style/MyPageInfoText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/mpe_tv_age_hint"
+            android:inputType="number"
+            android:maxLength="2"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/tv_sex" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_save_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.88" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_mpe_bg"
+            android:elevation="0dp"
+            android:gravity="center"
+            android:text="@string/mpe_btn_save"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toTopOf="@id/gl_save_top" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -16,6 +16,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+
     <!-- board detail -->
     <style name="BoardDetailLeftItem">
         <item name="android:layout_width">wrap_content</item>
@@ -79,6 +80,16 @@
         <item name="mrb_selectorColor">@android:color/white</item>
         <item name="mrb_selectorSize">10dp</item>
         <item name="mrb_tickColor">@color/colorHungryRed</item>
+    </style>
+
+    <style name="MyPageInfoText">
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/tv_mpe_bg</item>
+        <item name="android:textColor">@color/colorHungryBlack</item>
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:layout_marginTop">10dp</item>
     </style>
 
 </resources>

@@ -79,7 +79,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_board_search"
+            android:id="@+id/rv_board_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

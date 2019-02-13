@@ -5,6 +5,7 @@
     <string name="all_am">오전</string>
     <string name="all_pm">오후</string>
     <string name="all_ok">확인</string>
+    <string name="all_permission_reject">서비스를 이용하시려면 권한을 허용해주세요. [설정] > [권한]</string>
 
     <!--Main BottomNavigationView-->
     <string name="bnv_title_home">홈</string>
@@ -66,8 +67,14 @@
     <string name="mypage_tv_age">나이</string>
     <string name="mypage_tv_gender">성별</string>
 
-    <!-- Permission -->
-    <string name="permission_reject">권한 설정을 거부하시면 서비스를 이용하실 수 없습니다.\n\n권한을 설정해주세요. [설정] > [권한]</string>
+    <!--Mypage edit-->
+    <string name="mpe_toolbar_title">프로필</string>
+    <string name="mpe_tv_nickname_hint">닉네임을 입력해주세요.</string>
+    <string name="mpe_tv_sex_hint">성별</string>
+    <string name="mpe_tv_age_hint">나이</string>
+    <string name="mpe_btn_save">저장하기</string>
+    <string name="mpe_dialog_sex">성별</string>
+    <string name="mpe_dialog_age">나이</string>
 
     <!--Search-->
     <string name="search_tv_recent_keyword">최근 검색어</string>
