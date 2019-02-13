@@ -6,8 +6,9 @@ import retrofit2.http.GET;
 
 import java.util.List;
 
-public interface UserAPI {
+public interface HomeAPI {
 
     @GET("home/ranking/user")
     Observable<List<User>> getTopTenUsers();
+
 }
