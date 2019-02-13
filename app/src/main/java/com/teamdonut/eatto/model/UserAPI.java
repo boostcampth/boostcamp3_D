@@ -4,10 +4,10 @@ import com.teamdonut.eatto.data.User;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface UserAPI {
 
     @GET("home/ranking/user")
-    Observable<ArrayList<User>> getTopTenUsers();
+    Observable<List<User>> getTopTenUsers();
 }

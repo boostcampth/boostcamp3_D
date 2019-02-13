@@ -8,14 +8,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HomeViewModel {
-    public MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
+    public MutableLiveData<List<User>> userList = new MutableLiveData<>();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public void fetchRankUsersList(){
         UserAPI service = ServiceGenerator.createService(UserAPI.class);
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(
                 service.getTopTenUsers().subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
