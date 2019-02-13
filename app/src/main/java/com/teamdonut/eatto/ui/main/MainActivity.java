@@ -2,6 +2,7 @@ package com.teamdonut.eatto.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
@@ -48,10 +49,16 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == BOARD_ADD_REQUEST) {
-                Snackbar.make(binding.flMain, getResources().getText(R.string.board_add_success).toString(), Snackbar.LENGTH_SHORT).show();
+            switch (requestCode) {
+                case BOARD_ADD_REQUEST:
+                    showSnackBar(binding.flMain, R.string.board_add_success);
+                    break;
             }
         }
+    }
+
+    public void showSnackBar(View view, int resId) {
+        Snackbar.make(view, getResources().getText(resId).toString(), Snackbar.LENGTH_SHORT).show();
     }
 
 }
