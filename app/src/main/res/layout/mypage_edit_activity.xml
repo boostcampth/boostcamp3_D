@@ -9,6 +9,10 @@
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.mypage.MyPageEditViewModel" />
+
+        <import
+            alias="View"
+            type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,11 +66,13 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/space_large_margin"
             android:src="@drawable/lion"
+            app:error="@{@drawable/lion}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/gl_mid"
             app:layout_constraintStart_toStartOf="@id/gl_mid"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintWidth_percent="0.33" />
+            app:layout_constraintWidth_percent="0.33"
+            app:url="@{viewmodel.getUser().getPhoto()}" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="wrap_content"
@@ -95,6 +101,7 @@
             android:inputType="text"
             android:maxLength="12"
             android:maxLines="1"
+            android:text="@{viewmodel.getUser().getNickName()}"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/gl_content_top" />
@@ -120,9 +127,23 @@
             android:hint="@string/all_age"
             android:inputType="number"
             android:maxLength="2"
+            android:onTextChanged="@{viewmodel::onAgeTextChanged}"
+            android:text="@{viewmodel.userAge ==0 ? `` : String.valueOf(viewmodel.userAge)}"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
             app:layout_constraintTop_toBottomOf="@id/tv_sex" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mpe_age_warn"
+            android:textColor="@color/colorHungryRed"
+            android:textSize="13sp"
+            android:visibility="@{(viewmodel.userAge &gt; 14 &amp;&amp; viewmodel.userAge &lt; 81) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintTop_toBottomOf="@id/et_age" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_save_top"
@@ -137,6 +158,7 @@
             android:background="@drawable/btn_mpe_bg"
             android:elevation="0dp"
             android:gravity="center"
+            android:onClick="@{() -> viewmodel.onSubmitUserClick(etNickName.getText().toString())}"
             android:text="@string/mpe_btn_save"
             android:textColor="@android:color/white"
             android:textSize="15sp"
