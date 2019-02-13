@@ -255,6 +255,7 @@
             android:layout_marginBottom="@dimen/space_medium_margin"
             android:background="@drawable/btn_mypage_border"
             android:text="@string/mypage_tv_logout"
+            android:onClick="@{() -> viewmodel.onLogoutClick()}"
             android:textColor="@color/colorBtnLogoutText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:0.25"
