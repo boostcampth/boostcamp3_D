@@ -124,7 +124,7 @@
                     android:layout_alignBottom="@+id/tv_input_time"
                     android:layout_toEndOf="@+id/tv_input_time"
                     android:backgroundTint="@android:color/transparent"
-                    android:onClick="@{viewmodel::onTimePickerClicked}"
+                    android:onClick="@{() -> viewmodel.onTimePickerClicked()}"
                     app:srcCompat="@drawable/ic_access_time_24dp" />
 
 
