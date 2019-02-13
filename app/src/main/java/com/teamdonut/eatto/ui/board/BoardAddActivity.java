@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -24,7 +23,6 @@ import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
-import com.teamdonut.eatto.common.util.EditTextUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAddAPI;
@@ -50,7 +48,30 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         compositeDisposable = new CompositeDisposable();
 
         initToolbar();
-        EditTextUtil.editTextSetMaxLine(binding.etInputContent, 15);
+        editTextSetMaxLine(binding.etInputContent, 15);
+    }
+
+    public void editTextSetMaxLine(EditText editText, int lines) {
+        editText.addTextChangedListener(new TextWatcher() {
+            String previousString = "";
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                previousString = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (editText.getLineCount() >= lines) {
+                    editText.setText(previousString);
+                    editText.setSelection(editText.length());
+                }
+            }
+        });
     }
 
     public void initToolbar() {

@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.EditTextUtil;
-import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
 
 public class BoardSearchActivity extends AppCompatActivity implements BoardNavigator {
