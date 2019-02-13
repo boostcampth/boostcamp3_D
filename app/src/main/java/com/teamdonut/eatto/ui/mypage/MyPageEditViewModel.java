@@ -1,7 +1,5 @@
 package com.teamdonut.eatto.ui.mypage;
 
-import android.util.Log;
-
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.ServiceGenerator;
@@ -19,7 +17,7 @@ public class MyPageEditViewModel extends BaseObservable {
     private MyPageEditNavigator mNavigator;
 
     private UserAPI service = ServiceGenerator.createService(UserAPI.class);
-    private CompositeDisposable disposable;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
 
@@ -33,7 +31,7 @@ public class MyPageEditViewModel extends BaseObservable {
     }
 
     public void submitUserInformation() {
-        disposable = new CompositeDisposable(
+        disposable.add(new CompositeDisposable(
                 service.postUserInfo(user)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -43,7 +41,8 @@ public class MyPageEditViewModel extends BaseObservable {
                                 , e -> {
                                     e.printStackTrace();
                                 }
-                        ));
+                        ))
+        );
     }
 
     public void onSubmitUserClick(String nickName) {
