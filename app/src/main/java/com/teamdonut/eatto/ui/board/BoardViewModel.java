@@ -23,8 +23,8 @@ public class BoardViewModel extends ViewModel {
 
     private BoardNavigator mNavigator;
     public ObservableField<String> time = new ObservableField<>("시간을 설정해 주세요");
-    private int min_age;
-    private int max_age;
+    private int minAge;
+    private int maxAge;
 
     public BoardViewModel() {
 
@@ -64,30 +64,46 @@ public class BoardViewModel extends ViewModel {
     }
 
     //Board_Search 액티비티 연결 이벤트
-    public void onBoardSearchshowClick() {
+    public void onBoardSearchShowClick() {
 
-        mNavigator.onBoardSearchshowClick();
+        mNavigator.onBoardSearchShowClick();
     }
 
 
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
-        setMin_age(Integer.parseInt(leftPinValue));
-        setMax_age(Integer.parseInt(rightPinValue));
+        setMinAge(Integer.parseInt(leftPinValue));
+        setMaxAge(Integer.parseInt(rightPinValue));
     }
 
-    public int getMin_age() {
-        return min_age;
+    public BoardNavigator getmNavigator() {
+        return mNavigator;
     }
 
-    public void setMin_age(int min_age) {
-        this.min_age = min_age;
+    public void setmNavigator(BoardNavigator mNavigator) {
+        this.mNavigator = mNavigator;
     }
 
-    public int getMax_age() {
-        return max_age;
+    public ObservableField<String> getTime() {
+        return time;
     }
 
-    public void setMax_age(int max_age) {
-        this.max_age = max_age;
+    public void setTime(ObservableField<String> time) {
+        this.time = time;
+    }
+
+    public int getMinAge() {
+        return minAge;
+    }
+
+    public void setMinAge(int minAge) {
+        this.minAge = minAge;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
+    }
+
+    public void setMaxAge(int maxAge) {
+        this.maxAge = maxAge;
     }
 }
