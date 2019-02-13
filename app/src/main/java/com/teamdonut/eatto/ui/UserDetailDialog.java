@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.teamdonut.eatto.R;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.databinding.UserDetailDialogBinding;
 
 public class UserDetailDialog extends DialogFragment {
+    UserDetailDialogBinding binding;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -27,7 +29,7 @@ public class UserDetailDialog extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.user_detail_dialog, container, false);
-        return view;
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.user_detail_dialog, null, false);
+        return binding.getRoot();
     }
 }
