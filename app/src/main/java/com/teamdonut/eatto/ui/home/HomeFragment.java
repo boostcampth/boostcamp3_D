@@ -16,10 +16,11 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.HomeFragmentBinding;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -30,12 +31,21 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel();
         binding.setViewmodel(mViewModel);
-        initRecommendBoardRv();
-        initRankRv();
+
+        initRecommendBoardRv(binding.rvRecommendBoard);
+        initRankRv(binding.rvRank);
+
+        setObserver();
         return binding.getRoot();
     }
 
-    void initRankRv(){
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel.fetchRankUsersList();
+    }
+
+    private void initRankRv(RecyclerView rv){
         RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(this.getContext()){
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
@@ -43,13 +53,12 @@ public class HomeFragment extends Fragment {
                 return super.checkLayoutParams(lp);
             }
         };
-
-        binding.rvRank.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
-        binding.rvRank.setHasFixedSize(true);
-        binding.rvRank.setLayoutManager(rankingManager);
+        rv.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(rankingManager);
     }
 
-    void initRecommendBoardRv() {
+    private void initRecommendBoardRv(RecyclerView rv) {
         RecyclerView.LayoutManager recommendBoardManager = new LinearLayoutManager(this.getContext()) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
@@ -60,8 +69,15 @@ public class HomeFragment extends Fragment {
             }
         };
         ((LinearLayoutManager) recommendBoardManager).setOrientation(LinearLayoutManager.HORIZONTAL);
-        binding.rvRecommendBoard.setHasFixedSize(true);
-        binding.rvRecommendBoard.setLayoutManager(recommendBoardManager);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(recommendBoardManager);
     }
 
+    private void setObserver(){
+        mViewModel.userList.observe(this, users -> {
+            UserRankingAdapter userRankingAdapter = new UserRankingAdapter(new ArrayList<>());
+            userRankingAdapter.updateItems(users);
+            binding.rvRank.setAdapter(userRankingAdapter);
+        });
+    }
 }
