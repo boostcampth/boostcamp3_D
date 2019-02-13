@@ -80,4 +80,10 @@ public class HomeFragment extends Fragment {
             binding.rvRank.setAdapter(userRankingAdapter);
         });
     }
+
+    @Override
+    public void onDestroy() {
+        mViewModel.unSubscribeFromObservable();
+        super.onDestroy();
+    }
 }

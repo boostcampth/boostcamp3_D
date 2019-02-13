@@ -27,4 +27,11 @@ public class HomeViewModel {
                         )
         );
     }
+
+    public void unSubscribeFromObservable() {
+        if (compositeDisposable != null && !compositeDisposable.isDisposed()) {
+            compositeDisposable.dispose();
+            compositeDisposable = null;
+        }
+    }
 }
