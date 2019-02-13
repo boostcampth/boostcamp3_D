@@ -1,32 +1,30 @@
 package com.teamdonut.eatto.ui.board;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TimePicker;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
-
+import android.widget.TimePicker;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
-import com.teamdonut.eatto.model.BoardAddAPI;
+import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -180,7 +178,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
             Board board = makeBoard();
 
-            BoardAddAPI service = ServiceGenerator.createService(BoardAddAPI.class);
+            BoardAPI service = ServiceGenerator.createService(BoardAPI.class);
             Single<Board> result = service.addBoard(board);
 
             compositeDisposable.add(
