@@ -39,28 +39,28 @@ public class BoardViewModel extends ViewModel {
     }
 
 
-    public void onClickBoardAdd(View view) {
-        if (mNavigator != null) {
-            mNavigator.addBoard();
-        }
+    public void onClickBoardAdd() {
+
+        mNavigator.addBoard();
+
     }
 
     //댓글 등록 리스너
-    public void onClickCommentAdd(View view) {
+    public void onClickCommentAdd() {
 
     }
 
-    public void onTimePickerClicked(View view) {
-        if (mNavigator != null) {
-            mNavigator.onTimePickerClicked();
-        }
+    public void onTimePickerClicked() {
+
+        mNavigator.onTimePickerClicked();
+
     }
 
     //Board_Search 검색 이벤트
-    public void onAddressSearchClicked(View view) {
-        if (mNavigator != null) {
-            mNavigator.onAddressSearchClicked();
-        }
+    public void onAddressSearchClicked() {
+
+        mNavigator.onAddressSearchClicked();
+
     }
 
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
