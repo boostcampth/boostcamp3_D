@@ -1,5 +1,4 @@
-package com.teamdonut.eatto.ui.board;
-
+package com.teamdonut.eatto.ui;
 
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
@@ -12,34 +11,25 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
+import com.teamdonut.eatto.databinding.UserDetailDialogBinding;
 
-public class BoardPreviewDialog extends DialogFragment {
-
-    BoardPreviewDialogBinding binding;
+public class UserDetailDialog extends DialogFragment {
+    UserDetailDialogBinding binding;
 
     @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(900, height);
+            int matchParent = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(matchParent, matchParent);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.DialogTheme);
-    }
-
-    @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.board_preview_dialog, null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.user_detail_dialog, null, false);
         return binding.getRoot();
     }
-
 }
