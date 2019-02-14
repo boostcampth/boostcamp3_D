@@ -5,6 +5,7 @@ import android.view.View;
 public class MapViewModel {
   
     private MapNavigator mNavigator;
+
     public MapViewModel(MapNavigator navigator) {
         this.mNavigator = navigator;
     }
@@ -14,18 +15,18 @@ public class MapViewModel {
     }
 
     //검색 버튼 리스너
-    public void onClickSearchButton(View view) {
-
+    public void onSearchClick() {
+        mNavigator.startSearchActivity();
     }
 
     //게시물 추가 리스너
-    public void onClickBoardAdd(View view) {
+    public void onClickBoardAdd() {
         if (mNavigator != null) {
             mNavigator.addBoard();
         }
     }
 
-    public void onClickSetMyPosition(View view){
+    public void onClickSetMyPosition(View view) {
         mNavigator.startLocationUpdates();
     }
 }
