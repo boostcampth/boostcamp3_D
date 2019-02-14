@@ -35,7 +35,7 @@ public class MyPageEditViewModel extends BaseObservable {
                 service.postUserInfo(user)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(result -> {
+                        .subscribe(data-> {
                                     //print response log
                                 }
                                 , e -> {
