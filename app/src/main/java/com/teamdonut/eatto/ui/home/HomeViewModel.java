@@ -20,11 +20,12 @@ public class HomeViewModel {
     public void fetchRecommendBoardList() {
         HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
         compositeDisposable.add(
-                service.getRecommendBoards().subscribeOn(Schedulers.io())
+                service.getRecommendBoards()
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(boards -> {
-                                    boardList.setValue(boards);
-                                }, (e) -> {
+                        .subscribe(data -> {
+                                    boardList.setValue(data);
+                                }, e -> {
                                     e.printStackTrace();
                                 }
                         )
@@ -34,11 +35,12 @@ public class HomeViewModel {
     public void fetchRankUsersList() {
         HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
         compositeDisposable.add(
-                service.getTopTenUsers().subscribeOn(Schedulers.io())
+                service.getTopTenUsers()
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(users -> {
-                                    userList.setValue(users);
-                                }, (e) -> {
+                        .subscribe(data -> {
+                                    userList.setValue(data);
+                                }, e -> {
                                     e.printStackTrace();
                                 }
                         )
