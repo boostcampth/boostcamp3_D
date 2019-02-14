@@ -2,8 +2,6 @@ package com.teamdonut.eatto.data;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class Board {
 
 
@@ -58,7 +56,10 @@ public class Board {
     @SerializedName("max_age")
     private int maxAge;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age,double longitude, double latitude, int writer_id) {
+    @SerializedName("photo")
+    private String profileImage;
+
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, int writer_id) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -205,5 +206,13 @@ public class Board {
 
     public void setMaxAge(int maxAge) {
         this.maxAge = maxAge;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
