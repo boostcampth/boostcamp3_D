@@ -90,17 +90,18 @@ public class MapFragment extends Fragment implements MapNavigator {
     public void setMyPosition() {
         float latitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude"));
         float longitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"));
-        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude),2,true);
-    }
-  
-    @Override
-    public void addBoard() {
-        Intent intent = new Intent(getContext(), BoardAddActivity.class);
-        getActivity().startActivityForResult(intent, BOARD_ADD_REQUEST);
+
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 2, true);
     }
 
     @Override
-    public void startSearchActivity() {
+    public void goToBoardWrite() {
+        Intent intent = new Intent(getContext(), BoardAddActivity.class);
+        startActivityForResult(intent, BOARD_ADD_REQUEST);
+    }
+
+    @Override
+    public void goToSearch() {
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
         startActivity(intent);
     }
