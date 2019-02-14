@@ -10,6 +10,7 @@
     <string name="all_male">남성</string>
     <string name="all_sex">성별</string>
     <string name="all_age">나이</string>
+    <string name="all_default_address">서울특별시 강남구 역삼동</string>
 
     <!--Main BottomNavigationView-->
     <string name="bnv_title_home">홈</string>

@@ -45,7 +45,7 @@ public class HomeViewModel {
         );
     }
 
-    public void unSubscribeFromObservable() {
+    public void onDestroyViewModel() {
         disposables.dispose();
     }
 }

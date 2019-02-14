@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        mViewModel.unSubscribeFromObservable();
+        mViewModel.onDestroyViewModel();
         super.onDestroy();
     }
 }
