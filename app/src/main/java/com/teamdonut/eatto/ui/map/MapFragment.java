@@ -17,6 +17,7 @@ import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel;
+import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -99,5 +100,11 @@ public class MapFragment extends Fragment implements MapNavigator {
     public void addBoard() {
         Intent intent = new Intent(getContext(), BoardAddActivity.class);
         getActivity().startActivityForResult(intent, BOARD_ADD_REQUEST);
+    }
+
+    @Override
+    public void startSearchActivity() {
+        Intent intent = new Intent(getActivity(), MapSearchActivity.class);
+        startActivity(intent);
     }
 }
