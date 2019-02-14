@@ -16,7 +16,7 @@ public class HomeViewModel {
     public MutableLiveData<List<Board>> boardList = new MutableLiveData<>();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
+    private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
 
     public void fetchRecommendBoardList() {
         compositeDisposable.add(
