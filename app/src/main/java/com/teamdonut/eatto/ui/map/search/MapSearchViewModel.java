@@ -1,4 +1,4 @@
-package com.teamdonut.eatto.ui.search;
+package com.teamdonut.eatto.ui.map.search;
 
 import com.appyvet.materialrangebar.RangeBar;
 
@@ -14,9 +14,9 @@ import androidx.databinding.ObservableInt;
         )
 })
 
-public class SearchViewModel {
+public class MapSearchViewModel {
 
-    private SearchNavigator mNavigator;
+    private MapSearchNavigator mNavigator;
 
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
@@ -25,7 +25,7 @@ public class SearchViewModel {
     private final ObservableInt maxPeople = new ObservableInt(10);
 
 
-    public SearchViewModel(SearchNavigator mNavigator) {
+    public MapSearchViewModel(MapSearchNavigator mNavigator) {
         this.mNavigator = mNavigator;
     }
 

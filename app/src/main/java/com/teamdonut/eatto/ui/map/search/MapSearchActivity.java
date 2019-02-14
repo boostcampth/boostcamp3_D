@@ -1,29 +1,30 @@
-package com.teamdonut.eatto.ui.search;
+package com.teamdonut.eatto.ui.map.search;
 
 import android.os.Bundle;
 
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.RealmDataHelper;
-import com.teamdonut.eatto.databinding.SearchActivityBinding;
+import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import io.realm.Realm;
 
-public class SearchActivity extends AppCompatActivity implements SearchNavigator {
+public class MapSearchActivity extends AppCompatActivity implements MapSearchNavigator {
 
-    private SearchActivityBinding binding;
-    private SearchViewModel mViewModel;
+    private MapSearchActivityBinding binding;
+    private MapSearchViewModel mViewModel;
 
     private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.search_activity);
-        mViewModel = new SearchViewModel(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.map_search_activity);
+        mViewModel = new MapSearchViewModel(this);
         binding.setViewmodel(mViewModel);
 
         realm = Realm.getDefaultInstance();

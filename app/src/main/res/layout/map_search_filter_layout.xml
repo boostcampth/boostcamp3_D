@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.teamdonut.eatto.ui.search.SearchViewModel" />
+            type="com.teamdonut.eatto.ui.map.search.MapSearchViewModel" />
 
     </data>
 
