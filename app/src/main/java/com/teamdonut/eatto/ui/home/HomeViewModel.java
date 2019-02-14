@@ -12,11 +12,11 @@ import java.util.List;
 
 public class HomeViewModel {
     public MutableLiveData<List<User>> userList = new MutableLiveData<>();
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     public void fetchRankUsersList(){
         HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
-        compositeDisposable.add(
+        disposables.add(
                 service.getTopTenUsers().subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((data) -> {
@@ -29,7 +29,6 @@ public class HomeViewModel {
     }
 
     public void unSubscribeFromObservable() {
-        compositeDisposable.dispose();
-        compositeDisposable = null;
+        disposables.dispose();
     }
 }
