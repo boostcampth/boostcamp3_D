@@ -29,6 +29,9 @@ public final class ServiceGenerator {
     }
 
     private static class LazyInit {
+        private static final Retrofit INSTANCE = createInstance(BASE_URL);
+        private static final Retrofit KAKAO_INSTANCE = createInstance(KAKAO_URL);
+
         private static Retrofit createInstance(String url) {
             return new Retrofit.Builder()
                     .baseUrl(url)
@@ -37,9 +40,6 @@ public final class ServiceGenerator {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
-
-        private static final Retrofit INSTANCE = createInstance(BASE_URL);
-        private static final Retrofit KAKAO_INSTANCE = createInstance(KAKAO_URL);
     }
 
     public static <T> T createService(Class<T> serviceClass, int flag) {
@@ -52,5 +52,4 @@ public final class ServiceGenerator {
                 return null;
         }
     }
-
 }
