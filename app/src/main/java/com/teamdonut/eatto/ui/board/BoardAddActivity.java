@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAPI;
@@ -180,7 +178,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
             Board board = makeBoard();
 
-            BoardAPI service = ServiceGenerator.createService(BoardAPI.class);
+            BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
             Single<Board> result = service.addBoard(board);
 
             compositeDisposable.add(

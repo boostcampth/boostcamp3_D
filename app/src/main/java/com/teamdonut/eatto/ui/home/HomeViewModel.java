@@ -15,7 +15,7 @@ public class HomeViewModel {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public void fetchRankUsersList(){
-        HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
+        HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
         compositeDisposable.add(
                 service.getTopTenUsers().subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
