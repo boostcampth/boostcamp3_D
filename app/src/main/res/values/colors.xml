@@ -9,6 +9,7 @@
     <color name="colorStatusBar">#B4B4B4</color>
     <color name="colorHungryGray">#F9F9F9</color>
     <color name="colorHungryBlack">#181818</color>
+    <color name="colorHungryNavy">#1b2028</color>
     <!-- Board -->
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
