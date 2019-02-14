@@ -2,6 +2,9 @@ package com.teamdonut.eatto.model;
 
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -32,11 +35,17 @@ public final class ServiceGenerator {
         private static final Retrofit INSTANCE = createInstance(BASE_URL);
         private static final Retrofit KAKAO_INSTANCE = createInstance(KAKAO_URL);
 
+        private static Gson createGson() {
+            return new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .create();
+        }
+
         private static Retrofit createInstance(String url) {
             return new Retrofit.Builder()
                     .baseUrl(url)
                     .client(getClient())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(createGson()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
