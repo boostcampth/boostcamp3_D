@@ -16,7 +16,7 @@ public class MyPageEditViewModel extends BaseObservable {
 
     private MyPageEditNavigator mNavigator;
 
-    private UserAPI service = ServiceGenerator.createService(UserAPI.class);
+    private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
