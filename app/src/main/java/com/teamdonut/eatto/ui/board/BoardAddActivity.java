@@ -34,7 +34,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     private BoardViewModel mViewModel;
     private int hourOfDay;
     private int minute;
-    private CompositeDisposable disposables;
+    private CompositeDisposable disposables = new CompositeDisposable();;
     private final int BOARD_SEARCH_REQUEST = 101;
 
     @Override
@@ -43,7 +43,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         binding = DataBindingUtil.setContentView(this, R.layout.board_add_activity);
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
-        disposables = new CompositeDisposable();
 
         initToolbar();
         editTextSetMaxLine(binding.etInputContent, 15);
