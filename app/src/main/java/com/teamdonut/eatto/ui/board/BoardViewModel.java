@@ -45,7 +45,7 @@ public class BoardViewModel extends ViewModel {
     public void getEtKeywordHint(Context context){
         disposables.add(
                 service.getMyAddress(
-                        context.getResources().getString(R.string.kakao_restapi_key)
+                        context.getResources().getString(R.string.kakao_rest_api_key)
                         , ActivityUtils.getStrValueSharedPreferences(context,"gps","longitude")
                         , ActivityUtils.getStrValueSharedPreferences(context,"gps","latitude"))
                         .subscribeOn(Schedulers.io())
