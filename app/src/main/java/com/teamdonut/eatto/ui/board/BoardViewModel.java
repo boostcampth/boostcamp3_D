@@ -30,6 +30,7 @@ public class BoardViewModel extends ViewModel {
     public ObservableField<String> time = new ObservableField<>("시간을 설정해 주세요");
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
+    private BoardSearchAPI service = ServiceGenerator.createService(BoardSearchAPI.class, ServiceGenerator.KAKAO);
     private int minAge;
     private int maxAge;
 
@@ -42,7 +43,6 @@ public class BoardViewModel extends ViewModel {
     }
 
     public void getEtKeywordHint(Context context){
-        BoardSearchAPI service = ServiceGenerator.createService(BoardSearchAPI.class, ServiceGenerator.KAKAO);
         disposables.add(
                 service.getMyAddress(
                         context.getResources().getString(R.string.kakao_restapi_key)
