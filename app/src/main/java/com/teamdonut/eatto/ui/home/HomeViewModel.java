@@ -16,9 +16,9 @@ public class HomeViewModel {
     public MutableLiveData<List<Board>> boardList = new MutableLiveData<>();
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
 
     public void fetchRecommendBoardList() {
-        HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
         compositeDisposable.add(
                 service.getRecommendBoards()
                         .subscribeOn(Schedulers.io())
@@ -33,7 +33,6 @@ public class HomeViewModel {
     }
 
     public void fetchRankUsersList() {
-        HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
         compositeDisposable.add(
                 service.getTopTenUsers()
                         .subscribeOn(Schedulers.io())
