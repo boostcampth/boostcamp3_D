@@ -26,16 +26,19 @@ public class User implements RealmModel {
     private int age;
 
     @SerializedName("score_normal")
-    private transient int scoreNormal;
+    private int scoreNormal;
 
     @SerializedName("score_good")
-    private transient int scoreGood;
+    private int scoreGood;
 
     @SerializedName("score_great")
-    private transient int scoreGreat;
+    private int scoreGreat;
 
     @SerializedName("score_sum")
-    private transient int scoreSum;
+    private int scoreSum;
+
+    @SerializedName("rank")
+    private int rank;
 
     public long getKakaoId() {
         return kakaoId;
@@ -87,5 +90,9 @@ public class User implements RealmModel {
 
     public int getScoreSum() {
         return scoreSum;
+    }
+
+    public int getRank() {
+        return rank;
     }
 }
