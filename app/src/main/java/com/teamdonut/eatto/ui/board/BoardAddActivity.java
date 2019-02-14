@@ -36,7 +36,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     private BoardViewModel mViewModel;
     private int hourOfDay;
     private int minute;
-    private CompositeDisposable compositeDisposable;
+    private CompositeDisposable disposables;
     private final int BOARD_SEARCH_REQUEST = 101;
 
     @Override
@@ -45,7 +45,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         binding = DataBindingUtil.setContentView(this, R.layout.board_add_activity);
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
-        compositeDisposable = new CompositeDisposable();
+        disposables = new CompositeDisposable();
 
         initToolbar();
         editTextSetMaxLine(binding.etInputContent, 15);
@@ -183,7 +183,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             BoardAPI service = ServiceGenerator.createService(BoardAPI.class);
             Single<Board> result = service.addBoard(board);
 
-            compositeDisposable.add(
+            disposables.add(
                     result.subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe((data) -> {
@@ -204,7 +204,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
     @Override
     protected void onDestroy() {
-        compositeDisposable.clear();
+        disposables.clear();
         super.onDestroy();
     }
 

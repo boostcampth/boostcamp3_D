@@ -1,7 +1,6 @@
 package com.teamdonut.eatto.ui.mypage;
 
 import android.Manifest;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -9,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.GlideApp;
+
 import com.teamdonut.eatto.databinding.MypageEditActivityBinding;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
@@ -31,6 +31,12 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         binding.setViewmodel(mViewModel);
 
         initToolbar();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewModel.onDestroyViewModel();
     }
 
     @Override
@@ -61,9 +67,9 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         String[] items = getResources().getStringArray(R.array.sex);
 
         new AlertDialog.Builder(this)
-                .setTitle(R.string.mpe_dialog_sex)
+                .setTitle(R.string.all_sex)
                 .setItems(items, (dialog, position) -> {
-                    mViewModel.userSex.set(items[position]);
+                    mViewModel.userSex.set(position); //integer type
                 })
                 .show();
     }
