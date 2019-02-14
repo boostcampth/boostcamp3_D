@@ -47,6 +47,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidXVersion"
     implementation "com.google.android.material:material:$googleMaterialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    //lifeCycle
+    implementation "android.arch.lifecycle:extensions:$lifecycleExtensionVersion"
     //rx
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"

@@ -11,7 +11,7 @@ public class MyPageBinding {
 
     @BindingAdapter({"url", "error"})
     public static void setImageFromUrl(ImageView view, String imgUrl, Drawable errorDrawable) {
-        GlideApp.with(view.getContext())
+        GlideApp.with(view)
                 .load(imgUrl)
                 .error(errorDrawable)
                 .into(view);

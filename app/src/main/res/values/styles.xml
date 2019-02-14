@@ -82,7 +82,25 @@
         <item name="mrb_tickColor">@color/colorHungryRed</item>
     </style>
 
-    <style name="MyPageInfoText">
+    <style name="MyPageUserContentText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorHungryNavy</item>
+    </style>
+
+    <style name="MyPageScoreText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorDeskBrown</item>
+    </style>
+
+    <style name="MyPageScoreNumberText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorHungryLightBlack</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="MyPageEditContentText">
         <item name="android:textSize">17sp</item>
         <item name="android:background">@drawable/tv_mpe_bg</item>
         <item name="android:textColor">@color/colorHungryBlack</item>
