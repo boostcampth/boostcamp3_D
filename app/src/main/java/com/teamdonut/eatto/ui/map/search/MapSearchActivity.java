@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.RealmDataHelper;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
 
 
