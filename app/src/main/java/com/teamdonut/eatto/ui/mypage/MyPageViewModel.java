@@ -40,7 +40,7 @@ public class MyPageViewModel extends ViewModel {
     }
 
     private void updateUserInfo(User user) {
-        RealmDataHelper.updateUser(realm, user.getNickName(), user.getSex(), user.getPhoto(), user.getAge());
+        RealmDataHelper.updateUser(realm, user);
     }
 
     public void onProfileEditClick() {

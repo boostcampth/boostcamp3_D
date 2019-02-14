@@ -79,20 +79,18 @@ public class RealmDataHelper {
     }
 
     /**
-     * update user.
-     *
-     * @param nickName user's nickName
-     * @param sex      user's sex
-     * @param photo    user's profile image url
+     * update user
+     * @param realm
+     * @param u user
      */
-    public static void updateUser(Realm realm, final String nickName, final int sex, final String photo, final int age) {
+    public static void updateUser(Realm realm, final User u) {
         realm.executeTransactionAsync(r -> {
             final User user = r.where(User.class).findFirst();
 
-            user.setNickName(nickName);
-            user.setSex(sex);
-            user.setPhoto(photo);
-            user.setAge(age);
+            user.setNickName(u.getNickName());
+            user.setSex(u.getSex());
+            user.setPhoto(u.getPhoto());
+            user.setAge(u.getAge());
         });
     }
 }
