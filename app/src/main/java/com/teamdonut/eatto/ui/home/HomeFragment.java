@@ -76,6 +76,11 @@ public class HomeFragment extends Fragment {
             UserRankingAdapter userRankingAdapter = new UserRankingAdapter(users);
             binding.rvRank.setAdapter(userRankingAdapter);
         });
+
+        mViewModel.boardList.observe(this, boards -> {
+            BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(boards);
+            binding.rvRecommendBoard.setAdapter(boardRecommendAdapter);
+        });
     }
 
     @Override
