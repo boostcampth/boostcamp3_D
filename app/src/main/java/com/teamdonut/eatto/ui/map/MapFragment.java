@@ -34,12 +34,9 @@ public class MapFragment extends Fragment implements MapNavigator {
     private BottomSheetBehavior bottomSheetBehavior;
     private MapView mapView;
     private final int BOARD_ADD_REQUEST = 100;
-    public static MapFragment newInstance() {
-        Bundle args = new Bundle();
 
-        MapFragment fragment = new MapFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static MapFragment newInstance() {
+        return new MapFragment();
     }
 
     @Override
