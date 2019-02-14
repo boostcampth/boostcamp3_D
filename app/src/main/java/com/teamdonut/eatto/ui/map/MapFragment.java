@@ -40,11 +40,12 @@ public class MapFragment extends Fragment implements MapNavigator {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
+
         mViewModel = new MapViewModel(this);
         mBottomSheetViewModel = new MapBottomSheetViewModel(this);
+
         binding.setViewmodel(mViewModel);
         binding.setBottomsheetviewmodel(mBottomSheetViewModel);
 
