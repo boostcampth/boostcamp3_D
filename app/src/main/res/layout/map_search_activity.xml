@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.search.SearchActivity">
+    tools:context=".ui.map.search.MapSearchActivity">
 
     <data>
 
         <variable
             name="viewmodel"
-            type="com.teamdonut.eatto.ui.search.SearchViewModel" />
+            type="com.teamdonut.eatto.ui.map.search.MapSearchViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -153,7 +153,7 @@
             android:fitsSystemWindows="true">
 
             <include
-                layout="@layout/search_filter_layout"
+                layout="@layout/map_search_filter_layout"
                 app:viewmodel="@{viewmodel}" />
 
         </com.google.android.material.navigation.NavigationView>

@@ -1,6 +1,6 @@
-package com.teamdonut.eatto.ui.search;
+package com.teamdonut.eatto.ui.map.search;
 
-public interface SearchNavigator {
+public interface MapSearchNavigator {
 
     void goSearch();
 
