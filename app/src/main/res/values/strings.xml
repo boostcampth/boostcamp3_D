@@ -72,8 +72,6 @@
     <string name="mypage_tv_great">매일 같이 먹어요!</string>
     <string name="mypage_tv_modify">편집하기</string>
     <string name="mypage_tv_logout">로그아웃</string>
-    <string name="mypage_tv_age">나이</string>
-    <string name="mypage_tv_gender">성별</string>
 
     <!--Mypage edit-->
     <string name="mpe_toolbar_title">프로필</string>
