@@ -8,12 +8,16 @@ import com.teamdonut.eatto.model.ServiceGenerator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 import java.util.List;
 
 public class HomeViewModel {
     public MutableLiveData<List<User>> userList = new MutableLiveData<>();
     public MutableLiveData<List<Board>> boardList = new MutableLiveData<>();
+    public MutableLiveData<User> userRank = new MutableLiveData<>();
+    private Realm realm = Realm.getDefaultInstance();
+    private User user = realm.copyFromRealm(realm.where(User.class).findFirst());
     private CompositeDisposable disposables = new CompositeDisposable();
     private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
 
@@ -45,7 +49,22 @@ public class HomeViewModel {
         );
     }
 
+    public void fetchRankUser() {
+        disposables.add(
+                service.getRankUser(user.getKakaoId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(data -> {
+                                    userRank.setValue(data.get(0));
+                                }, e -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
+
     public void onDestroyViewModel() {
+        realm.close();
         disposables.dispose();
     }
 }
