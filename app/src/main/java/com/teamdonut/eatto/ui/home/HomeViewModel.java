@@ -14,9 +14,8 @@ import java.util.List;
 public class HomeViewModel {
     public MutableLiveData<List<User>> userList = new MutableLiveData<>();
     public MutableLiveData<List<Board>> boardList = new MutableLiveData<>();
-  
     private CompositeDisposable disposables = new CompositeDisposable();
-    private HomeAPI service = ServiceGenerator.createService(HomeAPI.class);
+    private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
 
     public void fetchRecommendBoardList() {
         disposables.add(

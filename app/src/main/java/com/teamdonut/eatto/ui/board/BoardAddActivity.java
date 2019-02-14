@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAPI;
@@ -36,7 +34,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     private BoardViewModel mViewModel;
     private int hourOfDay;
     private int minute;
-    private CompositeDisposable disposables;
+    private CompositeDisposable disposables = new CompositeDisposable();;
     private final int BOARD_SEARCH_REQUEST = 101;
 
     @Override
@@ -45,7 +43,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         binding = DataBindingUtil.setContentView(this, R.layout.board_add_activity);
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
-        disposables = new CompositeDisposable();
 
         initToolbar();
         editTextSetMaxLine(binding.etInputContent, 15);
@@ -180,7 +177,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
             Board board = makeBoard();
 
-            BoardAPI service = ServiceGenerator.createService(BoardAPI.class);
+            BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
             Single<Board> result = service.addBoard(board);
 
             disposables.add(

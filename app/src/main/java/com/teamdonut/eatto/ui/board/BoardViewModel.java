@@ -1,14 +1,10 @@
 package com.teamdonut.eatto.ui.board;
 
-import android.content.Context;
-import android.view.View;
-
-import com.appyvet.materialrangebar.RangeBar;
-
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
+import com.appyvet.materialrangebar.RangeBar;
 
 @BindingMethods({
         @BindingMethod(
@@ -19,8 +15,6 @@ import androidx.lifecycle.ViewModel;
 })
 
 public class BoardViewModel extends ViewModel {
-
-
     private BoardNavigator mNavigator;
     public ObservableField<String> time = new ObservableField<>("시간을 설정해 주세요");
     private int minAge;
@@ -40,9 +34,7 @@ public class BoardViewModel extends ViewModel {
 
 
     public void onClickBoardAdd() {
-
         mNavigator.onAddBoardClick();
-
     }
 
     //댓글 등록 리스너
@@ -51,21 +43,16 @@ public class BoardViewModel extends ViewModel {
     }
 
     public void onTimePickerClicked() {
-
         mNavigator.onTimePickerClick();
-
     }
 
     //Board_Search 검색 이벤트
     public void onAddressSearchClicked() {
-
         mNavigator.onAddressSearchClick();
-
     }
 
     //Board_Search 액티비티 연결 이벤트
     public void onBoardSearchShowClick() {
-
         mNavigator.onBoardSearchShowClick();
     }
 
