@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 public class MyPageFragment extends Fragment implements MyPageNavigator {
 
@@ -30,10 +31,18 @@ public class MyPageFragment extends Fragment implements MyPageNavigator {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.mypage_fragment, container, false);
-        mViewModel = new MyPageViewModel(this);
+        mViewModel = ViewModelProviders.of(this).get(MyPageViewModel.class);
+        mViewModel.setmNavigator(this);
+
         binding.setViewmodel(mViewModel);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.getUserInformation(); //get user information
     }
 
     @Override
