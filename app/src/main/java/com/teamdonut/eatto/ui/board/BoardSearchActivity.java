@@ -22,6 +22,15 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
         initToolbar();
+
+        mViewModel.getEtKeywordHint(getApplicationContext());
+        setObserver();
+    }
+
+    public void setObserver() {
+        mViewModel.etKeywordHint.observe(this,(hint) -> {
+            binding.etInputSearchKeyword.setHint(hint);
+        });
     }
 
     public void initToolbar() {
@@ -46,5 +55,11 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     @Override
     public void onAddressSearchClick() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        mViewModel.onDestroyViewModel();
+        super.onDestroy();
     }
 }

@@ -1,5 +1,6 @@
 package com.teamdonut.eatto.data;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmModel;
@@ -11,34 +12,40 @@ public class User implements RealmModel {
 
     @PrimaryKey
     @SerializedName("kakao_id")
+    @Expose
     private long kakaoId;
 
     @SerializedName("nick_name")
+    @Expose
     private String nickName;
 
     @SerializedName("sex")
+    @Expose
     private int sex; //0 is female 1 is male
 
     @SerializedName("photo")
+    @Expose
     private String photo;
 
     @SerializedName("age")
+    @Expose
     private int age;
 
     @SerializedName("score_normal")
+    @Expose(serialize =  false)
     private int scoreNormal;
 
     @SerializedName("score_good")
-    private int scoreGood;
+    @Expose(serialize =  false)
+    private  int scoreGood;
 
     @SerializedName("score_great")
+    @Expose(serialize =  false)
     private int scoreGreat;
 
     @SerializedName("score_sum")
-    private int scoreSum;
-
-    @SerializedName("rank")
-    private int rank;
+    @Expose(serialize =  false)
+    private  int scoreSum;
 
     public long getKakaoId() {
         return kakaoId;
@@ -90,9 +97,5 @@ public class User implements RealmModel {
 
     public int getScoreSum() {
         return scoreSum;
-    }
-
-    public int getRank() {
-        return rank;
     }
 }
