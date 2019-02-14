@@ -5,6 +5,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -12,13 +17,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
-import com.teamdonut.eatto.databinding.HomeFragmentBinding;
 
 public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -41,6 +44,7 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel.fetchRankUsersList();
+        mViewModel.fetchRankUser();
     }
 
     private void initRankRv(){
@@ -80,6 +84,10 @@ public class HomeFragment extends Fragment {
         mViewModel.boardList.observe(this, boards -> {
             BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(boards);
             binding.rvRecommendBoard.setAdapter(boardRecommendAdapter);
+        });
+
+        mViewModel.userRank.observe(this, user -> {
+            binding.setUser(user);
         });
     }
 
