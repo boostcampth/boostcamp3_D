@@ -13,7 +13,6 @@ public class MyPageBinding {
     public static void setImageFromUrl(ImageView view, String imgUrl, Drawable errorDrawable) {
         GlideApp.with(view)
                 .load(imgUrl)
-                .fallback(errorDrawable)
                 .error(errorDrawable)
                 .into(view);
     }
