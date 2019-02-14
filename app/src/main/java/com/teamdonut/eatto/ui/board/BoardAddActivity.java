@@ -11,8 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+
 import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
@@ -20,21 +19,24 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
     private BoardAddActivityBinding binding;
     private BoardViewModel mViewModel;
     private int hourOfDay;
     private int minute;
-    private CompositeDisposable disposables = new CompositeDisposable();;
+    private CompositeDisposable disposables = new CompositeDisposable();
     private final int BOARD_SEARCH_REQUEST = 101;
 
     @Override
@@ -127,7 +129,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         boolean titleCheck = Strings.isEmptyOrWhitespace(binding.etInputTitle.getText().toString());
         boolean addressCheck = Strings.isEmptyOrWhitespace(binding.tvInputAddress.getText().toString());
-        boolean appointedTimeCheck = binding.tvInputTime.getText().toString().equals(getResources().getText(R.string.board_tv_time_hint).toString());
+        boolean appointedTimeCheck = Strings.isEmptyOrWhitespace(binding.tvInputTime.getText().toString());
         boolean maxPersonCheck = Strings.isEmptyOrWhitespace(binding.etInputMaxPerson.getText().toString());
 
         if (titleCheck || addressCheck || appointedTimeCheck || maxPersonCheck)
@@ -139,7 +141,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
     //게시글 추가에 사용될 Board 객체 생성
     public Board makeBoard() {
-
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String appointedTime = df.format(currentTime);
