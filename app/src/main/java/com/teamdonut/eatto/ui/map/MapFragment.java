@@ -48,12 +48,24 @@ public class MapFragment extends Fragment implements MapNavigator {
         binding.setViewmodel(mViewModel);
         binding.setBottomsheetviewmodel(mBottomSheetViewModel);
 
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomSheet.clMapBottomSheet);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        initMapView();
+        initBottomSheetBehavior();
+    }
+
+    private void initMapView() {
         //레이아웃에 지도 추가
         mapView = new MapView(getActivity());
         binding.flMapView.addView(mapView);
-        return binding.getRoot();
+    }
+
+    private void initBottomSheetBehavior() {
     }
 
     @Override
