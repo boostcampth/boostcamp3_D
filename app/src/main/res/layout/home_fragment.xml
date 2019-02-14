@@ -3,6 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+        xmlns:home="http://schemas.android.com/tools"
     tools:context=".ui.home.HomeFragment">
 
 
@@ -112,6 +113,7 @@
                     android:paddingStart="@dimen/space_medium_padding"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
+                    home:setHorizontalAdapter="@{viewmodel.boardRecommendAdapter}"
                     app:layout_constraintBottom_toTopOf="@id/tv_ranking"
                     app:layout_constraintDimensionRatio="1:0.4"
                     app:layout_constraintTop_toBottomOf="@id/tv_recommend_board" />
@@ -151,6 +153,7 @@
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:background="@drawable/rv_home_ranking_bg"
                     android:elevation="2dp"
+                    home:setVerticalAdapter="@{viewmodel.userRankingAdapter}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_myrank" />
             </androidx.constraintlayout.widget.ConstraintLayout>
