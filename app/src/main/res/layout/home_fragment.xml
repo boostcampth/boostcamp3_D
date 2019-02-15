@@ -125,23 +125,90 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_ranking"
-                    app:layout_constraintBottom_toTopOf="@id/iv_myrank"
+                    app:layout_constraintBottom_toTopOf="@id/cl_myrank"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rv_recommend_board" />
 
-                <ImageView
-                    android:id="@+id/iv_myrank"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_myrank"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="0dp"
+                    android:elevation="2dp"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_medium_margin"
-                    android:background="#ffff92"
+                    android:background="@drawable/rv_home_ranking_bg"
                     app:layout_constraintBottom_toTopOf="@id/rv_rank"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.07"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ranking" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_ranking">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.15" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.35" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/gl_nick_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.7" />
+
+                    <TextView
+                        android:id="@+id/tv_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(viewmodel.user.rank)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_rank"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/kakaoaccount_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="@id/gl_image"
+                        app:layout_constraintHeight_default="percent"
+                        app:layout_constraintHeight_percent="0.8"
+                        app:layout_constraintStart_toStartOf="@id/gl_rank"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_nick_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.user.nickName}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gl_nick_name"
+                        app:layout_constraintStart_toStartOf="@id/gl_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_score_sum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(viewmodel.user.scoreSum)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/gl_nick_name"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_rank"
@@ -153,7 +220,7 @@
                     android:background="@drawable/rv_home_ranking_bg"
                     android:elevation="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_myrank"
+                    app:layout_constraintTop_toBottomOf="@id/cl_myrank"
                     app:adapter="@{viewmodel.userRankingAdapter}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
