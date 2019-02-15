@@ -1,5 +1,6 @@
 package com.teamdonut.eatto.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,9 +20,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeNavigator{
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
+    private final int MAP_SEARCH_REQUEST = 101;
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -29,7 +33,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
-        mViewModel = new HomeViewModel();
+        mViewModel = new HomeViewModel(this);
         binding.setViewmodel(mViewModel);
         return binding.getRoot();
     }
@@ -77,5 +81,11 @@ public class HomeFragment extends Fragment {
     private void setRecyclerView(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void goToMapSearch() {
+        Intent intent = new Intent(getActivity(), MapSearchActivity.class);
+        startActivityForResult(intent, MAP_SEARCH_REQUEST);
     }
 }
