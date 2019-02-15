@@ -15,5 +15,9 @@ public interface BoardAPI {
     Single<Board> addBoard(@Body Board board);
 
     @GET("v2/local/search/keyword.json")
-    Single<LocalKeywordSearch> getAddress(@Header("Authorization") String authorization, @Query("query") String query, @Query("page") int page, @Query("size") int size);
+    Single<LocalKeywordSearch> getAddress(
+            @Header("Authorization") String authorization,
+            @Query("query") String query,
+            @Query("page") int page,
+            @Query("size") int size);
 }
