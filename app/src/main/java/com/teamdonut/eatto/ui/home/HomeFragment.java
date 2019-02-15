@@ -31,14 +31,14 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel();
         binding.setViewmodel(mViewModel);
-        initBoardRecommendRv(binding.rvRecommendBoard);
-        initUserRankingRv(binding.rvRank);
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initBoardRecommendRv(binding.rvRecommendBoard);
+        initUserRankingRv(binding.rvRank);
         mViewModel.fetchRankUsersList();
     }
 
