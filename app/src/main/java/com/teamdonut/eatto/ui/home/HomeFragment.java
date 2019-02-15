@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
         initBoardRecommendRv(binding.rvRecommendBoard);
         initUserRankingRv(binding.rvRank);
         mViewModel.fetchRankUsersList();
+        mViewModel.fetchRankUser();
     }
 
     @Override
