@@ -5,6 +5,6 @@ public interface MapNavigator {
     void setBottomSheetExpand(Boolean isExpand);
     void startLocationUpdates();
     void setMyPosition();
-    void goToBoardWrite();
+    void goToBoardAdd();
     void goToSearch();
 }

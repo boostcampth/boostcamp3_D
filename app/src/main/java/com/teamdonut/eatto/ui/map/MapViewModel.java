@@ -22,7 +22,7 @@ public class MapViewModel {
     //게시물 추가 리스너
     public void onClickBoardAdd() {
         if (mNavigator != null) {
-            mNavigator.goToBoardWrite();
+            mNavigator.goToBoardAdd();
         }
     }
 

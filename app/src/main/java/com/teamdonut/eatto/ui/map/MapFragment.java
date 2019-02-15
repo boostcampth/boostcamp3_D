@@ -132,7 +132,7 @@ public class MapFragment extends Fragment implements MapNavigator {
     }
 
     @Override
-    public void goToBoardWrite() {
+    public void goToBoardAdd() {
         Intent intent = new Intent(getContext(), BoardAddActivity.class);
         startActivityForResult(intent, BOARD_ADD_REQUEST);
     }
