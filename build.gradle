@@ -77,8 +77,9 @@ ext {
     stethoVersion = '1.5.0'
     stethoRealmVersion = '2.2.2'
 
-    //google-play-services location
+    //google-play-services
     gmsLocationVersion = '16.0.0'
+    gmsMapsVersion = '16.1.0'
 
     //CircleImageView
     circleImageViewVersion = '3.0.0'

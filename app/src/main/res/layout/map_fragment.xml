@@ -65,31 +65,37 @@
             <!-- Map View -->
             <FrameLayout
                 android:id="@+id/fl_map_view"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/space_search_horizontal_padding"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_search"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_search">
+
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
 
             <ImageButton
                 android:id="@+id/ib_set_mypos"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/ic_gps_fixed_black_24dp"
-                android:scaleType="center"
-                android:elevation="5dp"
-                android:background="@android:color/white"
-                android:onClick="@{viewmodel::onClickSetMyPosition}"
                 android:layout_marginStart="@dimen/space_small_margin"
                 android:layout_marginTop="@dimen/space_small_margin"
-                app:layout_constraintTop_toTopOf="@id/fl_map_view"
-                app:layout_constraintWidth_percent="0.09"
-                app:layout_constraintWidth_default="percent"
+                android:background="@android:color/white"
+                android:elevation="5dp"
+                android:onClick="@{viewmodel::onClickSetMyPosition}"
+                android:scaleType="center"
+                android:src="@drawable/ic_gps_fixed_black_24dp"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintStart_toStartOf="@id/fl_map_view"/>
+                app:layout_constraintStart_toStartOf="@id/fl_map_view"
+                app:layout_constraintTop_toTopOf="@id/fl_map_view"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.09" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_board_add"

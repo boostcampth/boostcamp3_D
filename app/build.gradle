@@ -71,9 +71,7 @@ dependencies {
 
     //gms location
     implementation "com.google.android.gms:play-services-location:$gmsLocationVersion"
-
-    //daum map api
-    implementation files('libs/libDaumMapAndroid.jar')
+    implementation "com.google.android.gms:play-services-maps:$gmsMapsVersion"
 
     //CircleImageView
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
