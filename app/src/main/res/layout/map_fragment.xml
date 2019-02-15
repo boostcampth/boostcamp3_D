@@ -50,7 +50,7 @@
                 android:drawableEnd="@drawable/ic_search_24dp"
                 android:gravity="center_vertical"
                 android:hint="@string/map_search_hint"
-                android:onClick="@{viewmodel::onClickSearchButton}"
+                android:onClick="@{() -> viewmodel.onSearchClick()}"
                 android:paddingStart="@dimen/space_search_horizontal_padding"
                 android:paddingTop="@dimen/space_search_vertical_padding"
                 android:paddingEnd="@dimen/space_search_horizontal_padding"
@@ -72,8 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_search"
-                tools:background="@color/colorAccent" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_search"/>
 
             <ImageButton
                 android:id="@+id/ib_set_mypos"
@@ -97,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
-                android:onClick="@{viewmodel::onClickBoardAdd}"
+                android:onClick="@{() ->viewmodel.onClickBoardAdd()}"
                 app:backgroundTint="@color/colorHungryRed"
                 app:fabSize="normal"
                 app:layout_constraintBottom_toBottomOf="parent"

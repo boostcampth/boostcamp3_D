@@ -93,7 +93,7 @@
 
         <EditText
             android:id="@+id/et_nick_name"
-            style="@style/MyPageInfoText"
+            style="@style/MyPageEditContentText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -108,7 +108,7 @@
 
         <TextView
             android:id="@+id/tv_sex"
-            style="@style/MyPageInfoText"
+            style="@style/MyPageEditContentText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_right_24dp"
@@ -121,7 +121,7 @@
 
         <EditText
             android:id="@+id/et_age"
-            style="@style/MyPageInfoText"
+            style="@style/MyPageEditContentText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/all_age"

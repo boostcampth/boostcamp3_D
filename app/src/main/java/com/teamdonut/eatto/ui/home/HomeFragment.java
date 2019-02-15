@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -32,36 +31,37 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel();
         binding.setViewmodel(mViewModel);
-
-        initRecommendBoardRv();
-        initRankRv();
-
-        setObserver();
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initBoardRecommendRv(binding.rvRecommendBoard);
+        initUserRankingRv(binding.rvRank);
         mViewModel.fetchRankUsersList();
-        mViewModel.fetchRankUser();
     }
 
-    private void initRankRv(){
-        RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(this.getContext()){
+    @Override
+    public void onDestroy() {
+        mViewModel.onDestroyViewModel();
+        super.onDestroy();
+    }
+
+    private void initUserRankingRv(RecyclerView recyclerView){
+        RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(getContext()){
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
                 lp.height = (getWidth()/9);
                 return super.checkLayoutParams(lp);
             }
         };
-        binding.rvRank.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
-        binding.rvRank.setHasFixedSize(true);
-        binding.rvRank.setLayoutManager(rankingManager);
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
+        setRecyclerView(recyclerView, rankingManager);
     }
 
-    private void initRecommendBoardRv() {
-        RecyclerView.LayoutManager recommendBoardManager = new LinearLayoutManager(this.getContext()) {
+    private void initBoardRecommendRv(RecyclerView recyclerView){
+        RecyclerView.LayoutManager recommendBoardManager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
                 int dp = (int) (getResources().getDimension(R.dimen.space_medium_margin) / getResources().getDisplayMetrics().density);
@@ -71,29 +71,11 @@ public class HomeFragment extends Fragment {
             }
         };
         ((LinearLayoutManager) recommendBoardManager).setOrientation(LinearLayoutManager.HORIZONTAL);
-        binding.rvRecommendBoard.setHasFixedSize(true);
-        binding.rvRecommendBoard.setLayoutManager(recommendBoardManager);
+        setRecyclerView(recyclerView, recommendBoardManager);
     }
 
-    private void setObserver(){
-        mViewModel.userList.observe(this, users -> {
-            UserRankingAdapter userRankingAdapter = new UserRankingAdapter(users);
-            binding.rvRank.setAdapter(userRankingAdapter);
-        });
-
-        mViewModel.boardList.observe(this, boards -> {
-            BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(boards);
-            binding.rvRecommendBoard.setAdapter(boardRecommendAdapter);
-        });
-
-        mViewModel.userRank.observe(this, user -> {
-            binding.setUser(user);
-        });
-    }
-
-    @Override
-    public void onDestroy() {
-        mViewModel.onDestroyViewModel();
-        super.onDestroy();
+    private void setRecyclerView(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
     }
 }
