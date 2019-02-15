@@ -31,11 +31,16 @@ import androidx.fragment.app.Fragment;
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
     private GoogleMap mMap;
+
     private MapFragmentBinding binding;
+
     private MapViewModel mViewModel;
     private MapBottomSheetViewModel mBottomSheetViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
+
     private final int BOARD_ADD_REQUEST = 100;
+    private final int DEFAULT_ZOOM = 16;
+    private final LatLng DEFAULT_LOCATION = new LatLng(37.566467, 126.978174); // 서울 시청
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -44,13 +49,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
-
         mViewModel = new MapViewModel(this);
         mBottomSheetViewModel = new MapBottomSheetViewModel(this);
 
         binding.setViewmodel(mViewModel);
         binding.setBottomsheetviewmodel(mBottomSheetViewModel);
-
         return binding.getRoot();
     }
 
@@ -93,9 +96,12 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     @Override
     public void setMyPosition() {
-        float latitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude"));
-        float longitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16));
+        String strLatitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude");
+        String strLongitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude");
+        double latitude = (strLatitude == "" ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
+        double longitude = (strLongitude == "" ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
     }
 
     @Override
@@ -113,7 +119,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.566467, 126.978174),15));
+        setMyPosition();
         mMap.setOnMarkerClickListener(marker -> {
             setMarkerEvent();
             return false;
@@ -152,8 +158,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initMapView(@Nullable Bundle savedInstanceState){
-        binding.map.onCreate(savedInstanceState);
-        binding.map.onResume();
-        binding.map.getMapAsync(this);
+        binding.mv.onCreate(savedInstanceState);
+        binding.mv.onResume();
+        binding.mv.getMapAsync(this);
     }
 }
