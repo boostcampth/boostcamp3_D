@@ -58,6 +58,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initBottomSheetBehavior();
+        initMapView(savedInstanceState);
     }
 
     @Override
@@ -94,8 +95,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void setMyPosition() {
         float latitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude"));
         float longitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"));
-
-        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 2, true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 16));
     }
 
     @Override
