@@ -17,10 +17,13 @@ import io.realm.Realm;
 public class HomeViewModel extends ViewModel {
     public ObservableArrayList<User> users = new ObservableArrayList<>();
     public ObservableArrayList<Board> boards = new ObservableArrayList<>();
-    private Realm realm = Realm.getDefaultInstance();
     private ObservableField<User> user = new ObservableField<>();
+
+    private Realm realm = Realm.getDefaultInstance();
+
     public UserRankingAdapter userRankingAdapter = new UserRankingAdapter(users);
     public BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(boards);
+
     private CompositeDisposable disposables = new CompositeDisposable();
     private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
 
@@ -56,6 +59,7 @@ public class HomeViewModel extends ViewModel {
 
     public void fetchRankUser() {
         User originUser = realm.copyFromRealm(realm.where(User.class).findFirst());
+
         disposables.add(
                 service.getRankUser(originUser.getKakaoId())
                         .subscribeOn(Schedulers.io())
