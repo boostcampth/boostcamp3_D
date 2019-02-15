@@ -1,32 +1,23 @@
 package com.teamdonut.eatto.ui.map.bottomsheet;
 
-import com.teamdonut.eatto.ui.map.MapNavigator;
-
-import org.jetbrains.annotations.NotNull;
-
 import androidx.databinding.ObservableBoolean;
+import com.teamdonut.eatto.ui.map.MapNavigator;
 
 public class MapBottomSheetViewModel {
 
-    @NotNull
+    private MapNavigator mNavigator;
     public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
 
-    private MapNavigator navigator;
-
-
     public MapBottomSheetViewModel(MapNavigator navigator) {
-        this.navigator = navigator;
+        this.mNavigator = navigator;
     }
 
     public void onScrollButtonClick() {
         if (!isSheetExpanded.get()) {
-            navigator.setBottomSheetExpand(true);
-            isSheetExpanded.set(true);
+            mNavigator.setBottomSheetExpand(true);
         } else {
-            navigator.setBottomSheetExpand(false);
-            isSheetExpanded.set(false);
+            mNavigator.setBottomSheetExpand(false);
         }
     }
-
 }
 

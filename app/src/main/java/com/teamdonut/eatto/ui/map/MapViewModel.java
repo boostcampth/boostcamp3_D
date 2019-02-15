@@ -16,13 +16,13 @@ public class MapViewModel {
 
     //검색 버튼 리스너
     public void onSearchClick() {
-        mNavigator.startSearchActivity();
+        mNavigator.goToMapSearch();
     }
 
     //게시물 추가 리스너
     public void onClickBoardAdd() {
         if (mNavigator != null) {
-            mNavigator.addBoard();
+            mNavigator.goToBoardAdd();
         }
     }
 

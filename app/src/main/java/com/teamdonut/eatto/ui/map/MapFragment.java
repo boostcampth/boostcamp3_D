@@ -6,8 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.teamdonut.eatto.ui.board.BoardAddActivity;
-import com.teamdonut.eatto.ui.board.BoardDetailActivity;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -16,6 +15,7 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
+import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
@@ -34,29 +34,63 @@ public class MapFragment extends Fragment implements MapNavigator {
     private BottomSheetBehavior bottomSheetBehavior;
     private MapView mapView;
     private final int BOARD_ADD_REQUEST = 100;
-    public static MapFragment newInstance() {
-        Bundle args = new Bundle();
 
-        MapFragment fragment = new MapFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public static MapFragment newInstance() {
+        return new MapFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
+
         mViewModel = new MapViewModel(this);
         mBottomSheetViewModel = new MapBottomSheetViewModel(this);
+
         binding.setViewmodel(mViewModel);
         binding.setBottomsheetviewmodel(mBottomSheetViewModel);
 
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomSheet.clMapBottomSheet);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        initMapView();
+        initBottomSheetBehavior();
+    }
+
+    private void initMapView() {
         //레이아웃에 지도 추가
         mapView = new MapView(getActivity());
         binding.flMapView.addView(mapView);
-        return binding.getRoot();
+    }
+
+    private void initBottomSheetBehavior() {
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomSheet.clMapBottomSheet);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                        mBottomSheetViewModel.isSheetExpanded.set(true);
+                        break;
+                    }
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                        mBottomSheetViewModel.isSheetExpanded.set(false);
+                        break;
+                    }
+                    default: {
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                //nothing to do.
+            }
+        });
     }
 
     @Override
@@ -93,17 +127,18 @@ public class MapFragment extends Fragment implements MapNavigator {
     public void setMyPosition() {
         float latitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude"));
         float longitude = Float.valueOf(ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"));
-        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude),2,true);
-    }
-  
-    @Override
-    public void addBoard() {
-        Intent intent = new Intent(getContext(), BoardAddActivity.class);
-        getActivity().startActivityForResult(intent, BOARD_ADD_REQUEST);
+
+        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(latitude, longitude), 2, true);
     }
 
     @Override
-    public void startSearchActivity() {
+    public void goToBoardAdd() {
+        Intent intent = new Intent(getContext(), BoardAddActivity.class);
+        startActivityForResult(intent, BOARD_ADD_REQUEST);
+    }
+
+    @Override
+    public void goToMapSearch() {
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
         startActivity(intent);
     }
