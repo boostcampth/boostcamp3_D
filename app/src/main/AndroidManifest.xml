@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.board.BoardSearchActivity"
+            android:name=".ui.board.search.BoardSearchActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
