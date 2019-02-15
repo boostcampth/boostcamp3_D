@@ -1,15 +1,22 @@
 package com.teamdonut.eatto.ui.home;
 
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
@@ -24,6 +31,8 @@ public class HomeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel();
         binding.setViewmodel(mViewModel);
+        initBoardRecommendRv(binding.rvRecommendBoard);
+        initUserRankingRv(binding.rvRank);
         return binding.getRoot();
     }
 
@@ -37,5 +46,36 @@ public class HomeFragment extends Fragment {
     public void onDestroy() {
         mViewModel.onDestroyViewModel();
         super.onDestroy();
+    }
+
+    private void initUserRankingRv(RecyclerView recyclerView){
+        RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(getContext()){
+            @Override
+            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
+                lp.height = (getWidth()/9);
+                return super.checkLayoutParams(lp);
+            }
+        };
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
+        setRecyclerView(recyclerView, rankingManager);
+    }
+
+    private void initBoardRecommendRv(RecyclerView recyclerView){
+        RecyclerView.LayoutManager recommendBoardManager = new LinearLayoutManager(getContext()) {
+            @Override
+            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
+                int dp = (int) (getResources().getDimension(R.dimen.space_medium_margin) / getResources().getDisplayMetrics().density);
+                float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp * 3, getResources().getDisplayMetrics());
+                lp.width = (getWidth() - (int) px) / 2;
+                return super.checkLayoutParams(lp);
+            }
+        };
+        ((LinearLayoutManager) recommendBoardManager).setOrientation(LinearLayoutManager.HORIZONTAL);
+        setRecyclerView(recyclerView, recommendBoardManager);
+    }
+
+    private void setRecyclerView(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager) {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
     }
 }
