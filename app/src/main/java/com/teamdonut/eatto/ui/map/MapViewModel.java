@@ -16,7 +16,7 @@ public class MapViewModel {
 
     //검색 버튼 리스너
     public void onSearchClick() {
-        mNavigator.goToSearch();
+        mNavigator.goToMapSearch();
     }
 
     //게시물 추가 리스너

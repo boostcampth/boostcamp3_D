@@ -138,7 +138,7 @@ public class MapFragment extends Fragment implements MapNavigator {
     }
 
     @Override
-    public void goToSearch() {
+    public void goToMapSearch() {
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
         startActivity(intent);
     }

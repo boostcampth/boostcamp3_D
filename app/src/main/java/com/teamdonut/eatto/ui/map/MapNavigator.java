@@ -6,5 +6,5 @@ public interface MapNavigator {
     void startLocationUpdates();
     void setMyPosition();
     void goToBoardAdd();
-    void goToSearch();
+    void goToMapSearch();
 }
