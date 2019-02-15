@@ -1,31 +1,44 @@
 package com.teamdonut.eatto.data.kakao;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Document {
     @SerializedName("id")
+    @Expose
     private String id;
     @SerializedName("place_name")
+    @Expose
     private String placeName;
     @SerializedName("category_name")
+    @Expose
     private String categoryName;
     @SerializedName("category_group_code")
+    @Expose
     private String categoryGroupCode;
     @SerializedName("category_group_name")
+    @Expose
     private String categoryGroupName;
     @SerializedName("phone")
+    @Expose
     private String phone;
     @SerializedName("address_name")
+    @Expose
     private String addressName;
     @SerializedName("road_address_name")
+    @Expose
     private String roadAddressName;
     @SerializedName("x")
+    @Expose
     private String x;
     @SerializedName("y")
+    @Expose
     private String y;
     @SerializedName("place_url")
+    @Expose
     private String placeUrl;
     @SerializedName("distance")
+    @Expose
     private String distance;
 
     public String getId() {

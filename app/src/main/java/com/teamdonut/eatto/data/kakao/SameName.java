@@ -1,5 +1,6 @@
 package com.teamdonut.eatto.data.kakao;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -7,12 +8,15 @@ import java.util.List;
 public class SameName {
 
     @SerializedName("region")
+    @Expose
     private List<String> region;
 
     @SerializedName("keyword")
+    @Expose
     private String keyword;
 
     @SerializedName("selected_region")
+    @Expose
     private String selectedRegion;
 
     public List<String> getRegion() {
