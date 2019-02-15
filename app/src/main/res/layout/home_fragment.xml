@@ -114,7 +114,8 @@
                     android:paddingBottom="2dp"
                     app:layout_constraintBottom_toTopOf="@id/tv_ranking"
                     app:layout_constraintDimensionRatio="1:0.4"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recommend_board" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_recommend_board"
+                    app:adapter="@{viewmodel.boardRecommendAdapter}" />
 
                 <TextView
                     android:id="@+id/tv_ranking"
@@ -152,7 +153,8 @@
                     android:background="@drawable/rv_home_ranking_bg"
                     android:elevation="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_myrank" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_myrank"
+                    app:adapter="@{viewmodel.userRankingAdapter}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
