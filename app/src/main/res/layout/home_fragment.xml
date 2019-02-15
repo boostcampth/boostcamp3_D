@@ -16,17 +16,16 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorHungryGray">
+        android:background="@android:color/white">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorHungryGray">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorHungryGray"
+                android:background="@android:color/white"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <LinearLayout
@@ -60,9 +59,25 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
-                    android:background="#ffff92"
+                    android:background="@color/colorHungryGray"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/AppTheme" />
+                    app:popupTheme="@style/AppTheme">
+
+                    <TextView
+                        android:id="@+id/tv_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableEnd="@drawable/ic_search_24dp"
+                        android:gravity="center_vertical"
+                        android:hint="@string/map_search_hint"
+                        android:onClick="@{() -> viewmodel.onSearchClick()}"
+                        android:paddingStart="@dimen/space_search_horizontal_padding"
+                        android:paddingTop="@dimen/space_search_vertical_padding"
+                        android:paddingEnd="@dimen/space_search_horizontal_padding"
+                        android:paddingBottom="@dimen/space_search_vertical_padding"
+                        android:textColorHint="@color/colorHungryBlack"
+                        android:textSize="15sp" />
+                </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -112,10 +127,10 @@
                     android:paddingStart="@dimen/space_medium_padding"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
+                    app:adapter="@{viewmodel.boardRecommendAdapter}"
                     app:layout_constraintBottom_toTopOf="@id/tv_ranking"
                     app:layout_constraintDimensionRatio="1:0.4"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recommend_board"
-                    app:adapter="@{viewmodel.boardRecommendAdapter}" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_recommend_board" />
 
                 <TextView
                     android:id="@+id/tv_ranking"
@@ -152,9 +167,9 @@
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:background="@drawable/rv_home_ranking_bg"
                     android:elevation="2dp"
+                    app:adapter="@{viewmodel.userRankingAdapter}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_myrank"
-                    app:adapter="@{viewmodel.userRankingAdapter}" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_myrank" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
