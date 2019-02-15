@@ -142,4 +142,9 @@ public class MapFragment extends Fragment implements MapNavigator {
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
         startActivity(intent);
     }
+    private void initMapView(@Nullable Bundle savedInstanceState){
+        binding.map.onCreate(savedInstanceState);
+        binding.map.onResume();
+        binding.map.getMapAsync(this);
+    }
 }
