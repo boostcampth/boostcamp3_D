@@ -75,7 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_search">
 
                 <com.google.android.gms.maps.MapView
-                    android:id="@+id/map"
+                    android:id="@+id/mv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>
