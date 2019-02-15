@@ -7,9 +7,18 @@
 
     <data>
 
+        <import type="androidx.databinding.ObservableArrayList" />
+
+        <import type="com.teamdonut.eatto.data.kakao.Document" />
+
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
+
+        <variable
+            name="documents"
+            type="ObservableArrayList&lt;Document&gt;" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,6 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/colorHungryGray"
+            android:onClick="@{() -> viewmodel.onAddressSearchClick()}"
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_input_box"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"
@@ -66,7 +76,6 @@
             app:layout_constraintTop_toTopOf="@+id/gl_end_of_back_button"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.2"
-            android:onClick="@{() -> viewmodel.onAddressSearchClicked()}"
             app:srcCompat="@drawable/ic_search_24dp" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -81,8 +90,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_board_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:item="@{viewmodel.documents}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.85"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/gl_end_of_input_box" />
 
