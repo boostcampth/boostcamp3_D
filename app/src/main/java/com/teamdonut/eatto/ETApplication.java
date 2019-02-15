@@ -1,10 +1,14 @@
 package com.teamdonut.eatto;
 
 import android.app.Application;
+
 import com.bumptech.glide.Glide;
 import com.facebook.stetho.Stetho;
 import com.kakao.auth.KakaoSDK;
-import com.teamdonut.eatto.util.kakao.KakaoSDKAdapter;
+import com.teamdonut.eatto.common.util.kakao.KakaoSDKAdapter;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
+import io.realm.Realm;
 
 public class ETApplication extends Application {
 
@@ -23,9 +27,16 @@ public class ETApplication extends Application {
         instance = this;
 
         Glide.with(this);
-        Stetho.initializeWithDefaults(this);
+
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                        .build());
 
         KakaoSDK.init(new KakaoSDKAdapter());
+
+        Realm.init(this);
     }
 
     @Override

@@ -1,5 +1,39 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="space_large_margin">24dp</dimen>
+    <dimen name="space_medium_margin">16dp</dimen>
+    <dimen name="space_small_margin">8dp</dimen>
+
+    <dimen name="space_large_padding">24dp</dimen>
+    <dimen name="space_medium_padding">16dp</dimen>
+    <dimen name="space_small_padding">8dp</dimen>
+
+    <!-- Board -->
+    <dimen name="board_tv_text_size">13sp</dimen>
+    <dimen name="board_tv_detail">12sp</dimen>
+    <dimen name="board_tv_time_warning">11sp</dimen>
+    <dimen name="space_board_item_margin">20dp</dimen>
+
+    <!-- Board_detail -->
+    <dimen name="board_detail_static_edittext_size">30dp</dimen>
+    <dimen name="board_detail_back_button_size">40dp</dimen>
+    <dimen name="board_detail_title_size">18sp</dimen>
+    <dimen name="board_detail_info_box_size">150dp</dimen>
+
+    <!-- MyPage -->
+    <dimen name="mypage_tv_margin">4dp</dimen>
+    <dimen name="mypage_view_height">2dp</dimen>
+  
+    <!-- Map -->
+    <dimen name="space_search_vertical_padding">12dp</dimen>
+    <dimen name="space_search_horizontal_padding">7dp</dimen>
+    <dimen name="space_img_btn_padding">5dp</dimen>
+
+    <!--Search-->
+    <dimen name="space_search_filter_padding">3dp</dimen>
+    
+    <!--Filter-->
+    <dimen name="space_filter_title_padding">3dp</dimen>
+    <dimen name="space_filter_item_margin">13dp</dimen>
+    <dimen name="space_filter_side_padding">12dp</dimen>
 </resources>

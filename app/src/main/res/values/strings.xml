@@ -1,14 +1,104 @@
 <resources>
     <string name="app_name">EatTo</string>
 
+    <!--all-->
+    <string name="all_am">오전</string>
+    <string name="all_pm">오후</string>
+    <string name="all_ok">확인</string>
+    <string name="all_permission_reject">서비스를 이용하시려면 권한을 허용해주세요. [설정] > [권한]</string>
+    <string name="all_female">여성</string>
+    <string name="all_male">남성</string>
+    <string name="all_sex">성별</string>
+    <string name="all_age">나이</string>
+    <string name="all_default_address">서울특별시 강남구 역삼동</string>
+
     <!--Main BottomNavigationView-->
     <string name="bnv_title_home">홈</string>
     <string name="bnv_title_map">지도</string>
     <string name="bnv_title_board">게시글</string>
     <string name="bnv_title_mypage">마이페이지</string>
-  
+
+    <!-- Home -->
+    <string name="home_tv_recommend_board">추천 모임 게시글</string>
+    <string name="home_tv_ranking">유저 랭킹</string>
+    <string name="home_tv_below_logo">혼밥이 싫다면 여기로 고고!\n고고고!</string>
+    <string name="home_tv_waiting_num">개의 방에서 혼밥러들이 당신을 기다리고 있습니다.</string>
+
+    <!-- Main -->
+    <string name="main_snack_bar">게시글 등록 완료</string>
+    
     <!-- Map -->
-    <string name="et_search_hint">위치 검색</string>
-    <string name="tv_bottom_sheet_show">이 지역 모든 혼밥러</string>
+    <string name="map_search_hint">위치 검색</string>
+    <string name="map_sheet_hide_title">이 지역 모든 혼밥러보기</string>
+    <string name="map_sheet_show_title">현재 %d개의 방에서 혼밥러가 당신을 기다리고 있습니다.</string>
+
+    <!-- Board -->
+    <string name="board_tv_toolbar">게시글</string>
+    <string name="board_tv_my_board">내가 쓴 게시글</string>
+    <string name="board_tv_joined_board">내가 참여중인 게시글</string>
+    <string name="board_add_title">게시글 생성</string>
+    <string name="board_menu_write">등록</string>
+    <string name="board_tv_title">제목</string>
+    <string name="board_tv_address">장소</string>
+    <string name="board_tv_time">시간</string>
+    <string name="board_tv_time_hint">시간을 설정 해주세요</string>
+    <string name="board_tv_time_warning">지킬 수 있는 시간으로 설정해주세요!</string>
+    <string name="board_tv_max_person">인원</string>
+    <string name="board_et_max_person_hint">인원을 입력해주세요</string>
+    <string name="board_tv_max_peson_count">명</string>
+    <string name="board_tv_age">나이</string>
+    <string name="board_tv_age_hint">함께 밥 먹고 싶은 혼밥러들의 나이를 설정해주세요.</string>
+    <string name="board_tv_budget">가격</string>
+    <string name="board_tv_budget_hint">한 사람당 얼마까지 쓸까요?</string>
+    <string name="board_et_budget_hint">무제한</string>
+    <string name="board_tv_budget_unit">(단위 : 원)</string>
+    <string name="board_tv_content">내용</string>
+    <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
+
+    <!-- Board_Add -->
+    <string name="board_add_snack_bar">모두 입력해주세요</string>
+    <string name="board_add_end">BOARD_ADD_END</string>
+    <string name="board_add_tv_search_address">장소를 검색해주세요 (클릭)</string>
+    <string name="board_add_success">게시글 등록 완료</string>
+
+
+    <!-- Board_detail -->
+    <string name="board_detail_btn_input_comment">작성</string>
+    <string name="board_detail_tv_budget">금액</string>
+
+    <!-- Mypage -->
+    <string name="mypage_tv_normal">잘 먹었습니다</string>
+    <string name="mypage_tv_good">다음에 또 먹어요!</string>
+    <string name="mypage_tv_great">매일 같이 먹어요!</string>
+    <string name="mypage_tv_modify">편집하기</string>
+    <string name="mypage_tv_logout">로그아웃</string>
+
+    <!--Mypage edit-->
+    <string name="mpe_toolbar_title">프로필</string>
+    <string name="mpe_tv_nickname_hint">닉네임을 입력해주세요.</string>
+    <string name="mpe_btn_save">저장하기</string>
+    <string name="mpe_age_warn">15세~80세 중 어디에 해당하나요?</string>
+
+    <!--Search-->
+    <string name="search_tv_recent_keyword">최근 검색어</string>
+    <string name="search_tv_remove_keyword">기록삭제</string>
+    <string name="search_filter_tv">나와 맞는 혼밥러 찾기</string>
+    <string name="search_filter_tv_sub">함께 먹을 사람을 찾는 손쉬운 방법!</string>
+    <string name="search_et_hint">서울특별시 강남구</string>
+
+    <!--Search Filter-->
+    <string name="filter_tv_title">상세검색</string>
+    <string name="filter_tv_time">시간</string>
+    <string name="filter_tv_time_sub">밥 먹고 싶은 시간을 선택해주세요</string>
+    <string name="filter_tv_age">참여자 나이</string>
+    <string name="filter_tv_age_sub">함께 먹고 싶은 사람들의 연령대를 골라주세요</string>
+    <string name="filter_tv_people">인원</string>
+    <string name="filter_tv_budget">예산</string>
+    <string name="filter_tv_budget_sub">1인 기준 금액입니다</string>
+    <string name="filter_tv_range">~</string>
+    <string name="filter_tv_age_format">%d세</string>
+    <string name="filter_tv_people_format">%d명</string>
+    <string name="filter_tv_won">원</string>
+    <string name="filter_tv_si">시</string>
 
 </resources>

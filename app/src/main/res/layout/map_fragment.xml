@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,102 +9,120 @@
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.map.MapViewModel" />
+
+        <variable
+            name="bottomsheetviewmodel"
+            type="com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <!-- Map Search -->
-
-
-        <EditText
-            android:id="@+id/et_serach"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/et_search_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageButton
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_search_24dp"
-            android:onClick="@{viewmodel::onClickSearchButton}"
-            app:layout_constraintBottom_toBottomOf="@+id/et_serach"
-            app:layout_constraintEnd_toEndOf="@+id/et_serach"
-            app:layout_constraintTop_toTopOf="@+id/et_serach" />
-
-
         <!-- Map View -->
-
-        <FrameLayout
-            android:id="@+id/fl_map_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="13dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_serach"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_map_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/space_search_vertical_padding" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_map_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/space_search_vertical_padding" />
+
+            <!-- Map Search -->
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_search_horizontal_padding"
+                android:background="@color/colorHungryGray"
+                android:drawableEnd="@drawable/ic_search_24dp"
+                android:gravity="center_vertical"
+                android:hint="@string/map_search_hint"
+                android:onClick="@{() -> viewmodel.onSearchClick()}"
+                android:paddingStart="@dimen/space_search_horizontal_padding"
+                android:paddingTop="@dimen/space_search_vertical_padding"
+                android:paddingEnd="@dimen/space_search_horizontal_padding"
+                android:paddingBottom="@dimen/space_search_vertical_padding"
+                android:textColorHint="@color/colorHungryBlack"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/gl_map_end"
+                app:layout_constraintStart_toStartOf="@+id/gl_map_start"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        <!-- Bottom Sheet -->
+            <!-- Map View -->
+            <FrameLayout
+                android:id="@+id/fl_map_view"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_search">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_board_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_create_24dp"
-            app:fabSize="normal"
-            app:useCompatPadding="true"
-            android:onClick="@{viewmodel::onClickBoardAdd}"
-            app:backgroundTint="@color/colorHungryRed"
-            app:layout_constraintBottom_toBottomOf="@+id/fl_map_view"
-            app:layout_constraintEnd_toEndOf="@+id/fl_map_view" />
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
 
-        <TextView
-            android:id="@+id/textView"
+            <ImageButton
+                android:id="@+id/ib_set_mypos"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/space_small_margin"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:background="@android:color/white"
+                android:elevation="5dp"
+                android:onClick="@{viewmodel::onClickSetMyPosition}"
+                android:scaleType="center"
+                android:src="@drawable/ic_gps_fixed_black_24dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="@id/fl_map_view"
+                app:layout_constraintTop_toTopOf="@id/fl_map_view"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.09" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_board_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:onClick="@{() ->viewmodel.onClickBoardAdd()}"
+                app:backgroundTint="@color/colorHungryRed"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/fl_map_view"
+                app:srcCompat="@drawable/ic_create_24dp"
+                app:useCompatPadding="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--BottomSheet-->
+        <include
+            android:id="@+id/map_bottom_sheet"
+            layout="@layout/map_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:padding="11dp"
-            android:text="@string/tv_bottom_sheet_show"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/gl_end"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="50dp"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:viewmodel="@{bottomsheetviewmodel}" />
 
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_eject_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.9" />
-
-        <!-- -->
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -1,18 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.HomeFragment">
+
+
     <data>
 
         <variable
-                name="viewmodel"
-                type="com.teamdonut.eatto.ui.home.HomeViewModel"/>
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.home.HomeViewModel" />
     </data>
-    <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorHungryGray">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorHungryGray">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorHungryGray"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginTop="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="?attr/actionBarSize"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax">
+
+                    <ImageView
+                        android:layout_width="233dp"
+                        android:layout_height="70dp"
+                        android:layout_marginBottom="@dimen/space_medium_margin"
+                        android:background="#ffff92" />
+
+                    <TextView
+                        android:id="@+id/tv_below_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_medium_margin"
+                        android:text="@string/home_tv_below_logo" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:background="#ffff92"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.home.HomeFragment">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/tv_waiting_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginTop="@dimen/space_small_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_large_margin"
+                    android:text="@string/home_tv_waiting_num"
+                    app:layout_constraintBottom_toTopOf="@id/tv_recommend_board"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_recommend_board"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_small_margin"
+                    android:text="@string/home_tv_recommend_board"
+                    app:layout_constraintBottom_toTopOf="@id/rv_recommend_board"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_waiting_num" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recommend_board"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/space_large_margin"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/space_medium_padding"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    app:layout_constraintBottom_toTopOf="@id/tv_ranking"
+                    app:layout_constraintDimensionRatio="1:0.4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recommend_board"
+                    app:adapter="@{viewmodel.boardRecommendAdapter}" />
+
+                <TextView
+                    android:id="@+id/tv_ranking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_small_margin"
+                    android:text="@string/home_tv_ranking"
+                    app:layout_constraintBottom_toTopOf="@id/iv_myrank"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_recommend_board" />
+
+                <ImageView
+                    android:id="@+id/iv_myrank"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_medium_margin"
+                    android:background="#ffff92"
+                    app:layout_constraintBottom_toTopOf="@id/rv_rank"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ranking" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_large_margin"
+                    android:background="@drawable/rv_home_ranking_bg"
+                    android:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_myrank"
+                    app:adapter="@{viewmodel.userRankingAdapter}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

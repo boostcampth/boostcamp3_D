@@ -2,8 +2,9 @@
 
 buildscript {
     ext {
-        kotlinVersion='1.3.11'
-        pluginVersion='3.3.0'
+        kotlinVersion = '1.3.11'
+        pluginVersion = '3.3.0'
+        realmVersion = '5.8.0'
     }
     repositories {
         google()
@@ -12,6 +13,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$pluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "io.realm:realm-gradle-plugin:$realmVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -28,6 +30,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://github.com/WickeDev/stetho-realm/raw/master/maven-repo' }
     }
 }
 
@@ -36,7 +39,7 @@ task clean(type: Delete) {
 }
 
 
-ext{
+ext {
     minSdkVersion = 21
     targetSdkVersion = 28
     compileSdkVersion = 28
@@ -44,10 +47,14 @@ ext{
 
     //App dependencies
     androidXVersion = '1.1.0-alpha01'
-    googleMaterialVersion = '1.1.0-alpha02'
+    googleMaterialVersion = '1.1.0-alpha03'
     junitVersion = '4.12'
     runnerVersion = '1.1.1'
     espressoVersion = '3.1.1'
+    constraintLayoutVersion = '1.1.3'
+
+    //lifecycle
+    lifecycleExtensionVersion = '1.1.0'
 
     //rx
     rxJavaVersion = '2.2.4'
@@ -58,17 +65,32 @@ ext{
     glideVersion = '4.8.0'
 
     //retrofit2
-    retrofitVersion= '2.0.0-beta3'
+    retrofitVersion = '2.0.0-beta3'
 
     //okHttp
-    okHttpVersion= '3.12.1'
+    okHttpVersion = '3.12.1'
 
     //gSon
     gsonVersion = '2.4.0'
 
     //stetho
     stethoVersion = '1.5.0'
+    stethoRealmVersion = '2.2.2'
 
-    //google-play-services location
+    //google-play-services
     gmsLocationVersion = '16.0.0'
+    gmsMapsVersion = '16.1.0'
+
+    //CircleImageView
+    circleImageViewVersion = '3.0.0'
+
+    //material-range-bar
+    materialRangeBarVersion = '1.4.4'
+
+    //tedPermission
+    tedPermissionVersion = '2.2.2'
+    tedBottomPickerVersion = '1.1.0'
+
+    //Realm
+    realmVersion = '5.8.0'
 }

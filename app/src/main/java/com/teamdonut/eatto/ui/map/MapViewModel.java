@@ -1,23 +1,32 @@
 package com.teamdonut.eatto.ui.map;
 
-import android.util.Log;
 import android.view.View;
-import androidx.databinding.BindingMethod;
 
 public class MapViewModel {
+  
+    private MapNavigator mNavigator;
 
-    public MapViewModel() {
+    public MapViewModel(MapNavigator navigator) {
+        this.mNavigator = navigator;
     }
 
+    void onFragmentDestroyed() {
+        mNavigator = null;
+    }
 
     //검색 버튼 리스너
-    public void onClickSearchButton(View view){
-
+    public void onSearchClick() {
+        mNavigator.goToMapSearch();
     }
 
-
     //게시물 추가 리스너
-    public void onClickBoardAdd(View view) {
+    public void onClickBoardAdd() {
+        if (mNavigator != null) {
+            mNavigator.goToBoardAdd();
+        }
+    }
 
+    public void onClickSetMyPosition(View view) {
+        mNavigator.startLocationUpdates();
     }
 }

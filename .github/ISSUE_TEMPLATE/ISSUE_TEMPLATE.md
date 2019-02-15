@@ -9,8 +9,11 @@ assignees: ''
 
 ### You want to:
 
-* [x] report a *bug*
+* [ ] report a *bug*
 * [ ] request a *feature*
+* [ ] request an update to the documentation
+* [ ] requeset a code change that improves performance
+* [ ] request other
 
 ### Current behaviour
 
