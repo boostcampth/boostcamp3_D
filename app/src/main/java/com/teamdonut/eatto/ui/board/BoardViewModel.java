@@ -9,10 +9,8 @@ import com.google.gson.JsonObject;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.data.kakao.Document;
-import com.teamdonut.eatto.data.kakao.LocalKeywordSearch;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.BoardSearchAPI;
-import com.teamdonut.eatto.model.KakaoServiceGenerator;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
 
@@ -23,7 +21,6 @@ import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -58,19 +55,19 @@ public class BoardViewModel extends BaseObservable {
         mNavigator = navigator;
     }
 
-    public void getEtKeywordHint(Context context){
+    public void getEtKeywordHint(Context context) {
         disposables.add(
                 service.getMyAddress(
                         context.getResources().getString(R.string.kakao_rest_api_key)
-                        , ActivityUtils.getStrValueSharedPreferences(context,"gps","longitude")
-                        , ActivityUtils.getStrValueSharedPreferences(context,"gps","latitude"))
+                        , ActivityUtils.getStrValueSharedPreferences(context, "gps", "longitude")
+                        , ActivityUtils.getStrValueSharedPreferences(context, "gps", "latitude"))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonElements -> {
                                     JsonArray jsonArray = jsonElements.getAsJsonArray("documents");
                                     JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
                                     etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-                                },throwable ->{
+                                }, throwable -> {
                                     throwable.printStackTrace();
                                     etKeywordHint.setValue(context.getString(R.string.all_default_address));
                                 }
@@ -116,34 +113,37 @@ public class BoardViewModel extends BaseObservable {
 
     public void fetchAddressResult(String authorization, String query, int page, int size) {
 
-        BoardAPI service = KakaoServiceGenerator.createService(BoardAPI.class);
+        BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
         Log.d("headercheck", authorization);
-        Single<LocalKeywordSearch> result = service.getAddress(authorization, query, page, size);
 
         disposables.add(
-                result.subscribeOn(Schedulers.io())
+                service.getAddress(authorization, query, page, size)
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((data) -> {
 
-                                    //결과가 없으면
-                                    if (data.getDocuments().size() == 0) {
-                                        Log.d("resulttest", "cannotfind");
-                                        mNavigator.onShowSnackBar();
-                                    } else {
-                                        //결과가 있을 때
-                                        if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                                            mAdapter.addItems(data.getDocuments());
-                                            Log.d("resulttest", data.getDocuments().get(0).getAddressName() +
-                                                    " total :" + data.getMeta().getTotalCount()
-                                                    + " pageable : " + data.getMeta().getPageableCount()
-                                                    + " document size : " + documents.size()
-                                                    + " page : " + page
-                                                    + " isend : " + data.getMeta().isEnd() + ""
-                                            );
-                                        }
+
+                                //결과가 없으면
+                                if (data.getDocuments().size() == 0) {
+                                    Log.d("resulttest", "cannotfind");
+                                    mNavigator.onShowSnackBar();
+                                } else {
+                                    //결과가 있을 때
+                                    if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
+                                        mAdapter.addItems(data.getDocuments());
+                                        Log.d("resulttest", data.getDocuments().get(0).getAddressName() +
+                                                " total :" + data.getMeta().getTotalCount()
+                                                + " pageable : " + data.getMeta().getPageableCount()
+                                                + " document size : " + documents.size()
+                                                + " page : " + page
+                                                + " isend : " + data.getMeta().isEnd() + ""
+                                        );
                                     }
+                                }
+
 
                                 }, (e) -> {
+                                    Log.d("erroroccured", "error");
                                     e.printStackTrace();
                                 }
                         )
