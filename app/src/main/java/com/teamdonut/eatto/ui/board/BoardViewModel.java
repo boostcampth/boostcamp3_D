@@ -46,6 +46,12 @@ public class BoardViewModel {
     private ObservableArrayList<Document> documents = new ObservableArrayList<>();
     private BoardSearchAdapter mAdapter = new BoardSearchAdapter(documents);
 
+    public ObservableField<String> mAddress = new ObservableField<>();
+    private String mPlaceName;
+    private String mAddressName;
+    private String mLongitude;
+    private String mLatitude;
+
     public BoardViewModel() {
 
     }
@@ -138,10 +144,6 @@ public class BoardViewModel {
         return time;
     }
 
-    public void setTime(ObservableField<String> time) {
-        this.time = time;
-    }
-
     public int getMinAge() {
         return minAge;
     }
@@ -171,7 +173,44 @@ public class BoardViewModel {
         this.mAdapter = mAdapter;
     }
 
+    public ObservableField<String> getmAddress() {
+        return mAddress;
+    }
+
+    public String getmPlaceName() {
+        return mPlaceName;
+    }
+
+    public void setmPlaceName(String mPlaceName) {
+        this.mPlaceName = mPlaceName;
+    }
+
+    public String getmAddressName() {
+        return mAddressName;
+    }
+
+    public void setmAddressName(String mAddressName) {
+        this.mAddressName = mAddressName;
+    }
+
+    public String getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(String mLongitude) {
+        this.mLongitude = mLongitude;
+    }
+
+    public String getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(String mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
     public void onDestroyViewModel() {
         disposables.dispose();
     }
+
 }
