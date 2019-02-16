@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class HomeFragment extends Fragment {
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -30,6 +31,7 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel();
+
         binding.setViewmodel(mViewModel);
         return binding.getRoot();
     }
@@ -40,6 +42,7 @@ public class HomeFragment extends Fragment {
         initBoardRecommendRv(binding.rvRecommendBoard);
         initUserRankingRv(binding.rvRank);
         mViewModel.fetchRankUsersList();
+        mViewModel.fetchRankUser();
     }
 
     @Override
@@ -56,6 +59,7 @@ public class HomeFragment extends Fragment {
                 return super.checkLayoutParams(lp);
             }
         };
+
         recyclerView.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
         setRecyclerView(recyclerView, rankingManager);
     }
@@ -70,6 +74,7 @@ public class HomeFragment extends Fragment {
                 return super.checkLayoutParams(lp);
             }
         };
+        
         ((LinearLayoutManager) recommendBoardManager).setOrientation(LinearLayoutManager.HORIZONTAL);
         setRecyclerView(recyclerView, recommendBoardManager);
     }

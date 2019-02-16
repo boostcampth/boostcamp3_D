@@ -28,11 +28,11 @@ public class MyPageViewModel extends ViewModel {
                 service.getUserInfo(RealmDataHelper.getAccessId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSuccess(data -> updateUserInfo(data))
+                        .doAfterSuccess(data -> {
+                                updateUserInfo(data);})
                         .subscribe(data -> {
                                     user.set(data);
-                                }
-                                , e -> {
+                                }, e -> {
                                     e.printStackTrace();
                                 }
                         )
@@ -55,7 +55,6 @@ public class MyPageViewModel extends ViewModel {
     protected void onCleared() {
         realm.close();
         disposables.dispose();
-
         super.onCleared();
     }
 
