@@ -17,8 +17,6 @@ import io.realm.Realm;
 
 public class MyPageEditViewModel extends ViewModel {
 
-    private static final String TAG = "MyPageEditViewwModel";
-
     private MyPageEditNavigator mNavigator;
 
     private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
@@ -41,7 +39,6 @@ public class MyPageEditViewModel extends ViewModel {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterSuccess(data -> {
                             isSubmitted.setValue(true);
-                            Log.d(TAG, "isSubmitted is " + isSubmitted.getValue());
                         } )
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data-> {
