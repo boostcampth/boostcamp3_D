@@ -1,6 +1,5 @@
 package com.teamdonut.eatto.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.HomeFragmentBinding;
-import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +41,7 @@ public class HomeFragment extends Fragment implements HomeNavigator{
         initBoardRecommendRv(binding.rvRecommendBoard);
         initUserRankingRv(binding.rvRank);
         mViewModel.fetchRankUsersList();
+        mViewModel.fetchRankUser();
     }
 
     @Override
@@ -59,6 +58,7 @@ public class HomeFragment extends Fragment implements HomeNavigator{
                 return super.checkLayoutParams(lp);
             }
         };
+
         recyclerView.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
         setRecyclerView(recyclerView, rankingManager);
     }
@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment implements HomeNavigator{
                 return super.checkLayoutParams(lp);
             }
         };
+
         ((LinearLayoutManager) recommendBoardManager).setOrientation(LinearLayoutManager.HORIZONTAL);
         setRecyclerView(recyclerView, recommendBoardManager);
     }

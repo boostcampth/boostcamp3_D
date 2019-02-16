@@ -140,21 +140,23 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_ranking"
-                    app:layout_constraintBottom_toTopOf="@id/iv_myrank"
+                    app:layout_constraintBottom_toTopOf="@id/ranking_item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rv_recommend_board" />
 
-                <ImageView
-                    android:id="@+id/iv_myrank"
+                <include
+                    android:id="@+id/ranking_item"
+                    layout="@layout/ranking_mitem"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="0dp"
+                    app:user="@{viewmodel.user}"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_medium_margin"
-                    android:background="#ffff92"
                     app:layout_constraintBottom_toTopOf="@id/rv_rank"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.07"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ranking" />
 
@@ -167,9 +169,9 @@
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:background="@drawable/rv_home_ranking_bg"
                     android:elevation="2dp"
-                    app:adapter="@{viewmodel.userRankingAdapter}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_myrank" />
+                    app:layout_constraintTop_toBottomOf="@id/ranking_item"
+                    app:adapter="@{viewmodel.userRankingAdapter}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

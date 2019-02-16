@@ -13,10 +13,11 @@ public class RxBus {
     }
 
     public static RxBus getInstance() {
-        if (mInstance == null) {
-            mInstance = new RxBus();
-        }
-        return mInstance;
+        return LazyInit.INSTANCE;
+    }
+
+    private static class LazyInit {
+        private static final RxBus INSTANCE = new RxBus();
     }
 
     public static void setInstanceToNull() {

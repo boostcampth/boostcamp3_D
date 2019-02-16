@@ -17,7 +17,7 @@ public class MyPageEditViewModel extends BaseObservable {
     private MyPageEditNavigator mNavigator;
 
     private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
 
@@ -31,7 +31,7 @@ public class MyPageEditViewModel extends BaseObservable {
     }
 
     public void submitUserInformation() {
-        disposable.add(new CompositeDisposable(
+        disposables.add(new CompositeDisposable(
                 service.postUserInfo(user)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -82,7 +82,7 @@ public class MyPageEditViewModel extends BaseObservable {
 
     public void onDestroyViewModel() {
         realm.close();
-        disposable.dispose();
+        disposables.dispose();
     }
 
     public User getUser() {
