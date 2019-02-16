@@ -19,6 +19,7 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.ui.board.search.BoardSearchActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
