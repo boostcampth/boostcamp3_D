@@ -15,7 +15,6 @@ import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.BaseObservable;
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableArrayList;
@@ -33,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
         )
 })
 
-public class BoardViewModel extends BaseObservable {
+public class BoardViewModel {
     private BoardNavigator mNavigator;
     public ObservableField<String> time = new ObservableField<>();
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
@@ -44,7 +43,7 @@ public class BoardViewModel extends BaseObservable {
 
     //use BoardSearch
     @NonNull
-    public ObservableArrayList<Document> documents = new ObservableArrayList<>();
+    private ObservableArrayList<Document> documents = new ObservableArrayList<>();
     private BoardSearchAdapter mAdapter = new BoardSearchAdapter(documents);
 
     public BoardViewModel() {
