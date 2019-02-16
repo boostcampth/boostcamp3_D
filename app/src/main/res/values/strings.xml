@@ -64,6 +64,7 @@
 
     <!-- Board_Search -->
     <string name="board_search">검색</string>
+    <string name="board_search_please_insert">검색어를 입력해주세요!</string>
     <string name="board_search_can_not_find_result">검색 결과가 없습니다.</string>
 
     <!-- Board_detail -->
