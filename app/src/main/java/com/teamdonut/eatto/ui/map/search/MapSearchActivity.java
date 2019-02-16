@@ -34,8 +34,8 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         realm.close();
+        super.onDestroy();
     }
 
     private void setupToolbar() {

@@ -20,7 +20,7 @@ public class MyPageEditViewModel extends ViewModel {
     private MyPageEditNavigator mNavigator;
 
     private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
-    private CompositeDisposable disposable = new CompositeDisposable();
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
 
@@ -33,7 +33,7 @@ public class MyPageEditViewModel extends ViewModel {
     private MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     public void submitUserInformation() {
-        disposable.add(new CompositeDisposable(
+        disposables.add(new CompositeDisposable(
                 service.postUserInfo(user)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
