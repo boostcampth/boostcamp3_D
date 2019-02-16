@@ -1,10 +1,10 @@
 package com.teamdonut.eatto.common;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -71,4 +71,15 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
             notifyDataSetChanged();
         }
     }
+
+    /**
+     * Set items.
+     */
+    public void setItem(List<T> items) {
+        if (dataSet != null) {
+            this.dataSet = items;
+            notifyDataSetChanged();
+        }
+    }
+
 }
