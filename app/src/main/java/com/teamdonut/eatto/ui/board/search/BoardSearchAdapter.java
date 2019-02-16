@@ -38,25 +38,12 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
         holder.bind(document);
     }
 
-    public void setItem(List<Document> documents) {
-        if (documents == null) {
-            return;
-        }
-        this.documentList = documents;
-        notifyDataSetChanged();
-    }
-
     @BindingAdapter("app:item")
     public static void bindItem(RecyclerView recyclerView, ObservableArrayList<Document> documents) {
         BoardSearchAdapter adapter = (BoardSearchAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.setItem(documents);
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return documentList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
