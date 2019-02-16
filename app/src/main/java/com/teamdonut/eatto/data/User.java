@@ -31,6 +31,10 @@ public class User implements RealmModel {
     @Expose
     private int age;
 
+    @SerializedName("rank")
+    @Expose
+    private int rank;
+
     @SerializedName("score_normal")
     @Expose(serialize =  false)
     private int scoreNormal;
@@ -97,5 +101,9 @@ public class User implements RealmModel {
 
     public int getScoreSum() {
         return scoreSum;
+    }
+
+    public int getRank() {
+        return rank;
     }
 }
