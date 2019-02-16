@@ -56,6 +56,8 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
             dataSet = new ArrayList<>();
         }
         dataSet.clear();
+        notifyDataSetChanged();
+
         dataSet.addAll(items);
 
         notifyItemRangeChanged(0, items.size());
