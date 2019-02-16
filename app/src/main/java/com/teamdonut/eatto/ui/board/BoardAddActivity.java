@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.google.android.gms.common.util.Strings;
-import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
 import com.teamdonut.eatto.model.BoardAPI;
@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import io.reactivex.Single;
@@ -96,14 +97,13 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                break;
             case R.id.menu_write:
                 //게시글 추가
                 addBoardProcess();
-                return true;
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 
@@ -148,12 +148,13 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
 
         Board board = new Board(binding.etInputTitle.getText().toString(),
-                binding.tvInputAddress.getText().toString(), appointedTime,
-                "맥도날드",
+                mViewModel.getmAddressName(),
+                appointedTime,
+                mViewModel.getmPlaceName(),
                 Integer.parseInt(binding.etInputMaxPerson.getText().toString()),
                 mViewModel.getMinAge(), mViewModel.getMaxAge(),
-                127.0123,
-                36.123,
+                Float.parseFloat(mViewModel.getmLongitude()),
+                Float.parseFloat(mViewModel.getmLatitude()),
                 1
         );
 
@@ -195,7 +196,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             );
 
         } else {
-            Snackbar.make(binding.rlBoardAddLayout, R.string.board_add_snack_bar, Snackbar.LENGTH_SHORT).show();
+            SnackBarUtil.showSnackBar(binding.rlBoardAddLayout, R.string.board_add_snack_bar);
         }
 
     }
@@ -211,6 +212,21 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     public void onBoardSearchShowClick() {
         Intent intent = new Intent(this, BoardSearchActivity.class);
         startActivityForResult(intent, BOARD_SEARCH_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case BOARD_SEARCH_REQUEST:
+                    mViewModel.getmAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
+                    mViewModel.setmPlaceName(data.getStringExtra("placeName"));
+                    mViewModel.setmAddressName(data.getStringExtra("addressName"));
+                    mViewModel.setmLongitude(data.getStringExtra("x"));
+                    mViewModel.setmLatitude(data.getStringExtra("y"));
+                    break;
+            }
+        }
     }
 
     public void setHourOfDay(int hourOfDay) {

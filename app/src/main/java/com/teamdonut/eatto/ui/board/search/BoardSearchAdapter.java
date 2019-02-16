@@ -1,9 +1,11 @@
 package com.teamdonut.eatto.ui.board.search;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.databinding.BoardSearchItemBinding;
 
@@ -36,6 +38,13 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
     public void onBindView(MyViewHolder holder, int position) {
         Document document = documentList.get(position);
         holder.bind(document);
+
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxBus.getInstance().sendBus( position );
+            }
+        });
     }
 
     @BindingAdapter("app:item")
