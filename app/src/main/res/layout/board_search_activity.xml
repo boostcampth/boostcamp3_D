@@ -6,19 +6,9 @@
     tools:context=".ui.board.BoardSearchActivity">
 
     <data>
-
-        <import type="androidx.databinding.ObservableArrayList" />
-
-        <import type="com.teamdonut.eatto.data.kakao.Document" />
-
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
-
-        <variable
-            name="documents"
-            type="ObservableArrayList&lt;Document&gt;" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
