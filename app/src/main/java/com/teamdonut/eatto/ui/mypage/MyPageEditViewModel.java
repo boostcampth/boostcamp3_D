@@ -1,18 +1,23 @@
 package com.teamdonut.eatto.ui.mypage;
 
+import android.util.Log;
+
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.model.UserAPI;
 
-import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
-public class MyPageEditViewModel extends BaseObservable {
+public class MyPageEditViewModel extends ViewModel {
+
+    private static final String TAG = "MyPageEditViewwModel";
 
     private MyPageEditNavigator mNavigator;
 
@@ -26,14 +31,18 @@ public class MyPageEditViewModel extends BaseObservable {
     public final ObservableInt userSex = new ObservableInt(user.getSex());
     public final ObservableInt userAge = new ObservableInt(user.getAge());
 
-    public MyPageEditViewModel(MyPageEditNavigator navigator) {
-        this.mNavigator = navigator;
-    }
+    //whether user info is submitted or not.
+    private MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     public void submitUserInformation() {
         disposable.add(new CompositeDisposable(
                 service.postUserInfo(user)
                         .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doAfterSuccess(data -> {
+                            isSubmitted.setValue(true);
+                            Log.d(TAG, "isSubmitted is " + isSubmitted.getValue());
+                        } )
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data-> {
                                     //print response log
@@ -80,12 +89,22 @@ public class MyPageEditViewModel extends BaseObservable {
         mNavigator.selectPhoto();
     }
 
-    public void onDestroyViewModel() {
-        realm.close();
-        disposable.dispose();
-    }
-
     public User getUser() {
         return user;
+    }
+
+    @Override
+    protected void onCleared() {
+        realm.close();
+        disposable.dispose();
+        super.onCleared();
+    }
+
+    public MutableLiveData<Boolean> getIsSubmitted() {
+        return isSubmitted;
+    }
+
+    public void setmNavigator(MyPageEditNavigator mNavigator) {
+        this.mNavigator = mNavigator;
     }
 }
