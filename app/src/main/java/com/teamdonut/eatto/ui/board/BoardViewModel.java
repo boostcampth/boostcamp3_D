@@ -44,7 +44,7 @@ public class BoardViewModel {
     //use BoardSearch
     @NonNull
     private ObservableArrayList<Document> documents = new ObservableArrayList<>();
-    private BoardSearchAdapter mAdapter = new BoardSearchAdapter(documents);
+    public BoardSearchAdapter boardSearchAdapter = new BoardSearchAdapter(documents);
 
     public BoardViewModel() {
 
@@ -119,7 +119,7 @@ public class BoardViewModel {
                                     } else {
                                         //결과가 있을 때
                                         if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                                            mAdapter.addItems(data.getDocuments());
+                                            boardSearchAdapter.addItems(data.getDocuments());
                                         }
                                     }
 
@@ -161,14 +161,6 @@ public class BoardViewModel {
     @NonNull
     public ObservableArrayList<Document> getDocuments() {
         return documents;
-    }
-
-    public BoardSearchAdapter getmAdapter() {
-        return mAdapter;
-    }
-
-    public void setmAdapter(BoardSearchAdapter mAdapter) {
-        this.mAdapter = mAdapter;
     }
 
     public void onDestroyViewModel() {
