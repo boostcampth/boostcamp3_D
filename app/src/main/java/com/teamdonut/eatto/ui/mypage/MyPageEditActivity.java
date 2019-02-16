@@ -15,6 +15,8 @@ import com.tedpark.tedpermission.rx2.TedRx2Permission;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MyPageEditActivity extends AppCompatActivity implements MyPageEditNavigator {
@@ -26,17 +28,22 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.mypage_edit_activity);
-        mViewModel = new MyPageEditViewModel(this);
+
+        mViewModel = ViewModelProviders.of(this).get(MyPageEditViewModel.class);
+        mViewModel.setmNavigator(this);
 
         binding.setViewmodel(mViewModel);
 
+        initObserver();
         initToolbar();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mViewModel.onDestroyViewModel();
+    private void initObserver() {
+        mViewModel.getIsSubmitted().observe(this, isSubmitted -> {
+            if (isSubmitted) {
+                finish();
+            }
+        });
     }
 
     @Override

@@ -1,14 +1,13 @@
 package com.teamdonut.eatto.ui.home;
 
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.HomeAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
-
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -26,6 +25,11 @@ public class HomeViewModel extends ViewModel {
 
     private CompositeDisposable disposables = new CompositeDisposable();
     private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
+    private HomeNavigator mNavigator;
+
+    public HomeViewModel(HomeNavigator navigator) {
+        this.mNavigator = navigator;
+    }
 
     public void fetchRecommendBoardList() {
         disposables.add(
@@ -64,9 +68,11 @@ public class HomeViewModel extends ViewModel {
                 service.getRankUser(originUser.getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doAfterSuccess(data-> {updateUserInfo(data.get(0));})
+                        .doAfterSuccess(data -> {
+                            updateUserInfo(data);
+                        })
                         .subscribe(data -> {
-                                    user.set(data.get(0));
+                                    user.set(data);
                                 }, e -> {
                                     e.printStackTrace();
                                 }
@@ -76,6 +82,10 @@ public class HomeViewModel extends ViewModel {
 
     private void updateUserInfo(User user) {
         RealmDataHelper.updateUser(realm, user);
+    }
+
+    public void onSearchClick() {
+        mNavigator.goToMapSearch();
     }
 
     public void onDestroyViewModel() {

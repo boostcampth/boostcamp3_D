@@ -62,6 +62,10 @@
     <string name="board_add_success">게시글 등록 완료</string>
 
 
+    <!-- Board_Search -->
+    <string name="board_search">검색</string>
+    <string name="board_search_can_not_find_result">검색 결과가 없습니다.</string>
+
     <!-- Board_detail -->
     <string name="board_detail_btn_input_comment">작성</string>
     <string name="board_detail_tv_budget">금액</string>
