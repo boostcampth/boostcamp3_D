@@ -93,13 +93,6 @@ public class BoardViewModel extends BaseObservable {
         mNavigator.onTimePickerClick();
     }
 
-    //Board_Search 검색 이벤트
-    public void onAddressSearchClick() {
-        Log.d("arrived", "check");
-        mAdapter.updateItems(documents);
-        mNavigator.onAddressSearchClick();
-    }
-
     //Board_Search 액티비티 연결 이벤트
     public void onBoardSearchShowClick() {
         mNavigator.onBoardSearchShowClick();

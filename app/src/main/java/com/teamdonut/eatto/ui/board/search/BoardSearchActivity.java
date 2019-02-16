@@ -3,6 +3,8 @@ package com.teamdonut.eatto.ui.board.search;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -61,24 +63,31 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_board_search, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                break;
+            case R.id.menu_search:
+
+                mViewModel.getmAdapter().updateItems(mViewModel.documents);
+
+                scrollListener.resetState();
+                mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
+
+                hideKeyboard();
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
-
-    @Override
-    public void onAddressSearchClick() {
-
-        scrollListener.resetState();
-        mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
-
-        hideKeyboard();
-    }
-
+    
     public void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
