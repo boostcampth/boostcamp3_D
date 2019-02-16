@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class HomeFragment extends Fragment implements HomeNavigator{
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
-    private final int MAP_SEARCH_REQUEST = 101;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -86,6 +85,6 @@ public class HomeFragment extends Fragment implements HomeNavigator{
     @Override
     public void goToMapSearch() {
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
-        startActivityForResult(intent, MAP_SEARCH_REQUEST);
+        startActivity(intent);
     }
 }
