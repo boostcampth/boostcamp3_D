@@ -93,7 +93,7 @@ public class MyPageEditViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         realm.close();
-        disposable.dispose();
+        disposables.dispose();
         super.onCleared();
     }
 
