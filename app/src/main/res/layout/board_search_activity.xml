@@ -26,7 +26,6 @@
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_board_search"
             android:layout_width="match_parent"
@@ -35,9 +34,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_back_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.075"
+            app:layout_constraintHeight_percent="0.07"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/et_input_search_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorHungryGray"
+                android:maxLength="20"
+                android:singleLine="true" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_end_of_back_button"
@@ -45,46 +54,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.07" />
-
-        <EditText
-            android:id="@+id/et_input_search_keyword"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/colorHungryGray"
-            android:maxLength="20"
-            android:paddingStart="@dimen/space_large_margin"
-            android:paddingEnd="@dimen/space_large_margin"
-            android:singleLine="true"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_input_box"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_back_button"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.8" />
-
-        <ImageButton
-            android:id="@+id/ib_board_search"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/colorHungryGray"
-            android:onClick="@{() -> viewmodel.onAddressSearchClick()}"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_input_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.08"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_back_button"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.2"
-            app:srcCompat="@drawable/ic_search_24dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end_of_input_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/mypage_tv_margin"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.15" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -95,9 +64,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.85"
+            app:layout_constraintHeight_percent="0.93"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_input_box" />
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_back_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
