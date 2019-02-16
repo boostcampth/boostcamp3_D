@@ -40,6 +40,15 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         initToolbar();
 
         initSearchResultRv();
+
+        mViewModel.getEtKeywordHint(getApplicationContext());
+        setObserver();
+    }
+
+    public void setObserver() {
+        mViewModel.etKeywordHint.observe(this, (hint) -> {
+            binding.etInputSearchKeyword.setHint(hint);
+        });
     }
 
     public void initToolbar() {
