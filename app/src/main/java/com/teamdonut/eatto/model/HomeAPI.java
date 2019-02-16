@@ -17,7 +17,7 @@ public interface HomeAPI {
     Single<List<Board>> getRecommendBoards();
 
     @GET("home/ranking/me")
-    Single<List<User>> getRankUser(
+    Single<User> getRankUser(
             @Header("kakao_id") long kakaoId
     );
 }
