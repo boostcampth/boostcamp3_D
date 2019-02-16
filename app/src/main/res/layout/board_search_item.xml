@@ -6,10 +6,9 @@
     <data>
 
         <variable
-            name="document"
-            type="com.teamdonut.eatto.data.kakao.Document" />
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.board.search.BoardSearchViewModel" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_board_search_item"
@@ -42,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center|start"
-            android:text="@{document.placeName}"
+            android:text="@{viewmodel.document.placeName}"
             android:textSize="@dimen/board_tv_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +59,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center|start"
-            android:text="@{document.addressName}"
+            android:text="@{viewmodel.document.addressName}"
             android:textSize="@dimen/board_tv_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
