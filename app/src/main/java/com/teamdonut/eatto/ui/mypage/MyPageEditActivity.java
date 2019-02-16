@@ -28,18 +28,22 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.mypage_edit_activity);
+
         mViewModel = ViewModelProviders.of(this).get(MyPageEditViewModel.class);
         mViewModel.setmNavigator(this);
 
-        mViewModel.getIsSubmitted().observe(this, isSubmitted -> {
-                    if (isSubmitted) {
-                        finish();
-                    }
-                });
-
         binding.setViewmodel(mViewModel);
 
+        initObserver();
         initToolbar();
+    }
+
+    private void initObserver() {
+        mViewModel.getIsSubmitted().observe(this, isSubmitted -> {
+            if (isSubmitted) {
+                finish();
+            }
+        });
     }
 
     @Override
