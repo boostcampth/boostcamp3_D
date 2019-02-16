@@ -73,7 +73,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                 break;
             case R.id.menu_search:
 
-                mViewModel.getmAdapter().updateItems(mViewModel.getDocuments());
+                mViewModel.boardSearchAdapter.updateItems(mViewModel.getDocuments());
 
                 scrollListener.resetState();
                 mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
@@ -103,7 +103,6 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         // Adds the scroll listener to RecyclerView
         binding.rvBoardSearch.addOnScrollListener(scrollListener);
 
-        binding.rvBoardSearch.setAdapter(mViewModel.getmAdapter());
     }
 
     @Override
@@ -116,7 +115,6 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     public void onShowSnackBar() {
         SnackBarUtil.showSnackBar(binding.rvBoardSearch, R.string.board_search_can_not_find_result);
     }
-
 
 
 }
