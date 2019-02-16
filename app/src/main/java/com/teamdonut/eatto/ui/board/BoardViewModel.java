@@ -67,8 +67,8 @@ public class BoardViewModel extends BaseObservable {
                                     JsonArray jsonArray = jsonElements.getAsJsonArray("documents");
                                     JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
                                     etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-                                }, throwable -> {
-                                    throwable.printStackTrace();
+                                }, e -> {
+                                    e.printStackTrace();
                                     etKeywordHint.setValue(context.getString(R.string.all_default_address));
                                 }
                         )
@@ -78,7 +78,6 @@ public class BoardViewModel extends BaseObservable {
     void onFragmentDestroyed() {
         mNavigator = null;
     }
-
 
     public void onClickBoardAdd() {
         mNavigator.onAddBoardClick();
@@ -98,14 +97,12 @@ public class BoardViewModel extends BaseObservable {
         mNavigator.onBoardSearchShowClick();
     }
 
-
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
         setMinAge(Integer.parseInt(leftPinValue));
         setMaxAge(Integer.parseInt(rightPinValue));
     }
 
     public void fetchAddressResult(String authorization, String query, int page, int size) {
-
         BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
         Log.d("headercheck", authorization);
 
@@ -116,45 +113,26 @@ public class BoardViewModel extends BaseObservable {
                         .subscribe((data) -> {
 
 
-                                //결과가 없으면
-                                if (data.getDocuments().size() == 0) {
-                                    Log.d("resulttest", "cannotfind");
-                                    mNavigator.onShowSnackBar();
-                                } else {
-                                    //결과가 있을 때
-                                    if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                                        mAdapter.addItems(data.getDocuments());
-                                        Log.d("resulttest", data.getDocuments().get(0).getAddressName() +
-                                                " total :" + data.getMeta().getTotalCount()
-                                                + " pageable : " + data.getMeta().getPageableCount()
-                                                + " document size : " + documents.size()
-                                                + " page : " + page
-                                                + " isend : " + data.getMeta().isEnd() + ""
-                                        );
+                                    //결과가 없으면
+                                    if (data.getDocuments().size() == 0) {
+                                        Log.d("resulttest", "cannotfind");
+                                        mNavigator.onShowSnackBar();
+                                    } else {
+                                        //결과가 있을 때
+                                        if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
+                                            mAdapter.addItems(data.getDocuments());
+                                        }
                                     }
-                                }
-
 
                                 }, (e) -> {
-                                    Log.d("erroroccured", "error");
                                     e.printStackTrace();
                                 }
                         )
         );
     }
 
-
-    public void compositeDisposableDispose() {
+    public void onDestroyBoardViewModel() {
         disposables.dispose();
-    }
-
-
-    public BoardNavigator getmNavigator() {
-        return mNavigator;
-    }
-
-    public void setmNavigator(BoardNavigator mNavigator) {
-        this.mNavigator = mNavigator;
     }
 
     public ObservableField<String> getTime() {
@@ -193,7 +171,6 @@ public class BoardViewModel extends BaseObservable {
     public void setmAdapter(BoardSearchAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
-
 
     public void onDestroyViewModel() {
         disposables.dispose();
