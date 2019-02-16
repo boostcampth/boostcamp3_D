@@ -1,15 +1,11 @@
 package com.teamdonut.eatto.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
-import com.teamdonut.eatto.databinding.HomeFragmentBinding;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -17,8 +13,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 
-public class HomeFragment extends Fragment implements HomeNavigator{
+public class HomeFragment extends Fragment implements HomeNavigator {
     private HomeFragmentBinding binding;
     private HomeViewModel mViewModel;
 
@@ -50,11 +50,11 @@ public class HomeFragment extends Fragment implements HomeNavigator{
         super.onDestroy();
     }
 
-    private void initUserRankingRv(RecyclerView recyclerView){
-        RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(getContext()){
+    private void initUserRankingRv(RecyclerView recyclerView) {
+        RecyclerView.LayoutManager rankingManager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
-                lp.height = (getWidth()/9);
+                lp.height = (getWidth() / 9);
                 return super.checkLayoutParams(lp);
             }
         };
@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment implements HomeNavigator{
         setRecyclerView(recyclerView, rankingManager);
     }
 
-    private void initBoardRecommendRv(RecyclerView recyclerView){
+    private void initBoardRecommendRv(RecyclerView recyclerView) {
         RecyclerView.LayoutManager recommendBoardManager = new LinearLayoutManager(getContext()) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
