@@ -31,20 +31,21 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardSearchItemBinding binding = BoardSearchItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new MyViewHolder(binding);
+        final MyViewHolder holder = new MyViewHolder(binding);
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxBus.getInstance().sendBus( holder.getAdapterPosition() );
+            }
+        });
+
+        return holder;
     }
 
     @Override
     public void onBindView(MyViewHolder holder, int position) {
         Document document = documentList.get(position);
         holder.bind(document);
-
-        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RxBus.getInstance().sendBus( position );
-            }
-        });
     }
 
     @BindingAdapter("app:item")
