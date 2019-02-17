@@ -137,7 +137,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     @Override
     protected void onDestroy() {
-        mViewModel.onDestroyBoardViewModel();
+        mViewModel.onDestroyViewModel();
         RxBus.getInstance().sendBus(-1);
         super.onDestroy();
     }
