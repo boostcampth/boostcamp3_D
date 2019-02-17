@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
@@ -32,6 +33,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
     private BoardAddActivityBinding binding;
@@ -40,6 +42,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     private int minute;
     private CompositeDisposable disposables = new CompositeDisposable();
     private final int BOARD_SEARCH_REQUEST = 101;
+    private Realm realm = Realm.getDefaultInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +158,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
                 mViewModel.getMinAge(), mViewModel.getMaxAge(),
                 Float.parseFloat(mViewModel.getmLongitude()),
                 Float.parseFloat(mViewModel.getmLatitude()),
-                1
+                RealmDataHelper.getAccessId()
         );
 
         if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
@@ -205,6 +208,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     @Override
     protected void onDestroy() {
         disposables.clear();
+        realm.close();
         super.onDestroy();
     }
 
