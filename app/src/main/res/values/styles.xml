@@ -32,6 +32,16 @@
         <item name="android:textSize">@dimen/board_tv_text_size</item>
     </style>
 
+    <style name="BoardItemTagText">
+        <item name="android:background">#EFEFEF</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textColor">#7a7a7a</item>
+    </style>
+
     <style name="FilterTitle">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/colorFilterTitle</item>
