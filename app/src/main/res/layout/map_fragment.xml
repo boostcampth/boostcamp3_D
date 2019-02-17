@@ -112,15 +112,14 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <!--BottomSheet-->
         <include
             android:id="@+id/map_bottom_sheet"
-            layout="@layout/map_bottom_sheet"
+            layout="@layout/map_board_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:behavior_hideable="false"
-            app:behavior_peekHeight="50dp"
+            app:behavior_peekHeight="55dp"
             app:layout_behavior="@string/bottom_sheet_behavior"
             app:viewmodel="@{bottomsheetviewmodel}" />
 
