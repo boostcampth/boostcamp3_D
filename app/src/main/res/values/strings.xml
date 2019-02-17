@@ -61,7 +61,6 @@
     <string name="board_add_tv_search_address">장소를 검색해주세요 (클릭)</string>
     <string name="board_add_success">게시글 등록 완료</string>
 
-
     <!-- Board_Search -->
     <string name="board_search">검색</string>
     <string name="board_search_can_not_find_result">검색 결과가 없습니다.</string>
@@ -101,6 +100,7 @@
     <string name="filter_tv_budget_sub">1인 기준 금액입니다</string>
     <string name="filter_tv_range">~</string>
     <string name="filter_tv_age_format">%d세</string>
+    <string name="filter_tv_min_people">2명</string>
     <string name="filter_tv_people_format">%d명</string>
     <string name="filter_tv_won">원</string>
     <string name="filter_tv_si">시</string>

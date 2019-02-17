@@ -16,7 +16,6 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-
     <!-- board detail -->
     <style name="BoardDetailLeftItem">
         <item name="android:layout_width">wrap_content</item>
@@ -44,7 +43,7 @@
     </style>
 
     <style name="FilterSubTitle">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorFilterSubTitle</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -56,10 +55,20 @@
         <item name="android:layout_marginEnd">7dp</item>
     </style>
 
+    <style name="FilterSpinnerStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:textColor">@color/colorHungryBlack</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
     <style name="FilterLine">
-        <item name="android:layout_height">7dp</item>
+        <item name="android:layout_height">8dp</item>
         <item name="android:background">@color/colorHungryGray</item>
-        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginTop">11dp</item>
     </style>
 
     <style name="FilterRangeBarValueText">
@@ -70,10 +79,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="FilterRangeBarStyle">
+    <style name="RangeBarStyle">
         <item name="mrb_connectingLineColor">@color/colorHungryRed</item>
         <item name="mrb_pinColor">@color/colorHungryRed</item>
-        <item name="mrb_pinMaxFont">14sp</item>
+        <item name="mrb_pinMaxFont">13sp</item>
         <item name="mrb_rangeBarColor">@color/colorFilterView</item>
         <item name="mrb_selectorBoundaryColor">@color/colorHungryRed</item>
         <item name="mrb_selectorBoundarySize">2dp</item>

@@ -20,7 +20,7 @@
     <color name="colorViewBackground">#cacacaca</color>
     <!--MyPage Edit-->
     <color name="colorTextBackground">#C6C6C6</color>
-    <!--Search-->
+    <!--Filter-->
     <color name="colorHungryLightBlack">#3C3C3C</color>
     <color name="colorFilterTitle">#242424</color>
     <color name="colorFilterSubTitle">#515151</color>
