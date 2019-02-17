@@ -15,28 +15,39 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardViewModel;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
-    private GoogleMap mMap;
 
     private MapFragmentBinding binding;
 
     private MapViewModel mViewModel;
     private MapBoardViewModel mBoardViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
+
+    private GoogleMap mMap;
+
+    private MapBoardAdapter mAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 16;
@@ -53,6 +64,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         mBoardViewModel = ViewModelProviders.of(this).get(MapBoardViewModel.class);
         mBoardViewModel.setNavigator(this);
 
+        initObserver();
     }
 
     @Override
@@ -69,8 +81,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         initBottomSheetBehavior();
         initMapView(savedInstanceState);
+        initRecyclerView();
+    }
 
     @Override
     public void onResume() {
@@ -171,7 +186,27 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
-    private void initMapView(@Nullable Bundle savedInstanceState){
+    private void initObserver() {
+        mBoardViewModel.getItems().observe(this, boards -> {
+            mAdapter.updateItems(boards);
+        });
+    }
+
+    private void initRecyclerView() {
+        RecyclerView rv = binding.mapBottomSheet.rvBoard;
+
+        mAdapter = new MapBoardAdapter(new ArrayList<>(0), mBoardViewModel);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
+
+        rv.setHasFixedSize(true);
+        rv.addItemDecoration(itemDecoration);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(mAdapter); //@BindingAdapter is called.
+    }
+
+    private void initMapView(@Nullable Bundle savedInstanceState) {
         binding.mv.onCreate(savedInstanceState);
         binding.mv.onResume();
         binding.mv.getMapAsync(this);
