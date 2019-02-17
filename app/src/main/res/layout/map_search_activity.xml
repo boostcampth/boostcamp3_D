@@ -24,29 +24,55 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_search"
                 android:layout_width="match_parent"
-                android:layout_height="?android:actionBarSize"
+                android:layout_height="wrap_content"
                 android:background="@color/colorHungryGray"
+                android:maxHeight="?android:actionBarSize"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/et_search"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorHungryGray"
-                    android:drawableEnd="@drawable/ic_search_24dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/search_et_hint"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:onClick="@{() -> viewmodel.onGoSearchClick()}"
-                    android:paddingStart="0dp"
-                    android:paddingTop="@dimen/space_search_horizontal_padding"
-                    android:paddingEnd="@dimen/space_medium_margin"
-                    android:paddingBottom="@dimen/space_search_horizontal_padding"
-                    android:textColor="@color/colorHungryLightBlack"
-                    android:textSize="16sp"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar_search" />
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/ib_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:background="@color/colorHungryGray"
+                        android:onClick="@{() -> viewmodel.onGoSearchClick(etSearch.getText().toString())}"
+                        android:paddingStart="@dimen/space_small_margin"
+                        android:paddingTop="@dimen/space_search_horizontal_padding"
+                        android:paddingEnd="@dimen/space_medium_margin"
+                        android:paddingBottom="@dimen/space_search_horizontal_padding"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_search_24dp" />
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="9"
+                        android:background="@color/colorHungryGray"
+                        android:gravity="center_vertical"
+                        android:hint="@string/search_et_hint"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:paddingStart="0dp"
+                        android:paddingTop="@dimen/space_search_horizontal_padding"
+                        android:paddingEnd="@dimen/space_medium_margin"
+                        android:paddingBottom="@dimen/space_search_horizontal_padding"
+                        android:singleLine="true"
+                        android:textColor="@color/colorHungryLightBlack"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/ib_search"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.Toolbar>
 
 
