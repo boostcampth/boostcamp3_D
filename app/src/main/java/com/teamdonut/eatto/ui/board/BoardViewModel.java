@@ -7,12 +7,18 @@ import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.BoardSearchAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingMethod;
@@ -20,6 +26,7 @@ import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -38,9 +45,10 @@ public class BoardViewModel {
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
     private BoardSearchAPI service = ServiceGenerator.createService(BoardSearchAPI.class, ServiceGenerator.KAKAO);
-    private int minAge;
-    private int maxAge;
-
+    private int mMinAge;
+    private int mMaxAge;
+    private int mHourOfDay;
+    private int mMinute;
     //use BoardSearch
     @NonNull
     private ObservableArrayList<Document> documents = new ObservableArrayList<>();
@@ -103,8 +111,8 @@ public class BoardViewModel {
     }
 
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
-        setMinAge(Integer.parseInt(leftPinValue));
-        setMaxAge(Integer.parseInt(rightPinValue));
+        mMinAge = Integer.parseInt(leftPinValue);
+        mMaxAge = Integer.parseInt(rightPinValue);
     }
 
     public void fetchAddressResult(String authorization, String query, int page, int size) {
@@ -136,6 +144,44 @@ public class BoardViewModel {
         );
     }
 
+    public Board makeBoard(String title, int maxPerson) {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String appointedTime = df.format(currentTime);
+        appointedTime += " " + Integer.toString(mHourOfDay) + ":" + Integer.toString(mMinute) + ":00";
+
+        Board board = new Board(title,
+                mAddressName,
+                appointedTime,
+                mPlaceName,
+                maxPerson,
+                mMinAge,
+                mMaxAge,
+                Float.parseFloat(mLongitude),
+                Float.parseFloat(mLatitude),
+                RealmDataHelper.getAccessId()
+        );
+
+        return board;
+    }
+
+    public void addBoard(Board board) {
+        BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
+        Single<Board> result = service.addBoard(board);
+
+        disposables.add(
+                result.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((data) -> {
+                                    if(mNavigator != null)
+                                        mNavigator.onBoardAddFinish();
+                                }, (e) -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
+
     public void onDestroyBoardViewModel() {
         disposables.dispose();
     }
@@ -144,20 +190,8 @@ public class BoardViewModel {
         return time;
     }
 
-    public int getMinAge() {
-        return minAge;
-    }
-
-    public void setMinAge(int minAge) {
-        this.minAge = minAge;
-    }
-
-    public int getMaxAge() {
-        return maxAge;
-    }
-
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
+    public void setmAddress(ObservableField<String> mAddress) {
+        this.mAddress = mAddress;
     }
 
     @NonNull
@@ -213,4 +247,35 @@ public class BoardViewModel {
         disposables.dispose();
     }
 
+    public int getmMinAge() {
+        return mMinAge;
+    }
+
+    public void setmMinAge(int mMinAge) {
+        this.mMinAge = mMinAge;
+    }
+
+    public int getmMaxAge() {
+        return mMaxAge;
+    }
+
+    public void setmMaxAge(int mMaxAge) {
+        this.mMaxAge = mMaxAge;
+    }
+
+    public int getmHourOfDay() {
+        return mHourOfDay;
+    }
+
+    public void setmHourOfDay(int mHourOfDay) {
+        this.mHourOfDay = mHourOfDay;
+    }
+
+    public int getmMinute() {
+        return mMinute;
+    }
+
+    public void setmMinute(int mMinute) {
+        this.mMinute = mMinute;
+    }
 }
