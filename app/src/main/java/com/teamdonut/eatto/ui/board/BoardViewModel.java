@@ -182,7 +182,7 @@ public class BoardViewModel {
         );
     }
 
-    public void onDestroyBoardViewModel() {
+    public void onDestroyViewModel() {
         disposables.dispose();
     }
 
@@ -241,10 +241,6 @@ public class BoardViewModel {
 
     public void setmLatitude(String mLatitude) {
         this.mLatitude = mLatitude;
-    }
-
-    public void onDestroyViewModel() {
-        disposables.dispose();
     }
 
     public int getmMinAge() {
