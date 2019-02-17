@@ -153,6 +153,7 @@
             android:fitsSystemWindows="true">
 
             <include
+                android:id="@+id/layout_filter"
                 layout="@layout/map_search_filter_layout"
                 app:viewmodel="@{viewmodel}" />
 
