@@ -12,7 +12,7 @@
 
         <variable
             name="bottomsheetviewmodel"
-            type="com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel" />
+            type="com.teamdonut.eatto.ui.map.bottomsheet.MapBoardViewModel" />
 
     </data>
 

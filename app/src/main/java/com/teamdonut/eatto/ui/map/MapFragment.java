@@ -17,7 +17,7 @@ import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardViewModel;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
@@ -35,7 +35,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private MapFragmentBinding binding;
 
     private MapViewModel mViewModel;
-    private MapBottomSheetViewModel mBottomSheetViewModel;
+    private MapBoardViewModel mBoardViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
 
     private final int BOARD_ADD_REQUEST = 100;
@@ -47,13 +47,22 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mBoardViewModel = ViewModelProviders.of(this).get(MapBoardViewModel.class);
+        mBoardViewModel.setNavigator(this);
+
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
         mViewModel = new MapViewModel(this);
-        mBottomSheetViewModel = new MapBottomSheetViewModel(this);
 
         binding.setViewmodel(mViewModel);
-        binding.setBottomsheetviewmodel(mBottomSheetViewModel);
+        binding.setBottomsheetviewmodel(mBoardViewModel);
+
         return binding.getRoot();
     }
 
@@ -62,6 +71,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         super.onActivityCreated(savedInstanceState);
         initBottomSheetBehavior();
         initMapView(savedInstanceState);
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mBoardViewModel.loadBoards();
     }
 
     @Override
@@ -137,11 +151,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_EXPANDED: {
-                        mBottomSheetViewModel.isSheetExpanded.set(true);
+                        mBoardViewModel.isSheetExpanded.set(true);
                         break;
                     }
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                        mBottomSheetViewModel.isSheetExpanded.set(false);
+                        mBoardViewModel.isSheetExpanded.set(false);
                         break;
                     }
                     default: {
