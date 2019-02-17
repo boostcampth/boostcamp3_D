@@ -1,65 +1,84 @@
 package com.teamdonut.eatto.data;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Board {
 
 
     @SerializedName("id")
+    @Expose
     private int id;
 
     @SerializedName("address")
+    @Expose
     private String address;
 
     @SerializedName("title")
+    @Expose
     private String title;
 
     @SerializedName("appointed_time")
+    @Expose
     private String appointedTime;
 
     @SerializedName("max_person")
+    @Expose
     private int maxPerson;
 
     @SerializedName("current_person")
+    @Expose
     private int currentPerson;
 
     @SerializedName("restaurant_name")
+    @Expose
     private String restaurantName;
 
     @SerializedName("writer_id")
-    private int writerId;
+    @Expose
+    private long writerId;
 
     @SerializedName("write_date")
+    @Expose
     private String writeDate;
 
     @SerializedName("validation")
+    @Expose
     private int validation;
 
     @SerializedName("content")
+    @Expose
     private String content;
 
     @SerializedName("expire_date")
+    @Expose
     private String expireDate;
 
     @SerializedName("longitude")
+    @Expose
     private double longitude;
 
     @SerializedName("latitude")
+    @Expose
     private double latitude;
 
     @SerializedName("budget")
+    @Expose
     private String budget;
 
     @SerializedName("min_age")
+    @Expose
     private int minAge;
 
     @SerializedName("max_age")
+    @Expose
     private int maxAge;
 
     @SerializedName("photo")
+    @Expose
     private String profileImage;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, int writer_id) {
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -100,7 +119,7 @@ public class Board {
         return restaurantName;
     }
 
-    public int getWriterId() {
+    public long getWriterId() {
         return writerId;
     }
 
