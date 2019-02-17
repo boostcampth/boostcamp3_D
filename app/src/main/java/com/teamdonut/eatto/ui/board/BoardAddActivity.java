@@ -24,13 +24,11 @@ import java.util.Calendar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import io.reactivex.disposables.CompositeDisposable;
 import io.realm.Realm;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
     private BoardAddActivityBinding binding;
     private BoardViewModel mViewModel;
-    private CompositeDisposable disposables = new CompositeDisposable();
     private final int BOARD_SEARCH_REQUEST = 101;
     private Realm realm = Realm.getDefaultInstance();
 
@@ -167,7 +165,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
     @Override
     protected void onDestroy() {
-        disposables.clear();
         realm.close();
         super.onDestroy();
     }
