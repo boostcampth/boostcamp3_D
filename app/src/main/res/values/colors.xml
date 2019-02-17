@@ -13,6 +13,8 @@
     <!-- Board -->
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
+    <!--Board Sheet-->
+    <color name="colorMapBoard">#F2FFFFFF</color>
     <!-- Board_detail -->
     <color name="colorBorderColor">#D0D0D0</color>
     <!-- MyPage -->

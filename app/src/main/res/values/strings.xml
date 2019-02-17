@@ -29,8 +29,8 @@
     
     <!-- Map -->
     <string name="map_search_hint">위치 검색</string>
-    <string name="map_sheet_hide_title">이 지역 모든 혼밥러보기</string>
-    <string name="map_sheet_show_title">현재 %d개의 방에서 혼밥러가 당신을 기다리고 있습니다.</string>
+    <string name="map_board_hide_title">이 지역 모든 혼밥러보기</string>
+    <string name="map_board_show_title">개의 글이 검색되었습니다.</string>
 
     <!-- Board -->
     <string name="board_tv_toolbar">게시글</string>
