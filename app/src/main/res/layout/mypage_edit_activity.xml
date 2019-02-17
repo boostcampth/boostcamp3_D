@@ -66,13 +66,13 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/space_large_margin"
             android:src="@drawable/lion"
-            app:error="@{@drawable/lion}"
+            app:glideError="@{@drawable/lion}"
+            app:glideImage="@{viewmodel.getUser().getPhoto()}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/gl_mid"
             app:layout_constraintStart_toStartOf="@id/gl_mid"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintWidth_percent="0.33"
-            app:url="@{viewmodel.getUser().getPhoto()}" />
+            app:layout_constraintWidth_percent="0.33" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="wrap_content"

@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="2dp"
-        android:background="@drawable/rv_home_ranking_bg">
+        android:background="@drawable/rv_home_ranking_bg"
+        android:elevation="2dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_rank"
@@ -51,13 +51,14 @@
             android:id="@+id/iv_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/kakaoaccount_icon"
+            app:glideError="@{@drawable/kakao_default_profile_image}"
+            app:glideImage="@{user.photo}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/gl_image"
-            app:layout_constraintStart_toStartOf="@id/gl_rank"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.8"
-            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/gl_rank"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
