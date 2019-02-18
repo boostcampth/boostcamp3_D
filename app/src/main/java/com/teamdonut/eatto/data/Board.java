@@ -75,9 +75,13 @@ public class Board implements Parcelable {
     @Expose
     private int maxAge;
 
-    @SerializedName("photo")
+    @SerializedName("writer_photo")
     @Expose
-    private String profileImage;
+    private String writerPhoto;
+
+    @SerializedName("writer_name")
+    @Expose
+    private String writerName;
 
     public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id) {
         this.title = title;
@@ -228,16 +232,10 @@ public class Board implements Parcelable {
         this.maxAge = maxAge;
     }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
 
     protected Board(Parcel in) {
         this.title = in.readString();
+        this.writerPhoto = in.readString();
         this.address = in.readString();
         this.appointedTime = in.readString();
         this.restaurantName = in.readString();
@@ -270,6 +268,7 @@ public class Board implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
+        dest.writeString(writerPhoto);
         dest.writeString(title);
         dest.writeString(address);
         dest.writeString(appointedTime);
@@ -282,5 +281,13 @@ public class Board implements Parcelable {
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+    }
+
+    public String getWriterPhoto() {
+        return writerPhoto;
+    }
+
+    public String getWriterName() {
+        return writerName;
     }
 }
