@@ -1,9 +1,11 @@
 package com.teamdonut.eatto.data;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.maps.android.clustering.ClusterItem;
 
-public class Board {
+public class Board implements ClusterItem {
     @SerializedName("id")
     @Expose
     private int id;
@@ -97,8 +99,18 @@ public class Board {
         return address;
     }
 
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(getLatitude(), getLongitude());
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getSnippet() {
+        return address;
     }
 
     public String getAppointedTime() {
