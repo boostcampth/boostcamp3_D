@@ -53,7 +53,7 @@ public class HomeViewModel extends ViewModel {
 
     public void fetchAnyBoards() {
         disposables.add(
-                service.getAnyBoards()
+                service.getAllBoards()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data -> {
