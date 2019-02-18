@@ -1,37 +1,37 @@
 package com.teamdonut.eatto.ui.board;
 
-import android.content.Context;
 import android.util.Log;
+
 import android.widget.TextView;
-
-import com.appyvet.materialrangebar.RangeBar;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.helper.RealmDataHelper;
-import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.data.Board;
-import com.teamdonut.eatto.data.kakao.Document;
-import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
-import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
+import com.appyvet.materialrangebar.RangeBar;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
+import com.teamdonut.eatto.data.Board;
+import com.teamdonut.eatto.data.kakao.Document;
+import com.teamdonut.eatto.model.BoardAPI;
+import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import androidx.databinding.BindingAdapter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @BindingMethods({
         @BindingMethod(
@@ -49,7 +49,6 @@ public class BoardViewModel {
 
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private BoardAPI service = ServiceGenerator.createService(BoardAPI.class,ServiceGenerator.BASE);
-
     private int mMinAge;
     private int mMaxAge;
     private int mHourOfDay;
@@ -83,12 +82,9 @@ public class BoardViewModel {
         mNavigator = navigator;
     }
 
-    public void getEtKeywordHint(Context context) {
+    public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
         disposables.add(
-                kakaoService.getMyAddress(
-                        context.getResources().getString(R.string.kakao_rest_api_key)
-                        , ActivityUtils.getStrValueSharedPreferences(context, "gps", "longitude")
-                        , ActivityUtils.getStrValueSharedPreferences(context, "gps", "latitude"))
+                kakaoService.getMyAddress(kakaoKey, longtitude, latitude)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(jsonElements -> {
@@ -97,7 +93,7 @@ public class BoardViewModel {
                                     etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
                                 }, e -> {
                                     e.printStackTrace();
-                                    etKeywordHint.setValue(context.getString(R.string.all_default_address));
+                                    etKeywordHint.setValue(defaultAddress);
                                 }
                         )
         );

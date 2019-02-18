@@ -2,15 +2,14 @@ package com.teamdonut.eatto.ui.map.search;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
-import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
 
 public class MapSearchActivity extends AppCompatActivity implements MapSearchNavigator {
 
@@ -28,17 +27,28 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
         binding.setViewmodel(mViewModel);
         binding.setLifecycleOwner(this);
 
+        fetch();
         initObserver();
         initToolbar();
+    }
+
+    public void fetch() {
+        String longitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "longitude");
+        String latitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "latitude");
+        mViewModel.fetchEtKeywordHint(getResources().getString(R.string.kakao_rest_api_key), longitude, latitude, getResources().getString(R.string.all_default_address));
     }
 
     /**
      * Activity Observe search action.
      */
     private void initObserver() {
-        mViewModel.getSearchCondition().observe(this, searchCondition-> {
-                RxBus.getInstance().sendBus(searchCondition); //send data to mapFragment.
-                finish();
+        mViewModel.getSearchCondition().observe(this, data -> {
+            RxBus.getInstance().sendBus(data); //send data to mapFragment.
+            finish();
+        });
+
+        mViewModel.getEtKeywordHint().observe(this, data -> {
+            binding.etSearch.setHint(data);
         });
     }
 

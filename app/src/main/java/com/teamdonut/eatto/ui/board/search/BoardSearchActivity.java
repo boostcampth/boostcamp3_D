@@ -2,7 +2,6 @@ package com.teamdonut.eatto.ui.board.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,6 +9,7 @@ import android.view.MenuItem;
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.EndlessRecyclerViewScrollListener;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.common.util.KeyboardUtil;
@@ -39,17 +39,20 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         mViewModel = new BoardViewModel(this);
         binding.setViewmodel(mViewModel);
 
+        fetch();
         initToolbar();
-
         initSearchResultRv();
-
-        mViewModel.getEtKeywordHint(getApplicationContext());
-        setObserver();
-
+        initObserver();
         initRxBus();
     }
 
-    public void setObserver() {
+    public void fetch(){
+        String longitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "longitude");
+        String latitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "latitude");
+        mViewModel.fetchEtKeywordHint(getResources().getString(R.string.kakao_rest_api_key), longitude, latitude, getResources().getString(R.string.all_default_address));
+    }
+
+    public void initObserver() {
         mViewModel.etKeywordHint.observe(this, (hint) -> {
             binding.etInputSearchKeyword.setHint(hint);
         });
