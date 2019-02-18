@@ -2,12 +2,7 @@ package com.teamdonut.eatto.ui.board;
 
 import android.content.Context;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.databinding.BindingMethod;
-import androidx.databinding.BindingMethods;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
+
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,14 +15,21 @@ import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.BoardSearchAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingMethod;
+import androidx.databinding.BindingMethods;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 @BindingMethods({
         @BindingMethod(
@@ -157,8 +159,8 @@ public class BoardViewModel {
                 mMaxAge,
                 Float.parseFloat(mLongitude),
                 Float.parseFloat(mLatitude),
-                RealmDataHelper.getAccessId(),
-                RealmDataHelper.getPhoto()
+                RealmDataHelper.getUser().getKakaoId(),
+                RealmDataHelper.getUser().getPhoto()
         );
 
         return board;

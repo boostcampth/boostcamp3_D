@@ -1,13 +1,14 @@
 package com.teamdonut.eatto.ui.home;
 
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.HomeAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -81,10 +82,8 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void fetchRankUser() {
-        User originUser = realm.copyFromRealm(realm.where(User.class).findFirst());
-
         disposables.add(
-                service.getRankUser(originUser.getKakaoId())
+                service.getRankUser(RealmDataHelper.getUser().getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterSuccess(data -> {
