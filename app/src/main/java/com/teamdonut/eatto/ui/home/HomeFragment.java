@@ -6,6 +6,13 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -13,11 +20,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
-import com.teamdonut.eatto.databinding.HomeFragmentBinding;
-import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 
 public class HomeFragment extends Fragment implements HomeNavigator {
     private HomeFragmentBinding binding;
@@ -41,7 +43,16 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         super.onActivityCreated(savedInstanceState);
         initBoardRecommendRv(binding.rvRecommendBoard);
         initUserRankingRv(binding.rvRank);
+        initObserve();
         fetchData();
+    }
+
+    private void initObserve(){
+        mViewModel.getBoardFlag().observe(this, data -> {
+            if(data == 2){
+                mViewModel.getBoardRecommendAdapter().setItem(mViewModel.getAnyBoards().getValue());
+            }
+        });
     }
 
     private void fetchData(){
