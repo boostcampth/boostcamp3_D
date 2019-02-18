@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewmodel"
-            type="com.teamdonut.eatto.ui.home.BoardRecommendViewModel" />
+            name="board"
+            type="com.teamdonut.eatto.data.Board" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -55,7 +55,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.boardTitle}"
+                android:text="@{board.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gl_center" />
@@ -64,7 +64,7 @@
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.boardAddress}"
+                android:text="@{board.address}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -73,7 +73,7 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.boardAppointedTime}"
+                android:text="@{board.appointedTime.substring(11, 16)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

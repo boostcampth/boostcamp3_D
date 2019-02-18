@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingStart="@dimen/space_medium_padding"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
@@ -149,7 +150,6 @@
                     layout="@layout/ranking_mitem"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:user="@{viewmodel.user}"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_medium_margin"
@@ -157,7 +157,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent="0.07"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ranking" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_ranking"
+                    app:user="@{viewmodel.user}" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_rank"
@@ -168,9 +169,9 @@
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:background="@drawable/rv_home_ranking_bg"
                     android:elevation="2dp"
+                    app:adapter="@{viewmodel.userRankingAdapter}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ranking_item"
-                    app:adapter="@{viewmodel.userRankingAdapter}" />
+                    app:layout_constraintTop_toBottomOf="@id/ranking_item" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
