@@ -1,10 +1,9 @@
 package com.teamdonut.eatto.common.helper;
 
 import com.teamdonut.eatto.data.Keyword;
+import com.teamdonut.eatto.data.User;
 
 import java.util.Date;
-
-import com.teamdonut.eatto.data.User;
 
 import io.realm.Realm;
 
@@ -28,6 +27,45 @@ public class RealmDataHelper {
             throw new NullPointerException("There is no user data.");
         }
     }
+
+    /**
+     * get User photo Id (access)
+     */
+    public static String getPhotoName() {
+        Realm realm = Realm.getDefaultInstance();
+        User user = realm.where(User.class).findFirst();
+        User copyUser;
+
+        if (user != null) {
+            copyUser = realm.copyFromRealm(user);
+            realm.close();
+
+            return copyUser.getPhoto();
+        } else {
+            realm.close();
+            throw new NullPointerException("There is no user data.");
+        }
+    }
+
+    /**
+     * get User photo Id (access)
+     */
+    public static String getNickName() {
+        Realm realm = Realm.getDefaultInstance();
+        User user = realm.where(User.class).findFirst();
+        User copyUser;
+
+        if (user != null) {
+            copyUser = realm.copyFromRealm(user);
+            realm.close();
+
+            return copyUser.getNickName();
+        } else {
+            realm.close();
+            throw new NullPointerException("There is no user data.");
+        }
+    }
+
 
     /**
      * Insert keyword
