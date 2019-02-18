@@ -32,7 +32,7 @@ public class HomeViewModel extends ViewModel {
         this.mNavigator = navigator;
     }
 
-    public void fetchRecommendBoardList(String longitude, String latitude) {
+    public void fetchRecommendBoards(String longitude, String latitude) {
         disposables.add(
                 service.getRecommendBoards(longitude, latitude)
                         .subscribeOn(Schedulers.io())
@@ -51,7 +51,7 @@ public class HomeViewModel extends ViewModel {
         );
     }
 
-    public void fetchAnyBoardList() {
+    public void fetchAnyBoards() {
         disposables.add(
                 service.getAnyBoards()
                         .subscribeOn(Schedulers.io())
@@ -66,7 +66,7 @@ public class HomeViewModel extends ViewModel {
         );
     }
 
-    public void fetchRankUsersList() {
+    public void fetchRankUsers() {
         disposables.add(
                 service.getTopTenUsers()
                         .subscribeOn(Schedulers.io())

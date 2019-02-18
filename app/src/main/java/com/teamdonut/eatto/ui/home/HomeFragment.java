@@ -45,13 +45,13 @@ public class HomeFragment extends Fragment implements HomeNavigator {
     }
 
     private void fetchData(){
-        mViewModel.fetchRankUsersList();
+        mViewModel.fetchRankUsers();
         mViewModel.fetchRankUser();
-        mViewModel.fetchRecommendBoardList(
+        mViewModel.fetchRecommendBoards(
                 ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longtitude"),
                 ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude")
         );
-        mViewModel.fetchAnyBoardList();
+        mViewModel.fetchAnyBoards();
     }
 
     @Override
