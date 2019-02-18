@@ -14,14 +14,15 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 public class HomeViewModel extends ViewModel {
-    public ObservableArrayList<User> users = new ObservableArrayList<>();
-    public ObservableArrayList<Board> boards = new ObservableArrayList<>();
+    private ObservableArrayList<User> users = new ObservableArrayList<>();
+    private ObservableArrayList<Board> recommendBoards = new ObservableArrayList<>();
+    private ObservableArrayList<Board> anyBoards = new ObservableArrayList<>();
     private ObservableField<User> user = new ObservableField<>();
 
     private Realm realm = Realm.getDefaultInstance();
 
-    public UserRankingAdapter userRankingAdapter = new UserRankingAdapter(users);
-    public BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(boards);
+    private UserRankingAdapter userRankingAdapter = new UserRankingAdapter(users);
+    private BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(recommendBoards);
 
     private CompositeDisposable disposables = new CompositeDisposable();
     private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
@@ -31,13 +32,32 @@ public class HomeViewModel extends ViewModel {
         this.mNavigator = navigator;
     }
 
-    public void fetchRecommendBoardList() {
+    public void fetchRecommendBoards(String longitude, String latitude) {
         disposables.add(
-                service.getRecommendBoards()
+                service.getRecommendBoards(longitude, latitude)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doAfterSuccess(data -> {
+                            if(data.size() == 0){
+                                boardRecommendAdapter.setItem(anyBoards);
+                            }
+                        })
+                        .subscribe(data -> {
+                                    boardRecommendAdapter.setItem(data);
+                                }, e -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
+
+    public void fetchAnyBoards() {
+        disposables.add(
+                service.getAnyBoards()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data -> {
-                                    boards.addAll(data);
+                                    anyBoards.addAll(data);
                                     boardRecommendAdapter.notifyDataSetChanged();
                                 }, e -> {
                                     e.printStackTrace();
@@ -46,14 +66,13 @@ public class HomeViewModel extends ViewModel {
         );
     }
 
-    public void fetchRankUsersList() {
+    public void fetchRankUsers() {
         disposables.add(
                 service.getTopTenUsers()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data -> {
-                                    users.addAll(data);
-                                    userRankingAdapter.notifyDataSetChanged();
+                                    userRankingAdapter.setItem(data);
                                 }, e -> {
                                     e.printStackTrace();
                                 }
@@ -95,5 +114,13 @@ public class HomeViewModel extends ViewModel {
 
     public ObservableField<User> getUser() {
         return user;
+    }
+
+    public UserRankingAdapter getUserRankingAdapter() {
+        return userRankingAdapter;
+    }
+
+    public BoardRecommendAdapter getBoardRecommendAdapter() {
+        return boardRecommendAdapter;
     }
 }
