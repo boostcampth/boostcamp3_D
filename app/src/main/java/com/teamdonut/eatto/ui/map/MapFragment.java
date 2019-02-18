@@ -3,6 +3,7 @@ package com.teamdonut.eatto.ui.map;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.maps.android.clustering.ClusterManager;
@@ -44,6 +46,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private GoogleMap mMap;
     private ClusterManager<Board> mClusterManager;
+    private CameraPosition mPreviousCameraPosition;
 
     private MapBoardAdapter mAdapter;
 
@@ -83,7 +86,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void onResume() {
         super.onResume();
         //mViewModel.loadBoards();
-        mViewModel.fetchBoards();
     }
 
     @Override
@@ -191,6 +193,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             for (Board board : data) {
                 mClusterManager.addItem(board);
             }
+            mClusterManager.cluster();
         });
     }
 
@@ -216,7 +219,19 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private void initCluster() {
         mClusterManager = new ClusterManager<Board>(getActivity(), mMap);
-        mMap.setOnCameraIdleListener(mClusterManager);
+        mPreviousCameraPosition = mMap.getCameraPosition();
         mMap.setOnMarkerClickListener(mClusterManager);
+        mMap.setOnCameraIdleListener(()-> {
+            mViewModel.fetchBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
+            if (mClusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
+                ((GoogleMap.OnCameraIdleListener)mClusterManager.getRenderer()).onCameraIdle();
+            }
+
+            CameraPosition position = mMap.getCameraPosition();
+            if (mPreviousCameraPosition == null || mPreviousCameraPosition.zoom != position.zoom) {
+                mPreviousCameraPosition = mMap.getCameraPosition();
+                //mClusterManager.cluster();
+            }
+        });
     }
 }

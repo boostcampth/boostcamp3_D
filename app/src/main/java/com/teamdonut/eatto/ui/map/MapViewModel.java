@@ -4,6 +4,7 @@ import android.view.View;
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.google.android.gms.maps.model.LatLng;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
@@ -44,8 +45,8 @@ public class MapViewModel extends ViewModel {
                 .dispose();
     }
 
-    public void fetchBoards() {
-        disposables.add(service.getAllBoards()
+    public void fetchBoards(LatLng leftLatLng, LatLng rightLatLng) {
+        disposables.add(service.getBoards(leftLatLng.longitude,leftLatLng.latitude,rightLatLng.longitude,rightLatLng.latitude)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(data -> {
