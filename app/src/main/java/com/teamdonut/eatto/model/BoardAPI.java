@@ -3,6 +3,9 @@ package com.teamdonut.eatto.model;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.kakao.LocalKeywordSearch;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -20,4 +23,15 @@ public interface BoardAPI {
             @Query("query") String query,
             @Query("page") int page,
             @Query("size") int size);
+
+    @GET("search/list")
+    Single<List<Board>> getBoards(
+            @Header("kakao_id") long kakaoId,
+            @Query(value = "keyword", encoded = true) String keyword,
+            @Query("min_time") int minTime,
+            @Query("max_time") int maxTime,
+            @Query("min_age") int minAge,
+            @Query("max_age") int maxAge,
+            @Query("max_person") int maxPerson,
+            @Query("budget") int budget);
 }
