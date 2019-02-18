@@ -34,7 +34,7 @@ public class Board {
 
     @SerializedName("writer_id")
     @Expose
-    private int writerId;
+    private long writerId;
 
     @SerializedName("write_date")
     @Expose
@@ -76,7 +76,7 @@ public class Board {
     @Expose
     private String profileImage;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, int writer_id) {
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -117,7 +117,7 @@ public class Board {
         return restaurantName;
     }
 
-    public int getWriterId() {
+    public long getWriterId() {
         return writerId;
     }
 

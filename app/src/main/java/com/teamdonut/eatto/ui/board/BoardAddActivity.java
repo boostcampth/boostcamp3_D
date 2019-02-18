@@ -13,32 +13,24 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.google.android.gms.common.util.Strings;
-import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
-import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
     private BoardAddActivityBinding binding;
     private BoardViewModel mViewModel;
-    private int hourOfDay;
-    private int minute;
-    private CompositeDisposable disposables = new CompositeDisposable();
     private final int BOARD_SEARCH_REQUEST = 101;
+    private Realm realm = Realm.getDefaultInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +88,13 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
+                break;
             case R.id.menu_write:
                 //게시글 추가
                 addBoardProcess();
-                return true;
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 
@@ -116,8 +107,8 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String setTime = hourOfDay + "시 " + minute + "분";
-                setHourOfDay(hourOfDay);
-                setMinute(minute);
+                mViewModel.setmHourOfDay(hourOfDay);
+                mViewModel.setmMinute(minute);
                 mViewModel.time.set(setTime);
             }
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), DateFormat.is24HourFormat(getApplicationContext()));
@@ -140,70 +131,41 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
     }
 
-    //게시글 추가에 사용될 Board 객체 생성
-    public Board makeBoard() {
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String appointedTime = df.format(currentTime);
-        appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
-
-        Board board = new Board(binding.etInputTitle.getText().toString(),
-                binding.tvInputAddress.getText().toString(), appointedTime,
-                "맥도날드",
-                Integer.parseInt(binding.etInputMaxPerson.getText().toString()),
-                mViewModel.getMinAge(), mViewModel.getMaxAge(),
-                127.0123,
-                36.123,
-                1
-        );
-
-        if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
-            board.setContent("");
-        } else {
-            board.setContent(binding.etInputContent.getText().toString());
-        }
-
-        if (Strings.isEmptyOrWhitespace(binding.etInputBudget.getText().toString())) {
-            board.setBudget("0");
-        } else {
-            board.setBudget(binding.etInputBudget.getText().toString());
-        }
-
-        return board;
-    }
-
     //게시글 추가 함수
     public void addBoardProcess() {
 
         if (inputCheck()) {
 
-            Board board = makeBoard();
+            Board board = mViewModel.makeBoard(binding.etInputTitle.getText().toString(), Integer.parseInt(binding.etInputMaxPerson.getText().toString()));
 
-            BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
-            Single<Board> result = service.addBoard(board);
+            if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
+                board.setContent("");
+            } else {
+                board.setContent(binding.etInputContent.getText().toString());
+            }
 
-            disposables.add(
-                    result.subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe((data) -> {
-                                        setResult(RESULT_OK);
-                                        finish();
-                                    }, (e) -> {
-                                        e.printStackTrace();
-                                    }
-                            )
-            );
+            if (Strings.isEmptyOrWhitespace(binding.etInputBudget.getText().toString())) {
+                board.setBudget("0");
+            } else {
+                board.setBudget(binding.etInputBudget.getText().toString());
+            }
+
+            mViewModel.addBoard(board);
 
         } else {
-            Snackbar.make(binding.rlBoardAddLayout, R.string.board_add_snack_bar, Snackbar.LENGTH_SHORT).show();
+            SnackBarUtil.showSnackBar(binding.rlBoardAddLayout, R.string.board_add_snack_bar);
         }
 
     }
 
+    public void onBoardAddFinish() {
+        setResult(RESULT_OK);
+        finish();
+    }
 
     @Override
     protected void onDestroy() {
-        disposables.clear();
+        realm.close();
         super.onDestroy();
     }
 
@@ -213,11 +175,19 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         startActivityForResult(intent, BOARD_SEARCH_REQUEST);
     }
 
-    public void setHourOfDay(int hourOfDay) {
-        this.hourOfDay = hourOfDay;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case BOARD_SEARCH_REQUEST:
+                    mViewModel.getmAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
+                    mViewModel.setmPlaceName(data.getStringExtra("placeName"));
+                    mViewModel.setmAddressName(data.getStringExtra("addressName"));
+                    mViewModel.setmLongitude(data.getStringExtra("x"));
+                    mViewModel.setmLatitude(data.getStringExtra("y"));
+                    break;
+            }
+        }
     }
 
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
 }
