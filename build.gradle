@@ -91,6 +91,9 @@ ext {
     tedPermissionVersion = '2.2.2'
     tedBottomPickerVersion = '1.1.0'
 
+    //lottie
+    lottieVersion = '3.0.0-beta1'
+
     //Realm
     realmVersion = '5.8.0'
 }

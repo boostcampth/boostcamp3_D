@@ -17,6 +17,6 @@ public class BoardRecommendViewModel {
     }
 
     public String getBoardAppointedTime(){
-        return board.getAppointedTime();
+        return board.getAppointedTime().substring(11, 16);
     }
 }

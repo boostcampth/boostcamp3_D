@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.HomeFragmentBinding;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
@@ -40,8 +41,17 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         super.onActivityCreated(savedInstanceState);
         initBoardRecommendRv(binding.rvRecommendBoard);
         initUserRankingRv(binding.rvRank);
-        mViewModel.fetchRankUsersList();
+        fetchData();
+    }
+
+    private void fetchData(){
+        mViewModel.fetchRankUsers();
         mViewModel.fetchRankUser();
+        mViewModel.fetchRecommendBoards(
+                ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longtitude"),
+                ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude")
+        );
+        mViewModel.fetchAnyBoards();
     }
 
     @Override
@@ -70,6 +80,7 @@ public class HomeFragment extends Fragment implements HomeNavigator {
                 int dp = (int) (getResources().getDimension(R.dimen.space_medium_margin) / getResources().getDisplayMetrics().density);
                 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp * 3, getResources().getDisplayMetrics());
                 lp.width = (getWidth() - (int) px) / 2;
+                lp.height = (int)(getWidth() * 0.4);
                 return super.checkLayoutParams(lp);
             }
         };

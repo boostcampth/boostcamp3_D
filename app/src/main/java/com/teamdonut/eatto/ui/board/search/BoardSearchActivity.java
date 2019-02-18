@@ -1,11 +1,15 @@
 package com.teamdonut.eatto.ui.board.search;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.EndlessRecyclerViewScrollListener;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.common.util.KeyboardUtil;
@@ -41,12 +45,35 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
         mViewModel.getEtKeywordHint(getApplicationContext());
         setObserver();
+
+        initRxBus();
     }
 
     public void setObserver() {
         mViewModel.etKeywordHint.observe(this, (hint) -> {
             binding.etInputSearchKeyword.setHint(hint);
         });
+    }
+
+    public void initRxBus() {
+        RxBus.getInstance().getBus().subscribe((position) -> {
+
+                    if ((int) position != -1) {
+                        int curPosition = (int) position;
+
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("placeName", mViewModel.getDocuments().get(curPosition).getPlaceName());
+                        resultIntent.putExtra("addressName", mViewModel.getDocuments().get(curPosition).getAddressName());
+                        resultIntent.putExtra("x", mViewModel.getDocuments().get(curPosition).getX());
+                        resultIntent.putExtra("y", mViewModel.getDocuments().get(curPosition).getY());
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    }
+                },
+                (e) -> e.printStackTrace(),
+                () -> {
+
+                });
     }
 
     public void initToolbar() {
@@ -72,13 +99,15 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                 finish();
                 break;
             case R.id.menu_search:
+                if(Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
+                    SnackBarUtil.showSnackBar(getCurrentFocus(),R.string.board_search_please_insert);
+                }else {
+                    mViewModel.getBoardSearchAdapter().updateItems(mViewModel.getDocuments());
 
-                mViewModel.getBoardSearchAdapter().updateItems(mViewModel.getDocuments());
-
-                scrollListener.resetState();
-                mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
-
-                KeyboardUtil.hideKeyboard(getCurrentFocus(), getApplicationContext());
+                    scrollListener.resetState();
+                    mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
+                }
+                KeyboardUtil.hideKeyboard(getCurrentFocus(),getApplicationContext());
                 break;
         }
         return true;
@@ -108,7 +137,8 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     @Override
     protected void onDestroy() {
-        mViewModel.onDestroyBoardViewModel();
+        mViewModel.onDestroyViewModel();
+        RxBus.getInstance().sendBus(-1);
         super.onDestroy();
     }
 
@@ -116,7 +146,6 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     public void onShowSnackBar() {
         SnackBarUtil.showSnackBar(binding.rvBoardSearch, R.string.board_search_can_not_find_result);
     }
-
 
 
 }

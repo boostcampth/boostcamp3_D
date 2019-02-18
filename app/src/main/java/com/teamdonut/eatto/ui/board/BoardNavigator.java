@@ -6,4 +6,5 @@ public interface BoardNavigator {
     default void onTimePickerClick() {};
     default void onBoardSearchShowClick() {};
     default void onShowSnackBar() {};
+    default void onBoardAddFinish() {};
 }

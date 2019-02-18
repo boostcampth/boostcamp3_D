@@ -14,6 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+
         android:layout_height="@dimen/board_item_size"
         android:layout_marginStart="@dimen/space_large_margin"
         android:layout_marginTop="@dimen/space_small_margin"

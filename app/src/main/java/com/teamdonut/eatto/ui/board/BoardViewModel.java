@@ -16,6 +16,10 @@ import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.BindingMethod;
@@ -23,6 +27,7 @@ import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -41,11 +46,14 @@ public class BoardViewModel {
     public ObservableField<String> time = new ObservableField<>();
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
+
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private BoardAPI service = ServiceGenerator.createService(BoardAPI.class,ServiceGenerator.BASE);
 
-    private int minAge;
-    private int maxAge;
+    private int mMinAge;
+    private int mMaxAge;
+    private int mHourOfDay;
+    private int mMinute;
 
     //use BoardSearch
     @NonNull
@@ -59,6 +67,12 @@ public class BoardViewModel {
     private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards);
 
     private Realm realm = Realm.getDefaultInstance();
+
+    public ObservableField<String> mAddress = new ObservableField<>();
+    private String mPlaceName;
+    private String mAddressName;
+    private String mLongitude;
+    private String mLatitude;
 
     public BoardViewModel() {
 
@@ -111,8 +125,8 @@ public class BoardViewModel {
     }
 
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
-        setMinAge(Integer.parseInt(leftPinValue));
-        setMaxAge(Integer.parseInt(rightPinValue));
+        mMinAge = Integer.parseInt(leftPinValue);
+        mMaxAge = Integer.parseInt(rightPinValue);
     }
 
     //카카오 REST API - 키워드로 장소검색
@@ -181,28 +195,50 @@ public class BoardViewModel {
         disposables.dispose();
     }
 
+    public Board makeBoard(String title, int maxPerson) {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String appointedTime = df.format(currentTime);
+        appointedTime += " " + Integer.toString(mHourOfDay) + ":" + Integer.toString(mMinute) + ":00";
+
+        Board board = new Board(title,
+                mAddressName,
+                appointedTime,
+                mPlaceName,
+                maxPerson,
+                mMinAge,
+                mMaxAge,
+                Float.parseFloat(mLongitude),
+                Float.parseFloat(mLatitude),
+                RealmDataHelper.getAccessId()
+        );
+
+        return board;
+    }
+
+    public void addBoard(Board board) {
+        BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
+        Single<Board> result = service.addBoard(board);
+
+        disposables.add(
+                result.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((data) -> {
+                                    if(mNavigator != null)
+                                        mNavigator.onBoardAddFinish();
+                                }, (e) -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
+
     public ObservableField<String> getTime() {
         return time;
     }
 
-    public void setTime(ObservableField<String> time) {
-        this.time = time;
-    }
-
-    public int getMinAge() {
-        return minAge;
-    }
-
-    public void setMinAge(int minAge) {
-        this.minAge = minAge;
-    }
-
-    public int getMaxAge() {
-        return maxAge;
-    }
-
-    public void setMaxAge(int maxAge) {
-        this.maxAge = maxAge;
+    public void setmAddress(ObservableField<String> mAddress) {
+        this.mAddress = mAddress;
     }
 
     @NonNull
@@ -253,6 +289,73 @@ public class BoardViewModel {
     public void onDestroyViewModel() {
         disposables.dispose();
         realm.close();
+
+    public ObservableField<String> getmAddress() {
+        return mAddress;
+    }
+
+    public String getmPlaceName() {
+        return mPlaceName;
+    }
+
+    public void setmPlaceName(String mPlaceName) {
+        this.mPlaceName = mPlaceName;
+    }
+
+    public String getmAddressName() {
+        return mAddressName;
+    }
+
+    public void setmAddressName(String mAddressName) {
+        this.mAddressName = mAddressName;
+    }
+
+    public String getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(String mLongitude) {
+        this.mLongitude = mLongitude;
+    }
+
+    public String getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(String mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public int getmMinAge() {
+        return mMinAge;
+    }
+
+    public void setmMinAge(int mMinAge) {
+        this.mMinAge = mMinAge;
+    }
+
+    public int getmMaxAge() {
+        return mMaxAge;
+    }
+
+    public void setmMaxAge(int mMaxAge) {
+        this.mMaxAge = mMaxAge;
+    }
+
+    public int getmHourOfDay() {
+        return mHourOfDay;
+    }
+
+    public void setmHourOfDay(int mHourOfDay) {
+        this.mHourOfDay = mHourOfDay;
+    }
+
+    public int getmMinute() {
+        return mMinute;
+    }
+
+    public void setmMinute(int mMinute) {
+        this.mMinute = mMinute;
     }
 
 }
