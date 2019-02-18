@@ -1,9 +1,12 @@
 package com.teamdonut.eatto.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Board {
+public class Board implements Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
@@ -231,5 +234,53 @@ public class Board {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+
+    protected Board(Parcel in) {
+        this.title = in.readString();
+        this.address = in.readString();
+        this.appointedTime = in.readString();
+        this.restaurantName = in.readString();
+        this.maxPerson = in.readInt();
+        this.minAge = in.readInt();
+        this.maxAge = in.readInt();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
+        this.writerId = in.readLong();
+    }
+
+    public static final Parcelable.Creator<Board> CREATOR =
+            new Parcelable.Creator<Board>() {
+                @Override
+                public Board createFromParcel(Parcel in) {
+                    return new Board(in);
+                }
+
+                @Override
+                public Board[] newArray(int size) {
+                    return new Board[size];
+                }
+            };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(address);
+        dest.writeString(appointedTime);
+        dest.writeString(restaurantName);
+        dest.writeInt(minAge);
+        dest.writeInt(maxAge);
+        dest.writeInt(maxPerson);
+        dest.writeString(budget);
+        dest.writeString(content);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
 }
