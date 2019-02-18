@@ -57,7 +57,6 @@
                         android:layout_weight="9"
                         android:background="@color/colorHungryGray"
                         android:gravity="center_vertical"
-                        android:hint="@string/search_et_hint"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
                         android:paddingStart="0dp"
