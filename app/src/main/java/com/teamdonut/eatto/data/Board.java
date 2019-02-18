@@ -74,11 +74,12 @@ public class Board implements ClusterItem {
     @Expose
     private int maxAge;
 
-    @SerializedName("photo")
+    @SerializedName("writer_photo")
     @Expose
-    private String profileImage;
+    private String writerPhoto;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id) {
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person,
+                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -89,6 +90,7 @@ public class Board implements ClusterItem {
         this.longitude = longitude;
         this.latitude = latitude;
         this.writerId = writer_id;
+        this.writerPhoto = writerPhoto;
     }
 
     public int getId() {
@@ -237,11 +239,7 @@ public class Board implements ClusterItem {
         this.maxAge = maxAge;
     }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public String getWriterPhoto() {
+        return writerPhoto;
     }
 }
