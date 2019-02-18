@@ -3,10 +3,12 @@ package com.teamdonut.eatto.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.maps.android.clustering.ClusterItem;
 
-public class Board implements Parcelable {
+public class Board implements Parcelable, ClusterItem {
     @SerializedName("id")
     @Expose
     private int id;
@@ -83,7 +85,8 @@ public class Board implements Parcelable {
     @Expose
     private String writerName;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id) {
+    public Board(String title, String address, String appointed_time, String restaurant_name,
+                 int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -94,6 +97,7 @@ public class Board implements Parcelable {
         this.longitude = longitude;
         this.latitude = latitude;
         this.writerId = writer_id;
+        this.writerPhoto = writerPhoto;
     }
 
     public int getId() {
@@ -104,8 +108,18 @@ public class Board implements Parcelable {
         return address;
     }
 
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(getLatitude(), getLongitude());
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getSnippet() {
+        return address;
     }
 
     public String getAppointedTime() {

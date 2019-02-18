@@ -29,6 +29,23 @@ public class RealmDataHelper {
         }
     }
 
+    public static User getUser() {
+        Realm realm = Realm.getDefaultInstance();
+        User user = realm.where(User.class).findFirst();
+        User copyUser;
+
+        if (user != null) {
+            copyUser = realm.copyFromRealm(user);
+            realm.close();
+
+            return copyUser;
+        } else {
+            realm.close();
+            throw new NullPointerException("There is no user data.");
+        }
+    }
+
+
     /**
      * Insert keyword
      *

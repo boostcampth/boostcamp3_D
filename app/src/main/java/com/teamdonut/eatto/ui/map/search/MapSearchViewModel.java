@@ -2,15 +2,21 @@ package com.teamdonut.eatto.ui.map.search;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.android.gms.common.util.Strings;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Filter;
+import com.teamdonut.eatto.model.BoardAPI;
+import com.teamdonut.eatto.model.ServiceGenerator;
 
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableInt;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 @BindingMethods({
@@ -24,7 +30,9 @@ import io.realm.Realm;
 public class MapSearchViewModel extends ViewModel {
 
     private MapSearchNavigator mNavigator;
-
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
+    private MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private Realm realm = Realm.getDefaultInstance();
 
     private final ObservableInt minTime = new ObservableInt(0);
@@ -36,6 +44,23 @@ public class MapSearchViewModel extends ViewModel {
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
     private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
+
+    public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
+        disposables.add(
+                kakaoService.getMyAddress(kakaoKey, longtitude, latitude)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(jsonElements -> {
+                                    JsonArray jsonArray = jsonElements.getAsJsonArray("documents");
+                                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                                    etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
+                                }, e -> {
+                                    e.printStackTrace();
+                                    etKeywordHint.setValue(defaultAddress);
+                                }
+                        )
+        );
+    }
 
     public void onGoSearchClick(String keyword) {
         saveRecentKeyword(keyword); //save recent keyword.
@@ -126,5 +151,9 @@ public class MapSearchViewModel extends ViewModel {
 
     public Filter getFilter() {
         return filter;
+    }
+
+    public MutableLiveData<String> getEtKeywordHint() {
+        return etKeywordHint;
     }
 }
