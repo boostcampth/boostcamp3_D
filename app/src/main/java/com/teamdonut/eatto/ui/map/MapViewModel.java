@@ -11,10 +11,12 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.model.MapAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapViewModel extends ViewModel {
@@ -28,6 +30,9 @@ public class MapViewModel extends ViewModel {
 
     private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
     private MutableLiveData<List<Board>> searchBoards = new MutableLiveData<>();
+
+    private MapBoardAdapter mapBoardAdapter = new MapBoardAdapter(new ArrayList<Board>(), this);
+
     private Filter filter;
 
     public void loadBoards() {
@@ -51,6 +56,7 @@ public class MapViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .subscribe(data -> {
                             boards.setValue(data);
+                            mapBoardAdapter.updateItems(boards.getValue());
                         },
                         e -> {
                             e.printStackTrace();
@@ -118,5 +124,9 @@ public class MapViewModel extends ViewModel {
 
     public MutableLiveData<List<Board>> getBoards() {
         return boards;
+    }
+
+    public MapBoardAdapter getMapBoardAdapter() {
+        return mapBoardAdapter;
     }
 }
