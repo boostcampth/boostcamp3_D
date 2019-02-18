@@ -56,6 +56,10 @@
     <string name="board_tv_content">내용</string>
     <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
 
+    <!--Board Preview-->
+    <string name="board_preview_btn_title">쪼인</string>
+    <string name="board_preview_tv_person">%d명 참여중</string>
+
     <!-- Board_Add -->
     <string name="board_add_snack_bar">모두 입력해주세요</string>
     <string name="board_add_end">BOARD_ADD_END</string>
