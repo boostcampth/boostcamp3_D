@@ -26,6 +26,6 @@ public interface HomeAPI {
     );
 
     @GET("board")
-    Single<List<Board>> getAnyBoards(
+    Single<List<Board>> getAllBoards(
     );
 }
