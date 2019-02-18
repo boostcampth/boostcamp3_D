@@ -35,8 +35,7 @@ public class Board {
 
     @SerializedName("writer_id")
     @Expose
-    private int writerId;
-
+    private long writerId;
 
     @SerializedName("write_date")
     @Expose
