@@ -1,12 +1,8 @@
 package com.teamdonut.eatto.ui.board;
 
 import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.databinding.BindingMethod;
-import androidx.databinding.BindingMethods;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
+import android.widget.TextView;
+
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,17 +10,25 @@ import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.BoardSearchAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.BindingMethod;
+import androidx.databinding.BindingMethods;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
 
 @BindingMethods({
         @BindingMethod(
@@ -39,21 +43,33 @@ public class BoardViewModel {
     public ObservableField<String> time = new ObservableField<>();
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
-    private BoardSearchAPI kakaoService = ServiceGenerator.createService(BoardSearchAPI.class, ServiceGenerator.KAKAO);
+
+    private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
+    private BoardAPI service = ServiceGenerator.createService(BoardAPI.class,ServiceGenerator.BASE);
     private int mMinAge;
     private int mMaxAge;
     private int mHourOfDay;
     private int mMinute;
+    private String mAddressName;
+    private String mPlaceName;
+    private String mLongitude;
+    private String mLatitude;
+
     //use BoardSearch
     @NonNull
     private ObservableArrayList<Document> documents = new ObservableArrayList<>();
-    private BoardSearchAdapter mAdapter = new BoardSearchAdapter(documents);
+    private BoardSearchAdapter boardSearchAdapter = new BoardSearchAdapter(documents);
+
+    //Board Fragment
+    private ObservableArrayList<Board> joinBoards = new ObservableArrayList<>();
+    private ObservableArrayList<Board> ownBoards = new ObservableArrayList<>();
+    private BoardOwnAdapter boardOwnAdapter = new BoardOwnAdapter(ownBoards);
+    private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards);
+
+    private Realm realm = Realm.getDefaultInstance();
 
     public ObservableField<String> mAddress = new ObservableField<>();
-    private String mPlaceName;
-    private String mAddressName;
-    private String mLongitude;
-    private String mLatitude;
+
 
     public BoardViewModel() {
 
@@ -107,16 +123,13 @@ public class BoardViewModel {
         mMaxAge = Integer.parseInt(rightPinValue);
     }
 
+    //카카오 REST API - 키워드로 장소검색
     public void fetchAddressResult(String authorization, String query, int page, int size) {
-        BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
-        Log.d("headercheck", authorization);
-
         disposables.add(
-                service.getAddress(authorization, query, page, size)
+                kakaoService.getAddress(authorization, query, page, size)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((data) -> {
-
 
                                     //결과가 없으면
                                     if (data.getDocuments().size() == 0) {
@@ -125,7 +138,7 @@ public class BoardViewModel {
                                     } else {
                                         //결과가 있을 때
                                         if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                                            mAdapter.addItems(data.getDocuments());
+                                            boardSearchAdapter.addItems(data.getDocuments());
                                         }
                                     }
 
@@ -134,6 +147,46 @@ public class BoardViewModel {
                                 }
                         )
         );
+    }
+
+    //사용자가 생성한 게시글 불러오기
+    public void fetchOwnBoardResult() {
+        disposables.add(
+                service.getUserCreatedBoard(RealmDataHelper.getUser().getKakaoId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((data) -> {
+                                boardOwnAdapter.addItems(data);
+                                }, (e) -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
+
+    //사용자가 참여중인 게시글 불러오기
+    public void fetchJoinBoardResult() {
+        disposables.add(
+                service.getUserParticipatedBoard(RealmDataHelper.getUser().getKakaoId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe((data) -> {
+                                    boardJoinAdapter.addItems(data);
+                                }, (e) -> {
+                                    e.printStackTrace();
+                                }
+                        )
+        );
+    }
+
+    @BindingAdapter("transdate")
+    public static void setText(TextView view, String date) {
+        String sub = date.substring(11,16);
+        view.setText(sub);
+    }
+
+    public void onDestroyBoardViewModel() {
+        disposables.dispose();
     }
 
     public Board makeBoard(String title, int maxPerson) {
@@ -175,12 +228,12 @@ public class BoardViewModel {
         );
     }
 
-    public void onDestroyViewModel() {
-        disposables.dispose();
-    }
-
     public ObservableField<String> getTime() {
         return time;
+    }
+
+    public ObservableField<String> getmAddress() {
+        return mAddress;
     }
 
     public void setmAddress(ObservableField<String> mAddress) {
@@ -192,48 +245,44 @@ public class BoardViewModel {
         return documents;
     }
 
-    public BoardSearchAdapter getmAdapter() {
-        return mAdapter;
+    public BoardSearchAdapter getBoardSearchAdapter() {
+        return boardSearchAdapter;
     }
 
-    public void setmAdapter(BoardSearchAdapter mAdapter) {
-        this.mAdapter = mAdapter;
+    public void setBoardSearchAdapter(BoardSearchAdapter boardSearchAdapter) {
+        this.boardSearchAdapter = boardSearchAdapter;
     }
 
-    public ObservableField<String> getmAddress() {
-        return mAddress;
+    public BoardOwnAdapter getBoardOwnAdapter() {
+        return boardOwnAdapter;
     }
 
-    public String getmPlaceName() {
-        return mPlaceName;
+    public void setBoardOwnAdapter(BoardOwnAdapter boardOwnAdapter) {
+        this.boardOwnAdapter = boardOwnAdapter;
     }
 
-    public void setmPlaceName(String mPlaceName) {
-        this.mPlaceName = mPlaceName;
+    public BoardJoinAdapter getBoardJoinAdapter() {
+        return boardJoinAdapter;
     }
 
-    public String getmAddressName() {
-        return mAddressName;
+    public void setBoardJoinAdapter(BoardJoinAdapter boardJoinAdapter) {
+        this.boardJoinAdapter = boardJoinAdapter;
     }
 
-    public void setmAddressName(String mAddressName) {
-        this.mAddressName = mAddressName;
+    public ObservableArrayList<Board> getJoinBoards() {
+        return joinBoards;
     }
 
-    public String getmLongitude() {
-        return mLongitude;
+    public void setJoinBoards(ObservableArrayList<Board> joinBoards) {
+        this.joinBoards = joinBoards;
     }
 
-    public void setmLongitude(String mLongitude) {
-        this.mLongitude = mLongitude;
+    public ObservableArrayList<Board> getOwnBoards() {
+        return ownBoards;
     }
 
-    public String getmLatitude() {
-        return mLatitude;
-    }
-
-    public void setmLatitude(String mLatitude) {
-        this.mLatitude = mLatitude;
+    public void setOwnBoards(ObservableArrayList<Board> ownBoards) {
+        this.ownBoards = ownBoards;
     }
 
     public int getmMinAge() {
@@ -266,5 +315,42 @@ public class BoardViewModel {
 
     public void setmMinute(int mMinute) {
         this.mMinute = mMinute;
+    }
+
+    public String getmAddressName() {
+        return mAddressName;
+    }
+
+    public void setmAddressName(String mAddressName) {
+        this.mAddressName = mAddressName;
+    }
+
+    public String getmPlaceName() {
+        return mPlaceName;
+    }
+
+    public void setmPlaceName(String mPlaceName) {
+        this.mPlaceName = mPlaceName;
+    }
+
+    public String getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(String mLongitude) {
+        this.mLongitude = mLongitude;
+    }
+
+    public String getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(String mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public void onDestroyViewModel() {
+        disposables.dispose();
+        realm.close();
     }
 }

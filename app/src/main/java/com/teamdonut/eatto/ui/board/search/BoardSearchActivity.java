@@ -105,7 +105,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                 if(Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
                     SnackBarUtil.showSnackBar(getCurrentFocus(),R.string.board_search_please_insert);
                 }else {
-                    mViewModel.getmAdapter().updateItems(mViewModel.getDocuments());
+                    mViewModel.getBoardSearchAdapter().updateItems(mViewModel.getDocuments());
 
                     scrollListener.resetState();
                     mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
@@ -135,7 +135,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         // Adds the scroll listener to RecyclerView
         binding.rvBoardSearch.addOnScrollListener(scrollListener);
 
-        binding.rvBoardSearch.setAdapter(mViewModel.getmAdapter());
+        binding.rvBoardSearch.setAdapter(mViewModel.getBoardSearchAdapter());
     }
 
     @Override
