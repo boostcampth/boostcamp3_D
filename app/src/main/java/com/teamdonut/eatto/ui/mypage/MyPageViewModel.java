@@ -25,7 +25,7 @@ public class MyPageViewModel extends ViewModel {
 
     public void getUserInformation() {
         disposables.add(
-                service.getUserInfo(RealmDataHelper.getAccessId())
+                service.getUserInfo(RealmDataHelper.getUser().getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterSuccess(data -> {
