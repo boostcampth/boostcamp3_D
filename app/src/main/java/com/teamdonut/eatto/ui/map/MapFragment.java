@@ -230,7 +230,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             CameraPosition position = mMap.getCameraPosition();
             if (mPreviousCameraPosition == null || mPreviousCameraPosition.zoom != position.zoom) {
                 mPreviousCameraPosition = mMap.getCameraPosition();
-                //mClusterManager.cluster();
             }
         });
     }
