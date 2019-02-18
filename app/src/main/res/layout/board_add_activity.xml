@@ -244,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_budget_hint"
                     android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:hint="@string/board_et_budget_hint"
+                    android:hint="@string/all_unlimit"
                     android:inputType="numberDecimal"
                     android:maxLength="7"
                     android:singleLine="true"

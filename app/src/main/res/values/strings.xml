@@ -11,6 +11,8 @@
     <string name="all_sex">성별</string>
     <string name="all_age">나이</string>
     <string name="all_default_address">서울특별시 강남구 역삼동</string>
+    <string name="all_unlimit">무제한</string>
+    <string name="all_won">원</string>
 
     <!--Main BottomNavigationView-->
     <string name="bnv_title_home">홈</string>
@@ -26,7 +28,7 @@
 
     <!-- Main -->
     <string name="main_snack_bar">게시글 등록 완료</string>
-    
+
     <!-- Map -->
     <string name="map_search_hint">위치 검색</string>
     <string name="map_board_hide_title">이 지역 모든 혼밥러보기</string>
@@ -50,7 +52,6 @@
     <string name="board_tv_age_hint">함께 밥 먹고 싶은 혼밥러들의 나이를 설정해주세요.</string>
     <string name="board_tv_budget">가격</string>
     <string name="board_tv_budget_hint">한 사람당 얼마까지 쓸까요?</string>
-    <string name="board_et_budget_hint">무제한</string>
     <string name="board_tv_budget_unit">(단위 : 원)</string>
     <string name="board_tv_content">내용</string>
     <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
