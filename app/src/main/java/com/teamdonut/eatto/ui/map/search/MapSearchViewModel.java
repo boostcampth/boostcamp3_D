@@ -1,10 +1,17 @@
 package com.teamdonut.eatto.ui.map.search;
 
 import com.appyvet.materialrangebar.RangeBar;
+import com.google.android.gms.common.util.Strings;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
+import com.teamdonut.eatto.data.Filter;
 
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableInt;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import io.realm.Realm;
 
 @BindingMethods({
         @BindingMethod(
@@ -14,24 +21,33 @@ import androidx.databinding.ObservableInt;
         )
 })
 
-public class MapSearchViewModel {
+public class MapSearchViewModel extends ViewModel {
 
     private MapSearchNavigator mNavigator;
 
+    private Realm realm = Realm.getDefaultInstance();
+
+    private final ObservableInt minTime = new ObservableInt(0);
+    private final ObservableInt maxTime = new ObservableInt(23);
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
-
-    private final ObservableInt minPeople = new ObservableInt(2);
     private final ObservableInt maxPeople = new ObservableInt(10);
+    private final ObservableInt budget = new ObservableInt(0);
 
+    private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
+    private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
 
-    public MapSearchViewModel(MapSearchNavigator mNavigator) {
-        this.mNavigator = mNavigator;
+    public void onGoSearchClick(String keyword) {
+        saveRecentKeyword(keyword); //save recent keyword.
+
+        searchCondition.setValue(
+                new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), maxPeople.get(), budget.get()));
     }
 
-
-    public void onGoSearchClick() {
-        mNavigator.goSearch();
+    private void saveRecentKeyword(String keyword) {
+        if (!Strings.isEmptyOrWhitespace(keyword)) { //insert keyword
+            RealmDataHelper.insertKeyword(realm, keyword);
+        }
     }
 
     public void onOpenFilterClick() {
@@ -43,8 +59,14 @@ public class MapSearchViewModel {
     }
 
     public void onClearFilterClick() {
-        //clear filter.
+        filter.setMinTime(0);
+        filter.setMaxTime(23);
+        filter.setMinAge(15);
+        filter.setMaxAge(80);
+        filter.setMaxPeople(10);
+        filter.setBudget(0);
     }
+
 
     public void onAgeRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
                                      String leftPinValue, String rightPinValue) {
@@ -54,12 +76,24 @@ public class MapSearchViewModel {
 
     public void onPeopleRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
                                         String leftPinValue, String rightPinValue) {
-        minPeople.set(Integer.parseInt(leftPinValue));
         maxPeople.set(Integer.parseInt(rightPinValue));
     }
 
-    public void onSubmitFilterClick() {
-        //submit.
+    public void onSubmitFilterClick(String minTimeText, String maxTimeText) {
+        minTime.set(Integer.parseInt(minTimeText));
+        maxTime.set(Integer.parseInt(maxTimeText));
+
+        mNavigator.closeNavigationView();
+    }
+
+    @Override
+    protected void onCleared() {
+        realm.close();
+        super.onCleared();
+    }
+
+    public void setNavigator(MapSearchNavigator mNavigator) {
+        this.mNavigator = mNavigator;
     }
 
     public ObservableInt getMinAge() {
@@ -70,11 +104,27 @@ public class MapSearchViewModel {
         return maxAge;
     }
 
-    public ObservableInt getMinPeople() {
-        return minPeople;
-    }
-
     public ObservableInt getMaxPeople() {
         return maxPeople;
+    }
+
+    public ObservableInt getBudget() {
+        return budget;
+    }
+
+    public ObservableInt getMinTime() {
+        return minTime;
+    }
+
+    public ObservableInt getMaxTime() {
+        return maxTime;
+    }
+
+    public MutableLiveData<Filter> getSearchCondition() {
+        return searchCondition;
+    }
+
+    public Filter getFilter() {
+        return filter;
     }
 }

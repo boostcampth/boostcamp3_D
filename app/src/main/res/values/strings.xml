@@ -29,8 +29,8 @@
     
     <!-- Map -->
     <string name="map_search_hint">위치 검색</string>
-    <string name="map_sheet_hide_title">이 지역 모든 혼밥러보기</string>
-    <string name="map_sheet_show_title">현재 %d개의 방에서 혼밥러가 당신을 기다리고 있습니다.</string>
+    <string name="map_board_hide_title">이 지역 모든 혼밥러보기</string>
+    <string name="map_board_show_title">개의 글이 검색되었습니다.</string>
 
     <!-- Board -->
     <string name="board_tv_toolbar">게시글</string>
@@ -61,7 +61,6 @@
     <string name="board_add_tv_search_address">장소를 검색해주세요 (클릭)</string>
     <string name="board_add_success">게시글 등록 완료</string>
 
-
     <!-- Board_Search -->
     <string name="board_search">검색</string>
     <string name="board_search_please_insert">검색어를 입력해주세요!</string>
@@ -70,6 +69,9 @@
     <!-- Board_detail -->
     <string name="board_detail_btn_input_comment">작성</string>
     <string name="board_detail_tv_budget">금액</string>
+
+    <!--Board item-->
+    <string name="board_item_restaurant_hint">음식점 미정</string>
 
     <!-- Mypage -->
     <string name="mypage_tv_normal">잘 먹었습니다</string>
@@ -102,6 +104,7 @@
     <string name="filter_tv_budget_sub">1인 기준 금액입니다</string>
     <string name="filter_tv_range">~</string>
     <string name="filter_tv_age_format">%d세</string>
+    <string name="filter_tv_min_people">2명</string>
     <string name="filter_tv_people_format">%d명</string>
     <string name="filter_tv_won">원</string>
     <string name="filter_tv_si">시</string>

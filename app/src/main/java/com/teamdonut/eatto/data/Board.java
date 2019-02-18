@@ -4,8 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Board {
-
-
+    
     @SerializedName("id")
     @Expose
     private int id;
@@ -36,7 +35,8 @@ public class Board {
 
     @SerializedName("writer_id")
     @Expose
-    private long writerId;
+    private int writerId;
+
 
     @SerializedName("write_date")
     @Expose
