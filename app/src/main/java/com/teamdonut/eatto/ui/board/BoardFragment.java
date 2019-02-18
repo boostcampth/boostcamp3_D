@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardFragment extends Fragment implements BoardNavigator {
     private BoardFragmentBinding binding;
@@ -31,6 +33,36 @@ public class BoardFragment extends Fragment implements BoardNavigator {
         binding.setViewmodel(mViewModel);
         return binding.getRoot();
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        initOwnBoardResultRv();
+        initJoinBoardResultRv();
+    }
+
+    private void initOwnBoardResultRv() {
+        LinearLayoutManager mBoardManager = new LinearLayoutManager(getContext());
+        mBoardManager.setOrientation(RecyclerView.VERTICAL);
+
+        binding.rvMyBoard.setLayoutManager(mBoardManager);
+        binding.rvMyBoard.setAdapter(mViewModel.getBoardOwnAdapter());
+
+        mViewModel.fetchOwnBoardResult();
+
+    }
+
+    private void initJoinBoardResultRv() {
+        LinearLayoutManager mBoardManager = new LinearLayoutManager(getContext());
+        mBoardManager.setOrientation(RecyclerView.VERTICAL);
+        binding.rvOtherBoard.setLayoutManager(mBoardManager);
+        binding.rvOtherBoard.setAdapter(mViewModel.getBoardJoinAdapter());
+
+        mViewModel.fetchJoinBoardResult();
+
+    }
+
 
     @Override
     public void onDestroy() {
