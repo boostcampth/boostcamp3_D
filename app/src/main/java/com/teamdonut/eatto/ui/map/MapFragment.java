@@ -1,6 +1,7 @@
 package com.teamdonut.eatto.ui.map;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,8 +16,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
+import com.teamdonut.eatto.ui.board.BoardPreviewDialog;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
@@ -50,6 +53,9 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private final int DEFAULT_ZOOM = 16;
     private final LatLng DEFAULT_LOCATION = new LatLng(37.566467, 126.978174); // 서울 시청
 
+    private final String BOARD_ARGUMENT = "Board";
+    private final String PREVIEW_TAG = "preview";
+
     public static MapFragment newInstance() {
         return new MapFragment();
     }
@@ -60,7 +66,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         mViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
         mViewModel.setNavigator(this);
 
-        initObserver();
+        initFetchBoardsObserver();
+        initOpenBoardObserver();
     }
 
     @Override
@@ -173,9 +180,24 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
-    private void initObserver() {
+    private void openBoardPreview(Board board) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BOARD_ARGUMENT, board);
+
+        BoardPreviewDialog dialog = BoardPreviewDialog.newInstance();
+        dialog.setArguments(bundle);
+        dialog.show(getChildFragmentManager(), PREVIEW_TAG);
+    }
+
+    private void initFetchBoardsObserver() {
         mViewModel.getItems().observe(this, boards -> {
             mAdapter.updateItems(boards);
+        });
+    }
+
+    private void initOpenBoardObserver() {
+        mViewModel.getOpenBoardEvent().observe(this, board -> {
+            openBoardPreview(board);
         });
     }
 
