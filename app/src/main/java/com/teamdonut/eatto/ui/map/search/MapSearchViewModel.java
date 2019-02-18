@@ -8,6 +8,7 @@ import com.teamdonut.eatto.data.Filter;
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableInt;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.realm.Realm;
@@ -34,6 +35,7 @@ public class MapSearchViewModel extends ViewModel {
     private final ObservableInt budget = new ObservableInt(0);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
+    private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
 
     public void onGoSearchClick(String keyword) {
         saveRecentKeyword(keyword); //save recent keyword.
@@ -57,8 +59,14 @@ public class MapSearchViewModel extends ViewModel {
     }
 
     public void onClearFilterClick() {
-        //
+        filter.setMinTime(0);
+        filter.setMaxTime(23);
+        filter.setMinAge(15);
+        filter.setMaxAge(80);
+        filter.setMaxPeople(10);
+        filter.setBudget(0);
     }
+
 
     public void onAgeRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
                                      String leftPinValue, String rightPinValue) {
@@ -77,7 +85,6 @@ public class MapSearchViewModel extends ViewModel {
 
         mNavigator.closeNavigationView();
     }
-
 
     @Override
     protected void onCleared() {
@@ -115,5 +122,9 @@ public class MapSearchViewModel extends ViewModel {
 
     public MutableLiveData<Filter> getSearchCondition() {
         return searchCondition;
+    }
+
+    public Filter getFilter() {
+        return filter;
     }
 }

@@ -8,6 +8,7 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardItemBinding;
+import com.teamdonut.eatto.ui.map.MapViewModel;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdapter.MapBoardViewHolder> {
 
-    private MapBoardViewModel mViewModel;
+    private MapViewModel mViewModel;
 
-    public MapBoardAdapter(List<Board> dataSet, MapBoardViewModel viewModel) {
+    public MapBoardAdapter(List<Board> dataSet, MapViewModel viewModel) {
         super(dataSet);
         this.mViewModel = viewModel;
     }

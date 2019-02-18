@@ -15,11 +15,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
-import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardViewModel;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
@@ -42,7 +40,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private MapFragmentBinding binding;
 
     private MapViewModel mViewModel;
-    private MapBoardViewModel mBoardViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
 
     private GoogleMap mMap;
@@ -60,9 +57,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mBoardViewModel = ViewModelProviders.of(this).get(MapBoardViewModel.class);
-        mBoardViewModel.setNavigator(this);
+        mViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
+        mViewModel.setNavigator(this);
 
         initObserver();
     }
@@ -70,10 +66,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
-        mViewModel = new MapViewModel(this);
-
         binding.setViewmodel(mViewModel);
-        binding.setBottomsheetviewmodel(mBoardViewModel);
 
         return binding.getRoot();
     }
@@ -90,13 +83,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onResume() {
         super.onResume();
-        mBoardViewModel.loadBoards();
-    }
-
-    @Override
-    public void onDestroy() {
-        mViewModel.onFragmentDestroyed();
-        super.onDestroy();
+        mViewModel.loadBoards();
     }
 
     @Override
@@ -155,7 +142,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
-    private void setMarkerEvent(){
+    private void setMarkerEvent() {
 
     }
 
@@ -166,11 +153,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_EXPANDED: {
-                        mBoardViewModel.isSheetExpanded.set(true);
+                        mViewModel.isSheetExpanded.set(true);
                         break;
                     }
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                        mBoardViewModel.isSheetExpanded.set(false);
+                        mViewModel.isSheetExpanded.set(false);
                         break;
                     }
                     default: {
@@ -187,7 +174,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initObserver() {
-        mBoardViewModel.getItems().observe(this, boards -> {
+        mViewModel.getItems().observe(this, boards -> {
             mAdapter.updateItems(boards);
         });
     }
@@ -195,7 +182,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
 
-        mAdapter = new MapBoardAdapter(new ArrayList<>(0), mBoardViewModel);
+        mAdapter = new MapBoardAdapter(new ArrayList<>(0), mViewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
