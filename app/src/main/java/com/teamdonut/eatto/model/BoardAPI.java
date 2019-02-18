@@ -4,10 +4,12 @@ import com.google.gson.JsonObject;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.kakao.LocalKeywordSearch;
 
+
 import java.util.List;
 
 
 import io.reactivex.Observable;
+
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -33,6 +35,7 @@ public interface BoardAPI {
             @Query("size") int size);
 
 
+
     @GET("board/list/my")
     Single<List<Board>> getUserCreatedBoard(@Header("kakao_id") long kakaoId );
 
@@ -50,5 +53,6 @@ public interface BoardAPI {
             @Query("max_age") int maxAge,
             @Query("max_person") int maxPerson,
             @Query("budget") int budget);
+
 
 }

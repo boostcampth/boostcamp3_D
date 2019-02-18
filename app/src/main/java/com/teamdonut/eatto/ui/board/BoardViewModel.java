@@ -211,7 +211,8 @@ public class BoardViewModel {
                 mMaxAge,
                 Float.parseFloat(mLongitude),
                 Float.parseFloat(mLatitude),
-                RealmDataHelper.getAccessId()
+                RealmDataHelper.getUser().getKakaoId(),
+                RealmDataHelper.getUser().getPhoto()
         );
 
         return board;
