@@ -83,7 +83,7 @@ public class Board implements ClusterItem {
     private String writerName;
 
     public Board(String title, String address, String appointed_time, String restaurant_name, int max_person,
-                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto, String writer_name) {
+                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writer_photo, String writer_name) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
