@@ -36,7 +36,7 @@
     <dimen name="space_search_filter_padding">3dp</dimen>
     
     <!--Filter-->
-    <dimen name="space_filter_title_padding">3dp</dimen>
-    <dimen name="space_filter_item_margin">13dp</dimen>
-    <dimen name="space_filter_side_padding">12dp</dimen>
+    <dimen name="space_filter_title_padding">2dp</dimen>
+    <dimen name="space_filter_item_margin">8dp</dimen>
+    <dimen name="space_filter_content_margin">12dp</dimen>
 </resources>

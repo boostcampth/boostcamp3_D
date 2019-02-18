@@ -1,67 +1,64 @@
 package com.teamdonut.eatto.ui.map.search;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.helper.RealmDataHelper;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import io.realm.Realm;
+import androidx.lifecycle.ViewModelProviders;
 
 public class MapSearchActivity extends AppCompatActivity implements MapSearchNavigator {
 
     private MapSearchActivityBinding binding;
     private MapSearchViewModel mViewModel;
 
-    private Realm realm;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.map_search_activity);
-        mViewModel = new MapSearchViewModel(this);
+
+        mViewModel = ViewModelProviders.of(this).get(MapSearchViewModel.class);
+        mViewModel.setNavigator(this);
+
         binding.setViewmodel(mViewModel);
+        binding.setLifecycleOwner(this);
 
-        realm = Realm.getDefaultInstance();
-
-        setupToolbar();
-    }
-
-    @Override
-    protected void onDestroy() {
-        realm.close();
-        super.onDestroy();
-    }
-
-    private void setupToolbar() {
-        setSupportActionBar(binding.toolbarSearch);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    public void goSearch() {
-        //search
-        saveRecentKeyword();
+        initObserver();
+        initToolbar();
     }
 
     /**
-     * 최근 검색어 저장
+     * Activity Observe search action.
      */
-    private void saveRecentKeyword() {
-        String input = binding.etSearch.getText().toString();
+    private void initObserver() {
+        mViewModel.getSearchCondition().observe(this, searchCondition-> {
+                RxBus.getInstance().sendBus(searchCondition); //send data to mapFragment.
+                finish();
+        });
+    }
 
-        if (!Strings.isEmptyOrWhitespace(input)) {
-            RealmDataHelper.insertKeyword(realm, input);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                onBackPressed();
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
         }
     }
 
+    private void initToolbar() {
+        setSupportActionBar(binding.toolbarSearch);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
     @Override
     public void openNavigationView() {
@@ -73,4 +70,12 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
         binding.dlSearch.closeDrawer(GravityCompat.END);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (binding.dlSearch.isDrawerOpen(binding.nvSearch)) {
+            closeNavigationView();  //if drawer is opened, close drawer.
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
