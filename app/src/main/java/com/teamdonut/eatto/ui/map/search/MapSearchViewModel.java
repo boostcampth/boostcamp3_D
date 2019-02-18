@@ -1,18 +1,19 @@
 package com.teamdonut.eatto.ui.map.search;
 
-import androidx.databinding.BindingMethod;
-import androidx.databinding.BindingMethods;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.android.gms.common.util.Strings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Filter;
-import com.teamdonut.eatto.model.BoardSearchAPI;
+import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+
+import androidx.databinding.BindingMethod;
+import androidx.databinding.BindingMethods;
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -30,7 +31,7 @@ public class MapSearchViewModel extends ViewModel {
 
     private MapSearchNavigator mNavigator;
     private CompositeDisposable disposables = new CompositeDisposable();
-    private BoardSearchAPI kakaoService = ServiceGenerator.createService(BoardSearchAPI.class, ServiceGenerator.KAKAO);
+    private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private Realm realm = Realm.getDefaultInstance();
 
