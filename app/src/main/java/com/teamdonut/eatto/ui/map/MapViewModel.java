@@ -1,38 +1,37 @@
 package com.teamdonut.eatto.ui.map;
 
 import android.view.View;
-
+import androidx.databinding.ObservableBoolean;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
-import com.teamdonut.eatto.model.BoardAPI;
+import com.teamdonut.eatto.model.MapAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
-
-import java.util.List;
-
-import androidx.databinding.ObservableBoolean;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
+import java.util.List;
+
 public class MapViewModel extends ViewModel {
-  
+
     private MapNavigator mNavigator;
 
     public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
 
-    private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
+    private MapAPI service = ServiceGenerator.createService(MapAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private MutableLiveData<List<Board>> mItems = new MutableLiveData<>();
+    private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
+    private MutableLiveData<List<Board>> searchBoards = new MutableLiveData<>();
     private Filter filter;
 
     public void loadBoards() {
         checkBus();
-        fetchBoards();
+        fetchSearchBoards();
     }
 
     private void checkBus() {
@@ -45,15 +44,28 @@ public class MapViewModel extends ViewModel {
                 .dispose();
     }
 
-    private void fetchBoards() {
+    public void fetchBoards() {
+        disposables.add(service.getAllBoards()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(data -> {
+                            boards.setValue(data);
+                        },
+                        e -> {
+                            e.printStackTrace();
+                        })
+        );
+    }
+
+    private void fetchSearchBoards() {
         if (filter != null) {
-            disposables.add(service.getBoards(RealmDataHelper.getAccessId(),
+            disposables.add(service.getSearchBoards(RealmDataHelper.getAccessId(),
                     filter.getKeyword(), filter.getMinTime(), filter.getMaxTime(), filter.getMinAge(), filter.getMaxAge(),
                     filter.getMaxPeople(), filter.getBudget())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(data -> {
-                                mItems.postValue(data);
+                                searchBoards.postValue(data);
                             },
                             e -> {
                                 e.printStackTrace();
@@ -70,9 +82,6 @@ public class MapViewModel extends ViewModel {
         }
     }
 
-    public MutableLiveData<List<Board>> getItems() {
-        return mItems;
-    }
 
     @Override
     protected void onCleared() {
@@ -80,9 +89,6 @@ public class MapViewModel extends ViewModel {
         super.onCleared();
     }
 
-    public void setNavigator(MapNavigator navigator) {
-        this.mNavigator = navigator;
-    }
 
     //검색 버튼 리스너
     public void onSearchClick() {
@@ -99,5 +105,17 @@ public class MapViewModel extends ViewModel {
 
     public void onClickSetMyPosition(View view) {
         mNavigator.startLocationUpdates();
+    }
+
+    public void setNavigator(MapNavigator navigator) {
+        this.mNavigator = navigator;
+    }
+
+    public MutableLiveData<List<Board>> getSearchBoards() {
+        return searchBoards;
+    }
+
+    public MutableLiveData<List<Board>> getBoards() {
+        return boards;
     }
 }

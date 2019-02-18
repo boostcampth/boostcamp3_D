@@ -3,27 +3,10 @@ package com.teamdonut.eatto.ui.map;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.common.util.GpsModule;
-import com.teamdonut.eatto.databinding.MapFragmentBinding;
-import com.teamdonut.eatto.ui.board.BoardAddActivity;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
-import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
-import com.tedpark.tedpermission.rx2.TedRx2Permission;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -33,6 +16,24 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.maps.android.clustering.ClusterManager;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.data.Board;
+import com.teamdonut.eatto.databinding.MapFragmentBinding;
+import com.teamdonut.eatto.ui.board.BoardAddActivity;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
+import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
+import com.tedpark.tedpermission.rx2.TedRx2Permission;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
@@ -43,6 +44,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private BottomSheetBehavior bottomSheetBehavior;
 
     private GoogleMap mMap;
+    private ClusterManager<Board> mClusterManager;
 
     private MapBoardAdapter mAdapter;
 
@@ -59,8 +61,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         super.onCreate(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
         mViewModel.setNavigator(this);
-
-        initObserver();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        initObserver();
         initBottomSheetBehavior();
         initMapView(savedInstanceState);
         initRecyclerView();
@@ -84,6 +84,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void onResume() {
         super.onResume();
         mViewModel.loadBoards();
+        mViewModel.fetchBoards();
     }
 
     @Override
@@ -136,9 +137,18 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         setMyPosition();
+        initCluster();
+
         mMap.setOnMarkerClickListener(marker -> {
             setMarkerEvent();
             return false;
+        });
+
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                Log.e("##", "com");
+            }
         });
     }
 
@@ -174,8 +184,13 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initObserver() {
-        mViewModel.getItems().observe(this, boards -> {
+        mViewModel.getSearchBoards().observe(this, boards -> {
             mAdapter.updateItems(boards);
+        });
+        mViewModel.getBoards().observe(this, data ->{
+            for (Board board : data) {
+                mClusterManager.addItem(board);
+            }
         });
     }
 
@@ -197,5 +212,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         binding.mv.onCreate(savedInstanceState);
         binding.mv.onResume();
         binding.mv.getMapAsync(this);
+    }
+
+    private void initCluster() {
+        mClusterManager = new ClusterManager<Board>(getActivity(), mMap);
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
     }
 }
