@@ -187,6 +187,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             mAdapter.updateItems(boards);
         });
         mViewModel.getBoards().observe(this, data ->{
+            mClusterManager.clearItems();
             for (Board board : data) {
                 mClusterManager.addItem(board);
             }
