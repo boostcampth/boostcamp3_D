@@ -2,6 +2,7 @@ package com.teamdonut.eatto.common;
 
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
 import java.util.List;
 
 import androidx.databinding.BindingAdapter;
@@ -23,10 +24,10 @@ public class Binding {
     }
 
     @BindingAdapter("items")
-    public static void bindItems(RecyclerView recyclerView, List<?> items) {
+    public static void setItems(RecyclerView recyclerView, List<?> items) {
         BaseRecyclerViewAdapter adapter = (BaseRecyclerViewAdapter) recyclerView.getAdapter();
 
-        if (adapter != null && items !=null) {
+        if (adapter != null && items != null) {
             adapter.updateItems(items);
         }
     }
