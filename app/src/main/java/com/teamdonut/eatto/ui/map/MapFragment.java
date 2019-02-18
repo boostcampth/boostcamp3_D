@@ -3,7 +3,6 @@ package com.teamdonut.eatto.ui.map;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +82,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.loadBoards();
+        //mViewModel.loadBoards();
         mViewModel.fetchBoards();
     }
 
@@ -147,7 +146,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                Log.e("##", "com");
+                // 맵 로딩 콜백
             }
         });
     }
