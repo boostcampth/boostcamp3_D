@@ -54,6 +54,10 @@ public class BoardViewModel {
     private int mMaxAge;
     private int mHourOfDay;
     private int mMinute;
+    private String mAddressName;
+    private String mPlaceName;
+    private String mLongitude;
+    private String mLatitude;
 
     //use BoardSearch
     @NonNull
@@ -69,10 +73,7 @@ public class BoardViewModel {
     private Realm realm = Realm.getDefaultInstance();
 
     public ObservableField<String> mAddress = new ObservableField<>();
-    private String mPlaceName;
-    private String mAddressName;
-    private String mLongitude;
-    private String mLatitude;
+
 
     public BoardViewModel() {
 
@@ -237,6 +238,10 @@ public class BoardViewModel {
         return time;
     }
 
+    public ObservableField<String> getmAddress() {
+        return mAddress;
+    }
+
     public void setmAddress(ObservableField<String> mAddress) {
         this.mAddress = mAddress;
     }
@@ -286,46 +291,6 @@ public class BoardViewModel {
         this.ownBoards = ownBoards;
     }
 
-    public void onDestroyViewModel() {
-        disposables.dispose();
-        realm.close();
-
-    public ObservableField<String> getmAddress() {
-        return mAddress;
-    }
-
-    public String getmPlaceName() {
-        return mPlaceName;
-    }
-
-    public void setmPlaceName(String mPlaceName) {
-        this.mPlaceName = mPlaceName;
-    }
-
-    public String getmAddressName() {
-        return mAddressName;
-    }
-
-    public void setmAddressName(String mAddressName) {
-        this.mAddressName = mAddressName;
-    }
-
-    public String getmLongitude() {
-        return mLongitude;
-    }
-
-    public void setmLongitude(String mLongitude) {
-        this.mLongitude = mLongitude;
-    }
-
-    public String getmLatitude() {
-        return mLatitude;
-    }
-
-    public void setmLatitude(String mLatitude) {
-        this.mLatitude = mLatitude;
-    }
-
     public int getmMinAge() {
         return mMinAge;
     }
@@ -358,4 +323,40 @@ public class BoardViewModel {
         this.mMinute = mMinute;
     }
 
+    public String getmAddressName() {
+        return mAddressName;
+    }
+
+    public void setmAddressName(String mAddressName) {
+        this.mAddressName = mAddressName;
+    }
+
+    public String getmPlaceName() {
+        return mPlaceName;
+    }
+
+    public void setmPlaceName(String mPlaceName) {
+        this.mPlaceName = mPlaceName;
+    }
+
+    public String getmLongitude() {
+        return mLongitude;
+    }
+
+    public void setmLongitude(String mLongitude) {
+        this.mLongitude = mLongitude;
+    }
+
+    public String getmLatitude() {
+        return mLatitude;
+    }
+
+    public void setmLatitude(String mLatitude) {
+        this.mLatitude = mLatitude;
+    }
+
+    public void onDestroyViewModel() {
+        disposables.dispose();
+        realm.close();
+    }
 }
