@@ -6,11 +6,13 @@ import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.HomeAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
+
 import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -57,7 +59,7 @@ public class HomeViewModel extends ViewModel {
 
     public void fetchAnyBoards() {
         disposables.add(
-                service.getAnyBoards()
+                service.getAllBoards()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterSuccess(data -> {
@@ -88,7 +90,7 @@ public class HomeViewModel extends ViewModel {
 
     public void fetchRankUser() {
         disposables.add(
-                service.getRankUser(RealmDataHelper.getAccessId())
+                service.getRankUser(RealmDataHelper.getUser().getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doAfterSuccess(data -> {

@@ -9,10 +9,7 @@ import io.realm.Realm;
 
 public class RealmDataHelper {
 
-    /**
-     * get User kakao Id (access)
-     */
-    public static long getAccessId() {
+    public static User getUser() {
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).findFirst();
         User copyUser;
@@ -21,12 +18,13 @@ public class RealmDataHelper {
             copyUser = realm.copyFromRealm(user);
             realm.close();
 
-            return copyUser.getKakaoId();
+            return copyUser;
         } else {
             realm.close();
             throw new NullPointerException("There is no user data.");
         }
     }
+
 
     /**
      * get User photo Id (access)

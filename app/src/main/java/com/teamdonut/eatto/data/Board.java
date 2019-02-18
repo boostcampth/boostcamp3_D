@@ -1,9 +1,11 @@
 package com.teamdonut.eatto.data;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.maps.android.clustering.ClusterItem;
 
-public class Board {
+public class Board implements ClusterItem {
     @SerializedName("id")
     @Expose
     private int id;
@@ -80,8 +82,8 @@ public class Board {
     @Expose
     private String writerName;
 
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person, int min_age, int max_age,
-                 double longitude, double latitude, long writer_id, String writer_photo, String writer_name) {
+    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person,
+                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto, String writer_name) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -107,11 +109,7 @@ public class Board {
     public void setWriterId(long writerId) {
         this.writerId = writerId;
     }
-
-    public String getWriterPhoto() {
-        return writerPhoto;
-    }
-
+  
     public void setWriterPhoto(String writerPhoto) {
         this.writerPhoto = writerPhoto;
     }
@@ -124,8 +122,18 @@ public class Board {
         return address;
     }
 
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(getLatitude(), getLongitude());
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getSnippet() {
+        return address;
     }
 
     public String getAppointedTime() {
@@ -252,5 +260,8 @@ public class Board {
         this.maxAge = maxAge;
     }
 
+    public String getWriterPhoto() {
+        return writerPhoto;
+    }
 
 }

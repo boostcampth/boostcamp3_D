@@ -72,6 +72,7 @@ dependencies {
     //gms location
     implementation "com.google.android.gms:play-services-location:$gmsLocationVersion"
     implementation "com.google.android.gms:play-services-maps:$gmsMapsVersion"
+    implementation "com.google.maps.android:android-maps-utils:$gmsMapUtilVersion"
 
     //CircleImageView
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
