@@ -80,6 +80,7 @@ ext {
     //google-play-services
     gmsLocationVersion = '16.0.0'
     gmsMapsVersion = '16.1.0'
+    gmsMapUtilVersion = '0.5+'
 
     //CircleImageView
     circleImageViewVersion = '3.0.0'
