@@ -84,6 +84,9 @@ dependencies {
     //tedBottomPicker
     implementation "gun0912.ted:tedbottompicker:$tedBottomPickerVersion"
 
+    //Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
     testImplementation "junit:junit:$junitVersion"
     //runner
     androidTestImplementation "androidx.test:runner:$runnerVersion"

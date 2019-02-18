@@ -59,7 +59,6 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         notifyDataSetChanged();
 
         dataSet.addAll(items);
-
         notifyItemRangeChanged(0, items.size());
     }
 
@@ -78,10 +77,7 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
      * Set items.
      */
     public void setItem(List<T> items) {
-        if (dataSet != null) {
-            this.dataSet = items;
-            notifyDataSetChanged();
-        }
+        this.dataSet = items;
+        notifyDataSetChanged();
     }
-
 }
