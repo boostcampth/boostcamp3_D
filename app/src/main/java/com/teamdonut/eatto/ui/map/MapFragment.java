@@ -17,26 +17,34 @@ import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBottomSheetViewModel;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
-    private GoogleMap mMap;
 
     private MapFragmentBinding binding;
 
     private MapViewModel mViewModel;
-    private MapBottomSheetViewModel mBottomSheetViewModel;
     private BottomSheetBehavior bottomSheetBehavior;
+
+    private GoogleMap mMap;
+
+    private MapBoardAdapter mAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 16;
@@ -47,27 +55,35 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
+        mViewModel.setNavigator(this);
+
+        initObserver();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
-        mViewModel = new MapViewModel(this);
-        mBottomSheetViewModel = new MapBottomSheetViewModel(this);
-
         binding.setViewmodel(mViewModel);
-        binding.setBottomsheetviewmodel(mBottomSheetViewModel);
+
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         initBottomSheetBehavior();
         initMapView(savedInstanceState);
+        initRecyclerView();
     }
 
     @Override
-    public void onDestroy() {
-        mViewModel.onFragmentDestroyed();
-        super.onDestroy();
+    public void onResume() {
+        super.onResume();
+        mViewModel.loadBoards();
     }
 
     @Override
@@ -126,7 +142,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
-    private void setMarkerEvent(){
+    private void setMarkerEvent() {
 
     }
 
@@ -137,11 +153,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_EXPANDED: {
-                        mBottomSheetViewModel.isSheetExpanded.set(true);
+                        mViewModel.isSheetExpanded.set(true);
                         break;
                     }
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                        mBottomSheetViewModel.isSheetExpanded.set(false);
+                        mViewModel.isSheetExpanded.set(false);
                         break;
                     }
                     default: {
@@ -157,7 +173,27 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
-    private void initMapView(@Nullable Bundle savedInstanceState){
+    private void initObserver() {
+        mViewModel.getItems().observe(this, boards -> {
+            mAdapter.updateItems(boards);
+        });
+    }
+
+    private void initRecyclerView() {
+        RecyclerView rv = binding.mapBottomSheet.rvBoard;
+
+        mAdapter = new MapBoardAdapter(new ArrayList<>(0), mViewModel);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
+
+        rv.setHasFixedSize(true);
+        rv.addItemDecoration(itemDecoration);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(mAdapter); //@BindingAdapter is called.
+    }
+
+    private void initMapView(@Nullable Bundle savedInstanceState) {
         binding.mv.onCreate(savedInstanceState);
         binding.mv.onResume();
         binding.mv.getMapAsync(this);

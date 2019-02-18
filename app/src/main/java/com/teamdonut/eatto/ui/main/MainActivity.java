@@ -29,6 +29,19 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.fl_main);
     }
 
+    public void startAnimation(){
+        binding.vLottiebg.setVisibility(View.VISIBLE);
+        binding.lav.setVisibility(View.VISIBLE);
+        binding.lav.playAnimation();
+    }
+
+    public void stopAnimation(){
+        binding.lav.cancelAnimation();
+        binding.vLottiebg.setVisibility(View.INVISIBLE);
+        binding.lav.setVisibility(View.INVISIBLE);
+    }
+
+
     @Override
     public void changeScreen(int itemId, Fragment fragment) {
         if (itemId != binding.bnvMain.getSelectedItemId()) { //같은 탭을 누르지 않았을 경우만 이동.
