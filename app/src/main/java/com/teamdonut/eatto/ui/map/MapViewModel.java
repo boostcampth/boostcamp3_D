@@ -19,16 +19,17 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MapViewModel extends ViewModel {
-  
-    private MapNavigator mNavigator;
 
-    public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
+    private MapNavigator mNavigator;
 
     private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private MutableLiveData<List<Board>> mItems = new MutableLiveData<>();
+    private final MutableLiveData<List<Board>> mItems = new MutableLiveData<>();
+    private final MutableLiveData<Board> mOpenBoardEvent = new MutableLiveData<>();
     private Filter filter;
+
+    public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
 
     public void loadBoards() {
         checkBus();
@@ -100,4 +101,9 @@ public class MapViewModel extends ViewModel {
     public void onClickSetMyPosition(View view) {
         mNavigator.startLocationUpdates();
     }
+
+    public MutableLiveData<Board> getOpenBoardEvent() {
+        return mOpenBoardEvent;
+    }
+
 }

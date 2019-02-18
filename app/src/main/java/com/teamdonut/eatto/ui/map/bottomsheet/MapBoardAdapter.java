@@ -1,5 +1,6 @@
 package com.teamdonut.eatto.ui.map.bottomsheet;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import io.reactivex.subjects.PublishSubject;
 
-public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdapter.MapBoardViewHolder> {
+public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdapter.ViewHolder> {
 
     private MapViewModel mViewModel;
 
@@ -28,19 +30,30 @@ public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdap
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MapBoardViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.board_item, parent, false));
+        ViewHolder holder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.board_item, parent, false));
+        int position = holder.getAdapterPosition();
+
+        MapBoardActionListener listener = new MapBoardActionListener() {
+            @Override
+            public void onBoardClick(Board board) {
+                mViewModel.getOpenBoardEvent().setValue(board);
+            }
+        };
+
+        holder.binding.setListener(listener); //set listener
+        return holder;
     }
 
     @Override
-    public void onBindView(MapBoardViewHolder holder, int position) {
+    public void onBindView(ViewHolder holder, int position) {
         holder.binding.setBoard(getItem(position));
     }
 
-    class MapBoardViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         BoardItemBinding binding;
 
-        MapBoardViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
         }

@@ -8,11 +8,16 @@
         <variable
             name="board"
             type="com.teamdonut.eatto.data.Board" />
+
+        <variable
+            name="listener"
+            type="com.teamdonut.eatto.ui.map.bottomsheet.MapBoardActionListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:onClick="@{() -> listener.onBoardClick(board)}"
         android:background="@android:color/white">
 
         <androidx.constraintlayout.widget.Guideline
@@ -81,7 +86,7 @@
             style="@style/BoardItemTagText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{board.budget}"
+            android:text="@{board.budget.length() == 1 ? @string/all_unlimit : board.budget+ `@string/all_won`}"
             android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/gl_start"
