@@ -78,8 +78,12 @@ public class Board implements ClusterItem {
     @Expose
     private String writerPhoto;
 
+    @SerializedName("writer_name")
+    @Expose
+    private String writerName;
+
     public Board(String title, String address, String appointed_time, String restaurant_name, int max_person,
-                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto) {
+                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writer_photo, String writer_name) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -90,6 +94,23 @@ public class Board implements ClusterItem {
         this.longitude = longitude;
         this.latitude = latitude;
         this.writerId = writer_id;
+        this.writerPhoto = writer_photo;
+        this.writerName = writer_name;
+    }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
+
+    public void setWriterId(long writerId) {
+        this.writerId = writerId;
+    }
+  
+    public void setWriterPhoto(String writerPhoto) {
         this.writerPhoto = writerPhoto;
     }
 
@@ -242,4 +263,5 @@ public class Board implements ClusterItem {
     public String getWriterPhoto() {
         return writerPhoto;
     }
+
 }

@@ -25,7 +25,6 @@ public class RealmDataHelper {
         }
     }
 
-
     /**
      * Insert keyword
      *

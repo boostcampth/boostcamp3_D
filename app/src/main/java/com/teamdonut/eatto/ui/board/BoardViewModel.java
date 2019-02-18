@@ -205,7 +205,8 @@ public class BoardViewModel {
                 Float.parseFloat(mLongitude),
                 Float.parseFloat(mLatitude),
                 RealmDataHelper.getUser().getKakaoId(),
-                RealmDataHelper.getUser().getPhoto()
+                RealmDataHelper.getUser().getPhoto(),
+                RealmDataHelper.getUser().getNickName()
         );
 
         return board;
