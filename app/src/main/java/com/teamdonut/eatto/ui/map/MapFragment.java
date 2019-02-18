@@ -3,7 +3,6 @@ package com.teamdonut.eatto.ui.map;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +28,10 @@ import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
@@ -47,8 +44,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private GoogleMap mMap;
     private ClusterManager<Board> mClusterManager;
     private CameraPosition mPreviousCameraPosition;
-
-    private MapBoardAdapter mAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 16;
@@ -185,9 +180,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initObserver() {
-        mViewModel.getSearchBoards().observe(this, boards -> {
-            mAdapter.updateItems(boards);
-        });
         mViewModel.getBoards().observe(this, data ->{
             mClusterManager.clearItems();
             for (Board board : data) {
@@ -200,15 +192,12 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
 
-        mAdapter = new MapBoardAdapter(new ArrayList<>(0), mViewModel);
-
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
 
         rv.setHasFixedSize(true);
         rv.addItemDecoration(itemDecoration);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setAdapter(mAdapter); //@BindingAdapter is called.
     }
 
     private void initMapView(@Nullable Bundle savedInstanceState) {
