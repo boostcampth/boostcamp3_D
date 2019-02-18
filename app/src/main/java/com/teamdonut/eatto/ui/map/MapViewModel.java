@@ -32,7 +32,7 @@ public class MapViewModel extends ViewModel {
 
     public void loadBoards() {
         checkBus();
-        getBoards();
+        fetchBoards();
     }
 
     private void checkBus() {
@@ -45,7 +45,7 @@ public class MapViewModel extends ViewModel {
                 .dispose();
     }
 
-    private void getBoards() {
+    private void fetchBoards() {
         if (filter != null) {
             disposables.add(service.getBoards(RealmDataHelper.getAccessId(),
                     filter.getKeyword(), filter.getMinTime(), filter.getMaxTime(), filter.getMinAge(), filter.getMaxAge(),
