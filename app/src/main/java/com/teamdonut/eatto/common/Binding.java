@@ -12,11 +12,11 @@ public class Binding {
         recyclerView.setAdapter(adapter);
     }
 
-    @BindingAdapter({"glideImage", "glideError"})
-    public static void setImageFromUrl(ImageView view, String imgUrl, Drawable errorDrawable) {
+    @BindingAdapter({"imageUrl", "imageError"})
+    public static void setImageFromUrl(ImageView view, String imageUrl, Drawable imageError) {
         GlideApp.with(view)
-                .load(imgUrl)
-                .error(errorDrawable)
+                .load(imageUrl)
+                .error(imageError)
                 .into(view);
     }
 }
