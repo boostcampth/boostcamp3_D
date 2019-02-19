@@ -6,13 +6,11 @@ import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.HomeAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-
 import java.util.ArrayList;
 import java.util.List;
-import androidx.lifecycle.MutableLiveData;
 
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -20,9 +18,9 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 public class HomeViewModel extends ViewModel {
-    private MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();
-    private ObservableField<User> user = new ObservableField<>();
-    private MutableLiveData<Integer> boardFlag = new MutableLiveData<>();
+    private final MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();
+    private final ObservableField<User> user = new ObservableField<>();
+    private final MutableLiveData<Integer> boardFlag = new MutableLiveData<>();
 
     private Realm realm = Realm.getDefaultInstance();
 
