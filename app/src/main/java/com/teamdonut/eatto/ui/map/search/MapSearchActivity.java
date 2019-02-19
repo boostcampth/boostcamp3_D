@@ -1,11 +1,15 @@
 package com.teamdonut.eatto.ui.map.search;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.KeyboardUtil;
 import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,11 +42,24 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
 
         fetchKeywordHint();
 
+        initEditSearch();
         initSearchObserver();
         initKeywordHintObserver();
-
         initToolbar();
         initRecentKeywordRv();
+    }
+
+    private void initEditSearch() {
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    mViewModel.onGoSearchClick(v.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
