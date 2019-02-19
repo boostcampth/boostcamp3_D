@@ -18,7 +18,7 @@ public class BoardPreviewViewModel extends ViewModel {
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private final MutableLiveData<Board> mBoard = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     private void sendParticipation(int boardId) {
         disposable.add(
