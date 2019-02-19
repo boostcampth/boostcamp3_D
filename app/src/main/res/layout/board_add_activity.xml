@@ -36,28 +36,22 @@
                 android:layout_height="wrap_content">
 
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
-
-                    android:text="@string/board_tv_title"
-                    android:textSize="@dimen/board_tv_text_size"
-                    android:textStyle="bold" />
-
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_input_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    android:maxLength="30"
-                    android:singleLine="true" />
-
+                    app:met_singleLineEllipsis="true"
+                    app:met_primaryColor="@color/colorHungryRed"
+                    app:met_textColorHint="@color/colorHungryLightBlack"
+                    android:textColor="@color/colorHungryLightBlack"
+                    android:maxLines="20"
+                    app:met_maxCharacters="20"
+                    android:hint="제목"
+                    app:met_floatingLabel="highlight"
+                    />
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -195,24 +189,7 @@
                     android:layout_below="@+id/tv_age_hint"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    app:mrb_pinColor="@color/colorRangeBar"
-                    app:mrb_pinMaxFont="15sp"
-                    app:mrb_pinMinFont="12sp"
-                    app:mrb_pinRadius="14dp"
-                    app:mrb_pinTextColor="@color/design_default_color_on_primary"
-                    app:mrb_rangeBar="true"
-                    app:mrb_rangeBarColor="@color/colorRangeBar"
-                    app:mrb_rangeBarPaddingBottom="30dp"
-                    app:mrb_rangeBar_rounded="true"
-                    app:mrb_selectorBoundaryColor="@color/colorRangeBar"
-                    app:mrb_selectorBoundarySize="1dp"
-                    app:mrb_selectorColor="@color/colorRangeBarSelector"
-                    app:mrb_selectorSize="15dp"
-                    app:mrb_temporaryPins="false"
-                    app:mrb_tickColor="@color/colorRangeBar"
-                    app:mrb_tickEnd="80"
-                    app:mrb_tickInterval="1"
-                    app:mrb_tickStart="15" />
+                    style="@style/RangeBarStyle"/>
 
 
                 <TextView

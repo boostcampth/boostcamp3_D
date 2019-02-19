@@ -97,4 +97,7 @@ ext {
 
     //Realm
     realmVersion = '5.8.0'
+
+    //MaterialEditText
+    materialEditText = '2.1.4'
 }
