@@ -14,15 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardJoinAdapter extends BaseRecyclerViewAdapter<Board, BoardJoinAdapter.MyViewHolder> {
-    public BoardJoinAdapter(ArrayList<Board> dataSet) {
-        super(dataSet);;
-    }
+    private BoardViewModel mViewModel;
 
+    public BoardJoinAdapter(ArrayList<Board> dataSet, BoardViewModel boardViewModel) {
+        super(dataSet);
+        mViewModel = boardViewModel;
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardItemBinding binding = BoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new MyViewHolder(binding);
+        final MyViewHolder holder = new MyViewHolder(binding);
+        holder.binding.clBoardItem.setOnClickListener((v) -> {
+           mViewModel.getmNavigator().onShowJoinBoardDetail(holder.getAdapterPosition());
+        });
+        return holder;
     }
 
     @Override

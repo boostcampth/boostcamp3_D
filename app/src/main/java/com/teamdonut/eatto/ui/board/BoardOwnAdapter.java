@@ -15,15 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdapter.MyViewHolder> {
 
-    public BoardOwnAdapter(ArrayList<Board> dataSet) {
-        super(dataSet);;
+    private BoardViewModel mViewModel;
+
+    public BoardOwnAdapter(ArrayList<Board> dataSet, BoardViewModel boardViewModel) {
+        super(dataSet);
+        mViewModel = boardViewModel;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardItemBinding binding = BoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new MyViewHolder(binding);
+        final MyViewHolder holder = new MyViewHolder(binding);
+        holder.binding.clBoardItem.setOnClickListener((v) -> {
+           mViewModel.getmNavigator().onShowMyBoardDetail(holder.getAdapterPosition());
+        });
+        return holder;
     }
 
     @Override
