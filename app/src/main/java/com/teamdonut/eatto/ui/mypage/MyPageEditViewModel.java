@@ -101,7 +101,7 @@ public class MyPageEditViewModel extends ViewModel {
         return isSubmitted;
     }
 
-    public void setmNavigator(MyPageEditNavigator mNavigator) {
+    public void setNavigator(MyPageEditNavigator mNavigator) {
         this.mNavigator = mNavigator;
     }
 }

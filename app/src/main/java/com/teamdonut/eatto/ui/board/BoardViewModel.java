@@ -237,7 +237,7 @@ public class BoardViewModel {
         return time;
     }
 
-    public ObservableField<String> getmAddress() {
+    public ObservableField<String> getAddress() {
         return mAddress;
     }
 

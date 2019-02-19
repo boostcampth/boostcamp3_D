@@ -180,7 +180,7 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
                 case BOARD_SEARCH_REQUEST:
-                    mViewModel.getmAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
+                    mViewModel.getAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
                     mViewModel.setPlaceName(data.getStringExtra("placeName"));
                     mViewModel.setAddressName(data.getStringExtra("addressName"));
                     mViewModel.setLongitude(data.getStringExtra("x"));

@@ -30,7 +30,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         binding = DataBindingUtil.setContentView(this, R.layout.mypage_edit_activity);
 
         mViewModel = ViewModelProviders.of(this).get(MyPageEditViewModel.class);
-        mViewModel.setmNavigator(this);
+        mViewModel.setNavigator(this);
 
         binding.setViewmodel(mViewModel);
 
