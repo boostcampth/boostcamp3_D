@@ -93,7 +93,7 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
 
     private void initRecentKeywordRv() {
         RecyclerView rv = binding.rvRecentKeyword;
-        mAdapter = new MapKeywordAdapter(mViewModel.fetchKeywords(), true);
+        mAdapter = new MapKeywordAdapter(mViewModel.fetchKeywords(), true, mViewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.map_board_divider));
