@@ -33,6 +33,7 @@ public class MapSearchViewModel extends ViewModel {
     private CompositeDisposable disposables = new CompositeDisposable();
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
+    private ObservableInt people = new ObservableInt(2);
     private Realm realm = Realm.getDefaultInstance();
 
     private final ObservableInt minTime = new ObservableInt(0);
@@ -72,6 +73,18 @@ public class MapSearchViewModel extends ViewModel {
     private void saveRecentKeyword(String keyword) {
         if (!Strings.isEmptyOrWhitespace(keyword)) { //insert keyword
             RealmDataHelper.insertKeyword(realm, keyword);
+        }
+    }
+
+    public void onPeoplePlusClick() {
+        if (people.get() < 10) {
+            people.set(people.get() + 1);
+        }
+    }
+
+    public void onPeopleMinusClick() {
+        if (people.get() > 2) {
+            people.set(people.get() - 1);
         }
     }
 
@@ -155,5 +168,9 @@ public class MapSearchViewModel extends ViewModel {
 
     public MutableLiveData<String> getEtKeywordHint() {
         return etKeywordHint;
+    }
+
+    public ObservableInt getPeople() {
+        return people;
     }
 }
