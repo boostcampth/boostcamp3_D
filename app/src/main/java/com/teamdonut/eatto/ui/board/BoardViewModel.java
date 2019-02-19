@@ -14,6 +14,7 @@ import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,8 +66,8 @@ public class BoardViewModel {
     //Board Fragment
     private ObservableArrayList<Board> joinBoards = new ObservableArrayList<>();
     private ObservableArrayList<Board> ownBoards = new ObservableArrayList<>();
-    private BoardOwnAdapter boardOwnAdapter = new BoardOwnAdapter(ownBoards);
-    private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards);
+    private BoardOwnAdapter boardOwnAdapter = new BoardOwnAdapter(ownBoards, this);
+    private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards,this);
 
     private Realm realm = Realm.getDefaultInstance();
 
@@ -182,9 +183,16 @@ public class BoardViewModel {
     }
 
     @BindingAdapter("transdate")
-    public static void setText(TextView view, String date) {
-        String sub = date.substring(11,16);
-        view.setText(sub);
+    public static void setText(TextView view, String serverDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        try {
+            Date date = format.parse(serverDate.replaceAll("Z$", "+0000"));
+            view.setText(Integer.toString(date.getHours())+"시 "+Integer.toString(date.getMinutes())+"분");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     public void onDestroyBoardViewModel() {
@@ -231,6 +239,11 @@ public class BoardViewModel {
                                 }
                         )
         );
+    }
+
+    public void onBoardDetailExitClick() {
+        if(mNavigator != null)
+            mNavigator.onBoardDetailExitClick();
     }
 
     public ObservableField<String> getTime() {
@@ -323,6 +336,13 @@ public class BoardViewModel {
         realm.close();
     }
 
+    public BoardNavigator getmNavigator() {
+        return mNavigator;
+    }
+
+    public void setmNavigator(BoardNavigator mNavigator) {
+        this.mNavigator = mNavigator;
+    }
     public int getHourOfDay() {
         return mHourOfDay;
     }

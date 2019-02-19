@@ -18,7 +18,7 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardSearchAdapter.MyViewHolder> {
+public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardSearchAdapter.ViewHolder> {
 
     private List<Document> documentList;
 
@@ -29,9 +29,9 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardSearchItemBinding binding = BoardSearchItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        final MyViewHolder holder = new MyViewHolder(binding);
+        final ViewHolder holder = new ViewHolder(binding);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +43,7 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
     }
 
     @Override
-    public void onBindView(MyViewHolder holder, int position) {
+    public void onBindView(ViewHolder holder, int position) {
         Document document = documentList.get(position);
         holder.bind(document);
     }
@@ -56,10 +56,10 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
         }
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         BoardSearchItemBinding binding;
 
-        MyViewHolder(BoardSearchItemBinding binding) {
+        ViewHolder(BoardSearchItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

@@ -1,13 +1,18 @@
 package com.teamdonut.eatto.common;
 
 import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.widget.ImageView;
-
-import java.util.List;
-
+import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.GlideApp;
+
+import java.util.List;
 
 public class Binding {
     @BindingAdapter("adapter")
@@ -29,6 +34,21 @@ public class Binding {
 
         if (adapter != null && items != null) {
             adapter.updateItems(items);
+        }
+    }
+
+    @BindingAdapter({"highlightNumber", "mainText"})
+    public static void setSpannableText(TextView view, int number, String mainText) {
+        if (number >= 0) {
+            String numberText = String.valueOf(number);
+
+            SpannableStringBuilder sb = new SpannableStringBuilder(numberText);
+
+            sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(view.getContext(), R.color.colorHungryRed))
+                    , 0, numberText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sb.append(mainText);
+
+            view.setText(sb, TextView.BufferType.SPANNABLE);
         }
     }
 }
