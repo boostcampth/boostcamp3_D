@@ -2,7 +2,6 @@ package com.teamdonut.eatto.ui.board;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,11 +66,9 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     }
 
     //보드 상세보기 연결
-
     @Override
     public void onShowMyBoardDetail(int position) {
         Board board = mViewModel.getBoardOwnAdapter().getItem(position);
-        Log.d("send", board.getMaxPerson() + "");
         Intent intent = new Intent(getContext(), BoardDetailActivity.class);
         RxBus.getInstance().sendBus(board);
         startActivity(intent);
