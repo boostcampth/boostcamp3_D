@@ -5,13 +5,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.Window;
-import androidx.lifecycle.Observer;
+
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
@@ -20,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class BoardPreviewDialog extends DialogFragment{

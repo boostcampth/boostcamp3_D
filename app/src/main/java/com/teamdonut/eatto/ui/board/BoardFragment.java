@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardFragmentBinding;
 
 import androidx.annotation.NonNull;
@@ -63,6 +65,22 @@ public class BoardFragment extends Fragment implements BoardNavigator {
 
     }
 
+    //보드 상세보기 연결
+    @Override
+    public void onShowMyBoardDetail(int position) {
+        Board board = mViewModel.getBoardOwnAdapter().getItem(position);
+        Intent intent = new Intent(getContext(), BoardDetailActivity.class);
+        RxBus.getInstance().sendBus(board);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onShowJoinBoardDetail(int position) {
+        Board board = mViewModel.getBoardJoinAdapter().getItem(position);
+        Intent intent = new Intent(getContext(), BoardDetailActivity.class);
+        RxBus.getInstance().sendBus(board);
+        startActivity(intent);
+    }
 
     @Override
     public void onDestroy() {
