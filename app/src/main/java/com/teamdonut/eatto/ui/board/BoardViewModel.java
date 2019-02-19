@@ -187,11 +187,7 @@ public class BoardViewModel {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         try {
             Date date = format.parse(serverDate.replaceAll("Z$", "+0000"));
-
             view.setText(Integer.toString(date.getHours())+"시 "+Integer.toString(date.getMinutes())+"분");
-            //Log.d("textest",serverDate);
-
-            //System.out.println(date);
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -246,7 +242,6 @@ public class BoardViewModel {
     }
 
     public void onBoardDetailExitClick() {
-        Log.d("arrived","check");
         if(mNavigator != null)
             mNavigator.onBoardDetailExitClick();
     }
