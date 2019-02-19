@@ -31,7 +31,7 @@
   
     <!-- Map -->
     <dimen name="space_search_vertical_padding">12dp</dimen>
-    <dimen name="space_search_horizontal_padding">7dp</dimen>
+    <dimen name="space_search_horizontal_padding">9dp</dimen>
     <dimen name="space_img_btn_padding">5dp</dimen>
 
     <!--Search-->
