@@ -33,7 +33,7 @@ public class MapSearchViewModel extends ViewModel {
     private CompositeDisposable disposables = new CompositeDisposable();
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
-    private ObservableInt people = new ObservableInt(2);
+
     private Realm realm = Realm.getDefaultInstance();
 
     private final ObservableInt minTime = new ObservableInt(0);
@@ -41,6 +41,7 @@ public class MapSearchViewModel extends ViewModel {
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
     private final ObservableInt budget = new ObservableInt(0);
+    private final ObservableInt people = new ObservableInt(2);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
     private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
