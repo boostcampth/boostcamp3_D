@@ -107,8 +107,8 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String setTime = hourOfDay + "시 " + minute + "분";
-                mViewModel.setmHourOfDay(hourOfDay);
-                mViewModel.setmMinute(minute);
+                mViewModel.setHourOfDay(hourOfDay);
+                mViewModel.setMinute(minute);
                 mViewModel.time.set(setTime);
             }
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), DateFormat.is24HourFormat(getApplicationContext()));
@@ -181,10 +181,10 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             switch (requestCode) {
                 case BOARD_SEARCH_REQUEST:
                     mViewModel.getmAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
-                    mViewModel.setmPlaceName(data.getStringExtra("placeName"));
-                    mViewModel.setmAddressName(data.getStringExtra("addressName"));
-                    mViewModel.setmLongitude(data.getStringExtra("x"));
-                    mViewModel.setmLatitude(data.getStringExtra("y"));
+                    mViewModel.setPlaceName(data.getStringExtra("placeName"));
+                    mViewModel.setAddressName(data.getStringExtra("addressName"));
+                    mViewModel.setLongitude(data.getStringExtra("x"));
+                    mViewModel.setLatitude(data.getStringExtra("y"));
                     break;
             }
         }

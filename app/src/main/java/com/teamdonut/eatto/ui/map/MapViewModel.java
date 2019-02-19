@@ -25,17 +25,16 @@ public class MapViewModel extends ViewModel {
 
     private MapNavigator mNavigator;
 
-    public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
-
     private MapAPI service = ServiceGenerator.createService(MapAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
-    private MutableLiveData<List<Board>> searchBoards = new MutableLiveData<>();
+    private final MutableLiveData<Board> mOpenBoardEvent = new MutableLiveData<>();
 
-    private MapBoardAdapter mapBoardAdapter = new MapBoardAdapter(new ArrayList<Board>(), this);
+    private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
 
     private Filter filter;
+
+    public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
 
     public void loadBoards() {
         checkBus();
@@ -53,12 +52,11 @@ public class MapViewModel extends ViewModel {
     }
 
     public void fetchBoards(LatLng leftLatLng, LatLng rightLatLng) {
-        disposables.add(service.getBoards(leftLatLng.longitude,leftLatLng.latitude,rightLatLng.longitude,rightLatLng.latitude)
+        disposables.add(service.getBoards(leftLatLng.longitude, leftLatLng.latitude, rightLatLng.longitude, rightLatLng.latitude)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(data -> {
                             boards.setValue(data);
-                            mapBoardAdapter.updateItems(boards.getValue());
                         },
                         e -> {
                             e.printStackTrace();
@@ -74,7 +72,7 @@ public class MapViewModel extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(data -> {
-                                searchBoards.postValue(data);
+                                boards.postValue(data);
                             },
                             e -> {
                                 e.printStackTrace();
@@ -91,19 +89,16 @@ public class MapViewModel extends ViewModel {
         }
     }
 
-
     @Override
     protected void onCleared() {
         disposables.dispose();
         super.onCleared();
     }
 
-
     //검색 버튼 리스너
     public void onSearchClick() {
         mNavigator.goToMapSearch();
     }
-
 
     //게시물 추가 리스너
     public void onClickBoardAdd() {
@@ -116,19 +111,15 @@ public class MapViewModel extends ViewModel {
         mNavigator.startLocationUpdates();
     }
 
+    public MutableLiveData<Board> getOpenBoardEvent() {
+        return mOpenBoardEvent;
+    }
+
     public void setNavigator(MapNavigator navigator) {
         this.mNavigator = navigator;
     }
 
-    public MutableLiveData<List<Board>> getSearchBoards() {
-        return searchBoards;
-    }
-
     public MutableLiveData<List<Board>> getBoards() {
         return boards;
-    }
-
-    public MapBoardAdapter getMapBoardAdapter() {
-        return mapBoardAdapter;
     }
 }

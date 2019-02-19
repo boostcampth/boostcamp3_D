@@ -1,11 +1,15 @@
 package com.teamdonut.eatto.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.maps.android.clustering.ClusterItem;
 
-public class Board implements ClusterItem {
+public class Board implements Parcelable, ClusterItem {
+
     @SerializedName("id")
     @Expose
     private int id;
@@ -37,6 +41,14 @@ public class Board implements ClusterItem {
     @SerializedName("writer_id")
     @Expose
     private long writerId;
+
+    @SerializedName("writer_photo")
+    @Expose
+    private String writerPhoto;
+
+    @SerializedName("writer_name")
+    @Expose
+    private String writerName;
 
     @SerializedName("write_date")
     @Expose
@@ -74,16 +86,9 @@ public class Board implements ClusterItem {
     @Expose
     private int maxAge;
 
-    @SerializedName("writer_photo")
-    @Expose
-    private String writerPhoto;
 
-    @SerializedName("writer_name")
-    @Expose
-    private String writerName;
-
-    public Board(String title, String address, String appointed_time, String restaurant_name, int max_person,
-                 int min_age, int max_age, double longitude, double latitude, long writer_id, String writer_photo, String writer_name) {
+    public Board(String title, String address, String appointed_time, String restaurant_name,
+                 int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto, String writerName) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -94,8 +99,8 @@ public class Board implements ClusterItem {
         this.longitude = longitude;
         this.latitude = latitude;
         this.writerId = writer_id;
-        this.writerPhoto = writer_photo;
-        this.writerName = writer_name;
+        this.writerPhoto = writerPhoto;
+        this.writerName = writerName;
     }
 
     public String getWriterName() {
@@ -108,6 +113,10 @@ public class Board implements ClusterItem {
 
     public void setWriterId(long writerId) {
         this.writerId = writerId;
+    }
+
+    public String getWriterPhoto() {
+        return writerPhoto;
     }
   
     public void setWriterPhoto(String writerPhoto) {
@@ -260,8 +269,55 @@ public class Board implements ClusterItem {
         this.maxAge = maxAge;
     }
 
-    public String getWriterPhoto() {
-        return writerPhoto;
+    protected Board(Parcel in) {
+        this.title = in.readString();
+        this.address = in.readString();
+        this.appointedTime = in.readString();
+        this.restaurantName = in.readString();
+        this.maxPerson = in.readInt();
+        this.minAge = in.readInt();
+        this.maxAge = in.readInt();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
+        this.writerPhoto = in.readString();
+        this.writerName = in.readString();
+    }
+
+    public static final Parcelable.Creator<Board> CREATOR =
+            new Parcelable.Creator<Board>() {
+                @Override
+                public Board createFromParcel(Parcel in) {
+                    return new Board(in);
+                }
+
+                @Override
+                public Board[] newArray(int size) {
+                    return new Board[size];
+                }
+            };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(address);
+        dest.writeString(appointedTime);
+        dest.writeString(restaurantName);
+        dest.writeInt(minAge);
+        dest.writeInt(maxAge);
+        dest.writeInt(maxPerson);
+        dest.writeString(budget);
+        dest.writeString(content);
+        dest.writeDouble(longitude);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(writerPhoto);
+        dest.writeString(writerName);
     }
 
 }

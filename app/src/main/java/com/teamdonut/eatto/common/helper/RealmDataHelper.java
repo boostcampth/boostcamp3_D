@@ -9,6 +9,10 @@ import io.realm.Realm;
 
 public class RealmDataHelper {
 
+    /**
+     * get user
+     * @return User
+     */
     public static User getUser() {
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).findFirst();

@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
+import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
@@ -171,7 +173,7 @@ public class BoardViewModel {
                 service.getUserParticipatedBoard(RealmDataHelper.getUser().getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
+                        .subscribe(data -> {
                                     boardJoinAdapter.addItems(data);
                                 }, (e) -> {
                                     e.printStackTrace();
@@ -186,8 +188,8 @@ public class BoardViewModel {
         try {
             Date date = format.parse(serverDate.replaceAll("Z$", "+0000"));
 
-            view.setText(date.getHours()+"시 "+date.getMinutes()+"분");
-            Log.d("textest",serverDate);
+            view.setText(Integer.toString(date.getHours())+"시 "+Integer.toString(date.getMinutes())+"분");
+            //Log.d("textest",serverDate);
 
             //System.out.println(date);
         } catch (ParseException e) {
@@ -203,9 +205,11 @@ public class BoardViewModel {
 
     public Board makeBoard(String title, int maxPerson) {
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         String appointedTime = df.format(currentTime);
         appointedTime += " " + Integer.toString(mHourOfDay) + ":" + Integer.toString(mMinute) + ":00";
+
+        User user =  RealmDataHelper.getUser();
 
         Board board = new Board(title,
                 mAddressName,
@@ -216,9 +220,9 @@ public class BoardViewModel {
                 mMaxAge,
                 Float.parseFloat(mLongitude),
                 Float.parseFloat(mLatitude),
-                RealmDataHelper.getUser().getKakaoId(),
-                RealmDataHelper.getUser().getPhoto(),
-                RealmDataHelper.getUser().getNickName()
+                user.getKakaoId(),
+                user.getPhoto(),
+                user.getNickName()
         );
 
         return board;
@@ -255,7 +259,7 @@ public class BoardViewModel {
         return mAddress;
     }
 
-    public void setmAddress(ObservableField<String> mAddress) {
+    public void setAddress(ObservableField<String> mAddress) {
         this.mAddress = mAddress;
     }
 
@@ -300,71 +304,35 @@ public class BoardViewModel {
         return ownBoards;
     }
 
-    public void setOwnBoards(ObservableArrayList<Board> ownBoards) {
-        this.ownBoards = ownBoards;
-    }
-
-    public int getmMinAge() {
-        return mMinAge;
-    }
-
-    public void setmMinAge(int mMinAge) {
-        this.mMinAge = mMinAge;
-    }
-
-    public int getmMaxAge() {
-        return mMaxAge;
-    }
-
-    public void setmMaxAge(int mMaxAge) {
-        this.mMaxAge = mMaxAge;
-    }
-
-    public int getmHourOfDay() {
-        return mHourOfDay;
-    }
-
-    public void setmHourOfDay(int mHourOfDay) {
-        this.mHourOfDay = mHourOfDay;
-    }
-
-    public int getmMinute() {
-        return mMinute;
-    }
-
-    public void setmMinute(int mMinute) {
-        this.mMinute = mMinute;
-    }
-
-    public String getmAddressName() {
+    public String getAddressName() {
         return mAddressName;
     }
 
-    public void setmAddressName(String mAddressName) {
+    public void setAddressName(String mAddressName) {
         this.mAddressName = mAddressName;
     }
 
-    public String getmPlaceName() {
+    public String getPlaceName() {
         return mPlaceName;
     }
 
-    public void setmPlaceName(String mPlaceName) {
+    public void setPlaceName(String mPlaceName) {
         this.mPlaceName = mPlaceName;
     }
 
-    public String getmLongitude() {
+    public String getLongitude() {
         return mLongitude;
     }
 
-    public void setmLongitude(String mLongitude) {
+    public void setLongitude(String mLongitude) {
         this.mLongitude = mLongitude;
     }
 
-    public String getmLatitude() {
+    public String getLatitude() {
         return mLatitude;
     }
 
-    public void setmLatitude(String mLatitude) {
+    public void setLatitude(String mLatitude) {
         this.mLatitude = mLatitude;
     }
 
@@ -379,5 +347,20 @@ public class BoardViewModel {
 
     public void setmNavigator(BoardNavigator mNavigator) {
         this.mNavigator = mNavigator;
+    }
+    public int getHourOfDay() {
+        return mHourOfDay;
+    }
+
+    public int getMinute() {
+        return mMinute;
+    }
+
+    public void setHourOfDay(int mHourOfDay) {
+        this.mHourOfDay = mHourOfDay;
+    }
+
+    public void setMinute(int mMinute) {
+        this.mMinute = mMinute;
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardFragmentBinding;
 
@@ -72,46 +73,15 @@ public class BoardFragment extends Fragment implements BoardNavigator {
         Board board = mViewModel.getBoardOwnAdapter().getItem(position);
         Log.d("send", board.getMaxPerson() + "");
         Intent intent = new Intent(getContext(), BoardDetailActivity.class);
-        intent.putExtra("addressName", board.getAddress());
-        intent.putExtra("title", board.getTitle());
-        intent.putExtra("restaurantName", board.getRestaurantName());
-        intent.putExtra("minAge", board.getMinAge());
-        intent.putExtra("maxAge", board.getMaxAge());
-        intent.putExtra("budget", board.getBudget());
-        intent.putExtra("appointedTime", board.getAppointedTime().toString());
-        intent.putExtra("content", board.getContent());
-        intent.putExtra("currentPerson", board.getCurrentPerson());
-        intent.putExtra("maxPerson", board.getMaxPerson());
-        intent.putExtra("longitude", board.getLongitude());
-        intent.putExtra("latitude", board.getLatitude());
-        intent.putExtra("writerPhoto", board.getWriterPhoto());
-        intent.putExtra("writerName", board.getWriterName());
-        intent.putExtra("writerId", board.getWriterId());
-
+        RxBus.getInstance().sendBus(board);
         startActivity(intent);
     }
 
     @Override
     public void onShowJoinBoardDetail(int position) {
         Board board = mViewModel.getBoardJoinAdapter().getItem(position);
-        Log.d("send", board.getMaxPerson() + "");
         Intent intent = new Intent(getContext(), BoardDetailActivity.class);
-        intent.putExtra("addressName", board.getAddress());
-        intent.putExtra("title", board.getTitle());
-        intent.putExtra("restaurantName", board.getRestaurantName());
-        intent.putExtra("minAge", board.getMinAge());
-        intent.putExtra("maxAge", board.getMaxAge());
-        intent.putExtra("budget", board.getBudget());
-        intent.putExtra("appointedTime", board.getAppointedTime().toString());
-        intent.putExtra("content", board.getContent());
-        intent.putExtra("currentPerson", board.getCurrentPerson());
-        intent.putExtra("maxPerson", board.getMaxPerson());
-        intent.putExtra("longitude", board.getLongitude());
-        intent.putExtra("latitude", board.getLatitude());
-        intent.putExtra("writerPhoto", board.getWriterPhoto());
-        intent.putExtra("writerName", board.getWriterName());
-        intent.putExtra("writerId", board.getWriterId());
-
+        RxBus.getInstance().sendBus(board);
         startActivity(intent);
     }
 

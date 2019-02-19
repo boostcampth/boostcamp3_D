@@ -1,245 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-                name="user"
-                type="com.teamdonut.eatto.data.User" />
-
-        <variable
-                name="board"
-                type="com.teamdonut.eatto.data.Board" />
+            name="viewmodel"
+            type="com.teamdonut.eatto.ui.board.BoardPreviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_image_guide"
+            android:id="@+id/gl_bg_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_bg_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_bg_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_bg_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cl_preview_shape"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_bg_bottom"
+            app:layout_constraintEnd_toEndOf="@+id/gl_bg_end"
+            app:layout_constraintStart_toStartOf="@+id/gl_bg_start"
+            app:layout_constraintTop_toTopOf="@+id/gl_bg_top">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_con_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.1" />
+                app:layout_constraintGuide_percent="0.16" />
 
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_middle"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_con_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.3" />
-
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@drawable/ll_shape"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/gl_end_of_linear"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gl_middle">
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_con_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:gravity="center"
+                android:text="@{viewmodel.board.writerName}"
+                android:textColor="@color/colorHungryBlack"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_title"
+                app:layout_constraintEnd_toEndOf="@id/gl_con_end"
+                app:layout_constraintStart_toStartOf="@id/gl_con_start"
+                app:layout_constraintTop_toTopOf="@+id/gl_con_top"
+                tools:text="Mr.혼밥시러" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_close_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
 
             <ImageView
-                    android:id="@+id/iv_close_board_preview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_margin="20dp"
-                    app:srcCompat="@drawable/ic_clear_24dp" />
+                android:id="@+id/iv_close_board_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_img_btn_padding"
+                android:onClick="@{() -> viewmodel.onCloseClick()}"
+                android:padding="@dimen/space_small_margin"
+                app:layout_constraintEnd_toEndOf="@+id/gl_close_end"
+                app:layout_constraintStart_toStartOf="@id/gl_con_end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_clear_24dp" />
 
             <TextView
-                    android:id="@+id/tv_nick_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@{user.nickName}"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                <ImageView
-                        android:id="@+id/iv_great"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="@dimen/space_large_margin"
-                        android:src="@drawable/lion"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/tv_great_score"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                        android:id="@+id/tv_great_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(user.scoreGreat)}"
-                        android:textSize="@dimen/board_tv_text_size"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/iv_good"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="@id/iv_great"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="77" />
-
-
-                <ImageView
-                        android:id="@+id/iv_good"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/lion"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_good_score"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="@+id/tv_great_score"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                        android:id="@+id/tv_good_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(user.scoreGood)}"
-                        android:textSize="@dimen/board_tv_text_size"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/iv_normal"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="@id/iv_good"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="66" />
-
-                <ImageView
-                        android:id="@+id/iv_normal"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/lion"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/tv_normal_score"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="@+id/tv_good_score"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                        android:id="@+id/tv_normal_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(user.scoreNormal)}"
-                        android:textSize="@dimen/board_tv_text_size"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_chainStyle="spread"
-                        app:layout_constraintStart_toStartOf="@id/iv_normal"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="55" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@{viewmodel.board.title}"
+                android:textColor="@color/colorHungryNavy"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_address"
+                app:layout_constraintEnd_toEndOf="@id/gl_con_end"
+                app:layout_constraintStart_toStartOf="@id/gl_con_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_nick_name"
+                tools:text="다함께 고기먹어요 ㅎㅎ" />
 
             <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@{board.title}"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                android:id="@+id/tv_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@{viewmodel.board.address}"
+                android:textColor="@color/colorHungryLightBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_restaurant"
+                app:layout_constraintEnd_toEndOf="@id/gl_con_end"
+                app:layout_constraintStart_toStartOf="@id/gl_con_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:text="서울특별시 강남구 역삼동" />
 
             <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="@{board.address}"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    tools:text="서울특별시 강남구 역삼동" />
+                android:id="@+id/tv_restaurant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="@{viewmodel.board.restaurantName.length() == 0 ? @string/board_item_restaurant_hint : viewmodel.board.restaurantName}"
+                android:textColor="@color/colorHungryLightBlack"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@id/gl_con_end"
+                app:layout_constraintStart_toStartOf="@id/gl_con_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_address"
+                tools:text="음식점 미정" />
 
             <TextView
-                    android:id="@+id/tv_budget"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@{board.budget + @string/filter_tv_won}"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="최대 15000원" />
+                android:id="@+id/tv_budget"
+                style="@style/PreviewContentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_large_margin"
+                android:background="@color/colorHungryGray"
+                android:text="@{viewmodel.board.budget.length() ==1 ? @string/all_unlimit : @string/board_preview_tv_budget(viewmodel.board.budget)}"
+                app:layout_constraintBottom_toTopOf="@+id/btn_join"
+                app:layout_constraintEnd_toStartOf="@+id/tv_age"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="@id/gl_con_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_restaurant"
+                app:layout_constraintVertical_bias="0.2"
+                tools:text="~1인 10000원" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_con_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
             <TextView
-                    android:id="@+id/tv_age"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@{@string/filter_tv_age_format(String.valueOf(board.minAge)) + ` ~ ` + @string/filter_tv_age_format(String.valueOf(board.maxAge))}"
-                    android:textAlignment="center"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    tools:text="21세 ~ 29세" />
+                android:id="@+id/tv_age"
+                style="@style/PreviewContentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorHungryGray"
+                android:text="@{@string/filter_tv_age_format(viewmodel.board.minAge) + ` ~ ` + @string/filter_tv_age_format(viewmodel.board.maxAge)}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_budget"
+                app:layout_constraintEnd_toStartOf="@+id/tv_current_person"
+                app:layout_constraintStart_toEndOf="@id/tv_budget"
+                app:layout_constraintTop_toTopOf="@id/tv_budget"
+                tools:text="21세 ~ 29세" />
 
+            <TextView
+                android:id="@+id/tv_current_person"
+                style="@style/PreviewContentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorHungryGray"
+                android:text="@{@string/board_preview_tv_person(viewmodel.board.currentPerson)}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_budget"
+                app:layout_constraintEnd_toEndOf="@id/gl_con_end"
+                app:layout_constraintStart_toEndOf="@id/tv_age"
+                app:layout_constraintTop_toTopOf="@id/tv_budget"
+                tools:text="5명 참여중" />
 
             <Button
-                    android:id="@+id/btn_join_board"
-                    android:layout_width="103dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/btn_shape"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    tools:text="쪼인" />
-
-        </LinearLayout>
-
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_end_of_linear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.8" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.2" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/btn_join"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/lion"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp"
-                app:layout_constraintEnd_toEndOf="@id/gl_right"
-                app:layout_constraintHeight_percent="0.3"
-                app:layout_constraintStart_toStartOf="@+id/gl_left"
-                app:layout_constraintTop_toTopOf="@+id/gl_image_guide"
-                app:layout_constraintWidth_percent="0.5" />
+                android:layout_marginTop="@dimen/space_large_margin"
+                android:background="@drawable/btn_shape"
+                android:onClick="@{() -> viewmodel.onJoinClick()}"
+                android:text="@string/board_preview_btn_title"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_current_person"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintWidth_percent="0.4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--imageView-->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.8" />
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/clv_profile"
+            imageError="@{@drawable/kakao_default_profile_image}"
+            imageUrl="@{viewmodel.board.writerPhoto}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/gl_bg_top"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_bg_top"
+            tools:src="@drawable/lion" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

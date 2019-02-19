@@ -45,6 +45,7 @@ public class MapSearchViewModel extends ViewModel {
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
     private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
 
+
     public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
         disposables.add(
                 kakaoService.getMyAddress(kakaoKey, longtitude, latitude)
