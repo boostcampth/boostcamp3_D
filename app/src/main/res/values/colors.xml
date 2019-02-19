@@ -13,6 +13,7 @@
     <!-- Board -->
     <color name="colorRangeBar">#3F51B5</color>
     <color name="colorRangeBarSelector">#9A3F51B5</color>
+    <color name="colorTagBackground">#EFEFEF</color>
     <!--Board Sheet-->
     <color name="colorMapBoard">#F2FFFFFF</color>
     <!-- Board_detail -->

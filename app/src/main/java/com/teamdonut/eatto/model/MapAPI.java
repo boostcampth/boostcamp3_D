@@ -27,4 +27,5 @@ public interface MapAPI {
             @Query("max_age") int maxAge,
             @Query("max_person") int maxPerson,
             @Query("budget") int budget);
+
 }

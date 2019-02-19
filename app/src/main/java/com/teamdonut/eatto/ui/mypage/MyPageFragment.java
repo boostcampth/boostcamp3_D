@@ -32,7 +32,7 @@ public class MyPageFragment extends Fragment implements MyPageNavigator {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.mypage_fragment, container, false);
         mViewModel = ViewModelProviders.of(this).get(MyPageViewModel.class);
-        mViewModel.setmNavigator(this);
+        mViewModel.setNavigator(this);
 
         binding.setViewmodel(mViewModel);
 

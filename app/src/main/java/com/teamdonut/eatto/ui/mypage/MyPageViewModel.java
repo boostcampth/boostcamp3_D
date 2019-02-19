@@ -58,7 +58,7 @@ public class MyPageViewModel extends ViewModel {
         super.onCleared();
     }
 
-    public void setmNavigator(MyPageNavigator mNavigator) {
+    public void setNavigator(MyPageNavigator mNavigator) {
         this.mNavigator = mNavigator;
     }
 
