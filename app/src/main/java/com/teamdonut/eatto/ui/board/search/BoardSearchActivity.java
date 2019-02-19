@@ -21,6 +21,8 @@ import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
 import com.teamdonut.eatto.ui.board.BoardNavigator;
 import com.teamdonut.eatto.ui.board.BoardViewModel;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -116,7 +118,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         if(Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
             SnackBarUtil.showSnackBar(getCurrentFocus(),R.string.board_search_please_insert);
         }else {
-            mViewModel.getBoardSearchAdapter().removeAllItems();
+            mViewModel.setBoardSearchAdapter(new BoardSearchAdapter(new ArrayList<>()));
             binding.rvBoardSearch.setAdapter(mViewModel.getBoardSearchAdapter());
             scrollListener.resetState();
             mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
