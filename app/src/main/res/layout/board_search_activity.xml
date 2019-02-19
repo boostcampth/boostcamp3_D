@@ -6,6 +6,7 @@
     tools:context=".ui.board.BoardSearchActivity">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
@@ -33,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorHungryGray"
+                android:imeOptions="actionSearch"
                 android:maxLength="20"
                 android:singleLine="true" />
 
@@ -50,7 +52,6 @@
             android:id="@+id/rv_board_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:item="@{viewmodel.documents}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"
