@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,10 +31,12 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.board.BoardPreviewDialog;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
@@ -46,11 +50,14 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private ClusterManager<Board> mClusterManager;
     private CameraPosition mPreviousCameraPosition;
 
+    private BoardPreviewDialog dialog;
+
+    private MapBoardAdapter adapter;
+
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 16;
     private final LatLng DEFAULT_LOCATION = new LatLng(37.566467, 126.978174); // 서울 시청
 
-    private final String BOARD_ARGUMENT = "Board";
     private final String PREVIEW_TAG = "preview";
 
     public static MapFragment newInstance() {
@@ -87,7 +94,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onResume() {
         super.onResume();
-        //mViewModel.loadBoards();
+        mViewModel.loadBoards();
     }
 
     @Override
@@ -187,20 +194,16 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void openBoardPreview(Board board) {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(BOARD_ARGUMENT, board);
-
-        BoardPreviewDialog dialog = BoardPreviewDialog.newInstance();
-        dialog.setArguments(bundle);
+        dialog = BoardPreviewDialog.newInstance(board);
         dialog.show(getChildFragmentManager(), PREVIEW_TAG);
     }
 
     private void initBoardsObserver() {
-        mViewModel.getBoards().observe(this, data ->{
+        mViewModel.getBoards().observe(this, data -> {
+            adapter.updateItems(data);
+
             mClusterManager.clearItems();
-            for (Board board : data) {
-                mClusterManager.addItem(board);
-            }
+            mClusterManager.addItems(data);
             mClusterManager.cluster();
         });
     }
@@ -213,6 +216,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
+        adapter = new MapBoardAdapter(new ArrayList<>(), mViewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
@@ -220,6 +224,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         rv.setHasFixedSize(true);
         rv.addItemDecoration(itemDecoration);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(adapter);
     }
 
     private void initMapView(@Nullable Bundle savedInstanceState) {
@@ -229,13 +234,13 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initCluster() {
-        mClusterManager = new ClusterManager<Board>(getActivity(), mMap);
+        mClusterManager = new ClusterManager<>(getActivity(), mMap);
         mPreviousCameraPosition = mMap.getCameraPosition();
         mMap.setOnMarkerClickListener(mClusterManager);
-        mMap.setOnCameraIdleListener(()-> {
+        mMap.setOnCameraIdleListener(() -> {
             mViewModel.fetchBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
             if (mClusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
-                ((GoogleMap.OnCameraIdleListener)mClusterManager.getRenderer()).onCameraIdle();
+                ((GoogleMap.OnCameraIdleListener) mClusterManager.getRenderer()).onCameraIdle();
             }
 
             CameraPosition position = mMap.getCameraPosition();

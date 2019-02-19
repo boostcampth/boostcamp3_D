@@ -86,7 +86,7 @@
             style="@style/BoardItemTagText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{board.budget.length() == 1 ? @string/all_unlimit : board.budget+ `@string/all_won`}"
+            android:text="@{board.budget.length() == 1 ? @string/all_unlimit : board.budget+ @string/all_won}"
             android:layout_marginTop="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/gl_start"

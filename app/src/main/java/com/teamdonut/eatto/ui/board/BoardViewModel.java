@@ -17,6 +17,7 @@ import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
@@ -192,7 +193,7 @@ public class BoardViewModel {
 
     public Board makeBoard(String title, int maxPerson) {
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         String appointedTime = df.format(currentTime);
         appointedTime += " " + Integer.toString(mHourOfDay) + ":" + Integer.toString(mMinute) + ":00";
 
@@ -208,7 +209,8 @@ public class BoardViewModel {
                 Float.parseFloat(mLongitude),
                 Float.parseFloat(mLatitude),
                 user.getKakaoId(),
-                user.getPhoto()
+                user.getPhoto(),
+                user.getNickName()
         );
 
         return board;
