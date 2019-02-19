@@ -45,6 +45,7 @@ public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdap
         holder.binding.setBoard(getItem(position));
     }
 
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         MapBoardItemBinding binding;

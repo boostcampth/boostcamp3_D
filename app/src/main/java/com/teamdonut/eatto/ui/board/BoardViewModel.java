@@ -172,7 +172,7 @@ public class BoardViewModel {
                 service.getUserParticipatedBoard(RealmDataHelper.getUser().getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
+                        .subscribe(data -> {
                                     boardJoinAdapter.addItems(data);
                                 }, (e) -> {
                                     e.printStackTrace();
@@ -241,7 +241,7 @@ public class BoardViewModel {
         return mAddress;
     }
 
-    public void setmAddress(ObservableField<String> mAddress) {
+    public void setAddress(ObservableField<String> mAddress) {
         this.mAddress = mAddress;
     }
 
@@ -286,42 +286,6 @@ public class BoardViewModel {
         return ownBoards;
     }
 
-    public void setOwnBoards(ObservableArrayList<Board> ownBoards) {
-        this.ownBoards = ownBoards;
-    }
-
-    public int getMinAge() {
-        return mMinAge;
-    }
-
-    public void setMinAge(int mMinAge) {
-        this.mMinAge = mMinAge;
-    }
-
-    public int getMaxAge() {
-        return mMaxAge;
-    }
-
-    public void setMaxAge(int mMaxAge) {
-        this.mMaxAge = mMaxAge;
-    }
-
-    public int getHourOfDay() {
-        return mHourOfDay;
-    }
-
-    public void setHourOfDay(int mHourOfDay) {
-        this.mHourOfDay = mHourOfDay;
-    }
-
-    public int getMinute() {
-        return mMinute;
-    }
-
-    public void setMinute(int mMinute) {
-        this.mMinute = mMinute;
-    }
-
     public String getAddressName() {
         return mAddressName;
     }
@@ -346,7 +310,7 @@ public class BoardViewModel {
         this.mLongitude = mLongitude;
     }
 
-    public String getmLatitude() {
+    public String getLatitude() {
         return mLatitude;
     }
 
@@ -357,5 +321,21 @@ public class BoardViewModel {
     public void onDestroyViewModel() {
         disposables.dispose();
         realm.close();
+    }
+
+    public int getHourOfDay() {
+        return mHourOfDay;
+    }
+
+    public int getMinute() {
+        return mMinute;
+    }
+
+    public void setHourOfDay(int mHourOfDay) {
+        this.mHourOfDay = mHourOfDay;
+    }
+
+    public void setMinute(int mMinute) {
+        this.mMinute = mMinute;
     }
 }

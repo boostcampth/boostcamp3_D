@@ -1,18 +1,17 @@
 package com.teamdonut.eatto.common.helper;
 
 import com.teamdonut.eatto.data.Keyword;
+import com.teamdonut.eatto.data.User;
 
 import java.util.Date;
-
-import com.teamdonut.eatto.data.User;
 
 import io.realm.Realm;
 
 public class RealmDataHelper {
 
     /**
-     *
-     * @return
+     * get user
+     * @return User
      */
     public static User getUser() {
         Realm realm = Realm.getDefaultInstance();

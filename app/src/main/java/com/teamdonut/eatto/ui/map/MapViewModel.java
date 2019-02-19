@@ -9,7 +9,9 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.model.MapAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.databinding.ObservableBoolean;
@@ -87,19 +89,16 @@ public class MapViewModel extends ViewModel {
         }
     }
 
-
     @Override
     protected void onCleared() {
         disposables.dispose();
         super.onCleared();
     }
 
-
     //검색 버튼 리스너
     public void onSearchClick() {
         mNavigator.goToMapSearch();
     }
-
 
     //게시물 추가 리스너
     public void onClickBoardAdd() {
