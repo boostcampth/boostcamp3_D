@@ -1,7 +1,6 @@
 package com.teamdonut.eatto.ui.board;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
@@ -24,7 +23,6 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
         binding.setViewmodel(mViewModel);
 
         initRxBus();
-
     }
 
     public void initRxBus() {
@@ -41,7 +39,6 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
     //액티비티 종료
     @Override
     public void onBoardDetailExitClick() {
-        Log.d("arrived","check2");
         finish();
     }
 }

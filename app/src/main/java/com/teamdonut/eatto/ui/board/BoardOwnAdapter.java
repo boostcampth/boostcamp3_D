@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdapter.MyViewHolder> {
+public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdapter.ViewHolder> {
 
     private BoardViewModel mViewModel;
 
@@ -24,9 +24,9 @@ public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdap
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardItemBinding binding = BoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        final MyViewHolder holder = new MyViewHolder(binding);
+        final ViewHolder holder = new ViewHolder(binding);
         holder.binding.clBoardItem.setOnClickListener((v) -> {
            mViewModel.getmNavigator().onShowMyBoardDetail(holder.getAdapterPosition());
         });
@@ -34,15 +34,15 @@ public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdap
     }
 
     @Override
-    public void onBindView(MyViewHolder holder, int position) {
+    public void onBindView(ViewHolder holder, int position) {
         holder.binding.setBoard(getItem(position));
         Log.d("checktitle",getItem(position).getTitle());
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         BoardItemBinding binding;
 
-        MyViewHolder(BoardItemBinding binding) {
+        ViewHolder(BoardItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
