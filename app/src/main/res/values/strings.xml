@@ -59,6 +59,7 @@
     <!--Board Preview-->
     <string name="board_preview_btn_title">쪼인</string>
     <string name="board_preview_tv_person">%d명 참여중</string>
+    <string name="board_preview_tv_budget">~ 1인 %s원</string>
 
     <!-- Board_Add -->
     <string name="board_add_snack_bar">모두 입력해주세요</string>
