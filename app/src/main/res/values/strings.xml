@@ -21,7 +21,7 @@
     <!-- Home -->
     <string name="home_tv_recommend_board">추천 모임 게시글</string>
     <string name="home_tv_ranking">유저 랭킹</string>
-    <string name="home_tv_below_logo">혼밥이 싫다면 여기로 고고!\n고고고!</string>
+    <string name="home_tv_below_logo">오늘도 혼자서 식사하실껀가요?\n같이 먹어요 고고고!</string>
     <string name="home_tv_waiting_num">개의 방에서 혼밥러들이 당신을 기다리고 있습니다.</string>
 
     <!-- Main -->
