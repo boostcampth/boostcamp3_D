@@ -13,15 +13,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_board_item"
         android:layout_width="match_parent"
-
         android:layout_height="@dimen/board_item_size"
         android:layout_marginStart="@dimen/space_large_margin"
         android:layout_marginTop="@dimen/space_small_margin"
         android:layout_marginEnd="@dimen/space_large_margin"
         android:layout_marginBottom="@dimen/space_small_margin"
         android:background="@drawable/cl_board_item_shape"
-        android:elevation="@dimen/space_img_btn_padding">
+        android:elevation="@dimen/space_filter_title_padding">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_start_of_item"
@@ -34,7 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="@dimen/space_small_padding"
-            android:src="@drawable/lion"
+            app:imageError="@{@drawable/kakao_default_profile_image}"
+            app:imageUrl="@{board.writerPhoto}"
             app:layout_constraintBottom_toBottomOf="@id/gl_board_item_bottom"
             app:layout_constraintEnd_toEndOf="@id/gl_end_of_user_photo"
             app:layout_constraintHeight_default="percent"

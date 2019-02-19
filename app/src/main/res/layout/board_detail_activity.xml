@@ -10,6 +10,11 @@
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
+
+        <variable
+            name="board"
+            type="com.teamdonut.eatto.data.Board"/>
+
     </data>
 
 
@@ -24,6 +29,7 @@
             android:layout_marginStart="@dimen/space_board_item_margin"
             android:layout_marginTop="@dimen/space_board_item_margin"
             android:background="@color/colorHungryGray"
+            android:onClick="@{()->viewmodel.onBoardDetailExitClick()}"
             app:layout_constraintEnd_toEndOf="@+id/gl_left_of_detail_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,6 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{board.title}"
             tools:text="7시 강남역 6명 ㄱㄱㄱ" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -76,7 +83,7 @@
             android:textSize="@dimen/board_tv_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/tv_restaurant"
             app:layout_constraintEnd_toEndOf="parent"
-
+            android:text="@{board.address}"
             app:layout_constraintStart_toStartOf="@+id/iv_location_icon"
             app:layout_constraintTop_toTopOf="@+id/gl_end_of_title"
             tools:text="서울특별시 강남구 역삼동" />
@@ -90,6 +97,7 @@
             android:layout_marginTop="@dimen/space_small_margin"
             android:textAlignment="center"
             android:textSize="@dimen/board_tv_text_size"
+            android:text="@{board.restaurantName}"
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
@@ -146,11 +154,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
             app:layout_constraintTop_toTopOf="@+id/gl_end_of_address"
+            android:text="@{board.minAge+`~`+board.maxAge}"
             tools:text="25~30세" />
 
         <TextView
             android:id="@+id/tv_input_budget"
             style="@style/BoardDetailRightItem"
+            android:text="@{board.budget}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_input_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
@@ -162,6 +172,7 @@
             style="@style/BoardDetailRightItem"
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
             app:layout_constraintEnd_toEndOf="parent"
+            transdate="@{board.appointedTime}"
             app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
             app:layout_constraintTop_toTopOf="@+id/tv_input_budget"
             tools:text="1월 24일 오후 7시" />
@@ -182,10 +193,10 @@
             android:layout_marginTop="@dimen/space_board_item_margin"
             android:layout_marginEnd="@dimen/board_detail_static_edittext_size"
             android:layout_marginBottom="@dimen/space_board_item_margin"
-            android:background="@color/colorHungryRed"
             android:gravity="start"
             android:lines="10"
             android:textSize="@dimen/board_tv_text_size"
+            android:text="@{board.content}"
             app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
