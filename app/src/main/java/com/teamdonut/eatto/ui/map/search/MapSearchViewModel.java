@@ -45,7 +45,7 @@ public class MapSearchViewModel extends ViewModel {
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
     private final ObservableInt budget = new ObservableInt(0);
-    private final ObservableInt people = new ObservableInt(2);
+    private final ObservableInt people = new ObservableInt(10);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
     private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
