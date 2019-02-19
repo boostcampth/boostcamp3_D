@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,9 +19,10 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 public class HomeViewModel extends ViewModel {
-    private final MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();
-    private final ObservableField<User> user = new ObservableField<>();
-    private final MutableLiveData<Integer> boardFlag = new MutableLiveData<>();
+    private MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();
+    private ObservableField<User> user = new ObservableField<>();
+    private MutableLiveData<Integer> boardFlag = new MutableLiveData<>();
+    private ObservableInt anyBoardsSize = new ObservableInt(0);
 
     private Realm realm = Realm.getDefaultInstance();
 
@@ -65,6 +67,7 @@ public class HomeViewModel extends ViewModel {
                         })
                         .subscribe(data -> {
                                     anyBoards.setValue(data);
+                                    anyBoardsSize.set(data.size());
                                 }, e -> {
                                     e.printStackTrace();
                                 }
@@ -134,5 +137,9 @@ public class HomeViewModel extends ViewModel {
 
     public BoardRecommendAdapter getBoardRecommendAdapter() {
         return boardRecommendAdapter;
+    }
+
+    public ObservableInt getAnyBoardsSize() {
+        return anyBoardsSize;
     }
 }
