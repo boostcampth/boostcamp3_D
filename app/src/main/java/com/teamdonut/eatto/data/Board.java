@@ -41,6 +41,14 @@ public class Board implements Parcelable, ClusterItem {
     @Expose
     private long writerId;
 
+    @SerializedName("writer_photo")
+    @Expose
+    private String writerPhoto;
+
+    @SerializedName("writer_name")
+    @Expose
+    private String writerName;
+
     @SerializedName("write_date")
     @Expose
     private String writeDate;
@@ -77,16 +85,8 @@ public class Board implements Parcelable, ClusterItem {
     @Expose
     private int maxAge;
 
-    @SerializedName("writer_photo")
-    @Expose
-    private String writerPhoto;
-
-    @SerializedName("writer_name")
-    @Expose
-    private String writerName;
-
     public Board(String title, String address, String appointed_time, String restaurant_name,
-                 int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto) {
+                 int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto, String writerName) {
         this.title = title;
         this.address = address;
         this.appointedTime = appointed_time;
@@ -98,6 +98,7 @@ public class Board implements Parcelable, ClusterItem {
         this.latitude = latitude;
         this.writerId = writer_id;
         this.writerPhoto = writerPhoto;
+        this.writerName = writerName;
     }
 
     public int getId() {
@@ -249,7 +250,6 @@ public class Board implements Parcelable, ClusterItem {
 
     protected Board(Parcel in) {
         this.title = in.readString();
-        this.writerPhoto = in.readString();
         this.address = in.readString();
         this.appointedTime = in.readString();
         this.restaurantName = in.readString();
@@ -258,7 +258,8 @@ public class Board implements Parcelable, ClusterItem {
         this.maxAge = in.readInt();
         this.longitude = in.readDouble();
         this.latitude = in.readDouble();
-        this.writerId = in.readLong();
+        this.writerPhoto = in.readString();
+        this.writerName = in.readString();
     }
 
     public static final Parcelable.Creator<Board> CREATOR =
@@ -282,7 +283,6 @@ public class Board implements Parcelable, ClusterItem {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(writerPhoto);
         dest.writeString(title);
         dest.writeString(address);
         dest.writeString(appointedTime);
@@ -295,6 +295,8 @@ public class Board implements Parcelable, ClusterItem {
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeString(writerPhoto);
+        dest.writeString(writerName);
     }
 
     public String getWriterPhoto() {
