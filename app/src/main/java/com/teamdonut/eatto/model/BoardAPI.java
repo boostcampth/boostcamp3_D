@@ -46,6 +46,18 @@ public interface BoardAPI {
     Single<List<Board>> getUserParticipatedBoard(
             @Header("kakao_id") long kakaoId);
 
+    /**
+     * 사용자 게시글 참여 요청.
+     *
+     * @param kakaoId             유저 kakao id
+     * @param boardAddInformation BoardAddInformation 클래스
+     * @return Single
+     */
+    @POST("board/participation")
+    Single<JsonObject> joinBoard(
+            @Header("kakao_id") long kakaoId,
+            @Body BoardAddInformation boardAddInformation);
+
     @GET("search/list")
     Single<List<Board>> getBoards(
             @Header("kakao_id") long kakaoId,
