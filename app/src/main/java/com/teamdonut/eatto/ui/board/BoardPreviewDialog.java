@@ -45,11 +45,16 @@ public class BoardPreviewDialog extends DialogFragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initJoinObserver();
+        
+        mViewModel = ViewModelProviders.of(this).get(BoardPreviewViewModel.class);
+        mViewModel.getIsSubmitted().observe(this, joinObserver);
+    }
+
+    private void initJoinObserver() {
         joinObserver = isSubmitted -> {
             dismiss();
         };
-        mViewModel = ViewModelProviders.of(this).get(BoardPreviewViewModel.class);
-        mViewModel.getIsSubmitted().observe(this, joinObserver);
     }
 
     @Override
