@@ -5,23 +5,25 @@ import io.reactivex.subjects.BehaviorSubject;
 
 
 public class RxBus {
-    private static RxBus mInstance;
-    private BehaviorSubject<Object> mSubject;
+    private static BehaviorSubject<Object> mSubject;
 
     private RxBus() {
         mSubject = BehaviorSubject.create();
     }
 
     public static RxBus getInstance() {
+        if(mSubject !=null && mSubject.hasComplete()) {
+            mSubject = BehaviorSubject.create();
+        }
         return LazyInit.INSTANCE;
+    }
+
+    public static void resetBus() {
+        mSubject.onComplete();
     }
 
     private static class LazyInit {
         private static final RxBus INSTANCE = new RxBus();
-    }
-
-    public static void setInstanceToNull() {
-        mInstance = null;
     }
 
     public void sendBus(Object object) {
