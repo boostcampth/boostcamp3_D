@@ -36,6 +36,7 @@
 
     <!--Search-->
     <dimen name="space_search_filter_padding">3dp</dimen>
+    <dimen name="space_search_keyword_item_padding">15dp</dimen>
     
     <!--Filter-->
     <dimen name="space_filter_title_padding">2dp</dimen>
