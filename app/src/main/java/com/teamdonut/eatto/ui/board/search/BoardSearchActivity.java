@@ -2,9 +2,12 @@ package com.teamdonut.eatto.ui.board.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
@@ -44,6 +47,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         initSearchResultRv();
         initObserver();
         initRxBus();
+        initKeyboardSearchListener();
     }
 
     public void fetch(){
@@ -102,28 +106,45 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                 finish();
                 break;
             case R.id.menu_search:
-                if(Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
-                    SnackBarUtil.showSnackBar(getCurrentFocus(),R.string.board_search_please_insert);
-                }else {
-                    mViewModel.getBoardSearchAdapter().updateItems(mViewModel.getDocuments());
-
-                    scrollListener.resetState();
-                    mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
-                }
-                KeyboardUtil.hideKeyboard(getCurrentFocus(),getApplicationContext());
+                search();
                 break;
         }
         return true;
     }
 
+    public void search() {
+        if(Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
+            SnackBarUtil.showSnackBar(getCurrentFocus(),R.string.board_search_please_insert);
+        }else {
+            mViewModel.getBoardSearchAdapter().removeAllItems();
+            binding.rvBoardSearch.setAdapter(mViewModel.getBoardSearchAdapter());
+            scrollListener.resetState();
+            mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
+        }
+        KeyboardUtil.hideKeyboard(getCurrentFocus(),getApplicationContext());
+    }
+
+    public void initKeyboardSearchListener() {
+        binding.etInputSearchKeyword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
     private void initSearchResultRv() {
         mBoardSearchManager = new LinearLayoutManager(this);
         mBoardSearchManager.setOrientation(RecyclerView.VERTICAL);
+        mBoardSearchManager.setSmoothScrollbarEnabled(true);
+        mBoardSearchManager.setItemPrefetchEnabled(true);
         binding.rvBoardSearch.setLayoutManager(mBoardSearchManager);
         binding.rvBoardSearch.addItemDecoration(new HorizontalDividerItemDecorator
                 (ContextCompat.getDrawable(getApplicationContext(), R.drawable.ranking_divider), 0.03));
-
         scrollListener = new EndlessRecyclerViewScrollListener(mBoardSearchManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -136,6 +157,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         binding.rvBoardSearch.addOnScrollListener(scrollListener);
 
         binding.rvBoardSearch.setAdapter(mViewModel.getBoardSearchAdapter());
+
     }
 
     @Override
