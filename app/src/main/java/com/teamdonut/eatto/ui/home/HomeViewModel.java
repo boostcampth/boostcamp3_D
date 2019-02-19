@@ -1,21 +1,23 @@
 package com.teamdonut.eatto.ui.home;
 
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.HomeAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
+
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+
+import java.util.ArrayList;
+import java.util.List;
+import androidx.lifecycle.MutableLiveData;
+
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();

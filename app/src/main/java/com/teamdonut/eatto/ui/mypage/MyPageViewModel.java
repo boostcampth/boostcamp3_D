@@ -21,7 +21,7 @@ public class MyPageViewModel extends ViewModel {
 
     private Realm realm = Realm.getDefaultInstance();
 
-    private ObservableField<User> user = new ObservableField<>();
+    private final ObservableField<User> user = new ObservableField<>();
 
     public void getUserInformation() {
         disposables.add(

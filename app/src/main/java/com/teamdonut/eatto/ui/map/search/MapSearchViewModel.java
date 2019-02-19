@@ -33,14 +33,15 @@ public class MapSearchViewModel extends ViewModel {
     private CompositeDisposable disposables = new CompositeDisposable();
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
+
     private Realm realm = Realm.getDefaultInstance();
 
     private final ObservableInt minTime = new ObservableInt(0);
     private final ObservableInt maxTime = new ObservableInt(23);
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
-    private final ObservableInt maxPeople = new ObservableInt(10);
     private final ObservableInt budget = new ObservableInt(0);
+    private final ObservableInt people = new ObservableInt(2);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
     private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
@@ -66,12 +67,24 @@ public class MapSearchViewModel extends ViewModel {
         saveRecentKeyword(keyword); //save recent keyword.
 
         searchCondition.setValue(
-                new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), maxPeople.get(), budget.get()));
+                new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), people.get(), budget.get()));
     }
 
     private void saveRecentKeyword(String keyword) {
         if (!Strings.isEmptyOrWhitespace(keyword)) { //insert keyword
             RealmDataHelper.insertKeyword(realm, keyword);
+        }
+    }
+
+    public void onPeoplePlusClick() {
+        if (people.get() < 10) {
+            people.set(people.get() + 1);
+        }
+    }
+
+    public void onPeopleMinusClick() {
+        if (people.get() > 2) {
+            people.set(people.get() - 1);
         }
     }
 
@@ -99,11 +112,6 @@ public class MapSearchViewModel extends ViewModel {
         maxAge.set(Integer.parseInt(rightPinValue));
     }
 
-    public void onPeopleRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
-                                        String leftPinValue, String rightPinValue) {
-        maxPeople.set(Integer.parseInt(rightPinValue));
-    }
-
     public void onSubmitFilterClick(String minTimeText, String maxTimeText) {
         minTime.set(Integer.parseInt(minTimeText));
         maxTime.set(Integer.parseInt(maxTimeText));
@@ -129,10 +137,6 @@ public class MapSearchViewModel extends ViewModel {
         return maxAge;
     }
 
-    public ObservableInt getMaxPeople() {
-        return maxPeople;
-    }
-
     public ObservableInt getBudget() {
         return budget;
     }
@@ -155,5 +159,9 @@ public class MapSearchViewModel extends ViewModel {
 
     public MutableLiveData<String> getEtKeywordHint() {
         return etKeywordHint;
+    }
+
+    public ObservableInt getPeople() {
+        return people;
     }
 }
