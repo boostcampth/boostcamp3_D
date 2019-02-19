@@ -9,6 +9,7 @@ import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,6 +26,9 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
 
         mViewModel = ViewModelProviders.of(this).get(MapSearchViewModel.class);
         mViewModel.setNavigator(this);
+
+        MotionLayout motionLayout = binding.layoutFilter.clThis;
+
 
         binding.setViewmodel(mViewModel);
         binding.setLifecycleOwner(this);

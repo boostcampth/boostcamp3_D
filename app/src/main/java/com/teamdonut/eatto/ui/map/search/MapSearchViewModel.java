@@ -40,7 +40,6 @@ public class MapSearchViewModel extends ViewModel {
     private final ObservableInt maxTime = new ObservableInt(23);
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
-    private final ObservableInt maxPeople = new ObservableInt(10);
     private final ObservableInt budget = new ObservableInt(0);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
@@ -67,7 +66,7 @@ public class MapSearchViewModel extends ViewModel {
         saveRecentKeyword(keyword); //save recent keyword.
 
         searchCondition.setValue(
-                new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), maxPeople.get(), budget.get()));
+                new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), people.get(), budget.get()));
     }
 
     private void saveRecentKeyword(String keyword) {
@@ -112,11 +111,6 @@ public class MapSearchViewModel extends ViewModel {
         maxAge.set(Integer.parseInt(rightPinValue));
     }
 
-    public void onPeopleRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
-                                        String leftPinValue, String rightPinValue) {
-        maxPeople.set(Integer.parseInt(rightPinValue));
-    }
-
     public void onSubmitFilterClick(String minTimeText, String maxTimeText) {
         minTime.set(Integer.parseInt(minTimeText));
         maxTime.set(Integer.parseInt(maxTimeText));
@@ -140,10 +134,6 @@ public class MapSearchViewModel extends ViewModel {
 
     public ObservableInt getMaxAge() {
         return maxAge;
-    }
-
-    public ObservableInt getMaxPeople() {
-        return maxPeople;
     }
 
     public ObservableInt getBudget() {
