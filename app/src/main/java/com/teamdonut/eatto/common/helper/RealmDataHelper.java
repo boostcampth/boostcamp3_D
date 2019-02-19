@@ -11,24 +11,9 @@ import io.realm.Realm;
 public class RealmDataHelper {
 
     /**
-     * get User kakao Id (access)
+     *
+     * @return
      */
-    public static long getAccessId() {
-        Realm realm = Realm.getDefaultInstance();
-        User user = realm.where(User.class).findFirst();
-        User copyUser;
-
-        if (user != null) {
-            copyUser = realm.copyFromRealm(user);
-            realm.close();
-
-            return copyUser.getKakaoId();
-        } else {
-            realm.close();
-            throw new NullPointerException("There is no user data.");
-        }
-    }
-
     public static User getUser() {
         Realm realm = Realm.getDefaultInstance();
         User user = realm.where(User.class).findFirst();
@@ -44,7 +29,6 @@ public class RealmDataHelper {
             throw new NullPointerException("There is no user data.");
         }
     }
-
 
     /**
      * Insert keyword

@@ -10,14 +10,11 @@ import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.model.MapAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -30,10 +27,8 @@ public class MapViewModel extends ViewModel {
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private final MutableLiveData<Board> mOpenBoardEvent = new MutableLiveData<>();
-    private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
-    private MutableLiveData<List<Board>> searchBoards = new MutableLiveData<>();
 
-    private MapBoardAdapter mapBoardAdapter = new MapBoardAdapter(new ArrayList<Board>(), this);
+    private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
 
     private Filter filter;
 
@@ -60,7 +55,6 @@ public class MapViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .subscribe(data -> {
                             boards.setValue(data);
-                            mapBoardAdapter.updateItems(boards.getValue());
                         },
                         e -> {
                             e.printStackTrace();
@@ -76,7 +70,7 @@ public class MapViewModel extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(data -> {
-                                searchBoards.postValue(data);
+                                boards.postValue(data);
                             },
                             e -> {
                                 e.printStackTrace();
@@ -118,25 +112,15 @@ public class MapViewModel extends ViewModel {
         mNavigator.startLocationUpdates();
     }
 
-
     public MutableLiveData<Board> getOpenBoardEvent() {
         return mOpenBoardEvent;
     }
-
 
     public void setNavigator(MapNavigator navigator) {
         this.mNavigator = navigator;
     }
 
-    public MutableLiveData<List<Board>> getSearchBoards() {
-        return searchBoards;
-    }
-
     public MutableLiveData<List<Board>> getBoards() {
         return boards;
-    }
-
-    public MapBoardAdapter getMapBoardAdapter() {
-        return mapBoardAdapter;
     }
 }
