@@ -45,7 +45,6 @@
                         android:text="E.T."
                         android:textSize="50sp"
                         android:textColor="@color/colorHungryRed"
-                        android:src="@drawable/home_logo"
                         android:layout_marginBottom="@dimen/space_medium_margin" />
 
                     <TextView
