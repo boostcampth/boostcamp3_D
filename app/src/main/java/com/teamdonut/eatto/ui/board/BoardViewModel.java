@@ -27,6 +27,7 @@ import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -75,8 +76,8 @@ public class BoardViewModel {
     public ObservableField<String> mAddress = new ObservableField<>();
 
     //Board Add
-    private ObservableField<Integer> boardAddMaxPerson = new ObservableField<>(2);
-    private ObservableField<Integer> boardAddBudget = new ObservableField<>(5000);
+    private ObservableInt boardAddMaxPerson = new ObservableInt(2);
+    private ObservableInt boardAddBudget = new ObservableInt(5000);
 
     public BoardViewModel() {
 
@@ -136,7 +137,7 @@ public class BoardViewModel {
                 kakaoService.getAddress(authorization, query, page, size)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
+                        .subscribe(data -> {
 
                                     //결과가 없으면
                                     if (data.getDocuments().size() == 0) {
@@ -162,7 +163,7 @@ public class BoardViewModel {
                 service.getUserCreatedBoard(RealmDataHelper.getUser().getKakaoId())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
+                        .subscribe(data -> {
                                     boardOwnAdapter.addItems(data);
                                 }, (e) -> {
                                     e.printStackTrace();
@@ -251,7 +252,7 @@ public class BoardViewModel {
         disposables.add(
                 result.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe((data) -> {
+                        .subscribe(data -> {
                                     if (mNavigator != null)
                                         mNavigator.onBoardAddFinish();
                                 }, (e) -> {
@@ -288,19 +289,19 @@ public class BoardViewModel {
             boardAddBudget.set(boardAddBudget.get() - 5000);
     }
 
-    public ObservableField<Integer> getBoardAddMaxPerson() {
+    public ObservableInt getBoardAddMaxPerson() {
         return boardAddMaxPerson;
     }
 
-    public void setBoardAddMaxPerson(ObservableField<Integer> boardAddMaxPerson) {
+    public void setBoardAddMaxPerson(ObservableInt boardAddMaxPerson) {
         this.boardAddMaxPerson = boardAddMaxPerson;
     }
 
-    public ObservableField<Integer> getBoardAddBudget() {
+    public ObservableInt getBoardAddBudget() {
         return boardAddBudget;
     }
 
-    public void setBoardAddBudget(ObservableField<Integer> boardAddBudget) {
+    public void setBoardAddBudget(ObservableInt boardAddBudget) {
         this.boardAddBudget = boardAddBudget;
     }
 
