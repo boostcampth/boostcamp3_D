@@ -9,7 +9,7 @@
 
         <variable
             name="select"
-            type="int" />
+            type="boolean" />
 
         <variable
             name="board"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/hungry_red_border_bg"
-            android:visibility="@{select == 0 ? View.INVISIBLE : View.VISIBLE}" />
+            android:visibility="@{select == false ? View.INVISIBLE : View.VISIBLE}" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_h_100"

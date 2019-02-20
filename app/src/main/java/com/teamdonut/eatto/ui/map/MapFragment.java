@@ -261,7 +261,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         mClusterManager.setOnClusterItemClickListener(data -> {
             IS_MARKERCLICK = true;
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), DEFAULT_ZOOM));
-            data.setSelect(View.INVISIBLE);
+            data.setSelect(true);
             mAdapter.notifyDataSetChanged();
             binding.mapBottomSheet.rvBoard.getLayoutManager().scrollToPosition(mAdapter.getItemPosition(data));
             setBottomSheetExpand(true);

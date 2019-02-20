@@ -40,7 +40,7 @@ public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdap
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        holder.binding.setSelect(getItem(position).getSelect());
+        holder.binding.setSelect(getItem(position).isSelect());
         holder.binding.setBoard(getItem(position));
     }
 

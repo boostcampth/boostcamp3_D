@@ -323,11 +323,11 @@ public class Board implements Parcelable, ClusterItem {
         dest.writeString(writerName);
     }
 
-    public int getSelect() {
-        return select;
+    public boolean isSelect() {
+        return isSelect;
     }
 
-    public void setSelect(int select) {
-        this.select = select;
+    public void setSelect(boolean select) {
+        isSelect = select;
     }
 }
