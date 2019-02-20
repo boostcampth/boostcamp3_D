@@ -2,6 +2,7 @@ package com.teamdonut.eatto.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
@@ -86,6 +87,9 @@ public class Board implements Parcelable, ClusterItem {
     @Expose
     private int maxAge;
 
+    @SerializedName("select")
+    @Expose(serialize = false, deserialize = false)
+    private int select = View.GONE;
 
     public Board(String title, String address, String appointed_time, String restaurant_name,
                  int max_person, int min_age, int max_age, double longitude, double latitude, long writer_id, String writerPhoto, String writerName) {
@@ -118,7 +122,7 @@ public class Board implements Parcelable, ClusterItem {
     public String getWriterPhoto() {
         return writerPhoto;
     }
-  
+
     public void setWriterPhoto(String writerPhoto) {
         this.writerPhoto = writerPhoto;
     }
@@ -144,6 +148,7 @@ public class Board implements Parcelable, ClusterItem {
     public String getSnippet() {
         return address;
     }
+
 
     public String getAppointedTime() {
         return appointedTime;
@@ -320,4 +325,11 @@ public class Board implements Parcelable, ClusterItem {
         dest.writeString(writerName);
     }
 
+    public int getSelect() {
+        return select;
+    }
+
+    public void setSelect(int select) {
+        this.select = select;
+    }
 }
