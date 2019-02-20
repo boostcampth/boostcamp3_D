@@ -123,7 +123,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
             scrollListener.resetState();
             mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
         }
-        KeyboardUtil.hideKeyboard(getCurrentFocus(),getApplicationContext());
+        KeyboardUtil.hideSoftKeyboard(getCurrentFocus(),getApplicationContext());
     }
 
     public void initKeyboardSearchListener() {
