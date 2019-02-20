@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,7 +18,9 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
+import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.board.BoardPreviewDialog;
@@ -52,7 +55,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private BoardPreviewDialog dialog;
 
-    private MapBoardAdapter adapter;
+    private MapBoardAdapter mAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 16;
@@ -78,6 +81,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
         binding.setViewmodel(mViewModel);
+        binding.setLifecycleOwner(this);
 
         return binding.getRoot();
     }
@@ -96,6 +100,19 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         super.onResume();
         mViewModel.loadBoards();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mViewModel.onStopViewModel();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewModel.getBoards().removeObservers(this);
+    }
+
 
     @Override
     public void setBottomSheetExpand(Boolean state) {
@@ -125,8 +142,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void setMyPosition() {
         String strLatitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude");
         String strLongitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude");
-        double latitude = (strLatitude == "" ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
-        double longitude = (strLongitude == "" ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
+        double latitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
+        double longitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
     }
@@ -200,11 +217,22 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private void initBoardsObserver() {
         mViewModel.getBoards().observe(this, data -> {
-            adapter.updateItems(data);
+            Filter filter = mViewModel.getFilter(); //get Filter from viewModel.
 
-            mClusterManager.clearItems();
-            mClusterManager.addItems(data);
-            mClusterManager.cluster();
+            if (data.size() > 0) { //it could be search result / location result.
+                mAdapter.updateItems(data);
+
+                if (filter != null) { //if search result
+                    setBottomSheetExpand(true);
+                }
+                mClusterManager.clearItems();
+                mClusterManager.addItems(data);
+                mClusterManager.cluster();
+            } else if (filter != null) { //data size is 0
+                SnackBarUtil.showSnackBar(binding.colMap, R.string.board_search_can_not_find_result);
+            }
+
+            mViewModel.resetFilter();
         });
     }
 
@@ -216,7 +244,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
-        adapter = new MapBoardAdapter(new ArrayList<>(), mViewModel);
+        mAdapter = new MapBoardAdapter(new ArrayList<>(), mViewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
@@ -224,7 +252,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         rv.setHasFixedSize(true);
         rv.addItemDecoration(itemDecoration);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setAdapter(adapter);
+        rv.setAdapter(mAdapter);
     }
 
     private void initMapView(@Nullable Bundle savedInstanceState) {

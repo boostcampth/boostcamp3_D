@@ -6,6 +6,7 @@ import com.teamdonut.eatto.data.User;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class RealmDataHelper {
 
@@ -80,7 +81,7 @@ public class RealmDataHelper {
 
     /**
      * update user
-     * @param realm
+     * @param realm Realm
      * @param u user
      */
     public static void updateUser(Realm realm, final User u) {
@@ -91,6 +92,17 @@ public class RealmDataHelper {
             user.setSex(u.getSex());
             user.setPhoto(u.getPhoto());
             user.setAge(u.getAge());
+        });
+    }
+
+    /**
+     * Remove All keyword.
+     * @param realm Realm
+     */
+    public static void removeAllKeyword(Realm realm) {
+        realm.executeTransactionAsync(r ->{
+            RealmResults<Keyword> keywords = r.where(Keyword.class).findAll();
+            keywords.deleteAllFromRealm();
         });
     }
 }

@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Filter;
+import com.teamdonut.eatto.data.Keyword;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 
@@ -18,6 +19,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 @BindingMethods({
         @BindingMethod(
@@ -32,20 +35,24 @@ public class MapSearchViewModel extends ViewModel {
     private MapSearchNavigator mNavigator;
     private CompositeDisposable disposables = new CompositeDisposable();
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
-    private MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
 
     private Realm realm = Realm.getDefaultInstance();
+
+    private final MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
 
     private final ObservableInt minTime = new ObservableInt(0);
     private final ObservableInt maxTime = new ObservableInt(23);
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
     private final ObservableInt budget = new ObservableInt(0);
-    private final ObservableInt people = new ObservableInt(2);
+    private final ObservableInt people = new ObservableInt(10);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
     private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
 
+    public RealmResults<Keyword> fetchKeywords() {
+        return realm.where(Keyword.class).sort("searchDate", Sort.DESCENDING).limit(17).findAll();
+    }
 
     public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
         disposables.add(
@@ -62,6 +69,10 @@ public class MapSearchViewModel extends ViewModel {
                                 }
                         )
         );
+    }
+
+    public void onRecentKeywordRemoveClick() {
+        RealmDataHelper.removeAllKeyword(realm);
     }
 
     public void onGoSearchClick(String keyword) {
@@ -105,7 +116,6 @@ public class MapSearchViewModel extends ViewModel {
         filter.setMaxPeople(10);
         filter.setBudget(0);
     }
-
 
     public void onAgeRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
                                      String leftPinValue, String rightPinValue) {
