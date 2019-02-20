@@ -10,72 +10,79 @@
             type="com.teamdonut.eatto.data.Board" />
     </data>
 
-    <androidx.cardview.widget.CardView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/space_medium_margin"
-        app:cardCornerRadius="5dp">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_medium_margin">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/space_small_margin"
+            app:roundedimageError="@{@drawable/kakao_default_profile_image}"
+            app:roundedImageUrl="@{board.writerPhoto}"
+            app:layout_constraintBottom_toTopOf="@id/tv_address"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.9"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#8B03A9F4"
+            android:paddingStart="@dimen/space_filter_title_padding"
+            android:paddingEnd="@dimen/space_filter_title_padding"
+            android:text="@{board.title}"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toEndOf="@id/iv_profile"
+            app:layout_constraintStart_toStartOf="@id/iv_profile"
+            tools:text="안뇨오오오오" />
+
+        <TextView
+            android:id="@+id/tv_address"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/space_small_padding"
+            android:paddingEnd="@dimen/space_small_padding"
+            android:text="@{board.address}"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small_margin"
+            android:text="@{board.appointedTime.substring(11, 16)}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:src="@drawable/kakaoaccount_icon"
-                app:layout_constraintBottom_toTopOf="@id/gl_center"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_default="percent"
-                app:layout_constraintHeight_percent="0.35"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/colorHungryGray"
-                app:layout_constraintBottom_toTopOf="@id/gl_center" />
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{board.title}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gl_center" />
-
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{board.address}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{board.appointedTime.substring(11, 16)}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tv_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_16dp"
+            android:layout_marginEnd="@dimen/space_small_margin"
+            android:text="@{board.currentPerson+`/`+board.maxPerson}"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_time"
+            app:layout_constraintEnd_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/tv_time"
+            tools:text="3/5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

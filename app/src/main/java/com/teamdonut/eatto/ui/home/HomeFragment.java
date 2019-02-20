@@ -91,7 +91,6 @@ public class HomeFragment extends Fragment implements HomeNavigator {
                 int dp = (int) (getResources().getDimension(R.dimen.space_medium_margin) / getResources().getDisplayMetrics().density);
                 float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp * 3, getResources().getDisplayMetrics());
                 lp.width = (getWidth() - (int) px) / 2;
-                lp.height = (int)(getWidth() * 0.4);
                 return super.checkLayoutParams(lp);
             }
         };
