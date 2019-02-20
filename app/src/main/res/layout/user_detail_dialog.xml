@@ -36,7 +36,7 @@
                 android:id="@+id/v_bg"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/rv_home_ranking_bg"
+                android:background="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_default="percent"

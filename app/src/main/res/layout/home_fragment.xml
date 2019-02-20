@@ -42,10 +42,10 @@
                     <TextView
                         android:layout_width="233dp"
                         android:layout_height="70dp"
+                        android:layout_marginBottom="@dimen/space_medium_margin"
                         android:text="E.T."
-                        android:textSize="50sp"
                         android:textColor="@color/colorHungryRed"
-                        android:layout_marginBottom="@dimen/space_medium_margin" />
+                        android:textSize="50sp" />
 
                     <TextView
                         android:id="@+id/tv_below_logo"
@@ -63,18 +63,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginBottom="1dp"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
+                    android:layout_marginBottom="1dp"
                     app:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/AppTheme">
+                    app:layout_collapseMode="pin">
+
                     <TextView
                         android:id="@+id/tv_search"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableEnd="@drawable/ic_search_24dp"
                         android:background="@drawable/home_search_bg"
+                        android:drawableEnd="@drawable/ic_search_24dp"
                         android:gravity="center_vertical"
                         android:hint="@string/map_search_hint"
                         android:onClick="@{() -> viewmodel.onSearchClick()}"
@@ -91,13 +91,13 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_waiting_num"
@@ -126,8 +126,8 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_recommend_board"
-                    android:textSize="13sp"
                     android:textColor="@color/colorHungryBlack"
+                    android:textSize="15sp"
                     app:layout_constraintBottom_toTopOf="@id/rv_recommend_board"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -138,9 +138,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space_large_margin"
-                    android:overScrollMode="never"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
                     android:paddingStart="@dimen/space_medium_padding"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
@@ -156,8 +156,8 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:text="@string/home_tv_ranking"
-                    android:textSize="13sp"
                     android:textColor="@color/colorHungryBlack"
+                    android:textSize="15sp"
                     app:layout_constraintBottom_toTopOf="@id/ranking_item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -176,25 +176,25 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ranking"
                     app:user="@{viewmodel.user}" />
+
                 <View
                     android:id="@+id/v_divider"
-                    android:layout_height="4dp"
-                    android:background="@color/colorHungryGray"
-                    android:layout_marginTop="@dimen/space_small_margin"
-                    android:layout_marginBottom="@dimen/space_small_margin"
                     android:layout_width="match_parent"
-                    app:layout_constraintTop_toBottomOf="@id/ranking_item"
-                    app:layout_constraintBottom_toTopOf="@id/rv_rank" />
+                    android:layout_height="4dp"
+                    android:layout_marginTop="@dimen/space_vsmall_margin"
+                    android:layout_marginBottom="@dimen/space_vsmall_margin"
+                    android:background="@color/colorHungryGray"
+                    app:layout_constraintBottom_toTopOf="@id/rv_rank"
+                    app:layout_constraintTop_toBottomOf="@id/ranking_item" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
-                    android:layout_marginBottom="@dimen/space_large_margin"
-                    android:background="@drawable/rv_home_ranking_bg"
+                    android:layout_marginBottom="@dimen/space_medium_margin"
+                    android:overScrollMode="never"
                     app:adapter="@{viewmodel.userRankingAdapter}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/v_divider" />
