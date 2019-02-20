@@ -11,14 +11,14 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
-    <!-- board preview -->
-    <style name="DialogTheme" parent="@style/Base.Theme.AppCompat.Light.Dialog">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowMinWidthMajor">90%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
-    </style>
+    <!-- Full Screen Dialog Theme -->
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
 
-    <style name="PreviewDialogAnimation">
+        <item name="android:windowBackground">@android:color/transparent</item>
+
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
