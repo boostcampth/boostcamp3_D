@@ -40,12 +40,11 @@ public class RealmDataHelper {
     public static void insertKeyword(Realm realm, final String content) {
         realm.executeTransactionAsync(r -> {
             RealmResults<Keyword> keywords = r.where(Keyword.class).findAll();
+            Keyword duplicateKeyword = r.where(Keyword.class).equalTo("content", content).findFirst();
 
-            for (Keyword word : keywords) {
-                if (word.getContent().equals(content)) {
-                    word.setSearchDate(new Date());
-                    return;
-                }
+            if(duplicateKeyword !=null) {
+                duplicateKeyword.setSearchDate(new Date());
+                return;
             }
 
             if (keywords.size() == 17) {
