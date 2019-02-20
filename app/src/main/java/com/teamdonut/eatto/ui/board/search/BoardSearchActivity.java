@@ -37,7 +37,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    private RxBus rxbus = RxBus.getInstance();
+    private RxBus rxbus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     public void initRxBus() {
 
+        rxbus = RxBus.getInstance();
 
         rxbus.getBus().subscribe(position -> {
 

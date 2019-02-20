@@ -51,8 +51,8 @@ public class BoardViewModel {
 
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
     private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
-    private int mMinAge;
-    private int mMaxAge;
+    private int mMinAge = 15;
+    private int mMaxAge = 80;
     private int mHourOfDay;
     private int mMinute;
     private String mAddressName;
