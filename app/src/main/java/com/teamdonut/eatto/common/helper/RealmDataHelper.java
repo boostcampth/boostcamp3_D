@@ -12,6 +12,7 @@ public class RealmDataHelper {
 
     /**
      * get user
+     *
      * @return User
      */
     public static User getUser() {
@@ -38,10 +39,36 @@ public class RealmDataHelper {
      */
     public static void insertKeyword(Realm realm, final String content) {
         realm.executeTransactionAsync(r -> {
+            RealmResults<Keyword> keywords = r.where(Keyword.class).findAll();
+
+            for (Keyword word : keywords) {
+                if (word.getContent().equals(content)) {
+                    word.setSearchDate(new Date());
+                    return;
+                }
+            }
+
+            if (keywords.size() == 17) {
+                Keyword oldKeyword = r.where(Keyword.class).findFirst();
+                oldKeyword.deleteFromRealm();
+            }
             Keyword keyword = r.createObject(Keyword.class);
 
             keyword.setContent(content);
             keyword.setSearchDate(new Date());
+
+        });
+    }
+
+    /**
+     * Remove All keyword.
+     *
+     * @param realm Realm
+     */
+    public static void removeAllKeyword(Realm realm) {
+        realm.executeTransactionAsync(r -> {
+            RealmResults<Keyword> keywords = r.where(Keyword.class).findAll();
+            keywords.deleteAllFromRealm();
         });
     }
 
@@ -81,8 +108,9 @@ public class RealmDataHelper {
 
     /**
      * update user
+     *
      * @param realm Realm
-     * @param u user
+     * @param u     user
      */
     public static void updateUser(Realm realm, final User u) {
         realm.executeTransactionAsync(r -> {
@@ -92,17 +120,6 @@ public class RealmDataHelper {
             user.setSex(u.getSex());
             user.setPhoto(u.getPhoto());
             user.setAge(u.getAge());
-        });
-    }
-
-    /**
-     * Remove All keyword.
-     * @param realm Realm
-     */
-    public static void removeAllKeyword(Realm realm) {
-        realm.executeTransactionAsync(r ->{
-            RealmResults<Keyword> keywords = r.where(Keyword.class).findAll();
-            keywords.deleteAllFromRealm();
         });
     }
 }
