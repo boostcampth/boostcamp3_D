@@ -17,6 +17,7 @@ import com.teamdonut.eatto.common.util.EndlessRecyclerViewScrollListener;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.common.util.KeyboardUtil;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
+import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
 import com.teamdonut.eatto.ui.board.BoardNavigator;
 import com.teamdonut.eatto.ui.board.BoardViewModel;
@@ -75,10 +76,11 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                     if (position instanceof Integer) {
                         int curPosition = (int) position;
                         Intent resultIntent = new Intent();
-                        resultIntent.putExtra("placeName", mViewModel.getBoardSearchAdapter().getItem(curPosition).getPlaceName());
-                        resultIntent.putExtra("addressName", mViewModel.getBoardSearchAdapter().getItem(curPosition).getAddressName());
-                        resultIntent.putExtra("x", mViewModel.getBoardSearchAdapter().getItem(curPosition).getX());
-                        resultIntent.putExtra("y", mViewModel.getBoardSearchAdapter().getItem(curPosition).getY());
+                        Document document = mViewModel.getBoardSearchAdapter().getItem(curPosition);
+                        resultIntent.putExtra("placeName", document.getPlaceName());
+                        resultIntent.putExtra("addressName", document.getAddressName());
+                        resultIntent.putExtra("x", document.getX());
+                        resultIntent.putExtra("y", document.getY());
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     }
