@@ -82,14 +82,12 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
         binding.setViewmodel(mViewModel);
         binding.setLifecycleOwner(this);
-
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initBottomSheetBehavior();
         initMapView(savedInstanceState);
         initRecyclerView();
@@ -137,7 +135,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                 }, throwable -> {
                 });
     }
-
+    
     @Override
     public void setMyPosition() {
         String strLatitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude");
@@ -276,5 +274,9 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                 mPreviousCameraPosition = mMap.getCameraPosition();
             }
         });
+    }
+
+    public BottomSheetBehavior getBottomSheetBehavior() {
+        return bottomSheetBehavior;
     }
 }
