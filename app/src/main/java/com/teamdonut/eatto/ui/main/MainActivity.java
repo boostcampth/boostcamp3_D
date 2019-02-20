@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
 import com.teamdonut.eatto.ui.home.HomeFragment;
+import com.teamdonut.eatto.ui.map.MapFragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,4 +76,19 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         Snackbar.make(view, getResources().getText(resId).toString(), Snackbar.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        switch (binding.bnvMain.getSelectedItemId()) {
+            case R.id.menu_map:
+                MapFragment mapFragment = (MapFragment)getSupportFragmentManager().findFragmentById(R.id.fl_main);
+                if(mapFragment.getBottomSheetBehavior().getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                    super.onBackPressed();
+                }else{
+                    mapFragment.setBottomSheetExpand(false);
+                }
+                return;
+            default:
+                super.onBackPressed();
+        }
+    }
 }
