@@ -37,6 +37,8 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
+    private RxBus rxbus = RxBus.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         initKeyboardSearchListener();
     }
 
-    public void fetch(){
+    public void fetch() {
         String longitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "longitude");
         String latitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "latitude");
         mViewModel.fetchEtKeywordHint(getResources().getString(R.string.kakao_rest_api_key), longitude, latitude, getResources().getString(R.string.all_default_address));
@@ -65,24 +67,25 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     public void initRxBus() {
-        RxBus.getInstance().getBus().subscribe((position) -> {
 
-                    if ((int) position != -1) {
+
+        rxbus.getBus().subscribe(position -> {
+
+                    if (position instanceof Integer) {
                         int curPosition = (int) position;
-
                         Intent resultIntent = new Intent();
-                        resultIntent.putExtra("placeName", mViewModel.getDocuments().get(curPosition).getPlaceName());
-                        resultIntent.putExtra("addressName", mViewModel.getDocuments().get(curPosition).getAddressName());
-                        resultIntent.putExtra("x", mViewModel.getDocuments().get(curPosition).getX());
-                        resultIntent.putExtra("y", mViewModel.getDocuments().get(curPosition).getY());
+                        resultIntent.putExtra("placeName", mViewModel.getBoardSearchAdapter().getItem(curPosition).getPlaceName());
+                        resultIntent.putExtra("addressName", mViewModel.getBoardSearchAdapter().getItem(curPosition).getAddressName());
+                        resultIntent.putExtra("x", mViewModel.getBoardSearchAdapter().getItem(curPosition).getX());
+                        resultIntent.putExtra("y", mViewModel.getBoardSearchAdapter().getItem(curPosition).getY());
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     }
-                },
-                (e) -> e.printStackTrace(),
-                () -> {
 
-                });
+                }
+                ,
+                e -> e.printStackTrace()
+                );
     }
 
     public void initToolbar() {
@@ -115,15 +118,15 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     public void search() {
-        if(Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
-            SnackBarUtil.showSnackBar(getCurrentFocus(),R.string.board_search_please_insert);
-        }else {
+        if (Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
+            SnackBarUtil.showSnackBar(getCurrentFocus(), R.string.board_search_please_insert);
+        } else {
             mViewModel.setBoardSearchAdapter(new BoardSearchAdapter(new ArrayList<>()));
             binding.rvBoardSearch.setAdapter(mViewModel.getBoardSearchAdapter());
             scrollListener.resetState();
             mViewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
         }
-        KeyboardUtil.hideSoftKeyboard(getCurrentFocus(),getApplicationContext());
+        KeyboardUtil.hideSoftKeyboard(getCurrentFocus(), getApplicationContext());
     }
 
     public void initKeyboardSearchListener() {
@@ -164,8 +167,8 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     @Override
     protected void onDestroy() {
+        rxbus.resetBus();
         mViewModel.onDestroyViewModel();
-        RxBus.getInstance().sendBus(-1);
         super.onDestroy();
     }
 
