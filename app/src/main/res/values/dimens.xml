@@ -26,6 +26,10 @@
     <!-- Board_Search -->
     <dimen name="board_search_item_size">80dp</dimen>
 
+    <!-- Board_Add -->
+    <dimen name="board_add_btn_height">36dp</dimen>
+    <dimen name="board_add_btn_size">55dp</dimen>
+
     <!-- MyPage -->
     <dimen name="mypage_tv_margin">4dp</dimen>
     <dimen name="mypage_view_height">2dp</dimen>

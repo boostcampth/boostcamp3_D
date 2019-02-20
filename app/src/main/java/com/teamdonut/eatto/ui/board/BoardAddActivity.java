@@ -136,20 +136,13 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         if (inputCheck()) {
 
-            Board board = mViewModel.makeBoard(binding.etInputTitle.getText().toString(), Integer.parseInt(binding.etInputMaxPerson.getText().toString()));
+            Board board = mViewModel.makeBoard(binding.etInputTitle.getText().toString());
 
             if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
                 board.setContent("");
             } else {
                 board.setContent(binding.etInputContent.getText().toString());
             }
-
-            if (Strings.isEmptyOrWhitespace(binding.etInputBudget.getText().toString())) {
-                board.setBudget("0");
-            } else {
-                board.setBudget(binding.etInputBudget.getText().toString());
-            }
-
             mViewModel.addBoard(board);
 
         } else {
