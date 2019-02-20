@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
@@ -48,7 +49,7 @@ public class BoardViewModel {
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
-    private BoardAPI service = ServiceGenerator.createService(BoardAPI.class,ServiceGenerator.BASE);
+    private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
     private int mMinAge;
     private int mMaxAge;
     private int mHourOfDay;
@@ -67,12 +68,15 @@ public class BoardViewModel {
     private ObservableArrayList<Board> joinBoards = new ObservableArrayList<>();
     private ObservableArrayList<Board> ownBoards = new ObservableArrayList<>();
     private BoardOwnAdapter boardOwnAdapter = new BoardOwnAdapter(ownBoards, this);
-    private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards,this);
+    private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards, this);
 
     private Realm realm = Realm.getDefaultInstance();
 
     public ObservableField<String> mAddress = new ObservableField<>();
 
+    //Board Add
+    private ObservableField<Integer> boardAddMaxPerson = new ObservableField<>(2);
+    private ObservableField<Integer> boardAddBudget = new ObservableField<>(5000);
 
     public BoardViewModel() {
 
@@ -159,7 +163,7 @@ public class BoardViewModel {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((data) -> {
-                                boardOwnAdapter.addItems(data);
+                                    boardOwnAdapter.addItems(data);
                                 }, (e) -> {
                                     e.printStackTrace();
                                 }
@@ -187,7 +191,7 @@ public class BoardViewModel {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         try {
             Date date = format.parse(serverDate.replaceAll("Z$", "+0000"));
-            view.setText(Integer.toString(date.getHours())+"시 "+Integer.toString(date.getMinutes())+"분");
+            view.setText(Integer.toString(date.getHours()) + "시 " + Integer.toString(date.getMinutes()) + "분");
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -195,23 +199,37 @@ public class BoardViewModel {
 
     }
 
+    @BindingAdapter("transPeson")
+    public static void setPerson(MaterialEditText view, int person) {
+        view.setText(Integer.toString(person) + "명");
+    }
+
+    @BindingAdapter("transBudget")
+    public static void setBudget(MaterialEditText view, int budget) {
+        if (budget == 0) {
+            view.setText("상관없음");
+        } else {
+            view.setText(Integer.toString(budget) + "원");
+        }
+    }
+
     public void onDestroyBoardViewModel() {
         disposables.dispose();
     }
 
-    public Board makeBoard(String title, int maxPerson) {
+    public Board makeBoard(String title) {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         String appointedTime = df.format(currentTime);
         appointedTime += " " + Integer.toString(mHourOfDay) + ":" + Integer.toString(mMinute) + ":00";
 
-        User user =  RealmDataHelper.getUser();
+        User user = RealmDataHelper.getUser();
 
         Board board = new Board(title,
                 mAddressName,
                 appointedTime,
                 mPlaceName,
-                maxPerson,
+                boardAddMaxPerson.get(),
                 mMinAge,
                 mMaxAge,
                 Float.parseFloat(mLongitude),
@@ -220,6 +238,8 @@ public class BoardViewModel {
                 user.getPhoto(),
                 user.getNickName()
         );
+
+        board.setBudget(Integer.toString(boardAddBudget.get()));
 
         return board;
     }
@@ -232,7 +252,7 @@ public class BoardViewModel {
                 result.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe((data) -> {
-                                    if(mNavigator != null)
+                                    if (mNavigator != null)
                                         mNavigator.onBoardAddFinish();
                                 }, (e) -> {
                                     e.printStackTrace();
@@ -242,8 +262,46 @@ public class BoardViewModel {
     }
 
     public void onBoardDetailExitClick() {
-        if(mNavigator != null)
+        if (mNavigator != null)
             mNavigator.onBoardDetailExitClick();
+    }
+
+    //인원
+    public void onPersonUpClick() {
+        if (boardAddMaxPerson.get() + 1 <= 10)
+            boardAddMaxPerson.set(boardAddMaxPerson.get() + 1);
+    }
+
+    public void onPersonDownClick() {
+        if (boardAddMaxPerson.get() - 1 >= 2)
+            boardAddMaxPerson.set(boardAddMaxPerson.get() - 1);
+    }
+
+    //금액
+    public void onBudgetUpClick() {
+        if (boardAddBudget.get() + 5000 <= 100000)
+            boardAddBudget.set(boardAddBudget.get() + 5000);
+    }
+
+    public void onBudgetDownClick() {
+        if (boardAddBudget.get() - 5000 >= 0)
+            boardAddBudget.set(boardAddBudget.get() - 5000);
+    }
+
+    public ObservableField<Integer> getBoardAddMaxPerson() {
+        return boardAddMaxPerson;
+    }
+
+    public void setBoardAddMaxPerson(ObservableField<Integer> boardAddMaxPerson) {
+        this.boardAddMaxPerson = boardAddMaxPerson;
+    }
+
+    public ObservableField<Integer> getBoardAddBudget() {
+        return boardAddBudget;
+    }
+
+    public void setBoardAddBudget(ObservableField<Integer> boardAddBudget) {
+        this.boardAddBudget = boardAddBudget;
     }
 
     public ObservableField<String> getTime() {
@@ -343,6 +401,7 @@ public class BoardViewModel {
     public void setmNavigator(BoardNavigator mNavigator) {
         this.mNavigator = mNavigator;
     }
+
     public int getHourOfDay() {
         return mHourOfDay;
     }
