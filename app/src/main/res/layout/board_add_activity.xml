@@ -11,7 +11,7 @@
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -23,12 +23,26 @@
             android:background="@color/design_default_color_on_primary"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintBottom_toBottomOf="@id/gl_end_of_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/board_add_title" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end_of_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.075" />
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_end_of_toolbar">
 
             <RelativeLayout
                 android:id="@+id/rl_board_add_layout"
@@ -42,122 +56,92 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
                     android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginTop="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    app:met_singleLineEllipsis="true"
-                    app:met_primaryColor="@color/colorHungryRed"
-                    app:met_textColorHint="@color/colorHungryLightBlack"
-                    android:textColor="@color/colorHungryLightBlack"
+                    android:elevation="@dimen/space_filter_title_padding"
+                    android:hint="제목을 입력하세요"
                     android:maxLines="20"
-                    app:met_maxCharacters="20"
-                    android:hint="제목"
+                    android:singleLine="true"
+                    android:textColor="@color/colorHungryLightBlack"
                     app:met_floatingLabel="highlight"
-                    />
+                    app:met_floatingLabelText="제목"
+                    app:met_maxCharacters="20"
+                    app:met_primaryColor="@color/colorHungryRed"
+                    app:met_singleLineEllipsis="true"
+                    app:met_textColorHint="@color/colorHungryLightBlack" />
 
-                <TextView
-                    android:id="@+id/tv_address"
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/tv_input_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/et_input_title"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    android:text="@string/board_tv_address"
-                    android:textSize="@dimen/board_tv_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_input_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_address"
+                    android:focusableInTouchMode="false"
+                    android:hint="장소를 설정해 주세요"
                     android:onClick="@{() -> viewmodel.onBoardSearchShowClick()}"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
                     android:text="@{viewmodel.mAddress}"
-                    android:hint="@string/board_add_tv_search_address" />
+                    android:textColor="@color/colorHungryLightBlack"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="장소"
+                    app:met_primaryColor="@color/colorHungryRed" />
 
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_input_address"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:text="@string/board_tv_time"
-                    android:textSize="@dimen/board_tv_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_time_warning"
-                    android:layout_width="wrap_content"
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/tv_input_time"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_input_address"
                     android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:layout_toEndOf="@+id/tv_time"
-                    android:background="@color/colorHungryRed"
-                    android:paddingStart="@dimen/space_small_padding"
-                    android:paddingEnd="@dimen/space_small_padding"
-                    android:text="@string/board_tv_time_warning"
-                    android:textColor="@color/design_default_color_on_primary"
-                    android:textSize="@dimen/board_tv_time_warning" />
-
-
-                <TextView
-                    android:id="@+id/tv_input_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_below="@+id/tv_time"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginTop="@dimen/space_medium_margin"
-                    android:gravity="center_vertical"
-                    android:hint="@string/board_tv_time_hint"
-                    android:text="@{viewmodel.time}"
-                    android:textSize="@dimen/board_tv_text_size" />
-
-                <ImageButton
-                    android:id="@+id/ib_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_input_time"
-                    android:layout_alignBottom="@+id/tv_input_time"
-                    android:layout_toEndOf="@+id/tv_input_time"
-                    android:backgroundTint="@android:color/transparent"
-                    android:onClick="@{() -> viewmodel.onTimePickerClicked()}"
-                    app:srcCompat="@drawable/ic_access_time_24dp" />
-
-
-                <TextView
-                    android:id="@+id/tv_max_person"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_input_time"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginTop="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    android:text="@string/board_tv_max_person"
-                    android:textSize="@dimen/board_tv_text_size"
-                    android:textStyle="bold" />
+                    android:focusableInTouchMode="false"
+                    android:hint="시간을 설정해 주세요"
+                    android:onClick="@{() -> viewmodel.onTimePickerClicked()}"
+                    android:text="@{viewmodel.time}"
+                    android:textColor="@color/colorHungryLightBlack"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="시간"
+                    app:met_primaryColor="@color/colorHungryRed" />
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_input_max_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_max_person"
+                    android:layout_below="@+id/tv_input_time"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:hint="@string/board_et_max_person_hint"
                     android:inputType="numberDecimal"
                     android:maxLength="1"
                     android:singleLine="true"
-                    android:textSize="@dimen/board_tv_text_size" />
+                    android:textColor="@color/colorHungryLightBlack"
+                    android:textSize="@dimen/board_tv_text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="제목"
+                    app:met_maxCharacters="20"
+                    app:met_primaryColor="@color/colorHungryRed"
+                    app:met_singleLineEllipsis="true"
+                    app:met_textColorHint="@color/colorHungryLightBlack" />
 
-                <TextView
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/et_input_budget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_max_person"
-                    android:layout_alignBaseline="@+id/et_input_max_person"
-                    android:layout_toEndOf="@+id/et_input_max_person"
-                    android:text="@string/board_tv_max_peson_count" />
+                    android:layout_below="@+id/tv_input_time"
+                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_toEndOf="@id/et_input_max_person"
+                    android:hint="한 사람당 얼마까지 쓸까요?"
+                    android:maxLength="7"
+                    android:singleLine="true"
+                    android:textColor="@color/colorHungryLightBlack"
+                    android:textSize="@dimen/board_tv_text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="제목"
+                    app:met_floatingLabelTextColor="@color/colorHungryRed"
+                    app:met_maxCharacters="7"
+                    app:met_singleLineEllipsis="true"
+                    app:met_textColorHint="@color/colorHungryLightBlack" />
+
 
                 <TextView
                     android:id="@+id/tv_age"
@@ -183,64 +167,23 @@
 
                 <com.appyvet.materialrangebar.RangeBar
                     android:id="@+id/rb_choice_age"
+                    style="@style/RangeBarStyle"
                     onRangeBarChange="@{viewmodel::setOnRangeBarChangeListener}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_age_hint"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
-                    style="@style/RangeBarStyle"/>
-
-
-                <TextView
-                    android:id="@+id/tv_budget"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rb_choice_age"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
-                    android:text="@string/board_tv_budget"
-                    android:textSize="@dimen/board_tv_text_size"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_budget_hint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_budget"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
-                    android:text="@string/board_tv_budget_hint"
-                    android:textSize="@dimen/board_tv_text_size" />
-
-
-                <EditText
-                    android:id="@+id/et_input_budget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_budget_hint"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:hint="@string/all_unlimit"
-                    android:inputType="numberDecimal"
-                    android:maxLength="7"
-                    android:singleLine="true"
-                    android:textSize="@dimen/board_tv_text_size" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_budget_hint"
-                    android:layout_alignBaseline="@+id/et_input_budget"
-                    android:layout_toEndOf="@id/et_input_budget"
-                    android:text="@string/board_tv_budget_unit" />
+                    app:mrb_temporaryPins="true"
+                    app:mrb_tickEnd="80"
+                    app:mrb_tickStart="15" />
 
 
                 <TextView
                     android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/et_input_budget"
+                    android:layout_below="@id/rb_choice_age"
                     android:layout_marginStart="@dimen/space_board_item_margin"
                     android:layout_marginTop="@dimen/space_board_item_margin"
                     android:layout_marginEnd="@dimen/space_board_item_margin"
@@ -259,8 +202,9 @@
                     android:textSize="@dimen/board_tv_text_size" />
 
 
-                <EditText
+                <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_input_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_content_hint"
@@ -278,6 +222,6 @@
 
         </ScrollView>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
