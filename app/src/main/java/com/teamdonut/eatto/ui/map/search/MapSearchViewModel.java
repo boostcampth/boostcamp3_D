@@ -29,16 +29,16 @@ public class MapSearchViewModel extends ViewModel {
     private Realm realm = Realm.getDefaultInstance();
 
     private final MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> resetFilter = new MutableLiveData<>();
 
     private final ObservableInt minTime = new ObservableInt(0);
     private final ObservableInt maxTime = new ObservableInt(23);
     private final ObservableInt minAge = new ObservableInt(15);
     private final ObservableInt maxAge = new ObservableInt(80);
-    private final ObservableInt budget = new ObservableInt(0);
+    private final ObservableField<String> budget = new ObservableField<>("");
     private final ObservableInt people = new ObservableInt(10);
 
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
-    private Filter filter = new Filter("", 0, 23, 15, 80, 10, 0);
 
     public RealmResults<Keyword> fetchKeywords() {
         return realm.where(Keyword.class).sort("searchDate", Sort.DESCENDING).limit(17).findAll();
@@ -67,7 +67,13 @@ public class MapSearchViewModel extends ViewModel {
 
     public void onGoSearchClick(String keyword) {
         saveRecentKeyword(keyword); //save recent keyword.
+        setSearchCondition(keyword);
+    }
 
+    private void setSearchCondition(String keyword) {
+        if (Strings.isEmptyOrWhitespace(budget.get())) {
+            budget.set("0");
+        }
         searchCondition.setValue(
                 new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), people.get(), budget.get()));
     }
@@ -99,19 +105,18 @@ public class MapSearchViewModel extends ViewModel {
     }
 
     public void onClearFilterClick() {
-        filter.setMinTime(0);
-        filter.setMaxTime(23);
-        filter.setMinAge(15);
-        filter.setMaxAge(80);
-        filter.setMaxPeople(10);
-        filter.setBudget(0);
+        resetFilter.setValue(true);
+
+        minTime.set(0);
+        maxTime.set(23);
+        people.set(10);
+        budget.set("");
     }
 
-    }
-
-    public void onSubmitFilterClick(String minTimeText, String maxTimeText) {
+    public void onSubmitFilterClick(String minTimeText, String maxTimeText, String budgetText) {
         minTime.set(Integer.parseInt(minTimeText));
         maxTime.set(Integer.parseInt(maxTimeText));
+        budget.set(Strings.isEmptyOrWhitespace(budgetText) ? "0" : budgetText);
 
         mNavigator.closeNavigationView();
     }
@@ -134,10 +139,6 @@ public class MapSearchViewModel extends ViewModel {
         return maxAge;
     }
 
-    public ObservableInt getBudget() {
-        return budget;
-    }
-
     public ObservableInt getMinTime() {
         return minTime;
     }
@@ -150,15 +151,19 @@ public class MapSearchViewModel extends ViewModel {
         return searchCondition;
     }
 
-    public Filter getFilter() {
-        return filter;
-    }
-
     public MutableLiveData<String> getEtKeywordHint() {
         return etKeywordHint;
     }
 
     public ObservableInt getPeople() {
         return people;
+    }
+
+    public MutableLiveData<Boolean> getResetFilter() {
+        return resetFilter;
+    }
+
+    public ObservableField<String> getBudget() {
+        return budget;
     }
 }

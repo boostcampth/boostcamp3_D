@@ -10,7 +10,6 @@ import com.appyvet.materialrangebar.RangeBar;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.common.util.KeyboardUtil;
 import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,12 +42,16 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
 
         fetchKeywordHint();
 
-        initEditSearch();
-        initRangeBar();
-        initSearchObserver();
-        initKeywordHintObserver();
         initToolbar();
         initRecentKeywordRv();
+        initEditSearch();
+        initRangeBar();
+
+        initSearchObserver();
+        initKeywordHintObserver();
+        initResetObserver();
+    }
+
     private void initRangeBar() {
         RangeBar rb = binding.layoutFilter.rbFilterAge;
         rb.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
@@ -60,6 +63,12 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
         });
     }
 
+    private void initResetObserver() {
+        mViewModel.getResetFilter().observe(this, action -> {
+            binding.layoutFilter.rbFilterAge.setRangePinsByValue(15, 80);
+            binding.layoutFilter.acsTimeMin.setSelection(0);
+            binding.layoutFilter.acsTimeMax.setSelection(23);
+        });
     }
 
     private void initEditSearch() {
