@@ -16,4 +16,15 @@ public interface MapAPI {
             @Query("right_longitude") double rightLongitude,
             @Query("right_latitude") double rightLatitude
     );
+
+    @GET("search/list")
+    Single<List<Board>> getSearchBoards(
+            @Header("kakao_id") long kakaoId,
+            @Query(value = "keyword", encoded = true) String keyword,
+            @Query("min_time") int minTime,
+            @Query("max_time") int maxTime,
+            @Query("min_age") int minAge,
+            @Query("max_age") int maxAge,
+            @Query("max_person") int maxPerson,
+            @Query("budget") String budget);
 }
