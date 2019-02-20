@@ -80,4 +80,8 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         this.dataSet = items;
         notifyDataSetChanged();
     }
+
+    public int getItemPosition(T item){
+        return dataSet.indexOf(item);
+    }
 }

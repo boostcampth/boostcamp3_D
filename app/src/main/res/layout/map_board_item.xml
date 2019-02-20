@@ -5,37 +5,50 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="select"
+            type="boolean" />
+
         <variable
             name="board"
             type="com.teamdonut.eatto.data.Board" />
 
         <variable
             name="listener"
-            type="com.teamdonut.eatto.ui.map.bottomsheet.MapBoardActionListener"/>
+            type="com.teamdonut.eatto.ui.map.bottomsheet.MapBoardActionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:onClick="@{() -> listener.onBoardClick(board)}"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:onClick="@{() -> listener.onBoardClick(board)}">
+
+        <View
+            android:id="@+id/v_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/hungry_red_border_bg"
+            android:visibility="@{select == false ? View.INVISIBLE : View.VISIBLE}" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_top"
+            android:id="@+id/gl_h_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_start"
+            android:id="@+id/gl_v_35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.035" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end"
+            android:id="@+id/gl_v_965"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -50,8 +63,8 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tv_people"
-            app:layout_constraintStart_toStartOf="@id/gl_start"
-            app:layout_constraintTop_toTopOf="@id/gl_top"
+            app:layout_constraintStart_toStartOf="@id/gl_v_35"
+            app:layout_constraintTop_toTopOf="@id/gl_h_100"
             tools:text="밥 같이머거요!!!!!!!!!!~~~~~~~~~~~~~~~~" />
 
         <TextView
@@ -63,7 +76,7 @@
             android:textColor="@color/colorHungryBlack"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_people"
-            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintStart_toStartOf="@id/gl_v_35"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="서울특별시 강남구 역삼동" />
 
@@ -77,7 +90,7 @@
             android:textColor="#565656"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_people"
-            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintStart_toStartOf="@id/gl_v_35"
             app:layout_constraintTop_toBottomOf="@id/tv_address"
             tools:text="음식점미정" />
 
@@ -86,10 +99,10 @@
             style="@style/BoardItemTagText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{board.budget.length() == 1 ? @string/all_unlimit : board.budget+ @string/all_won}"
             android:layout_marginTop="3dp"
+            android:text="@{board.budget.length() == 1 ? @string/all_unlimit : board.budget+ @string/all_won}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintStart_toStartOf="@id/gl_v_35"
             app:layout_constraintTop_toBottomOf="@id/tv_restaurant"
             app:layout_constraintVertical_bias="0.5"
             tools:text="2000원" />
@@ -128,7 +141,7 @@
             android:textColor="@color/colorHungryLightBlack"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_budget"
-            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_965"
             app:layout_constraintTop_toTopOf="@id/tv_budget"
             tools:text="3/5" />
 
