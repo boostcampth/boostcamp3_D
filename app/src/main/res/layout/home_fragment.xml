@@ -181,8 +181,8 @@
                     android:id="@+id/v_divider"
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
-                    android:layout_marginTop="@dimen/space_vsmall_margin"
-                    android:layout_marginBottom="@dimen/space_vsmall_margin"
+                    android:layout_marginTop="@dimen/space_very_small_margin"
+                    android:layout_marginBottom="@dimen/space_very_small_margin"
                     android:background="@color/colorHungryGray"
                     app:layout_constraintBottom_toTopOf="@id/rv_rank"
                     app:layout_constraintTop_toBottomOf="@id/ranking_item" />
