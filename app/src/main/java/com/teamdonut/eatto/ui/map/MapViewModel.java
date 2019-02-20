@@ -7,6 +7,7 @@ import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
+import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.MapAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 

@@ -16,9 +16,9 @@ public class Filter extends BaseObservable {
     private int minAge;
     private int maxAge;
     private int maxPeople;
-    private int budget;
+    private String budget;
 
-    public Filter(String keyword, int minTime, int maxTime, int minAge, int maxAge, int maxPeople, int budget) {
+    public Filter(String keyword, int minTime, int maxTime, int minAge, int maxAge, int maxPeople, String budget) {
         this.keyword = keyword;
         this.minTime = minTime;
         this.maxTime = maxTime;
@@ -58,7 +58,7 @@ public class Filter extends BaseObservable {
     }
 
     @Bindable
-    public int getBudget() {
+    public String getBudget() {
         return budget;
     }
 
@@ -91,7 +91,7 @@ public class Filter extends BaseObservable {
         notifyPropertyChanged(BR.maxPeople);
     }
 
-    public void setBudget(int budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
         notifyPropertyChanged(BR.budget);
     }
