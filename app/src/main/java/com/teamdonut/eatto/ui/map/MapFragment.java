@@ -58,7 +58,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private MapBoardAdapter mAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
-    private final int DEFAULT_ZOOM = 16;
+    private final int DEFAULT_ZOOM = 15;
+    private boolean IS_MARKERCLICK = false;
     private final LatLng DEFAULT_LOCATION = new LatLng(37.566467, 126.978174); // 서울 시청
 
     private final String PREVIEW_TAG = "preview";
@@ -166,21 +167,13 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         setMyPosition();
         initCluster();
 
-        mMap.setOnMarkerClickListener(marker -> {
-            setMarkerEvent();
-            return false;
-        });
-
+        mMap.setOnMarkerClickListener(mClusterManager);
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
                 // 맵 로딩 콜백
             }
         });
-    }
-
-    private void setMarkerEvent() {
-
     }
 
     private void initBottomSheetBehavior() {
@@ -195,6 +188,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                     }
                     case BottomSheetBehavior.STATE_COLLAPSED: {
                         mViewModel.isSheetExpanded.set(false);
+                        IS_MARKERCLICK = false;
                         break;
                     }
                     default: {
@@ -245,7 +239,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
         mAdapter = new MapBoardAdapter(new ArrayList<>(), mViewModel);
-
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
 
@@ -264,16 +257,28 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private void initCluster() {
         mClusterManager = new ClusterManager<>(getActivity(), mMap);
         mPreviousCameraPosition = mMap.getCameraPosition();
-        mMap.setOnMarkerClickListener(mClusterManager);
-        mMap.setOnCameraIdleListener(() -> {
-            mViewModel.fetchBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
-            if (mClusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
-                ((GoogleMap.OnCameraIdleListener) mClusterManager.getRenderer()).onCameraIdle();
-            }
 
-            CameraPosition position = mMap.getCameraPosition();
-            if (mPreviousCameraPosition == null || mPreviousCameraPosition.zoom != position.zoom) {
-                mPreviousCameraPosition = mMap.getCameraPosition();
+        mClusterManager.setOnClusterItemClickListener(data -> {
+            IS_MARKERCLICK = true;
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), DEFAULT_ZOOM));
+            data.setSelect(View.INVISIBLE);
+            mAdapter.notifyDataSetChanged();
+            binding.mapBottomSheet.rvBoard.getLayoutManager().scrollToPosition(mAdapter.getItemPosition(data));
+            setBottomSheetExpand(true);
+            return true;
+        });
+
+        mMap.setOnCameraIdleListener(() -> {
+            if(!IS_MARKERCLICK) {
+                mViewModel.fetchBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
+                if (mClusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
+                    ((GoogleMap.OnCameraIdleListener) mClusterManager.getRenderer()).onCameraIdle();
+                }
+
+                CameraPosition position = mMap.getCameraPosition();
+                if (mPreviousCameraPosition == null || mPreviousCameraPosition.zoom != position.zoom) {
+                    mPreviousCameraPosition = mMap.getCameraPosition();
+                }
             }
         });
     }
