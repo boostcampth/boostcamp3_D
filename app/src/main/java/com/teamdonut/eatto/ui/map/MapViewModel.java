@@ -9,9 +9,7 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.model.MapAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
-import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.databinding.ObservableBoolean;
@@ -26,10 +24,10 @@ public class MapViewModel extends ViewModel {
     private MapNavigator mNavigator;
 
     private MapAPI service = ServiceGenerator.createService(MapAPI.class, ServiceGenerator.BASE);
+    RxBus rxbus = RxBus.getInstance();
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private final MutableLiveData<Board> mOpenBoardEvent = new MutableLiveData<>();
-
     private MutableLiveData<List<Board>> boards = new MutableLiveData<>();
 
     private Filter filter;
@@ -42,7 +40,7 @@ public class MapViewModel extends ViewModel {
     }
 
     private void checkBus() {
-        RxBus.getInstance().getBus()
+        rxbus.getBus()
                 .subscribe(data -> {
                     if (data instanceof Filter) {
                         filter = (Filter) data;
@@ -89,6 +87,11 @@ public class MapViewModel extends ViewModel {
         }
     }
 
+    public void onStopViewModel() {
+        rxbus.resetBus();
+    }
+
+
     @Override
     protected void onCleared() {
         disposables.dispose();
@@ -107,6 +110,10 @@ public class MapViewModel extends ViewModel {
         }
     }
 
+    public void resetFilter() {
+        this.filter = null;
+    }
+
     public void onClickSetMyPosition(View view) {
         mNavigator.startLocationUpdates();
     }
@@ -121,5 +128,9 @@ public class MapViewModel extends ViewModel {
 
     public MutableLiveData<List<Board>> getBoards() {
         return boards;
+    }
+
+    public Filter getFilter() {
+        return filter;
     }
 }
