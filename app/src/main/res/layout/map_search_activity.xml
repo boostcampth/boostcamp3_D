@@ -166,6 +166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/space_small_margin"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/gl_search_end"
                 app:layout_constraintStart_toStartOf="@+id/gl_search_start"
