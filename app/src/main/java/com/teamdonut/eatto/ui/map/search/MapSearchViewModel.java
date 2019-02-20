@@ -1,6 +1,5 @@
 package com.teamdonut.eatto.ui.map.search;
 
-import com.appyvet.materialrangebar.RangeBar;
 import com.google.android.gms.common.util.Strings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -10,8 +9,7 @@ import com.teamdonut.eatto.data.Keyword;
 import com.teamdonut.eatto.model.BoardAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
 
-import androidx.databinding.BindingMethod;
-import androidx.databinding.BindingMethods;
+import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -21,14 +19,6 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
-
-@BindingMethods({
-        @BindingMethod(
-                type = RangeBar.class,
-                attribute = "onRangeBarChange",
-                method = "setOnRangeBarChangeListener"
-        )
-})
 
 public class MapSearchViewModel extends ViewModel {
 
@@ -117,10 +107,6 @@ public class MapSearchViewModel extends ViewModel {
         filter.setBudget(0);
     }
 
-    public void onAgeRangeBarChanged(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
-                                     String leftPinValue, String rightPinValue) {
-        minAge.set(Integer.parseInt(leftPinValue));
-        maxAge.set(Integer.parseInt(rightPinValue));
     }
 
     public void onSubmitFilterClick(String minTimeText, String maxTimeText) {
