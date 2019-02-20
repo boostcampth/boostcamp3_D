@@ -67,5 +67,5 @@ public interface BoardAPI {
             @Query("min_age") int minAge,
             @Query("max_age") int maxAge,
             @Query("max_person") int maxPerson,
-            @Query("budget") int budget);
+            @Query("budget") String budget);
 }
