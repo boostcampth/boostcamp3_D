@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="keyword"
+            type="com.teamdonut.eatto.data.Keyword" />
+
+        <variable
+            name="listener"
+            type="com.teamdonut.eatto.ui.map.search.MapKeywordActionListener"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()-> listener.onKeywordClick(keyword)}"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/space_search_keyword_item_padding"
+        android:paddingBottom="@dimen/space_search_keyword_item_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_pin_16dp"
+            android:drawablePadding="@dimen/space_small_margin"
+            android:singleLine="true"
+            android:text="@{keyword.content}"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="14sp"
+            tools:text="경기도 부천시 역곡동" />
+
+    </LinearLayout>
+</layout>

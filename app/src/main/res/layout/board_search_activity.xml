@@ -6,6 +6,7 @@
     tools:context=".ui.board.BoardSearchActivity">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.board.BoardViewModel" />
@@ -29,6 +30,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <EditText
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:id="@+id/et_input_search_keyword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -50,7 +53,7 @@
             android:id="@+id/rv_board_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:item="@{viewmodel.documents}"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_default="percent"

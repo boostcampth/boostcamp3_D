@@ -1,25 +1,20 @@
 package com.teamdonut.eatto.ui.board;
 
 
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.data.Board;
-import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.data.Board;
+import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
 
 public class BoardPreviewDialog extends DialogFragment{
 
@@ -43,9 +38,9 @@ public class BoardPreviewDialog extends DialogFragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialog);
 
         initJoinObserver();
-        
         mViewModel = ViewModelProviders.of(this).get(BoardPreviewViewModel.class);
         mViewModel.getIsSubmitted().observe(this, joinObserver);
     }
@@ -62,25 +57,15 @@ public class BoardPreviewDialog extends DialogFragment{
         super.onDismiss(dialog);
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        Dialog dialog = new Dialog(this.getContext(), R.style.DialogTheme);
-
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.PreviewDialogAnimation;
-//        dialog.setCanceledOnTouchOutside(true);
-
-        return dialog;
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.board_preview_dialog, container, false);
         binding.setViewmodel(mViewModel);
+
+        binding.cl.setOnClickListener(v -> {
+            dismiss();
+        });
 
         return binding.getRoot();
     }

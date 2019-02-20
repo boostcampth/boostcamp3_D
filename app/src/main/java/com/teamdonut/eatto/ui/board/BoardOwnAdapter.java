@@ -1,6 +1,5 @@
 package com.teamdonut.eatto.ui.board;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -36,7 +35,6 @@ public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdap
     @Override
     public void onBindView(ViewHolder holder, int position) {
         holder.binding.setBoard(getItem(position));
-        Log.d("checktitle",getItem(position).getTitle());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

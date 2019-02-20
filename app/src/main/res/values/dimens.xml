@@ -35,11 +35,12 @@
   
     <!-- Map -->
     <dimen name="space_search_vertical_padding">12dp</dimen>
-    <dimen name="space_search_horizontal_padding">7dp</dimen>
+    <dimen name="space_search_horizontal_padding">9dp</dimen>
     <dimen name="space_img_btn_padding">5dp</dimen>
 
     <!--Search-->
     <dimen name="space_search_filter_padding">3dp</dimen>
+    <dimen name="space_search_keyword_item_padding">15dp</dimen>
     
     <!--Filter-->
     <dimen name="space_filter_title_padding">2dp</dimen>

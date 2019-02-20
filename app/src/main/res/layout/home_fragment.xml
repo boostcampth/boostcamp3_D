@@ -92,6 +92,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -137,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space_large_margin"
+                    android:overScrollMode="never"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:paddingStart="@dimen/space_medium_padding"
@@ -188,6 +190,7 @@
                     android:id="@+id/rv_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:overScrollMode="never"
                     android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_large_margin"
