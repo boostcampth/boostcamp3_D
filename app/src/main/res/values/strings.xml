@@ -51,7 +51,7 @@
     <string name="board_tv_age">나이</string>
     <string name="board_tv_age_hint">함께 밥 먹고 싶은 혼밥러들의 나이를 설정해주세요.</string>
     <string name="board_tv_budget">가격</string>
-    <string name="board_tv_budget_hint">한 사람당 얼마까지 쓸까요?</string>
+    <string name="board_tv_budget_hint">얼마까지 쓸까요?</string>
     <string name="board_tv_budget_unit">(단위 : 원)</string>
     <string name="board_tv_content">내용</string>
     <string name="board_tv_content_hint">혼밥러들에게 하고 싶은 말을 적어주세요.</string>
@@ -62,9 +62,10 @@
     <string name="board_preview_tv_budget">~ 1인 %s원</string>
 
     <!-- Board_Add -->
+    <string name="board_add_title_hint">제목을 입력하세요</string>
     <string name="board_add_snack_bar">모두 입력해주세요</string>
     <string name="board_add_end">BOARD_ADD_END</string>
-    <string name="board_add_tv_search_address">장소를 검색해주세요 (클릭)</string>
+    <string name="board_add_tv_search_address">장소를 설정해주세요</string>
     <string name="board_add_success">게시글 등록 완료</string>
 
     <!-- Board_Search -->
