@@ -41,6 +41,12 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         initOwnBoardResultRv();
         initJoinBoardResultRv();
     }
