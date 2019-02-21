@@ -5,19 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.databinding.MypageFragmentBinding;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.databinding.MypageFragmentBinding;
+import com.teamdonut.eatto.ui.mypage.judge.MyPageJudgeActivity;
 
 public class MyPageFragment extends Fragment implements MyPageNavigator {
 
@@ -43,6 +42,12 @@ public class MyPageFragment extends Fragment implements MyPageNavigator {
     public void onResume() {
         super.onResume();
         mViewModel.getUserInformation(); //get user information
+    }
+
+    @Override
+    public void goJudge() {
+        Intent intent = new Intent(getActivity(), MyPageJudgeActivity.class);
+        startActivity(intent);
     }
 
     @Override

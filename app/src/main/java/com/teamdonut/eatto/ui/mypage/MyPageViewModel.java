@@ -43,6 +43,10 @@ public class MyPageViewModel extends ViewModel {
         RealmDataHelper.updateUser(realm, user);
     }
 
+    public void onJudgeClick(){
+        mNavigator.goJudge();
+    }
+
     public void onProfileEditClick() {
         mNavigator.goToProfileEdit();
     }
