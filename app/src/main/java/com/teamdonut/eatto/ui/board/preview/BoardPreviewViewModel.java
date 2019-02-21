@@ -1,4 +1,4 @@
-package com.teamdonut.eatto.ui.board;
+package com.teamdonut.eatto.ui.board.preview;
 
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
@@ -43,11 +43,13 @@ public class BoardPreviewViewModel extends ViewModel {
     }
 
     public void onJoinClick() {
-        sendParticipation(mBoard.getValue().getId());
+        if(mBoard.getValue() !=null && (mBoard.getValue().getCurrentPerson() < mBoard.getValue().getMaxPerson())) {
+            sendParticipation(mBoard.getValue().getId());
+        }
     }
 
     public void onCloseClick() {
-        isSubmitted.setValue(true);
+        isSubmitted.setValue(false);
     }
 
     @Override

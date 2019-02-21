@@ -1,22 +1,26 @@
-package com.teamdonut.eatto.ui.board;
+package com.teamdonut.eatto.ui.board.preview;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
+import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
 
-public class BoardPreviewDialog extends DialogFragment{
+public class BoardPreviewDialog extends DialogFragment {
 
     private BoardPreviewDialogBinding binding;
 
@@ -48,6 +52,10 @@ public class BoardPreviewDialog extends DialogFragment{
     private void initJoinObserver() {
         joinObserver = isSubmitted -> {
             dismiss();
+            if (isSubmitted) {
+                Intent intent = new Intent(getActivity(), BoardDetailActivity.class);
+                startActivity(intent);
+            }
         };
     }
 
