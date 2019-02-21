@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.maps.android.clustering.ClusterManager;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
@@ -205,6 +206,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private void openBoardPreview(Board board) {
         dialog = BoardPreviewDialog.newInstance(board);
         dialog.show(getChildFragmentManager(), PREVIEW_TAG);
+
+        RxBus.getInstance().sendBus(board); //send bus
     }
 
     private void initBoardsObserver() {
