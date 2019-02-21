@@ -86,12 +86,16 @@
     <string name="mypage_tv_great">매일 같이 먹어요!</string>
     <string name="mypage_tv_modify">편집하기</string>
     <string name="mypage_tv_logout">로그아웃</string>
+    <string name="mypage_tv_judge">평가하기</string>
 
     <!--Mypage edit-->
     <string name="mpe_toolbar_title">프로필</string>
     <string name="mpe_tv_nickname_hint">닉네임을 입력해주세요.</string>
     <string name="mpe_btn_save">저장하기</string>
     <string name="mpe_age_warn">15세~80세 중 어디에 해당하나요?</string>
+
+    <!--Mypage Judge-->
+    <string name="mpj_toolbar_title">평가하기</string>
 
     <!--Search-->
     <string name="search_tv_recent_keyword">최근 검색어</string>
