@@ -159,7 +159,7 @@ public class BoardViewModel {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data -> {
-                                    boardOwnAdapter.addItems(data);
+                                    boardOwnAdapter.updateItems(data);
                                 }, (e) -> {
                                     e.printStackTrace();
                                 }
@@ -174,7 +174,7 @@ public class BoardViewModel {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(data -> {
-                                    boardJoinAdapter.addItems(data);
+                                    boardJoinAdapter.updateItems(data);
                                 }, (e) -> {
                                     e.printStackTrace();
                                 }
