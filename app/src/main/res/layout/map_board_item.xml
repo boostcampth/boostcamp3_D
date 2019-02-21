@@ -136,7 +136,6 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_person_16dp"
             android:paddingStart="@dimen/space_small_margin"
-            android:paddingEnd="0dp"
             android:text="@{board.currentPerson+`/`+board.maxPerson}"
             android:textColor="@color/colorHungryLightBlack"
             android:textSize="12sp"
