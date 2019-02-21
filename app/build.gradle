@@ -98,8 +98,10 @@ dependencies {
     //MaterialEditText
     implementation "com.rengwuxian.materialedittext:library:$materialEditText"
 
+    //firebase
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
 
+    //crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
 }
 
