@@ -6,16 +6,14 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.core.content.ContextCompat;
+import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.GlideApp;
 
 import java.util.List;
-
-import androidx.core.content.ContextCompat;
-import androidx.databinding.BindingAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class Binding {
     @BindingAdapter("adapter")
@@ -31,12 +29,12 @@ public class Binding {
                 .into(view);
     }
 
-    @BindingAdapter({"roundedImageUrl", "roundedimageError"})
+    @BindingAdapter({"roundedImageUrl", "roundedImageError"})
     public static void setRoundedImageFromUrl(ImageView view, String imageUrl, Drawable imageError) {
         GlideApp.with(view)
                 .load(imageUrl)
-                .error(imageError)
                 .transform(new RoundedCorners(10))
+                .error(imageError)
                 .into(view);
     }
 

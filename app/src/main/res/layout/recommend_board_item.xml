@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/space_small_margin"
-            app:roundedimageError="@{@drawable/kakao_default_profile_image}"
+            app:roundedImageError="@{@drawable/kakao_default_profile_image}"
             app:roundedImageUrl="@{board.writerPhoto}"
             app:layout_constraintBottom_toTopOf="@id/tv_address"
             app:layout_constraintDimensionRatio="1:1"
