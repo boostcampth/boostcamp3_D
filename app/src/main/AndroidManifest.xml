@@ -45,7 +45,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.board.BoardAddActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mypage.judge.MyPageJudgeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.board.search.BoardSearchActivity"

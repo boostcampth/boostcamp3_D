@@ -179,22 +179,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.50" />
 
         <!--sex-->
         <TextView
             android:id="@+id/tv_sex_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/mypage_tv_margin"
-            android:layout_marginBottom="@dimen/space_small_margin"
+            android:layout_marginBottom="@dimen/space_medium_margin"
             android:background="@drawable/tv_mpe_bg"
-            android:paddingBottom="15dp"
+            android:gravity="center_vertical"
             android:text="@string/all_sex"
             android:textColor="@color/colorHungryNavy"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintBottom_toTopOf="@id/tv_age_title"
             app:layout_constraintTop_toBottomOf="@+id/gl_content_top" />
 
         <TextView
@@ -202,38 +203,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/mypage_tv_margin"
-            android:layout_marginBottom="@dimen/space_small_margin"
             android:text="@{viewmodel.user.sex ==0 ? @string/all_female : @string/all_male}"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
-            app:layout_constraintTop_toTopOf="@+id/gl_content_top"
+            app:layout_constraintTop_toTopOf="@+id/tv_sex_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sex_title"
             tools:text="남자" />
 
         <!--age-->
         <TextView
             android:id="@+id/tv_age_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/mypage_tv_margin"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/space_small_margin"
+            android:layout_marginBottom="@dimen/space_medium_margin"
             android:background="@drawable/tv_mpe_bg"
-            android:paddingBottom="15dp"
+            android:gravity="center_vertical"
             android:text="@string/all_age"
             android:textColor="@color/colorHungryNavy"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
             app:layout_constraintStart_toStartOf="@id/gl_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_sex_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_sex_title"
+            app:layout_constraintBottom_toTopOf="@id/btn_judge"/>
 
         <TextView
             style="@style/MyPageUserContentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/mypage_tv_margin"
-            android:layout_marginBottom="@dimen/space_small_margin"
             android:text="@{String.valueOf(viewmodel.user.age)}"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
             app:layout_constraintTop_toTopOf="@id/tv_age_title"
+            app:layout_constraintBottom_toBottomOf="@id/tv_age_title"
             tools:text="26" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -241,19 +242,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.98" />
+            app:layout_constraintGuide_percent="0.97" />
 
+        <Button
+            android:id="@+id/btn_judge"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/space_small_margin"
+            android:background="@drawable/btn_shape"
+            android:onClick="@{() -> viewmodel.onJudgeClick()}"
+            android:text="@string/mypage_tv_judge"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_age_title"
+            app:layout_constraintBottom_toTopOf="@id/btn_modify"
+            app:layout_constraintDimensionRatio="1:0.22"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start"
+            app:layout_constraintWidth_percent="0.5" />
         <Button
             android:id="@+id/btn_modify"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/space_small_margin"
-            android:background="@drawable/btn_shape"
+            android:background="@drawable/btn_mypage_border"
             android:onClick="@{() -> viewmodel.onProfileEditClick()}"
             android:text="@string/mypage_tv_modify"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorBtnLogoutText"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/btn_judge"
             app:layout_constraintBottom_toTopOf="@id/btn_logout"
             app:layout_constraintDimensionRatio="1:0.22"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
@@ -270,6 +289,7 @@
             android:textColor="@color/colorBtnLogoutText"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/btn_modify"
             app:layout_constraintBottom_toBottomOf="@+id/gl_btn_bottom"
             app:layout_constraintDimensionRatio="1:0.22"
             app:layout_constraintEnd_toEndOf="@id/gl_end"
