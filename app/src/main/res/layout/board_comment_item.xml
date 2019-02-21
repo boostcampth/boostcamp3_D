@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="comment"
+            type="com.teamdonut.eatto.data.Comment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="10dp"
+        android:background="#fcfcfc">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_970"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{comment.writerName}"
+            android:textColor="@color/colorDeskBrown"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/gl_v_30"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="이지윤" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/colorFilterSubTitle"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nick_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/tv_nick_name"
+            app:layout_constraintTop_toTopOf="@id/tv_nick_name"
+            app:time="@{comment.writeTime}"
+            tools:text="10:00 A.M" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:text="@{comment.content}"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/gl_v_970"
+            app:layout_constraintStart_toStartOf="@id/tv_nick_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_nick_name"
+            tools:text="어디서 만나요? 강남? 역삼??" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

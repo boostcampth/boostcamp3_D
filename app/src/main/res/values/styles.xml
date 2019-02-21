@@ -35,19 +35,22 @@
     </style>
 
     <!-- board detail -->
-    <style name="BoardDetailLeftItem">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="BoardDetailItemTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:paddingTop">@dimen/space_small_margin</item>
+        <item name="android:paddingBottom">@dimen/space_small_margin</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">@dimen/board_tv_text_size</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/colorFilterSubTitle</item>
     </style>
 
-    <style name="BoardDetailRightItem">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">@dimen/board_tv_text_size</item>
+    <style name="BoardDetailItemContent">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorFilterTitle</item>
     </style>
 
     <style name="BoardItemTagText">
