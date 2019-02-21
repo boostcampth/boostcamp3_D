@@ -49,7 +49,7 @@
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.3"
             app:roundedImageUrl="@{board.writerPhoto}"
-            app:roundedimageError="@{@drawable/kakao_default_profile_image}" />
+            app:roundedImageError="@{@drawable/kakao_default_profile_image}" />
 
         <TextView
             android:id="@+id/tv_title"

@@ -26,6 +26,8 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mypage_judge_item, parent, false);
+
+
         return new ViewHolder(itemView);
     }
 
@@ -40,21 +42,22 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
-            Board board = getItem(getAdapterPosition());
-
             binding.tvGreat.setOnClickListener(v -> {
+                Board board = getItem(this.getAdapterPosition());
                 mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GREAT);
-                removeItem(getAdapterPosition());
+                removeItem(this.getAdapterPosition());
             });
-
+            
             binding.tvGood.setOnClickListener(v -> {
+                Board board = getItem(this.getAdapterPosition());
                 mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GOOD);
-                removeItem(getAdapterPosition());
+                removeItem(this.getAdapterPosition());
             });
 
             binding.tvNormal.setOnClickListener(v -> {
+                Board board = getItem(this.getAdapterPosition());
                 mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_NORMAL);
-                removeItem(getAdapterPosition());
+                removeItem(this.getAdapterPosition());
             });
         }
     }
