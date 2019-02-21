@@ -10,6 +10,7 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardFragmentBinding;
+import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
