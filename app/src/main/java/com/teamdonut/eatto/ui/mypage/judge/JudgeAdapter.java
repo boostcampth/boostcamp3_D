@@ -3,7 +3,8 @@ package com.teamdonut.eatto.ui.mypage.judge;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
@@ -11,12 +12,15 @@ import com.teamdonut.eatto.databinding.MypageJudgeItemBinding;
 
 import java.util.List;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.ViewHolder> {
-    public JudgeAdapter(List<Board> dataSet) {
+    private MyPageJudgeViewModel mViewModel;
+    private final int SCORE_GREAT = 5;
+    private final int SCORE_GOOD = 3;
+    private final int SCORE_NORMAL = 2;
+
+    public JudgeAdapter(List<Board> dataSet, MyPageJudgeViewModel myPageJudgeViewModel) {
         super(dataSet);
+        mViewModel = myPageJudgeViewModel;
     }
 
     @Override
@@ -27,6 +31,21 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
+        Board board = getItem(position);
+        holder.binding.tvGreat.setOnClickListener(v -> {
+            mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GREAT);
+            removeItem(position);
+        });
+
+        holder.binding.tvGood.setOnClickListener(v -> {
+            mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GOOD);
+            removeItem(position);
+        });
+
+        holder.binding.tvNormal.setOnClickListener(v -> {
+        mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_NORMAL);
+            removeItem(position);
+        });
         holder.binding.setBoard(getItem(position));
     }
 
