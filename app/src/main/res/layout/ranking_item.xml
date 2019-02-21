@@ -44,12 +44,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{rank}"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/gl_rank"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -68,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{user.nickName}"
+            android:textColor="@color/colorHungryBlack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/gl_nick_name"
             app:layout_constraintStart_toStartOf="@id/gl_image"
