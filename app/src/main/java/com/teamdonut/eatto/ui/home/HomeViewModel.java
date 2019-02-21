@@ -16,15 +16,12 @@ import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
 
 public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();
     private ObservableField<User> user = new ObservableField<>();
     private MutableLiveData<Integer> boardFlag = new MutableLiveData<>();
     private ObservableInt anyBoardsSize = new ObservableInt(0);
-
-    private Realm realm = Realm.getDefaultInstance();
 
     private UserRankingAdapter userRankingAdapter = new UserRankingAdapter(new ArrayList<>());
     private BoardRecommendAdapter boardRecommendAdapter = new BoardRecommendAdapter(new ArrayList<>());
@@ -107,7 +104,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void updateUserInfo(User user) {
-        RealmDataHelper.updateUser(realm, user);
+        RealmDataHelper.updateUser(user);
     }
 
     public void onSearchClick() {
@@ -115,7 +112,6 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void onDestroyViewModel() {
-        realm.close();
         disposables.dispose();
     }
 
