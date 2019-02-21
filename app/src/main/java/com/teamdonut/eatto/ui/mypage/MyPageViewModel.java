@@ -40,7 +40,7 @@ public class MyPageViewModel extends ViewModel {
     }
 
     private void updateUserInfo(User user) {
-        RealmDataHelper.updateUser(realm, user);
+        RealmDataHelper.updateUser(user);
     }
 
     public void onJudgeClick(){

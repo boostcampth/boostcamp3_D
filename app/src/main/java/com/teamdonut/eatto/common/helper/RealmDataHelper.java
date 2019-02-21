@@ -107,11 +107,10 @@ public class RealmDataHelper {
 
     /**
      * update user
-     *
-     * @param realm Realm
      * @param u     user
      */
-    public static void updateUser(Realm realm, final User u) {
+    public static void updateUser(final User u) {
+        Realm realm = Realm.getDefaultInstance();
         realm.executeTransactionAsync(r -> {
             final User user = r.where(User.class).findFirst();
 
@@ -120,5 +119,7 @@ public class RealmDataHelper {
             user.setPhoto(u.getPhoto());
             user.setAge(u.getAge());
         });
+
+        realm.close();
     }
 }
