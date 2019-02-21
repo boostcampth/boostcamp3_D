@@ -3,6 +3,7 @@ package com.teamdonut.eatto.model;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.BoardAddInformation;
+import com.teamdonut.eatto.data.Comment;
 import com.teamdonut.eatto.data.kakao.LocalKeywordSearch;
 
 
@@ -57,4 +58,14 @@ public interface BoardAPI {
     Single<JsonObject> joinBoard(
             @Header("kakao_id") long kakaoId,
             @Body BoardAddInformation boardAddInformation);
+
+    @GET("board/comment")
+    Single<List<Comment>> getComments(
+            @Header("kakao_id") long kakaoId,
+            @Query("board_id") int boardId);
+
+    @POST("board/comment")
+    Single<JsonObject> postComments(
+            @Header("kakao_id") long kakaoId,
+            @Body Comment comment);
 }
