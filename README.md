@@ -4,9 +4,9 @@
 **E.T**를 통해 같이 식사를 할 사람을 찾아보세요.
 
 ### 팀원
-- 이지윤
-- 정우진
-- 조재혁
+- [이지윤](https://github.com/Jiyunn)
+- [정우진](https://github.com/wjddnwls918)
+- [조재혁](https://github.com/ro0opf)
 
 ### 개발 환경
 - 주 언어 : Java
