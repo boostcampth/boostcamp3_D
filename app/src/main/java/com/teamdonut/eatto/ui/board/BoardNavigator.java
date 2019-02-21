@@ -9,5 +9,4 @@ public interface BoardNavigator {
     default void onBoardAddFinish() {};
     default void onShowMyBoardDetail(int position) {};
     default void onShowJoinBoardDetail(int position) {};
-    default void onBoardDetailExitClick() {};
 }
