@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1088707037570",
+    "firebase_url": "https://eat-too.firebaseio.com",
+    "project_id": "eat-too",
+    "storage_bucket": "eat-too.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088707037570:android:10750d6ddabd7d0a",
+        "android_client_info": {
+          "package_name": "com.teamdonut.eatto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1088707037570-qvqda5uliurkkbslkcs00v40oigt4fnf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEt9D1VQASZa_QnoBgj7NXQP6_PyQECYY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
