@@ -31,21 +31,6 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        Board board = getItem(position);
-        holder.binding.tvGreat.setOnClickListener(v -> {
-            mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GREAT);
-            removeItem(position);
-        });
-
-        holder.binding.tvGood.setOnClickListener(v -> {
-            mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GOOD);
-            removeItem(position);
-        });
-
-        holder.binding.tvNormal.setOnClickListener(v -> {
-        mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_NORMAL);
-            removeItem(position);
-        });
         holder.binding.setBoard(getItem(position));
     }
 
@@ -55,6 +40,22 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
+            Board board = getItem(getAdapterPosition());
+
+            binding.tvGreat.setOnClickListener(v -> {
+                mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GREAT);
+                removeItem(getAdapterPosition());
+            });
+
+            binding.tvGood.setOnClickListener(v -> {
+                mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GOOD);
+                removeItem(getAdapterPosition());
+            });
+
+            binding.tvNormal.setOnClickListener(v -> {
+                mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_NORMAL);
+                removeItem(getAdapterPosition());
+            });
         }
     }
 }
