@@ -9,279 +9,274 @@
 
         <variable
             name="viewmodel"
-            type="com.teamdonut.eatto.ui.board.BoardViewModel" />
-
-        <variable
-            name="board"
-            type="com.teamdonut.eatto.data.Board"/>
-
+            type="com.teamdonut.eatto.ui.board.detail.BoardDetailViewModel" />
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/ib_board_detail_back_button"
-            android:layout_width="@dimen/board_detail_back_button_size"
-            android:layout_height="@dimen/board_detail_back_button_size"
-            android:layout_marginStart="@dimen/space_board_item_margin"
-            android:layout_marginTop="@dimen/space_board_item_margin"
-            android:background="@color/colorHungryGray"
-            android:onClick="@{()->viewmodel.onBoardDetailExitClick()}"
-            app:layout_constraintEnd_toEndOf="@+id/gl_left_of_detail_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_chevron_left_24dp" />
-
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_left_of_detail_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
-
-        <TextView
-            android:id="@+id/tv_board_detail_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/board_detail_title_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{board.title}"
-            tools:text="7시 강남역 6명 ㄱㄱㄱ" />
+            android:layout_height="match_parent"
+            android:background="#fcfcfc">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end_of_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_board_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?android:actionBarSize"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.03" />
 
-        <ImageView
-            android:id="@+id/iv_location_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_address"
-            app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_title"
-            app:srcCompat="@drawable/ic_location_on_24dp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_970"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.97" />
 
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@{viewmodel.board.title}"
+                android:textAlignment="center"
+                android:textColor="@color/colorHungryNavy"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tb_board_detail"
+                tools:text="일이삼사오육칠팔구십" />
 
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/board_tv_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_restaurant"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@{board.address}"
-            app:layout_constraintStart_toStartOf="@+id/iv_location_icon"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_title"
-            tools:text="서울특별시 강남구 역삼동" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_h_100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.1" />
 
-
-        <TextView
-            android:id="@+id/tv_restaurant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_location_icon"
-            android:layout_marginTop="@dimen/space_small_margin"
-            android:textAlignment="center"
-            android:textSize="@dimen/board_tv_text_size"
-            android:text="@{board.restaurantName}"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_address"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/gl_left_of_detail_info"
-            app:layout_constraintTop_toTopOf="@+id/tv_address"
-            tools:text="서래갈매기" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end_of_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.18" />
-
-
-        <TextView
-            android:id="@+id/tv_age"
-            style="@style/BoardDetailLeftItem"
-            android:text="@string/board_tv_age"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_budget"
-            app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_address" />
-
-        <TextView
-            android:id="@+id/tv_budget"
-            style="@style/BoardDetailLeftItem"
-            android:text="@string/board_detail_tv_budget"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_time"
-            app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_age" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/BoardDetailLeftItem"
-            android:text="@string/board_tv_time"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
-            app:layout_constraintEnd_toEndOf="@+id/gl_center_of_detail_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_budget" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_center_of_detail_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_location_16dp"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/space_medium_margin"
+                android:text="@{viewmodel.board.address}"
+                android:textColor="@color/colorHungryBlack"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_restaurant"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                tools:text="서울특별시 강남구 역삼동" />
 
 
-        <TextView
-            android:id="@+id/tv_input_age"
-            style="@style/BoardDetailRightItem"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_input_budget"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_address"
-            android:text="@{board.minAge+`~`+board.maxAge}"
-            tools:text="25~30세" />
+            <TextView
+                android:id="@+id/tv_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@{viewmodel.board.restaurantName}"
+                android:textColor="@color/colorFilterSubTitle"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@id/tv_address"
+                tools:text="서래갈매기" />
 
-        <TextView
-            android:id="@+id/tv_input_budget"
-            style="@style/BoardDetailRightItem"
-            android:text="@{board.budget}"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_input_time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
-            app:layout_constraintTop_toTopOf="@+id/tv_input_age"
-            tools:text="~50000원" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_v_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
 
-        <TextView
-            android:id="@+id/tv_input_time"
-            style="@style/BoardDetailRightItem"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_detail_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            transdate="@{board.appointedTime}"
-            app:layout_constraintStart_toStartOf="@+id/gl_center_of_detail_info"
-            app:layout_constraintTop_toTopOf="@+id/tv_input_budget"
-            tools:text="1월 24일 오후 7시" />
+            <TextView
+                android:id="@+id/tv_age_title"
+                style="@style/BoardDetailItemTitle"
+                android:layout_marginTop="30dp"
+                android:text="@string/board_tv_age"
+                app:layout_constraintBottom_toTopOf="@+id/tv_budget_title"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_500"
+                app:layout_constraintStart_toStartOf="@id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_restaurant" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end_of_detail_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
+            <TextView
+                android:id="@+id/tv_budget_title"
+                style="@style/BoardDetailItemTitle"
+                android:text="@string/board_detail_tv_budget"
+                app:layout_constraintBottom_toTopOf="@+id/tv_time_title"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_500"
+                app:layout_constraintStart_toStartOf="@+id/tv_age_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_age_title" />
 
-
-        <TextView
-            android:id="@+id/tv_board_detail_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/board_detail_static_edittext_size"
-            android:layout_marginTop="@dimen/space_board_item_margin"
-            android:layout_marginEnd="@dimen/board_detail_static_edittext_size"
-            android:layout_marginBottom="@dimen/space_board_item_margin"
-            android:gravity="start"
-            android:lines="10"
-            android:textSize="@dimen/board_tv_text_size"
-            android:text="@{board.content}"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_detail_info" />
+            <TextView
+                android:id="@+id/tv_time_title"
+                style="@style/BoardDetailItemTitle"
+                android:text="@string/board_tv_time"
+                app:layout_constraintBottom_toTopOf="@id/v_content"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_500"
+                app:layout_constraintStart_toStartOf="@id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_budget_title" />
 
 
-        <TextView
-            android:id="@+id/tv_current_person"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
-            android:textSize="@dimen/board_tv_detail"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="3명참여중 / 6명" />
+            <TextView
+                android:id="@+id/tv_age"
+                style="@style/BoardDetailItemContent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@{@string/board_detail_tv_age(viewmodel.board.minAge, viewmodel.board.maxAge)}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_age_title"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_500"
+                app:layout_constraintTop_toTopOf="@id/tv_age_title"
+                tools:text="25세~30세" />
 
-        <View
-            android:id="@+id/v_comment_border"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorBorderColor"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/tv_budget"
+                style="@style/BoardDetailItemContent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@{@string/board_detail_tv_budget_format(viewmodel.board.budget)}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_budget_title"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_500"
+                app:layout_constraintTop_toTopOf="@id/tv_budget_title"
+                tools:text="~ 50000원" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end_of_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/BoardDetailItemContent"
+                koreanDay="@{`2019-02-21T01:49:57.000Z`}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_time_title"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_500"
+                app:layout_constraintTop_toTopOf="@id/tv_time_title"
+                tools:text="1월 24일 오후 7시" />
+
+            <View
+                android:id="@+id/v_content"
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/space_large_margin"
+                android:background="@color/colorViewBackground"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time_title" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="0dp"
+                android:layout_height="152dp"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:gravity="top"
+                android:lines="8"
+                android:padding="@dimen/space_small_padding"
+                android:text="@{viewmodel.board.content}"
+                android:textColor="@color/colorHungryBlack"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/v_content"
+                tools:text="하이룽 같이 먹어요 ?" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.5dp"
+                android:background="@color/colorViewBackground"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_person" />
+
+            <TextView
+                android:id="@+id/tv_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/space_img_btn_padding"
+                android:paddingBottom="@dimen/space_img_btn_padding"
+                android:text="@{@string/board_detail_tv_person(viewmodel.board.currentPerson, viewmodel.board.maxPerson)}"
+                android:textColor="@color/colorBtnLogoutText"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/gl_v_970"
+                app:layout_constraintTop_toBottomOf="@id/tv_content"
+                tools:text="3명 참여 중 / 6명" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_h_700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/et_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:background="@android:color/white"
+                android:backgroundTint="@android:color/white"
+                android:hint="@string/board_detail_tv_comment_hint"
+                android:inputType="textMultiLine"
+                android:maxLength="50"
+                android:padding="@dimen/space_small_margin"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_submit"
+                app:layout_constraintStart_toStartOf="@id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_person"
+                app:met_errorColor="@color/colorHungryRed"
+                app:met_floatingLabel="highlight"
+                app:met_helperTextColor="@color/colorHungryRed"
+                app:met_maxCharacters="50"
+                app:met_primaryColor="@color/colorHungryRed"
+                app:met_underlineColor="@color/colorHungryRed"
+                tools:text="ddd" />
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:onClick="@{() -> viewmodel.onWriteCommentClick(etComment.getText().toString())}"
+                android:paddingStart="@dimen/space_small_margin"
+                android:paddingEnd="12dp"
+                android:text="@string/board_detail_btn_input_comment"
+                android:textColor="@color/colorHungryBlack"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_comment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_comment" />
 
 
-        <EditText
-            android:id="@+id/et_input_comment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/board_detail_static_edittext_size"
-            android:layout_marginStart="@dimen/space_board_item_margin"
-            android:background="@drawable/et_radius_shape"
-            android:textSize="@dimen/board_tv_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_comment_input"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_content"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.75" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_comment"
+                android:layout_width="match_parent"
+                tools:item="@layout/board_comment_item"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:overScrollMode="never"
+                app:items="@{viewmodel.comments}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_comment" />
 
-        <TextView
-            android:id="@+id/btn_input_comment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/board_detail_static_edittext_size"
-            android:gravity="center"
-            android:onClick="@{() -> viewmodel.onClickCommentAdd()}"
-            android:text="@string/board_detail_btn_input_comment"
-            android:textAlignment="center"
-            android:textSize="@dimen/board_tv_text_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/gl_end_of_comment_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_content"
-            app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.2" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_end_of_comment_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_board_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_board_item_margin"
-            android:background="@color/colorHungryRed"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_end_of_comment_input" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

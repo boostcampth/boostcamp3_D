@@ -18,10 +18,7 @@
     <dimen name="board_item_title_size">15sp</dimen>
 
     <!-- Board_detail -->
-    <dimen name="board_detail_static_edittext_size">30dp</dimen>
-    <dimen name="board_detail_back_button_size">40dp</dimen>
     <dimen name="board_detail_title_size">18sp</dimen>
-    <dimen name="board_detail_info_box_size">150dp</dimen>
 
     <!-- Board_Search -->
     <dimen name="board_search_item_size">80dp</dimen>
