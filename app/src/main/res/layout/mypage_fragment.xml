@@ -87,7 +87,7 @@
             android:id="@+id/iv_great"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_board_24dp"
+            tools:src="@drawable/ic_board_24dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_great"
             app:layout_constraintStart_toStartOf="@+id/tv_great"
             app:layout_constraintTop_toBottomOf="@id/gl_score_top" />
@@ -118,7 +118,7 @@
             android:id="@+id/iv_good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_board_24dp"
+            tools:src="@drawable/ic_board_24dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_good"
             app:layout_constraintStart_toStartOf="@+id/tv_good"
             app:layout_constraintTop_toBottomOf="@id/gl_score_top" />
@@ -148,7 +148,7 @@
             android:id="@+id/iv_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_board_24dp"
+            tools:src="@drawable/ic_board_24dp"
             app:layout_constraintEnd_toEndOf="@+id/tv_normal"
             app:layout_constraintStart_toStartOf="@+id/tv_normal"
             app:layout_constraintTop_toBottomOf="@id/gl_score_top" />

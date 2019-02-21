@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="board"
             type="com.teamdonut.eatto.data.Board" />
@@ -105,13 +104,10 @@
             android:layout_marginStart="@dimen/space_small_margin"
             android:layout_marginTop="@dimen/space_small_margin"
             android:drawableStart="@drawable/ic_person_16dp"
-            android:paddingStart="@dimen/space_small_margin"
-            android:paddingEnd="0dp"
             android:text="@{board.currentPerson+`/`+board.maxPerson}"
             android:textColor="@color/colorHungryLightBlack"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-            app:layout_constraintEnd_toEndOf="@id/gl_v_940"
             app:layout_constraintStart_toEndOf="@id/iv_profile"
             app:layout_constraintTop_toBottomOf="@id/tv_restaurant"
             tools:text="3/5" />

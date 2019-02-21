@@ -35,8 +35,8 @@ public class Binding {
     public static void setRoundedImageFromUrl(ImageView view, String imageUrl, Drawable imageError) {
         GlideApp.with(view)
                 .load(imageUrl)
-                .transform(new RoundedCorners(10))
                 .error(imageError)
+                .transform(new RoundedCorners(10))
                 .into(view);
     }
 

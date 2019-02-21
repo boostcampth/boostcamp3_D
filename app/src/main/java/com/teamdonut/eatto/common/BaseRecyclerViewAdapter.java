@@ -1,10 +1,10 @@
 package com.teamdonut.eatto.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -83,5 +83,10 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
 
     public int getItemPosition(T item){
         return dataSet.indexOf(item);
+    }
+
+    public void removeItem(int position){
+        dataSet.remove(position);
+        notifyDataSetChanged();
     }
 }
