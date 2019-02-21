@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="board"
+            type="com.teamdonut.eatto.data.Board" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_v_940"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <View
+            android:id="@+id/v_bg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_medium_margin"
+            app:layout_constraintBottom_toTopOf="@id/tv_title"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="@id/gl_v_60"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.3"
+            app:roundedImageUrl="@{board.writerPhoto}"
+            app:roundedimageError="@{@drawable/kakao_default_profile_image}" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small_margin"
+            android:text="@{board.title}"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_940"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile"
+            tools:text="밥 같이머거요!!!!!!!!!!~~~~~~~~~~~~~~~~" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small_margin"
+            android:layout_marginTop="@dimen/space_small_margin"
+            android:text="@{board.address}"
+            android:textColor="@color/colorHungryBlack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_restaurant"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_940"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="서울특별시 강남구 역삼동" />
+
+        <TextView
+            android:id="@+id/tv_restaurant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small_margin"
+            android:hint="@string/board_item_restaurant_hint"
+            android:paddingTop="2dp"
+            android:text="@{board.restaurantName}"
+            android:textColor="#565656"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_people"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_940"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
+            tools:text="음식점미정" />
+
+
+        <TextView
+            android:id="@+id/tv_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_small_margin"
+            android:layout_marginTop="@dimen/space_small_margin"
+            android:drawableStart="@drawable/ic_person_16dp"
+            android:paddingStart="@dimen/space_small_margin"
+            android:paddingEnd="0dp"
+            android:text="@{board.currentPerson+`/`+board.maxPerson}"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_940"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_restaurant"
+            tools:text="3/5" />
+
+        <TextView
+            android:id="@+id/tv_great"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium_margin"
+            android:layout_marginBottom="@dimen/space_medium_margin"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="매일 같이 먹어요!"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_good"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+        <TextView
+            android:id="@+id/tv_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="다음에 또 먹어요!"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_great"
+            app:layout_constraintEnd_toStartOf="@id/tv_normal"
+            app:layout_constraintStart_toEndOf="@id/tv_great"
+            app:layout_constraintTop_toTopOf="@id/tv_great" />
+
+        <TextView
+            android:id="@+id/tv_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="잘 먹었습니다!"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_great"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_good"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/tv_great" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
