@@ -13,8 +13,8 @@ public class Comment {
     @Expose
     private int boardId;
 
-    @SerializedName("writer_name")
-    @Expose
+    @SerializedName("nick_name")
+    @Expose(serialize = false)
     private String writerName;
 
     @SerializedName("content")
