@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.Keyword;
-import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.board.BoardAPI;
+import com.teamdonut.eatto.data.model.ServiceGenerator;
 
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;

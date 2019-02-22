@@ -3,8 +3,8 @@ package com.teamdonut.eatto.ui.board.preview;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.BoardAddInformation;
-import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.board.BoardAPI;
+import com.teamdonut.eatto.data.model.ServiceGenerator;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

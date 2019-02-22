@@ -1,39 +1,29 @@
 package com.teamdonut.eatto.ui.board;
 
 import android.util.Log;
-import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.databinding.*;
+import androidx.lifecycle.MutableLiveData;
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.kakao.Document;
-import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.board.BoardAPI;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.BindingMethod;
-import androidx.databinding.BindingMethods;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 @BindingMethods({
         @BindingMethod(

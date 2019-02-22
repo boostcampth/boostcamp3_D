@@ -71,7 +71,7 @@
                 android:layout_marginTop="@dimen/space_medium_margin"
                 android:background="@drawable/btn_map_gps_bg"
                 android:elevation="5dp"
-                android:onClick="@{viewmodel::onClickSetMyPosition}"
+                android:onClick="@{()->viewmodel.onClickSetMyPosition()}"
                 android:scaleType="center"
                 android:src="@drawable/ic_gps_fixed_black_24dp"
                 app:layout_constraintDimensionRatio="1:1"

@@ -1,11 +1,9 @@
 package com.teamdonut.eatto.ui.mypage;
 
-import android.util.Log;
-
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.data.User;
-import com.teamdonut.eatto.model.ServiceGenerator;
-import com.teamdonut.eatto.model.UserAPI;
+import com.teamdonut.eatto.data.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.UserAPI;
 
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;

@@ -265,7 +265,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
         mMap.setOnCameraIdleListener(() -> {
             if(!IS_MARKERCLICK) {
-                mViewModel.fetchBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
+                mViewModel.fetchAreaBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
                 if (mClusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
                     ((GoogleMap.OnCameraIdleListener) mClusterManager.getRenderer()).onCameraIdle();
                 }
