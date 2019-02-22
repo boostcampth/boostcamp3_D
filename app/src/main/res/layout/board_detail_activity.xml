@@ -25,8 +25,9 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/tb_board_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?android:actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -100,11 +101,11 @@
                 tools:text="서래갈매기" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/gl_v_500"
+                android:id="@+id/gl_v_400"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.4" />
+                app:layout_constraintGuide_percent="0.400" />
 
             <TextView
                 android:id="@+id/tv_age_title"
@@ -112,7 +113,7 @@
                 android:layout_marginTop="30dp"
                 android:text="@string/board_tv_age"
                 app:layout_constraintBottom_toTopOf="@+id/tv_budget_title"
-                app:layout_constraintEnd_toEndOf="@+id/gl_v_500"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_400"
                 app:layout_constraintStart_toStartOf="@id/gl_v_30"
                 app:layout_constraintTop_toBottomOf="@+id/tv_restaurant" />
 
@@ -121,7 +122,7 @@
                 style="@style/BoardDetailItemTitle"
                 android:text="@string/board_detail_tv_budget"
                 app:layout_constraintBottom_toTopOf="@+id/tv_time_title"
-                app:layout_constraintEnd_toEndOf="@+id/gl_v_500"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_400"
                 app:layout_constraintStart_toStartOf="@+id/tv_age_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_age_title" />
 
@@ -130,7 +131,7 @@
                 style="@style/BoardDetailItemTitle"
                 android:text="@string/board_tv_time"
                 app:layout_constraintBottom_toTopOf="@id/v_content"
-                app:layout_constraintEnd_toEndOf="@+id/gl_v_500"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_400"
                 app:layout_constraintStart_toStartOf="@id/gl_v_30"
                 app:layout_constraintTop_toBottomOf="@+id/tv_budget_title" />
 
@@ -143,7 +144,7 @@
                 android:text="@{@string/board_detail_tv_age(viewmodel.board.minAge, viewmodel.board.maxAge)}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_age_title"
                 app:layout_constraintEnd_toEndOf="@id/gl_v_970"
-                app:layout_constraintStart_toStartOf="@+id/gl_v_500"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_400"
                 app:layout_constraintTop_toTopOf="@id/tv_age_title"
                 tools:text="25세~30세" />
 
@@ -155,7 +156,7 @@
                 android:text="@{@string/board_detail_tv_budget_format(viewmodel.board.budget)}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_budget_title"
                 app:layout_constraintEnd_toEndOf="@id/gl_v_970"
-                app:layout_constraintStart_toStartOf="@+id/gl_v_500"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_400"
                 app:layout_constraintTop_toTopOf="@id/tv_budget_title"
                 tools:text="~ 50000원" />
 
@@ -167,7 +168,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_time_title"
                 app:layout_constraintEnd_toEndOf="@id/gl_v_970"
-                app:layout_constraintStart_toStartOf="@+id/gl_v_500"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_400"
                 app:layout_constraintTop_toTopOf="@id/tv_time_title"
                 tools:text="1월 24일 오후 7시" />
 
@@ -292,8 +293,8 @@
                 android:layout_marginTop="@dimen/space_small_margin"
                 android:overScrollMode="never"
                 app:items="@{viewmodel.comments}"
-                app:layout_constraintStart_toStartOf="@+id/gl_v_30"
                 app:layout_constraintEnd_toEndOf="@+id/gl_v_970"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_30"
                 app:layout_constraintTop_toBottomOf="@id/et_comment"
                 tools:item="@layout/board_comment_item" />
 
