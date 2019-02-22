@@ -1,6 +1,7 @@
 package com.teamdonut.eatto.ui.board.detail;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.teamdonut.eatto.R;
@@ -13,7 +14,6 @@ import com.teamdonut.eatto.ui.board.BoardNavigator;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -42,9 +42,21 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
         binding.setViewmodel(mViewModel);
         binding.setLifecycleOwner(this);
 
+        checkBus();
         initToolbar();
         initCommentRv();
         initCommentObserver();
+    }
+
+    private void checkBus() {
+        RxBus.getInstance().getBus()
+                .subscribe(data -> {
+                    if (data instanceof Board) {
+                        Log.d("address", ((Board) data).getAppointedTime());
+                        mViewModel.getBoard().set((Board) data);
+                    }
+                })
+                .dispose();
     }
 
     private void initToolbar() {
