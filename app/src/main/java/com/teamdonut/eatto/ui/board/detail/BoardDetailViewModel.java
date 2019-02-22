@@ -1,6 +1,5 @@
 package com.teamdonut.eatto.ui.board.detail;
 
-import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Comment;
@@ -24,18 +23,7 @@ public class BoardDetailViewModel extends ViewModel {
     private final ObservableField<Board> mBoard = new ObservableField<>();
     private final MutableLiveData<List<Comment>> comments = new MutableLiveData<>();
 
-    private void checkBus() {
-        RxBus.getInstance().getBus()
-                .subscribe(data -> {
-                    if (data instanceof Board) {
-                        mBoard.set((Board) data);
-                    }
-                })
-                .dispose();
-    }
-
     public void loadComments() {
-        checkBus();
         fetchComments();
     }
 
