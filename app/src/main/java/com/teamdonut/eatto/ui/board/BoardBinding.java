@@ -17,13 +17,7 @@ public class BoardBinding {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         try {
             Date date = format.parse(serverDate.replaceAll("Z$", "+0000"));
-            String afterOrBeforeLunch = "";
-            if (date.getHours() / 12 == 1) {
-                afterOrBeforeLunch = "오후";
-            } else {
-                afterOrBeforeLunch = "오전";
-            }
-            view.setText( afterOrBeforeLunch+" "+Integer.toString(date.getHours()%13) + "시 " + Integer.toString(date.getMinutes()) + "분");
+            view.setText( Integer.toString(date.getHours()) + "시 " + Integer.toString(date.getMinutes()) + "분");
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
