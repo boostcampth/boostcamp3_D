@@ -112,6 +112,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:highlightNumber="@{viewmodel.anyBoardsSize}"
+                    app:spannableFront="@{true}"
                     app:layout_constraintBottom_toTopOf="@id/tv_recommend_board"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
