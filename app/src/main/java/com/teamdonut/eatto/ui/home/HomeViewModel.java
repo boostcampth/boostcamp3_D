@@ -1,10 +1,9 @@
 package com.teamdonut.eatto.ui.home;
 
-import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
-import com.teamdonut.eatto.model.HomeAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.board.BoardRepository;
+import com.teamdonut.eatto.data.model.user.UserRepository;
 
 import java.util.List;
 
@@ -21,65 +20,48 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<List<Board>> mRecommends = new MutableLiveData<>(); //추천게시글
     private final MutableLiveData<List<User>> mRankings = new MutableLiveData<>(); //유저 랭킹
     private final MutableLiveData<User> mUser = new MutableLiveData<>(); //유저
-    private final MutableLiveData<Integer> mAllBoardSize = new MutableLiveData<>();
+    private final MutableLiveData<Integer> mAllBoardSize = new MutableLiveData<>(); //총 게시글 크기.
 
     private CompositeDisposable disposables = new CompositeDisposable();
-    private HomeAPI service = ServiceGenerator.createService(HomeAPI.class, ServiceGenerator.BASE);
     private HomeNavigator mNavigator;
 
+    private BoardRepository mBoardRepository = BoardRepository.getInstance();
+    private UserRepository mUserRepository = UserRepository.getInstance();
 
     public void fetchRecommendBoards(String longitude, String latitude) {
-        Single<List<Board>> mRecommendSingle = service.getRecommendBoards(longitude, latitude);
-        Single<List<Board>> mAllSingle = service.getAllBoards();
-
-        disposables.add(
-                Single.zip(mRecommendSingle, mAllSingle,
-                        (recommends, other) -> {
-                            mAllBoardSize.postValue(other.size());
-                            return (recommends.size() == 0) ? other : recommends;
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(data -> {
-                                    if (data != null) {
-                                        mRecommends.postValue(data);
-                                    }
-                                }, e -> {
-                                    e.printStackTrace();
-                                }
-                        ));
+        disposables.add(mBoardRepository.getRecommendBoards(longitude, latitude)
+                .subscribe(data -> {
+                    if (data != null) {
+                        mAllBoardSize.setValue(data.first);
+                        mRecommends.setValue(data.second);
+                    }
+                }, e -> {
+                    e.printStackTrace();
+                }));
     }
 
     public void fetchRankUsers() {
-        disposables.add(
-                service.getTopTenUsers()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-                                    if (data != null) {
-                                        mRankings.postValue(data);
-                                    }
-                                }, e -> {
-                                    e.printStackTrace();
-                                }
-                        )
+        disposables.add(mUserRepository.getTopTenUsers()
+                .subscribe(data -> {
+                            if (data != null) {
+                                mRankings.postValue(data);
+                            }
+                        }, e -> {
+                            e.printStackTrace();
+                        }
+                )
         );
     }
 
     public void fetchRankUser() {
-        disposables.add(
-                service.getRankUser(RealmDataHelper.getUser().getKakaoId())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-                                    if (data != null) {
-                                        mUser.postValue(data);
-                                    }
-                                }, e -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+        disposables.add(mUserRepository.getUser()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data -> {
+                            if (data != null) {
+                                mUser.postValue(data);
+                            }
+                        }, Throwable::printStackTrace
+                ));
     }
 
     public void onSearchClick() {

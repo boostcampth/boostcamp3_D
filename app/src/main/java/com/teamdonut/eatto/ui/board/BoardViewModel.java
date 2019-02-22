@@ -1,39 +1,26 @@
 package com.teamdonut.eatto.ui.board;
 
-import android.util.Log;
-import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.databinding.*;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.kakao.Document;
-import com.teamdonut.eatto.model.BoardAPI;
-import com.teamdonut.eatto.model.ServiceGenerator;
+import com.teamdonut.eatto.data.model.board.BoardRepository;
+import com.teamdonut.eatto.data.model.kakao.KakaoRepository;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
+import io.reactivex.disposables.CompositeDisposable;
+import io.realm.Realm;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
-import androidx.databinding.BindingMethod;
-import androidx.databinding.BindingMethods;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import io.realm.Realm;
 
 @BindingMethods({
         @BindingMethod(
@@ -43,14 +30,12 @@ import io.realm.Realm;
         )
 })
 
-public class BoardViewModel {
+public class BoardViewModel extends ViewModel {
     private BoardNavigator mNavigator;
     public ObservableField<String> time = new ObservableField<>();
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
-    private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
     private int mMinAge = 15;
     private int mMaxAge = 80;
     private int mHourOfDay;
@@ -79,29 +64,24 @@ public class BoardViewModel {
     private ObservableInt boardAddMaxPerson = new ObservableInt(2);
     private ObservableInt boardAddBudget = new ObservableInt(5000);
 
-    public BoardViewModel() {
-
-    }
+    private KakaoRepository kakaoRepository = KakaoRepository.getInstance();
+    private BoardRepository boardRepository = BoardRepository.getInstance();
 
     public BoardViewModel(BoardNavigator navigator) {
         mNavigator = navigator;
     }
 
     public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
-        disposables.add(
-                kakaoService.getMyAddress(kakaoKey, longtitude, latitude)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(jsonElements -> {
-                                    JsonArray jsonArray = jsonElements.getAsJsonArray("documents");
-                                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                                    etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-                                }, e -> {
-                                    e.printStackTrace();
-                                    etKeywordHint.setValue(defaultAddress);
-                                }
-                        )
-        );
+        disposables.add(kakaoRepository.getMyAddress(data -> {
+            try {
+                JsonArray jsonArray = data.getAsJsonArray("documents");
+                JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                etKeywordHint.setValue(defaultAddress);
+            }
+        }, kakaoKey, longtitude, latitude));
     }
 
     void onFragmentDestroyed() {
@@ -128,58 +108,29 @@ public class BoardViewModel {
 
     //카카오 REST API - 키워드로 장소검색
     public void fetchAddressResult(String authorization, String query, int page, int size) {
-        disposables.add(
-                kakaoService.getAddress(authorization, query, page, size)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-
-                                    //결과가 없으면
-                                    if (data.getDocuments().size() == 0) {
-                                        Log.d("resulttest", "cannotfind");
-                                        mNavigator.onShowSnackBar();
-                                    } else {
-                                        //결과가 있을 때
-                                        if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                                            boardSearchAdapter.addItems(data.getDocuments());
-                                        }
-                                    }
-
-                                }, (e) -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+        disposables.add(kakaoRepository.getAddress(data -> {
+            if (data.getDocuments().size() == 0) {
+                mNavigator.onShowSnackBar();
+            } else {
+                if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
+                    boardSearchAdapter.addItems(data.getDocuments());
+                }
+            }
+        }, authorization, query, page, size));
     }
 
     //사용자가 생성한 게시글 불러오기
     public void fetchOwnBoardResult() {
-        disposables.add(
-                service.getUserCreatedBoard(RealmDataHelper.getUser().getKakaoId())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-                                    boardOwnAdapter.updateItems(data);
-                                }, (e) -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+        disposables.add(boardRepository.getUserCreatedBoard(data -> {
+            boardOwnAdapter.updateItems(data);
+        }));
     }
 
     //사용자가 참여중인 게시글 불러오기
     public void fetchJoinBoardResult() {
-        disposables.add(
-                service.getUserParticipatedBoard(RealmDataHelper.getUser().getKakaoId())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-                                    boardJoinAdapter.updateItems(data);
-                                }, (e) -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+        disposables.add(boardRepository.getUserParticipatedBoard(data -> {
+            boardJoinAdapter.updateItems(data);
+        }));
     }
 
 
@@ -211,20 +162,10 @@ public class BoardViewModel {
     }
 
     public void addBoard(Board board) {
-        BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
-        Single<Board> result = service.addBoard(board);
-
-        disposables.add(
-                result.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-                                    if (mNavigator != null)
-                                        mNavigator.onBoardAddFinish();
-                                }, (e) -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+        disposables.add(boardRepository.postBoard(data -> {
+            if (mNavigator != null)
+                mNavigator.onBoardAddFinish();
+        }, board));
     }
 
     //인원
