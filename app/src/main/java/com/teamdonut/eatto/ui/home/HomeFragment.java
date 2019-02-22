@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
         mViewModel = new HomeViewModel(this);
         binding.setViewmodel(mViewModel);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 

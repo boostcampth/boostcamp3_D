@@ -1,25 +1,23 @@
 package com.teamdonut.eatto.ui.home;
 
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.model.HomeAPI;
 import com.teamdonut.eatto.model.ServiceGenerator;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<Board>> anyBoards = new MutableLiveData<>();
-    private ObservableField<User> user = new ObservableField<>();
+    private MutableLiveData<User> user = new MutableLiveData<>();
     private MutableLiveData<Integer> boardFlag = new MutableLiveData<>();
     private ObservableInt anyBoardsSize = new ObservableInt(0);
 
@@ -95,7 +93,7 @@ public class HomeViewModel extends ViewModel {
                             updateUserInfo(data);
                         })
                         .subscribe(data -> {
-                                    user.set(data);
+                                    user.postValue(data);
                                 }, e -> {
                                     e.printStackTrace();
                                 }
@@ -119,7 +117,7 @@ public class HomeViewModel extends ViewModel {
         return anyBoards;
     }
 
-    public ObservableField<User> getUser() {
+    public MutableLiveData<User> getUser() {
         return user;
     }
 
