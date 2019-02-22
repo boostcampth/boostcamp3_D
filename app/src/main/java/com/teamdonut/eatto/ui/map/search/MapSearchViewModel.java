@@ -1,21 +1,17 @@
 package com.teamdonut.eatto.ui.map.search;
 
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import com.google.android.gms.common.util.Strings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.Keyword;
-import com.teamdonut.eatto.data.model.board.BoardAPI;
-import com.teamdonut.eatto.data.model.ServiceGenerator;
-
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import com.teamdonut.eatto.data.model.kakao.KakaoRepository;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -24,7 +20,6 @@ public class MapSearchViewModel extends ViewModel {
 
     private MapSearchNavigator mNavigator;
     private CompositeDisposable disposables = new CompositeDisposable();
-    private BoardAPI kakaoService = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.KAKAO);
 
     private Realm realm = Realm.getDefaultInstance();
 
@@ -38,6 +33,8 @@ public class MapSearchViewModel extends ViewModel {
     private final ObservableField<String> budget = new ObservableField<>("");
     private final ObservableInt people = new ObservableInt(10);
 
+    private KakaoRepository kakaoRepository = KakaoRepository.getInstance();
+
     private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
 
     public RealmResults<Keyword> fetchKeywords() {
@@ -45,20 +42,16 @@ public class MapSearchViewModel extends ViewModel {
     }
 
     public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
-        disposables.add(
-                kakaoService.getMyAddress(kakaoKey, longtitude, latitude)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(jsonElements -> {
-                                    JsonArray jsonArray = jsonElements.getAsJsonArray("documents");
-                                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                                    etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-                                }, e -> {
-                                    e.printStackTrace();
-                                    etKeywordHint.setValue(defaultAddress);
-                                }
-                        )
-        );
+        disposables.add(kakaoRepository.getMyAddress(data -> {
+            try {
+                JsonArray jsonArray = data.getAsJsonArray("documents");
+                JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                etKeywordHint.setValue(defaultAddress);
+            }
+        }, kakaoKey, longtitude, latitude));
     }
 
     public void onRecentKeywordRemoveClick() {

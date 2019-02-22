@@ -43,12 +43,16 @@ public class MapViewModel extends ViewModel {
     }
 
     public void fetchAreaBoards(LatLng leftLatLng, LatLng rightLatLng) {
-        disposables.add(boardRepository.getAreaBoards(boards, leftLatLng, rightLatLng));
+        disposables.add(boardRepository.getAreaBoards(data -> {
+            boards.setValue(data);
+        }, leftLatLng, rightLatLng));
     }
 
     private void fetchSearchBoards() {
         if (filter != null) {
-            disposables.add(boardRepository.getSearchBoards(boards, filter));
+            disposables.add(boardRepository.getSearchBoards(data -> {
+                boards.postValue(data);
+            }, filter));
         }
     }
 

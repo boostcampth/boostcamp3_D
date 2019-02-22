@@ -1,39 +1,30 @@
 package com.teamdonut.eatto.ui.board.preview;
 
-import com.teamdonut.eatto.common.helper.RealmDataHelper;
-import com.teamdonut.eatto.data.Board;
-import com.teamdonut.eatto.data.BoardAddInformation;
-import com.teamdonut.eatto.data.model.board.BoardAPI;
-import com.teamdonut.eatto.data.model.ServiceGenerator;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import com.google.gson.JsonObject;
+import com.teamdonut.eatto.data.Board;
+import com.teamdonut.eatto.data.model.board.BoardRepository;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class BoardPreviewViewModel extends ViewModel {
 
-    private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private final MutableLiveData<Board> mBoard = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
+    private BoardRepository boardRepository = BoardRepository.getInstance();
+
     private void sendParticipation(int boardId) {
-        disposable.add(
-                service.joinBoard(RealmDataHelper.getUser().getKakaoId(), new BoardAddInformation(boardId))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data -> {
-                                    if (data.get("code").getAsInt() == 200) {
-                                        isSubmitted.postValue(true);
-                                    }
-                                },
-                                e -> {
-                                    e.printStackTrace();
-                                })
-        );
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("board_id", boardId);
+
+        disposable.add(boardRepository.joinBoard(data -> {
+            if (data.get("code").getAsInt() == 200) {
+                isSubmitted.postValue(true);
+            }
+        }, jsonObject));
     }
 
     public void setBoardValue(Board board) {
@@ -43,7 +34,7 @@ public class BoardPreviewViewModel extends ViewModel {
     }
 
     public void onJoinClick() {
-        if(mBoard.getValue() !=null && (mBoard.getValue().getCurrentPerson() < mBoard.getValue().getMaxPerson())) {
+        if (mBoard.getValue() != null && (mBoard.getValue().getCurrentPerson() < mBoard.getValue().getMaxPerson())) {
             sendParticipation(mBoard.getValue().getId());
         }
     }
