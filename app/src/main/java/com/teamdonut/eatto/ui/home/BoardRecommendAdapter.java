@@ -8,6 +8,7 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.RecommendBoardItemBinding;
+import com.teamdonut.eatto.ui.board.BoardViewModel;
 
 import java.util.List;
 
@@ -15,13 +16,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardRecommendAdapter extends BaseRecyclerViewAdapter<Board, BoardRecommendAdapter.ViewHolder> {
-    public BoardRecommendAdapter(List<Board> dataSet) {
+
+    private HomeViewModel mViewModel;
+
+    public BoardRecommendAdapter(List<Board> dataSet, HomeViewModel viewModel) {
         super(dataSet);
+        this.mViewModel = viewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_board_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_board_item, parent, false);
         return new ViewHolder(itemView);
     }
 
@@ -32,6 +37,7 @@ public class BoardRecommendAdapter extends BaseRecyclerViewAdapter<Board, BoardR
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         RecommendBoardItemBinding binding;
+
         public ViewHolder(View itemView) {
             super(itemView);
             binding = DataBindingUtil.bind(itemView);
