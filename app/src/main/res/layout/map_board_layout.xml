@@ -28,6 +28,7 @@
             android:textColor="@color/colorHungryBlack"
             android:textSize="15sp"
             android:textStyle="bold"
+            app:spannableFront="@{true}"
             app:highlightNumber="@{viewmodel.isSheetExpanded ? viewmodel.boards.size() : -1}"
             app:layout_constraintEnd_toStartOf="@+id/ib_direction"
             app:layout_constraintStart_toStartOf="parent"

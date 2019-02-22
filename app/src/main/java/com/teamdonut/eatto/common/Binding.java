@@ -6,9 +6,11 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.GlideApp;
@@ -47,16 +49,25 @@ public class Binding {
         }
     }
 
-    @BindingAdapter({"highlightNumber", "mainText"})
-    public static void setSpannableText(TextView view, int number, String mainText) {
+    @BindingAdapter({"highlightNumber", "mainText", "spannableFront"})
+    public static void setSpannableText(TextView view, int number, String mainText, boolean isLocatedFront) {
         if (number >= 0) {
             String numberText = String.valueOf(number);
+            SpannableStringBuilder sb = new SpannableStringBuilder();
 
-            SpannableStringBuilder sb = new SpannableStringBuilder(numberText);
+            if (isLocatedFront) {
+                sb.append(numberText);
+                sb.append(mainText);
 
-            sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(view.getContext(), R.color.colorHungryRed))
-                    , 0, numberText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            sb.append(mainText);
+                sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(view.getContext(), R.color.colorHungryRed))
+                        , 0, numberText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                sb.append(mainText);
+                sb.append(numberText);
+
+                sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(view.getContext(), R.color.colorHungryRed))
+                        , mainText.length(), mainText.length() + numberText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
 
             view.setText(sb, TextView.BufferType.SPANNABLE);
         }

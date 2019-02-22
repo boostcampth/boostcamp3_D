@@ -228,8 +228,9 @@
 
             <TextView
                 android:id="@+id/tv_comment_cnt"
-                commentNumber="@{viewmodel.comments.size()}"
+                highlightNumber="@{viewmodel.comments.size()}"
                 mainText="@{@string/board_detail_tv_comment}"
+                spannableFront="@{false}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_small_margin"
