@@ -68,20 +68,15 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
         mViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
         mViewModel.setNavigator(this);
+        binding.setViewmodel(mViewModel);
+        binding.setLifecycleOwner(this);
 
         initOpenBoardObserver();
         initBoardsObserver();
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
-        binding.setViewmodel(mViewModel);
-        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
@@ -97,18 +92,20 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     public void onResume() {
         super.onResume();
         mViewModel.loadBoards();
+        binding.mv.onResume();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         mViewModel.onStopViewModel();
+        binding.mv.onStop();
     }
 
     @Override
     public void onDestroy() {
+        binding.mv.onDestroy();
         super.onDestroy();
-        mViewModel.getBoards().removeObservers(this);
     }
 
 
@@ -248,9 +245,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initMapView(@Nullable Bundle savedInstanceState) {
-        binding.mv.onCreate(savedInstanceState);
-        binding.mv.onResume();
         binding.mv.getMapAsync(this);
+        binding.mv.onCreate(savedInstanceState);
     }
 
     private void initCluster() {
