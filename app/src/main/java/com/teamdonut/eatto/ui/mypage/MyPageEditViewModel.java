@@ -1,25 +1,18 @@
 package com.teamdonut.eatto.ui.mypage;
 
-import android.util.Log;
-
-import com.google.android.gms.common.util.Strings;
-import com.teamdonut.eatto.data.User;
-import com.teamdonut.eatto.model.ServiceGenerator;
-import com.teamdonut.eatto.model.UserAPI;
-
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import com.google.android.gms.common.util.Strings;
+import com.teamdonut.eatto.data.User;
+import com.teamdonut.eatto.data.model.user.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 public class MyPageEditViewModel extends ViewModel {
 
     private MyPageEditNavigator mNavigator;
 
-    private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
@@ -29,26 +22,15 @@ public class MyPageEditViewModel extends ViewModel {
     public final ObservableInt userSex = new ObservableInt(user.getSex());
     public final ObservableInt userAge = new ObservableInt(user.getAge());
 
+    private UserRepository userRepository = UserRepository.getInstance();
+
     //whether user info is submitted or not.
     private MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     public void submitUserInformation() {
-        disposables.add(new CompositeDisposable(
-                service.postUserInfo(user)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doAfterSuccess(data -> {
-                            isSubmitted.setValue(true);
-                        } )
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(data-> {
-                                    //print response log
-                                }
-                                , e -> {
-                                    e.printStackTrace();
-                                }
-                        ))
-        );
+        disposables.add(userRepository.postUser(data -> {}, data -> {
+            isSubmitted.setValue(true);
+        }, user));
     }
 
     public void onSubmitUserClick(String nickName) {

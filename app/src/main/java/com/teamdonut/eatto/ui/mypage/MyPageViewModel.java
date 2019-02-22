@@ -1,49 +1,38 @@
 package com.teamdonut.eatto.ui.mypage;
 
-import com.teamdonut.eatto.common.helper.RealmDataHelper;
-import com.teamdonut.eatto.data.User;
-import com.teamdonut.eatto.model.ServiceGenerator;
-import com.teamdonut.eatto.model.UserAPI;
-
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
+import com.teamdonut.eatto.data.User;
+import com.teamdonut.eatto.data.model.user.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 
 public class MyPageViewModel extends ViewModel {
 
     private MyPageNavigator mNavigator;
 
-    private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
 
+    private UserRepository userRepository = UserRepository.getInstance();
+
     private final ObservableField<User> user = new ObservableField<>();
 
     public void getUserInformation() {
-        disposables.add(
-                service.getUserInfo(RealmDataHelper.getUser().getKakaoId())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doAfterSuccess(data -> {
-                                updateUserInfo(data);})
-                        .subscribe(data -> {
-                                    user.set(data);
-                                }, e -> {
-                                    e.printStackTrace();
-                                }
-                        )
-        );
+        disposables.add(userRepository.getUser(data -> {
+            user.set(data);
+        }, data -> {
+            updateUserInfo(data);
+        }));
     }
 
     private void updateUserInfo(User user) {
         RealmDataHelper.updateUser(user);
     }
 
-    public void onJudgeClick(){
+    public void onJudgeClick() {
         mNavigator.goJudge();
     }
 
