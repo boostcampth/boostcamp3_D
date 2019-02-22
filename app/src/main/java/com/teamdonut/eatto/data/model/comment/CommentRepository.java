@@ -1,6 +1,5 @@
 package com.teamdonut.eatto.data.model.comment;
 
-import androidx.lifecycle.MutableLiveData;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Comment;
@@ -23,29 +22,19 @@ public class CommentRepository {
         private static final CommentRepository INSTANCE = new CommentRepository();
     }
 
-    public Disposable getComments(MutableLiveData<List<Comment>> comments, int boardId) {
+    public Disposable getComments(Consumer<List<Comment>> subscribeConsumer, int boardId) {
         return service.getComments(RealmDataHelper.getUser().getKakaoId(), boardId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(data -> {
-                    if (data != null) {
-                        comments.postValue(data);
-                    }
-                }, e -> {
-                    e.printStackTrace();
-                });
+                .subscribe(subscribeConsumer);
     }
 
-    public Disposable postComment(Comment comment, Consumer<JsonObject> consumer){
+    public Disposable postComment(Consumer<JsonObject> subscribeConsumer, Consumer<JsonObject> afterConsumer, Comment comment) {
         return service.postComments(RealmDataHelper.getUser().getKakaoId(), comment)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doAfterSuccess(consumer)
-                .subscribe(data -> {
-                    //log
-                }, e -> {
-                    e.printStackTrace();
-                });
+                .doAfterSuccess(afterConsumer)
+                .subscribe(subscribeConsumer);
     }
 
 }
