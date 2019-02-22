@@ -79,7 +79,9 @@
     <string name="board_detail_tv_comment_hint">댓글</string>
     <string name="board_detail_tv_budget_format">~ %s원</string>
     <string name="board_detail_tv_person">%d명 참여중 / %d명</string>
-    <string name="board_detail_tv_age">%d세 ~ %d 세</string>
+    <string name="board_detail_tv_age">%d세 ~ %d세</string>
+    <string name="board_detail_tv_writer">작성자</string>
+    <string name="board_detail_tv_comment">댓글 </string>
 
     <!--Board item-->
     <string name="board_item_restaurant_hint">음식점 미정</string>

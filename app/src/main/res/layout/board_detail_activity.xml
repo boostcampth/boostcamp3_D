@@ -226,6 +226,21 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.7" />
 
+            <TextView
+                android:id="@+id/tv_comment_cnt"
+                highlightNumber="@{viewmodel.comments.size()}"
+                mainText="@{@string/board_detail_tv_comment}"
+                spannableFront="@{false}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_margin"
+                android:textColor="@color/colorFilterSubTitle"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/gl_v_30"
+                app:layout_constraintTop_toBottomOf="@+id/tv_person"
+                tools:text="댓글 22개" />
+
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/et_comment"
                 android:layout_width="0dp"
@@ -240,7 +255,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_submit"
                 app:layout_constraintStart_toStartOf="@id/gl_v_30"
-                app:layout_constraintTop_toBottomOf="@+id/tv_person"
+                app:layout_constraintTop_toBottomOf="@+id/tv_comment_cnt"
                 app:met_errorColor="@color/colorHungryRed"
                 app:met_floatingLabel="highlight"
                 app:met_helperTextColor="@color/colorHungryRed"
@@ -264,18 +279,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/et_comment" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTagBackground"
+                app:layout_constraintTop_toBottomOf="@id/et_comment" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_comment"
-                android:layout_width="match_parent"
-                tools:item="@layout/board_comment_item"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_small_margin"
                 android:overScrollMode="never"
                 app:items="@{viewmodel.comments}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_comment" />
+                app:layout_constraintStart_toStartOf="@+id/gl_v_30"
+                app:layout_constraintEnd_toEndOf="@+id/gl_v_970"
+                app:layout_constraintTop_toBottomOf="@id/et_comment"
+                tools:item="@layout/board_comment_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

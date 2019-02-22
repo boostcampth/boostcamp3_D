@@ -17,6 +17,7 @@ public class BoardDetailBinding {
         SimpleDateFormat realFormat = new SimpleDateFormat("HH:mm aaa", Locale.US);
         try {
             Date date = format.parse(dateText);
+
             view.setText(realFormat.format(date));
         } catch (ParseException e) {
             e.printStackTrace();
