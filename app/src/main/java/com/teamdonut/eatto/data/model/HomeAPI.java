@@ -1,4 +1,4 @@
-package com.teamdonut.eatto.model;
+package com.teamdonut.eatto.data.model;
 
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;

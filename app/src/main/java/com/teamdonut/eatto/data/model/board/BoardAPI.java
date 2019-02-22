@@ -1,25 +1,33 @@
-package com.teamdonut.eatto.model;
+package com.teamdonut.eatto.data.model.board;
 
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.BoardAddInformation;
-import com.teamdonut.eatto.data.Comment;
 import com.teamdonut.eatto.data.kakao.LocalKeywordSearch;
-
+import io.reactivex.Single;
+import retrofit2.http.*;
 
 import java.util.List;
 
-
-import io.reactivex.Observable;
-
-import io.reactivex.Single;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
-
 public interface BoardAPI {
+    @GET("map/list")
+    Single<List<Board>> getAreaBoards(
+            @Query("left_longitude") double leftLongitude,
+            @Query("left_latitude") double leftLatitude,
+            @Query("right_longitude") double rightLongitude,
+            @Query("right_latitude") double rightLatitude
+    );
+
+    @GET("search/list")
+    Single<List<Board>> getSearchBoards(
+            @Header("kakao_id") long kakaoId,
+            @Query(value = "keyword", encoded = true) String keyword,
+            @Query("min_time") int minTime,
+            @Query("max_time") int maxTime,
+            @Query("min_age") int minAge,
+            @Query("max_age") int maxAge,
+            @Query("max_person") int maxPerson,
+            @Query("budget") String budget);
 
     @POST("board")
     Single<Board> addBoard(
@@ -58,14 +66,4 @@ public interface BoardAPI {
     Single<JsonObject> joinBoard(
             @Header("kakao_id") long kakaoId,
             @Body BoardAddInformation boardAddInformation);
-
-    @GET("board/comment")
-    Single<List<Comment>> getComments(
-            @Header("kakao_id") long kakaoId,
-            @Query("board_id") int boardId);
-
-    @POST("board/comment")
-    Single<JsonObject> postComments(
-            @Header("kakao_id") long kakaoId,
-            @Body Comment comment);
 }
