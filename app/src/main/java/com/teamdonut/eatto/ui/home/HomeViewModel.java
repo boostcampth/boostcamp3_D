@@ -55,12 +55,13 @@ public class HomeViewModel extends ViewModel {
 
     public void fetchRankUser() {
         disposables.add(mUserRepository.getUser()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
                             if (data != null) {
                                 mUser.postValue(data);
                             }
-                        }, Throwable::printStackTrace
+                        }, e -> {
+                            e.printStackTrace();
+                        }
                 ));
     }
 
@@ -85,7 +86,6 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<User>> getRankings() {
         return mRankings;
     }
-
 
     public MutableLiveData<Integer> getBoardFlag() {
         return boardFlag;
