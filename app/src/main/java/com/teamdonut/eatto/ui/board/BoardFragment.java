@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -20,6 +23,9 @@ import com.teamdonut.eatto.databinding.BoardFragmentBinding;
 import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
 
 import java.util.ArrayList;
+
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class BoardFragment extends Fragment implements BoardNavigator {
 
@@ -78,11 +84,14 @@ public class BoardFragment extends Fragment implements BoardNavigator {
             case R.id.rv_own: {
                 boardOwnAdapter = new BoardOwnAdapter(new ArrayList<>(0), viewModel);
                 rv.setAdapter(boardOwnAdapter);
+                setAnimation(rv);
                 break;
             }
             case R.id.rv_participate: {
                 boardParticipateAdapter = new BoardParticipateAdapter(new ArrayList<>(0), viewModel);
                 rv.setAdapter(boardParticipateAdapter);
+                setAnimation(rv);
+                break;
             }
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -92,6 +101,23 @@ public class BoardFragment extends Fragment implements BoardNavigator {
         rv.setLayoutManager(layoutManager);
         rv.addItemDecoration(itemDecoration);
         rv.setHasFixedSize(true);
+    }
+
+    public void setAnimation(RecyclerView rv) {
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == SCROLL_STATE_DRAGGING) {
+                    binding.fabBoardAdd.hide();
+                } else if (newState == SCROLL_STATE_IDLE) {
+
+                    Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.fabscrollanim);
+                    binding.fabBoardAdd.setAnimation(anim);
+                    binding.fabBoardAdd.show();
+                }
+            }
+        });
     }
 
     @Override
