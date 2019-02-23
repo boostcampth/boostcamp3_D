@@ -135,7 +135,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                         GpsModule gpsModule = new GpsModule(new WeakReference<>(getContext()), this);
                         gpsModule.startLocationUpdates();
                     }
-                }, throwable -> {
+                }, e -> {
                 });
     }
 
