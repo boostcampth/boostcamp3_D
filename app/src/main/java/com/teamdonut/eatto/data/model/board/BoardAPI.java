@@ -2,15 +2,22 @@ package com.teamdonut.eatto.data.model.board;
 
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.data.Board;
-import io.reactivex.Single;
-import retrofit2.http.*;
 
 import java.util.List;
+
+import io.reactivex.Single;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
 public interface BoardAPI {
     @POST("board")
     Single<JsonObject> postBoard(
-            @Body Board board
+            @Body Board board,
+            @Header("token") String token
     );
 
     @GET("board/today")
@@ -68,6 +75,7 @@ public interface BoardAPI {
     @PUT("mypage/judge")
     Single<JsonObject> putJudgeBoard(
             @Header("kakao_id") long kakaoId,
+            @Header("token") String token,
             @Body JsonObject jsonObject
     );
 }
