@@ -1,6 +1,7 @@
 package com.teamdonut.eatto.data.model.board;
 
 import android.util.Pair;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
@@ -8,12 +9,11 @@ import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
+
 import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class BoardRepository {
@@ -67,7 +67,7 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable postBoard(Consumer<JsonObject> subscribeConsumer, Board board) {
+    public Single postBoard(Board board) {
         return service.postBoard(board, FirebaseInstanceId.getInstance().getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -79,7 +79,7 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable putJudgeBoards(Consumer<JsonObject> subscribeConsumer, JsonObject jsonObject) {
+    public Single putJudgeBoards(JsonObject jsonObject) {
         return service.putJudgeBoard(RealmDataHelper.getUser().getKakaoId(),FirebaseInstanceId.getInstance().getToken(), jsonObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
