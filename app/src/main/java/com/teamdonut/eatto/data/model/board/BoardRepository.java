@@ -1,19 +1,14 @@
 package com.teamdonut.eatto.data.model.board;
 
 import android.util.Pair;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
-
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.List;
@@ -29,20 +24,19 @@ public class BoardRepository {
         private static final BoardRepository INSTANCE = new BoardRepository();
     }
 
-    public Disposable getAreaBoards(Consumer<List<Board>> subscribeConsumer, LatLng leftLatLng, LatLng rightLatLng) {
+    public Single<List<Board>> getAreaBoards(LatLng leftLatLng, LatLng rightLatLng) {
         return service.getAreaBoards(leftLatLng.longitude, leftLatLng.latitude, rightLatLng.longitude, rightLatLng.latitude)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(subscribeConsumer);
+                .subscribeOn(Schedulers.io());
     }
 
-    public Disposable getSearchBoards(Consumer<List<Board>> subscribeConsumer, Filter filter) {
+
+    public Single<List<Board>> getSearchBoards(Filter filter) {
         return service.getSearchBoards(RealmDataHelper.getUser().getKakaoId(),
                 filter.getKeyword(), filter.getMinTime(), filter.getMaxTime(), filter.getMinAge(), filter.getMaxAge(),
                 filter.getMaxPeople(), filter.getBudget())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(subscribeConsumer);
+                .subscribeOn(Schedulers.io());
     }
 
     public Single<Pair<Integer, List<Board>>> getRecommendBoards(String longitude, String latitude) {
@@ -51,7 +45,7 @@ public class BoardRepository {
 
         return Single.zip(recommendSingle, todaySingle,
                 (recommends, other) -> {
-                    return (recommends.size() == 0) ? new Pair<> (other.size(), other) : new Pair<> (other.size(), recommends);
+                    return (recommends.size() == 0) ? new Pair<>(other.size(), other) : new Pair<>(other.size(), recommends);
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -70,32 +64,28 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable postBoard(Consumer<JsonObject> subscribeConsumer, Board board) {
+    public Single<JsonObject> postBoard(Board board) {
         return service.postBoard(board)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable getJudgeBoards(Consumer<List<Board>> subscribeConsumer) {
+    public Single<List<Board>> getJudgeBoards() {
         return service.getJudgeBoards(RealmDataHelper.getUser().getKakaoId())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable putJudgeBoards(Consumer<JsonObject> subscribeConsumer, JsonObject jsonObject) {
+    public Single<JsonObject> putJudgeBoards(JsonObject jsonObject) {
         return service.putJudgeBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable participateBoard(Consumer<JsonObject> subscribeConsumer, JsonObject jsonObject) {
+    public Single<JsonObject> postParticipateBoard(JsonObject jsonObject) {
         return service.postParticipateBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 }

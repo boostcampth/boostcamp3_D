@@ -4,10 +4,10 @@ import androidx.databinding.ObservableInt;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.google.android.gms.common.util.Strings;
+import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.model.user.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
-import io.realm.Realm;
 
 public class MyPageEditViewModel extends ViewModel {
 
@@ -15,22 +15,22 @@ public class MyPageEditViewModel extends ViewModel {
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private Realm realm = Realm.getDefaultInstance();
+    private User user = RealmDataHelper.getUser();
 
-    private User user = realm.copyFromRealm(realm.where(User.class).findFirst());
 
-    public final ObservableInt userSex = new ObservableInt(user.getSex());
-    public final ObservableInt userAge = new ObservableInt(user.getAge());
+    private final ObservableInt userSex = new ObservableInt(user.getSex());
+    private final ObservableInt userAge = new ObservableInt(user.getAge());
+    private final MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     private UserRepository userRepository = UserRepository.getInstance();
 
-    //whether user info is submitted or not.
-    private MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     public void submitUserInformation() {
-        disposables.add(userRepository.postUser(data -> {}, data -> {
-            isSubmitted.setValue(true);
-        }, user));
+        disposables.add(userRepository.postUser(user)
+                .doAfterSuccess(data -> {
+                    isSubmitted.setValue(true);
+                })
+                .subscribe());
     }
 
     public void onSubmitUserClick(String nickName) {
@@ -74,7 +74,6 @@ public class MyPageEditViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
-        realm.close();
         disposables.dispose();
         super.onCleared();
     }
@@ -85,5 +84,13 @@ public class MyPageEditViewModel extends ViewModel {
 
     public void setNavigator(MyPageEditNavigator mNavigator) {
         this.mNavigator = mNavigator;
+    }
+
+    public ObservableInt getUserSex() {
+        return userSex;
+    }
+
+    public ObservableInt getUserAge() {
+        return userAge;
     }
 }

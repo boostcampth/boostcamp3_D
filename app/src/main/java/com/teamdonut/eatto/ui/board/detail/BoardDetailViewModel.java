@@ -25,19 +25,21 @@ public class BoardDetailViewModel extends ViewModel {
 
     private void fetchComments() {
         if (mBoard.get() != null) {
-            disposables.add(commentRepository.getComments(data -> {
-                if (data != null) {
-                    comments.postValue(data);
-                }
-            }, mBoard.get().getId()));
+            disposables.add(commentRepository.getComments(mBoard.get().getId())
+                    .subscribe(data -> {
+                        if (data != null) {
+                            comments.postValue(data);
+                        }
+                    }));
         }
     }
 
     private void sendComments(Comment comment) {
-        disposables.add(commentRepository.postComment(data -> {
-        }, data -> {
-            fetchComments();
-        }, comment));
+        disposables.add(commentRepository.postComment(comment)
+                .doAfterSuccess(data -> {
+                    fetchComments();
+                })
+                .subscribe());
     }
 
     public void onWriteCommentClick(String inputText) {

@@ -70,16 +70,15 @@ public class BoardViewModel extends ViewModel {
     private BoardRepository boardRepository = BoardRepository.getInstance();
 
     public void fetchEtKeywordHint(String kakaoKey, String longitude, String latitude, String defaultAddress) {
-        disposables.add(kakaoRepository.getMyAddress(data -> {
-            try {
-                JsonArray jsonArray = data.getAsJsonArray("documents");
-                JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                etKeywordHint.setValue(defaultAddress);
-            }
-        }, kakaoKey, longitude, latitude));
+        disposables.add(kakaoRepository.getMyAddress(kakaoKey, longitude, latitude)
+                .subscribe(data -> {
+                    JsonArray jsonArray = data.getAsJsonArray("documents");
+                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                    etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
+                }, e -> {
+                    e.printStackTrace();
+                    etKeywordHint.setValue(defaultAddress);
+                }));
     }
 
     public void onClickBoardAdd() {
@@ -102,15 +101,16 @@ public class BoardViewModel extends ViewModel {
 
     //카카오 REST API - 키워드로 장소검색
     public void fetchAddressResult(String authorization, String query, int page, int size) {
-        disposables.add(kakaoRepository.getAddress(data -> {
-            if (data.getDocuments().size() == 0) {
-                mNavigator.onShowSnackBar();
-            } else {
-                if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                    boardSearchAdapter.addItems(data.getDocuments());
-                }
-            }
-        }, authorization, query, page, size));
+        disposables.add(kakaoRepository.getAddress(authorization, query, page, size)
+                .subscribe(data -> {
+                    if (data.getDocuments().size() == 0) {
+                        mNavigator.onShowSnackBar();
+                    } else {
+                        if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
+                            boardSearchAdapter.addItems(data.getDocuments());
+                        }
+                    }
+                }));
     }
 
     //사용자가 생성한 게시글 불러오기
@@ -159,10 +159,13 @@ public class BoardViewModel extends ViewModel {
     }
 
     public void addBoard(Board board) {
-        disposables.add(boardRepository.postBoard(data -> {
-            if (mNavigator != null)
-                mNavigator.onBoardAddFinish();
-        }, board));
+        disposables.add(boardRepository.postBoard(board)
+                .subscribe(data -> {
+                    if (mNavigator != null) {
+                        mNavigator.onBoardAddFinish();
+                    }
+                }, e -> {
+                }));
     }
 
     //인원
@@ -284,6 +287,7 @@ public class BoardViewModel extends ViewModel {
     public MutableLiveData<List<Board>> getParticipateBoards() {
         return mParticipateBoards;
     }
+
     public MutableLiveData<List<Board>> getOwnBoards() {
         return mOwnBoards;
     }
