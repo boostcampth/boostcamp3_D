@@ -40,7 +40,7 @@ public class MyPageJudgeActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
-        itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.map_board_divider));
+        itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.board_divider));
         rv.addItemDecoration(itemDecoration);
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
