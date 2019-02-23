@@ -115,4 +115,8 @@ ext {
 
     //crashlytics
     crashlyticsVersion = '2.9.9'
+
+    //FireBase Cloud Messaging
+    fcmVersion = '17.3.4'
+
 }
