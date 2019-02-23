@@ -24,7 +24,7 @@ public class BoardPreviewDialog extends DialogFragment {
 
     private BoardPreviewDialogBinding binding;
 
-    private BoardPreviewViewModel mViewModel;
+    private BoardPreviewViewModel viewModel;
     private Observer<Boolean> joinObserver;
 
     private static final String BOARD_ARGUMENT = "Board";
@@ -45,8 +45,8 @@ public class BoardPreviewDialog extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialog);
 
         initJoinObserver();
-        mViewModel = ViewModelProviders.of(this).get(BoardPreviewViewModel.class);
-        mViewModel.getIsSubmitted().observe(this, joinObserver);
+        viewModel = ViewModelProviders.of(this).get(BoardPreviewViewModel.class);
+        viewModel.getIsSubmitted().observe(this, joinObserver);
     }
 
     private void initJoinObserver() {
@@ -61,7 +61,7 @@ public class BoardPreviewDialog extends DialogFragment {
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
-        mViewModel.getIsSubmitted().removeObserver(joinObserver);
+        viewModel.getIsSubmitted().removeObserver(joinObserver);
         super.onDismiss(dialog);
     }
 
@@ -69,7 +69,7 @@ public class BoardPreviewDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.board_preview_dialog, container, false);
-        binding.setViewmodel(mViewModel);
+        binding.setViewmodel(viewModel);
 
         binding.cl.setOnClickListener(v -> {
             dismiss();
@@ -81,6 +81,6 @@ public class BoardPreviewDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.setBoardValue(getArguments().getParcelable(BOARD_ARGUMENT));
+        viewModel.setBoardValue(getArguments().getParcelable(BOARD_ARGUMENT));
     }
 }

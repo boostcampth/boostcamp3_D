@@ -18,7 +18,7 @@ import io.realm.Sort;
 
 public class MapSearchViewModel extends ViewModel {
 
-    private MapSearchNavigator mNavigator;
+    private MapSearchNavigator navigator;
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private Realm realm = Realm.getDefaultInstance();
@@ -35,7 +35,7 @@ public class MapSearchViewModel extends ViewModel {
 
     private KakaoRepository kakaoRepository = KakaoRepository.getInstance();
 
-    private MutableLiveData<Filter> searchCondition = new MutableLiveData<>();
+    private MutableLiveData<Filter> filter = new MutableLiveData<>();
 
     public RealmResults<Keyword> fetchKeywords() {
         return realm.where(Keyword.class).sort("searchDate", Sort.DESCENDING).limit(17).findAll();
@@ -59,14 +59,14 @@ public class MapSearchViewModel extends ViewModel {
 
     public void onGoSearchClick(String keyword) {
         saveRecentKeyword(keyword); //save recent keyword.
-        setSearchCondition(keyword);
+        setFilter(keyword);
     }
 
-    private void setSearchCondition(String keyword) {
+    private void setFilter(String keyword) {
         if (Strings.isEmptyOrWhitespace(budget.get())) {
             budget.set("0");
         }
-        searchCondition.setValue(
+        filter.setValue(
                 new Filter(keyword, minTime.get(), maxTime.get(), minAge.get(), maxAge.get(), people.get(), budget.get()));
     }
 
@@ -89,11 +89,11 @@ public class MapSearchViewModel extends ViewModel {
     }
 
     public void onOpenFilterClick() {
-        mNavigator.openNavigationView();
+        navigator.openNavigationView();
     }
 
     public void onCloseFilterClick() {
-        mNavigator.closeNavigationView();
+        navigator.closeNavigationView();
     }
 
     public void onClearFilterClick() {
@@ -110,7 +110,7 @@ public class MapSearchViewModel extends ViewModel {
         maxTime.set(Integer.parseInt(maxTimeText));
         budget.set(Strings.isEmptyOrWhitespace(budgetText) ? "0" : budgetText);
 
-        mNavigator.closeNavigationView();
+        navigator.closeNavigationView();
     }
 
     @Override
@@ -120,7 +120,7 @@ public class MapSearchViewModel extends ViewModel {
     }
 
     public void setNavigator(MapSearchNavigator mNavigator) {
-        this.mNavigator = mNavigator;
+        this.navigator = mNavigator;
     }
 
     public ObservableInt getMinAge() {
@@ -139,8 +139,8 @@ public class MapSearchViewModel extends ViewModel {
         return maxTime;
     }
 
-    public MutableLiveData<Filter> getSearchCondition() {
-        return searchCondition;
+    public MutableLiveData<Filter> getFilter() {
+        return filter;
     }
 
     public MutableLiveData<String> getEtKeywordHint() {

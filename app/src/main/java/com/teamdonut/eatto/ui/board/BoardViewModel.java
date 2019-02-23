@@ -35,19 +35,19 @@ import java.util.Locale;
 
 public class BoardViewModel extends ViewModel {
 
-    private BoardNavigator mNavigator;
+    private BoardNavigator navigator;
     public ObservableField<String> time = new ObservableField<>();
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private int mMinAge = 15;
-    private int mMaxAge = 80;
-    private int mHourOfDay;
-    private int mMinute;
-    private String mAddressName;
-    private String mPlaceName;
-    private String mLongitude;
-    private String mLatitude;
+    private int minAge = 15;
+    private int maxAge = 80;
+    private int hourOfDay;
+    private int minute;
+    private String addressName;
+    private String placeName;
+    private String longitude;
+    private String latitude;
 
     //use BoardSearch
     @NonNull
@@ -55,12 +55,12 @@ public class BoardViewModel extends ViewModel {
     private BoardSearchAdapter boardSearchAdapter = new BoardSearchAdapter(documents);
 
     //Board Fragment
-    private MutableLiveData<List<Board>> mOwnBoards = new MutableLiveData<>(); //own
-    private MutableLiveData<List<Board>> mParticipateBoards = new MutableLiveData<>(); //participate
+    private MutableLiveData<List<Board>> ownBoards = new MutableLiveData<>(); //own
+    private MutableLiveData<List<Board>> participateBoards = new MutableLiveData<>(); //participate
     private MutableLiveData<Board> openBoardEvent = new MutableLiveData<>(); //open board event.
 
     private Realm realm = Realm.getDefaultInstance();
-    public ObservableField<String> mAddress = new ObservableField<>();
+    public ObservableField<String> address = new ObservableField<>();
 
     //Board Add
     private ObservableInt boardAddMaxPerson = new ObservableInt(2);
@@ -82,21 +82,21 @@ public class BoardViewModel extends ViewModel {
     }
 
     public void onClickBoardAdd() {
-        mNavigator.onAddBoardClick();
+        navigator.onAddBoardClick();
     }
 
     public void onTimePickerClicked() {
-        mNavigator.onTimePickerClick();
+        navigator.onTimePickerClick();
     }
 
     //Board_Search 액티비티 연결 이벤트
     public void onBoardSearchShowClick() {
-        mNavigator.onBoardSearchShowClick();
+        navigator.onBoardSearchShowClick();
     }
 
     public void setOnRangeBarChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
-        mMinAge = Integer.parseInt(leftPinValue);
-        mMaxAge = Integer.parseInt(rightPinValue);
+        minAge = Integer.parseInt(leftPinValue);
+        maxAge = Integer.parseInt(rightPinValue);
     }
 
     //카카오 REST API - 키워드로 장소검색
@@ -104,7 +104,7 @@ public class BoardViewModel extends ViewModel {
         disposables.add(kakaoRepository.getAddress(authorization, query, page, size)
                 .subscribe(data -> {
                     if (data.getDocuments().size() == 0) {
-                        mNavigator.onShowSnackBar();
+                        navigator.onShowSnackBar();
                     } else {
                         if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
                             boardSearchAdapter.addItems(data.getDocuments());
@@ -117,7 +117,7 @@ public class BoardViewModel extends ViewModel {
     public void fetchOwnBoard() {
         disposables.add(boardRepository.getOwnBoard()
                 .subscribe(data -> {
-                    mOwnBoards.postValue(data);
+                    ownBoards.postValue(data);
                 }, e -> {
                     e.printStackTrace();
                 }));
@@ -127,7 +127,7 @@ public class BoardViewModel extends ViewModel {
     public void fetchParticipateBoard() {
         disposables.add(boardRepository.getUserParticipatedBoard()
                 .subscribe(data -> {
-                    mParticipateBoards.postValue(data);
+                    participateBoards.postValue(data);
                 }, Throwable::printStackTrace));
     }
 
@@ -135,19 +135,19 @@ public class BoardViewModel extends ViewModel {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
         String appointedTime = df.format(currentTime);
-        appointedTime += " " + Integer.toString(mHourOfDay) + ":" + Integer.toString(mMinute) + ":00";
+        appointedTime += " " + Integer.toString(hourOfDay) + ":" + Integer.toString(minute) + ":00";
 
         User user = RealmDataHelper.getUser();
 
         Board board = new Board(title,
-                mAddressName,
+                addressName,
                 appointedTime,
-                mPlaceName,
+                placeName,
                 boardAddMaxPerson.get(),
-                mMinAge,
-                mMaxAge,
-                Float.parseFloat(mLongitude),
-                Float.parseFloat(mLatitude),
+                minAge,
+                maxAge,
+                Float.parseFloat(longitude),
+                Float.parseFloat(latitude),
                 user.getKakaoId(),
                 user.getPhoto(),
                 user.getNickName()
@@ -161,8 +161,8 @@ public class BoardViewModel extends ViewModel {
     public void addBoard(Board board) {
         disposables.add(boardRepository.postBoard(board)
                 .subscribe(data -> {
-                    if (mNavigator != null) {
-                        mNavigator.onBoardAddFinish();
+                    if (navigator != null) {
+                        navigator.onBoardAddFinish();
                     }
                 }, e -> {
                 }));
@@ -211,11 +211,11 @@ public class BoardViewModel extends ViewModel {
     }
 
     public ObservableField<String> getAddress() {
-        return mAddress;
+        return address;
     }
 
     public void setAddress(ObservableField<String> mAddress) {
-        this.mAddress = mAddress;
+        this.address = mAddress;
     }
 
     @NonNull
@@ -233,63 +233,63 @@ public class BoardViewModel extends ViewModel {
 
 
     public String getAddressName() {
-        return mAddressName;
+        return addressName;
     }
 
     public void setAddressName(String mAddressName) {
-        this.mAddressName = mAddressName;
+        this.addressName = mAddressName;
     }
 
     public String getPlaceName() {
-        return mPlaceName;
+        return placeName;
     }
 
     public void setPlaceName(String mPlaceName) {
-        this.mPlaceName = mPlaceName;
+        this.placeName = mPlaceName;
     }
 
     public String getLongitude() {
-        return mLongitude;
+        return longitude;
     }
 
     public void setLongitude(String mLongitude) {
-        this.mLongitude = mLongitude;
+        this.longitude = mLongitude;
     }
 
     public String getLatitude() {
-        return mLatitude;
+        return latitude;
     }
 
     public void setLatitude(String mLatitude) {
-        this.mLatitude = mLatitude;
+        this.latitude = mLatitude;
     }
 
     public void setNavigator(BoardNavigator mNavigator) {
-        this.mNavigator = mNavigator;
+        this.navigator = mNavigator;
     }
 
     public int getHourOfDay() {
-        return mHourOfDay;
+        return hourOfDay;
     }
 
     public int getMinute() {
-        return mMinute;
+        return minute;
     }
 
     public void setHourOfDay(int mHourOfDay) {
-        this.mHourOfDay = mHourOfDay;
+        this.hourOfDay = mHourOfDay;
     }
 
     public void setMinute(int mMinute) {
-        this.mMinute = mMinute;
+        this.minute = mMinute;
     }
 
     public MutableLiveData<List<Board>> getParticipateBoards() {
-        return mParticipateBoards;
+        return participateBoards;
     }
 
     public MutableLiveData<List<Board>> getOwnBoards() {
-        return mOwnBoards;
+        return ownBoards;
     }
 
     @Override

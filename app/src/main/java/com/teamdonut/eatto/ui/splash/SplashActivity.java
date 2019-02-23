@@ -3,7 +3,7 @@ package com.teamdonut.eatto.ui.splash;
 import android.Manifest;
 import android.os.Bundle;
 import android.os.Handler;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
@@ -15,12 +15,10 @@ import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class SplashActivity extends AppCompatActivity {
 
     private final int SPLASH_TIME = 2000;
-    private ISessionCallback mCallback = new ISessionCallback() {
+    private ISessionCallback iSessionCallback = new ISessionCallback() {
         @Override
         public void onSessionOpened() {
             ActivityUtils.redirectMainActivity(SplashActivity.this);
@@ -39,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
 
-        Session.getCurrentSession().addCallback(mCallback);
+        Session.getCurrentSession().addCallback(iSessionCallback);
 
         requestLocationPermission();
     }
@@ -47,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Session.getCurrentSession().removeCallback(mCallback);
+        Session.getCurrentSession().removeCallback(iSessionCallback);
     }
 
 

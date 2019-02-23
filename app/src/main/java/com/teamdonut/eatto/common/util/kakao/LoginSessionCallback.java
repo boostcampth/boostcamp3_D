@@ -12,10 +12,10 @@ import com.teamdonut.eatto.ui.login.LoginNavigator;
 
 public class LoginSessionCallback implements ISessionCallback {
 
-    private LoginNavigator mNavigator;
+    private LoginNavigator navigator;
 
-    public LoginSessionCallback(LoginNavigator mNavigator) {
-        this.mNavigator = mNavigator;
+    public LoginSessionCallback(LoginNavigator loginNavigator) {
+        this.navigator = loginNavigator;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class LoginSessionCallback implements ISessionCallback {
         UserManagement.getInstance().me(new MeV2ResponseCallback() {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
-                mNavigator.redirectLoginActivity();
+                navigator.redirectLoginActivity();
             }
 
             @Override
@@ -44,15 +44,15 @@ public class LoginSessionCallback implements ISessionCallback {
                 if (errorResult.getErrorCode() == ApiErrorCode.CLIENT_ERROR_CODE) {
                     Logger.d("error failed.");
                 } else {
-                    mNavigator.redirectLoginActivity();
+                    navigator.redirectLoginActivity();
                 }
             }
 
             @Override
             public void onSuccess(MeV2Response result) {
                 if (result != null) {
-                    mNavigator.saveUser(result.getId(), result.getNickname(), result.getThumbnailImagePath());
-                    mNavigator.redirectMainActivity();
+                    navigator.saveUser(result.getId(), result.getNickname(), result.getThumbnailImagePath());
+                    navigator.redirectMainActivity();
                 }
             }
         });

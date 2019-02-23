@@ -3,7 +3,9 @@ package com.teamdonut.eatto.ui.board.detail;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Comment;
@@ -11,17 +13,13 @@ import com.teamdonut.eatto.databinding.BoardCommentItemBinding;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class BoardCommentAdapter extends BaseRecyclerViewAdapter<Comment, BoardCommentAdapter.ViewHolder> {
 
-    private BoardDetailViewModel mViewModel;
+    private BoardDetailViewModel viewModel;
 
     public BoardCommentAdapter(List<Comment> dataSet, BoardDetailViewModel viewModel) {
         super(dataSet);
-        this.mViewModel = viewModel;
+        this.viewModel = viewModel;
     }
 
     @Override

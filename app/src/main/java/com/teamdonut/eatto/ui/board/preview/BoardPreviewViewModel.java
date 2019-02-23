@@ -11,7 +11,7 @@ public class BoardPreviewViewModel extends ViewModel {
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    private final MutableLiveData<Board> mBoard = new MutableLiveData<>();
+    private final MutableLiveData<Board> board = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     private BoardRepository boardRepository = BoardRepository.getInstance();
@@ -30,13 +30,13 @@ public class BoardPreviewViewModel extends ViewModel {
 
     public void setBoardValue(Board board) {
         if (board != null) {
-            mBoard.setValue(board);
+            this.board.setValue(board);
         }
     }
 
     public void onJoinClick() {
-        if (mBoard.getValue() != null && (mBoard.getValue().getCurrentPerson() < mBoard.getValue().getMaxPerson())) {
-            sendParticipation(mBoard.getValue().getId());
+        if (board.getValue() != null && (board.getValue().getCurrentPerson() < board.getValue().getMaxPerson())) {
+            sendParticipation(board.getValue().getId());
         }
     }
 
@@ -51,7 +51,7 @@ public class BoardPreviewViewModel extends ViewModel {
     }
 
     public MutableLiveData<Board> getBoard() {
-        return mBoard;
+        return board;
     }
 
     public MutableLiveData<Boolean> getIsSubmitted() {

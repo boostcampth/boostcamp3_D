@@ -67,7 +67,7 @@
                     android:focusableInTouchMode="false"
                     android:hint="@string/board_add_tv_search_address"
                     android:onClick="@{() -> viewmodel.onBoardSearchShowClick()}"
-                    android:text="@{viewmodel.mAddress}"
+                    android:text="@{viewmodel.address}"
                     android:textColor="@color/colorHungryLightBlack"
                     android:textColorHint="@color/colorHungryRed"
                     app:met_floatingLabel="highlight"

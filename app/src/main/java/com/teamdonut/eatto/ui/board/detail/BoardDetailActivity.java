@@ -3,7 +3,13 @@ package com.teamdonut.eatto.ui.board.detail;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.KeyboardUtil;
@@ -13,33 +19,25 @@ import com.teamdonut.eatto.ui.board.BoardNavigator;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class BoardDetailActivity extends AppCompatActivity implements BoardNavigator {
 
     private BoardDetailActivityBinding binding;
-    private BoardDetailViewModel mViewModel;
-    private BoardCommentAdapter mAdapter;
+    private BoardDetailViewModel viewModel;
+    private BoardCommentAdapter boardCommentAdapter;
 
     @Override
     protected void onResume() {
         super.onResume();
-        mViewModel.loadComments();
+        viewModel.loadComments();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.board_detail_activity);
-        mViewModel = ViewModelProviders.of(this).get(BoardDetailViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(BoardDetailViewModel.class);
 
-        binding.setViewmodel(mViewModel);
+        binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
         checkBus();
@@ -53,7 +51,7 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
                 .subscribe(data -> {
                     if (data instanceof Board) {
                         Log.d("address", ((Board) data).getAppointedTime());
-                        mViewModel.getBoard().set((Board) data);
+                        viewModel.getBoard().set((Board) data);
                     }
                 })
                 .dispose();
@@ -68,7 +66,7 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
 
     @Override
     protected void onDestroy() {
-        mViewModel.getComments().removeObservers(this);
+        viewModel.getComments().removeObservers(this);
         super.onDestroy();
     }
 
@@ -87,7 +85,7 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
 
     private void initCommentRv() {
         RecyclerView rv = binding.rvComment;
-        mAdapter = new BoardCommentAdapter(new ArrayList<>(), mViewModel);
+        boardCommentAdapter = new BoardCommentAdapter(new ArrayList<>(), viewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.comment_divider));
@@ -95,16 +93,16 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
         rv.setHasFixedSize(true);
         rv.addItemDecoration(itemDecoration);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(mAdapter);
+        rv.setAdapter(boardCommentAdapter);
     }
 
     private void initCommentObserver() {
-        mViewModel.getComments().observe(this, data -> {
+        viewModel.getComments().observe(this, data -> {
             KeyboardUtil.hideSoftKeyboard(binding.nsvDetail, this);
             binding.etComment.setText("");
 
-            mAdapter.updateItems(data);
-            binding.rvComment.scrollToPosition(mAdapter.getItemCount()-1);
+            boardCommentAdapter.updateItems(data);
+            binding.rvComment.scrollToPosition(boardCommentAdapter.getItemCount()-1);
         });
     }
 }

@@ -2,24 +2,22 @@ package com.teamdonut.eatto.ui.board;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardItemBinding;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class BoardParticipateAdapter extends BaseRecyclerViewAdapter<Board, BoardParticipateAdapter.ViewHolder> {
 
-    private BoardViewModel mViewModel;
-    private BoardItemActionListener listener;
+    private BoardViewModel viewModel;
+    private BoardItemActionListener boardItemActionListener;
 
     public BoardParticipateAdapter(ArrayList<Board> dataSet, BoardViewModel boardViewModel) {
         super(dataSet);
-        mViewModel = boardViewModel;
+        viewModel = boardViewModel;
     }
 
     @NonNull
@@ -28,9 +26,9 @@ public class BoardParticipateAdapter extends BaseRecyclerViewAdapter<Board, Boar
         BoardItemBinding binding = BoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         final ViewHolder holder = new ViewHolder(binding);
 
-        listener = board -> mViewModel.getOpenBoardEvent().setValue(board);
+        boardItemActionListener = board -> viewModel.getOpenBoardEvent().setValue(board);
 
-        holder.binding.setListener(listener);
+        holder.binding.setListener(boardItemActionListener);
         return holder;
     }
 

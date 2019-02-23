@@ -1,15 +1,15 @@
 package com.teamdonut.eatto.data.model.comment;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Comment;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
-
-import java.util.List;
-
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
 
 public class CommentRepository {
     private CommentAPI service = ServiceGenerator.createService(CommentAPI.class, ServiceGenerator.BASE);
@@ -28,7 +28,7 @@ public class CommentRepository {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Single postComment(Comment comment) {
+    public Single<JsonObject> postComment(Comment comment) {
         return service.postComments(RealmDataHelper.getUser().getKakaoId(), FirebaseInstanceId.getInstance().getToken(), comment)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());

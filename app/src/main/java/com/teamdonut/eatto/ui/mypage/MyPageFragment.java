@@ -20,7 +20,7 @@ import com.teamdonut.eatto.ui.mypage.judge.MyPageJudgeActivity;
 
 public class MyPageFragment extends Fragment implements MyPageNavigator {
 
-    private MyPageViewModel mViewModel;
+    private MyPageViewModel viewModel;
     private MypageFragmentBinding binding;
 
     public static MyPageFragment newInstance() {
@@ -30,10 +30,10 @@ public class MyPageFragment extends Fragment implements MyPageNavigator {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.mypage_fragment, container, false);
-        mViewModel = ViewModelProviders.of(this).get(MyPageViewModel.class);
-        mViewModel.setNavigator(this);
+        viewModel = ViewModelProviders.of(this).get(MyPageViewModel.class);
+        viewModel.setNavigator(this);
 
-        binding.setViewmodel(mViewModel);
+        binding.setViewmodel(viewModel);
 
         return binding.getRoot();
     }
@@ -41,7 +41,7 @@ public class MyPageFragment extends Fragment implements MyPageNavigator {
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.getUserInformation(); //get user information
+        viewModel.getUserInformation(); //get user information
     }
 
     @Override

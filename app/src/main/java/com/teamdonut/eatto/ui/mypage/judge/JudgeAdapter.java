@@ -2,47 +2,35 @@ package com.teamdonut.eatto.ui.mypage.judge;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MypageJudgeItemBinding;
 
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.ViewHolder> {
 
-    private MyPageJudgeViewModel mViewModel;
-    private JudgeItemActionListener listener;
+    private MyPageJudgeViewModel viewModel;
+    private JudgeItemActionListener judgeItemActionListener;
 
     public JudgeAdapter(List<Board> dataSet, MyPageJudgeViewModel myPageJudgeViewModel) {
         super(dataSet);
-        mViewModel = myPageJudgeViewModel;
+        this.viewModel = myPageJudgeViewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MypageJudgeItemBinding binding = MypageJudgeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        listener = new JudgeItemActionListener() {
+        judgeItemActionListener = new JudgeItemActionListener() {
             @Override
-            public void onGreatClick(Board board, int score) {
-                mViewModel.sendJudgeResult(board, score);
-            }
-
-            @Override
-            public void onGoodClick(Board board, int score) {
-                mViewModel.sendJudgeResult(board, score);
-            }
-
-            @Override
-            public void onNormalClick(Board board, int score) {
-                mViewModel.sendJudgeResult(board, score);
+            public void onJudgeClick(Board board, int score) {
+                viewModel.sendJudgeResult(board, score);
             }
         };
 
-        binding.setListener(listener);
+        binding.setListener(judgeItemActionListener);
         return new ViewHolder(binding);
     }
 
