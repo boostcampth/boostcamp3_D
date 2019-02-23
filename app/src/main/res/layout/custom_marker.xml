@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:text="1"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/oval_bg"
+        android:textColor="@color/colorHungryBlack"
+        android:textSize="14sp"/>
+</FrameLayout>
