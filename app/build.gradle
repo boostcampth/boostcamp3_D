@@ -103,6 +103,9 @@ dependencies {
 
     //crashlytics
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
+
+    //Firebase Cloud Messaing
+    implementation "com.google.firebase:firebase-messaging:$fcmVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

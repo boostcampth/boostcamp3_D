@@ -1,9 +1,11 @@
 package com.teamdonut.eatto.ui.main;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.data.model.firebase.FCMRepository;
 import com.teamdonut.eatto.ui.board.BoardFragment;
 import com.teamdonut.eatto.ui.home.HomeFragment;
 import com.teamdonut.eatto.ui.map.MapFragment;
@@ -11,6 +13,7 @@ import com.teamdonut.eatto.ui.mypage.MyPageFragment;
 
 import androidx.databinding.BindingMethod;
 import androidx.databinding.BindingMethods;
+import io.reactivex.disposables.CompositeDisposable;
 
 @BindingMethods({
         @BindingMethod(
@@ -24,6 +27,8 @@ import androidx.databinding.BindingMethods;
 public class MainViewModel {
 
     private MainNavigator mNavigator;
+    private CompositeDisposable disposables = new CompositeDisposable();
+    private FCMRepository fcmRepository = FCMRepository.getInstance();
 
     MainViewModel(MainNavigator navigator) {
         this.mNavigator = navigator;
@@ -53,5 +58,13 @@ public class MainViewModel {
                 return false;
             }
         }
+    }
+
+    public void postFcmToken(String token) {
+        disposables.add(
+                fcmRepository.postFCMToken(data -> {
+                    Log.d("posttoken",data.toString());
+                },token)
+        );
     }
 }

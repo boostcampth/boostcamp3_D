@@ -1,17 +1,20 @@
 package com.teamdonut.eatto.data.model.board;
 
 import android.util.Pair;
+
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
+
+import java.util.List;
+
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import java.util.List;
 
 public class BoardRepository {
     private BoardAPI service = ServiceGenerator.createService(BoardAPI.class, ServiceGenerator.BASE);
@@ -64,8 +67,8 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<JsonObject> postBoard(Board board) {
-        return service.postBoard(board)
+    public Single postBoard(Board board) {
+        return service.postBoard(board, FirebaseInstanceId.getInstance().getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -76,8 +79,8 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<JsonObject> putJudgeBoards(JsonObject jsonObject) {
-        return service.putJudgeBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
+    public Single putJudgeBoards(JsonObject jsonObject) {
+        return service.putJudgeBoard(RealmDataHelper.getUser().getKakaoId(),FirebaseInstanceId.getInstance().getToken(), jsonObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

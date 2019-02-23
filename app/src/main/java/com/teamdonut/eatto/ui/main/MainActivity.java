@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setViewmodel(mViewModel); //set viewModel.
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.fl_main);
+        mViewModel.postFcmToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     public void startAnimation(){
