@@ -34,7 +34,7 @@ public interface BoardAPI {
     );
 
     @POST("board/participation")
-    Single<JsonObject> participateBoard(
+    Single<JsonObject> postParticipateBoard(
             @Header("kakao_id") long kakaoId,
             @Body JsonObject jsonObject
     );
