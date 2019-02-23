@@ -22,8 +22,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_height="130dp"
-        android:background="@android:color/white"
+        android:background="@drawable/item_board_selector"
         android:onClick="@{() -> listener.onBoardClick(board)}">
 
         <View
