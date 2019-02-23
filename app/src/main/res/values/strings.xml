@@ -101,7 +101,9 @@
     <string name="mpe_age_warn">15세~80세 중 어디에 해당하나요?</string>
 
     <!--Mypage Judge-->
-    <string name="mpj_toolbar_title">평가하기</string>
+    <string name="mpj_toolbar_title">평가하기</string>\
+    <string name="mpj_tv_no_data">평가할 게시글이 없습니다.</string>
+    <string name="mpj_tv_sub_title">모임을 평가해주세요.</string>
 
     <!--Search-->
     <string name="search_tv_recent_keyword">최근 검색어</string>

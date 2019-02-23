@@ -1,22 +1,20 @@
 package com.teamdonut.eatto.ui.mypage.judge;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.R;
+
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MypageJudgeItemBinding;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.ViewHolder> {
+
     private MyPageJudgeViewModel mViewModel;
-    private final int SCORE_GREAT = 5;
-    private final int SCORE_GOOD = 3;
-    private final int SCORE_NORMAL = 2;
+    private JudgeItemActionListener listener;
 
     public JudgeAdapter(List<Board> dataSet, MyPageJudgeViewModel myPageJudgeViewModel) {
         super(dataSet);
@@ -25,10 +23,27 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mypage_judge_item, parent, false);
+        MypageJudgeItemBinding binding = MypageJudgeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
+        listener = new JudgeItemActionListener() {
+            @Override
+            public void onGreatClick(Board board, int score) {
+                mViewModel.sendJudgeResult(board, score);
+            }
 
-        return new ViewHolder(itemView);
+            @Override
+            public void onGoodClick(Board board, int score) {
+                mViewModel.sendJudgeResult(board, score);
+            }
+
+            @Override
+            public void onNormalClick(Board board, int score) {
+                mViewModel.sendJudgeResult(board, score);
+            }
+        };
+
+        binding.setListener(listener);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -36,29 +51,13 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
         holder.binding.setBoard(getItem(position));
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        MypageJudgeItemBinding binding;
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            binding = DataBindingUtil.bind(itemView);
-            binding.tvGreat.setOnClickListener(v -> {
-                Board board = getItem(this.getAdapterPosition());
-                mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GREAT);
-                removeItem(this.getAdapterPosition());
-            });
-            
-            binding.tvGood.setOnClickListener(v -> {
-                Board board = getItem(this.getAdapterPosition());
-                mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_GOOD);
-                removeItem(this.getAdapterPosition());
-            });
+        private MypageJudgeItemBinding binding;
 
-            binding.tvNormal.setOnClickListener(v -> {
-                Board board = getItem(this.getAdapterPosition());
-                mViewModel.judgeBoard(board.getWriterId(), board.getId(), SCORE_NORMAL);
-                removeItem(this.getAdapterPosition());
-            });
+        public ViewHolder(MypageJudgeItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

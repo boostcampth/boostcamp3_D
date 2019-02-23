@@ -6,6 +6,8 @@ import android.view.MenuItem;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.databinding.MypageJudgeActivityBinding;
 
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -15,8 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyPageJudgeActivity extends AppCompatActivity {
+
     private MypageJudgeActivityBinding binding;
     private MyPageJudgeViewModel mViewModel;
+
+    private JudgeAdapter mJudgeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +31,31 @@ public class MyPageJudgeActivity extends AppCompatActivity {
         mViewModel = ViewModelProviders.of(this).get(MyPageJudgeViewModel.class);
 
         binding.setViewmodel(mViewModel);
+        binding.setLifecycleOwner(this);
+
         initJudgeRv();
         initToolbar();
-        fetch();
+        initJudgeObserve();
+        mViewModel.fetchJudgeBoards();
     }
 
-    public void fetch(){
-        mViewModel.fetchBoards();
+    private void initJudgeObserve() {
+        mViewModel.getSubmitJudge().observe(this, data ->{
+            mJudgeAdapter.removeItem(data);
+        });
     }
 
-    public void initJudgeRv(){
+    public void initJudgeRv() {
         RecyclerView rv = binding.rvJudge;
-        rv.setHasFixedSize(true);
+        mJudgeAdapter = new JudgeAdapter(new ArrayList<>(0), mViewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.board_divider));
-        rv.addItemDecoration(itemDecoration);
+
         rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.addItemDecoration(itemDecoration);
+        rv.setAdapter(mJudgeAdapter);
+        rv.setHasFixedSize(true);
     }
 
     @Override
@@ -65,11 +78,5 @@ public class MyPageJudgeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        mViewModel.onDestroyViewModel();
-        super.onDestroy();
     }
 }

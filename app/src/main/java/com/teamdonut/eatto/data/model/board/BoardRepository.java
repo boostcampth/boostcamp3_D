@@ -10,7 +10,11 @@ import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
 
+
 import java.util.List;
+
+
+import io.reactivex.Maybe;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -72,17 +76,17 @@ public class BoardRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-    public Single<List<Board>> getJudgeBoards() {
-        return service.getJudgeBoards(RealmDataHelper.getUser().getKakaoId())
+    public Single<JsonObject> putJudgeBoards(JsonObject judgeData) {
+        return service.putJudgeBoard(RealmDataHelper.getUser().getKakaoId(), FirebaseInstanceId.getInstance().getToken(), judgeData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single putJudgeBoards(JsonObject jsonObject) {
-        return service.putJudgeBoard(RealmDataHelper.getUser().getKakaoId(),FirebaseInstanceId.getInstance().getToken(), jsonObject)
+    public Maybe<List<Board>> getJudgeBoards() {
+        return service.getJudgeBoards(RealmDataHelper.getUser().getKakaoId())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(data -> data != null);
     }
 
     public Single<JsonObject> postParticipateBoard(JsonObject jsonObject) {
