@@ -21,6 +21,18 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!--Bottom Navigation View-->
+    <style name="BottomNavigationViewTextActive">
+        <item name="android:textSize">11dp</item>
+        <item name="android:textColor">@color/colorHungryRed</item>
+    </style>
+
+    <style name="BottomNavigationViewTextInactive">
+        <item name="android:textSize">11dp</item>
+        <item name="android:textColor">@color/colorHungryBlack</item>
+    </style>
+
     <!-- Full Screen Dialog Theme -->
     <style name="FullScreenDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
