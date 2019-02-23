@@ -15,16 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:0.99"
-            app:layout_constraintEnd_toEndOf="@+id/gl_v_960"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/gl_v_40"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/colorBtnLogoutText" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_v_40"
             android:layout_width="wrap_content"
@@ -43,72 +33,63 @@
             android:id="@+id/iv_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/space_small_margin"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@id/tv_address"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@+id/gl_v_960"
             app:layout_constraintStart_toStartOf="@+id/gl_v_40"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_default="percent"
-            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintWidth_percent="0.82"
             app:roundedImageError="@{@drawable/kakao_default_profile_image}"
             app:roundedImageUrl="@{board.writerPhoto}"
             tools:background="@drawable/lion" />
 
         <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#8B03A9F4"
-            android:gravity="center"
-            android:paddingStart="@dimen/space_filter_title_padding"
-            android:paddingTop="@dimen/space_img_btn_padding"
-            android:paddingEnd="@dimen/space_filter_title_padding"
-            android:text="@{board.title}"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-            app:layout_constraintEnd_toEndOf="@id/iv_profile"
-            app:layout_constraintStart_toStartOf="@id/iv_profile"
-            tools:text="안뇨오오오오" />
-
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{board.address}"
-            android:textColor="@color/colorHungryLightBlack"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/tv_time"
-            app:layout_constraintEnd_toEndOf="@id/gl_v_960"
-            app:layout_constraintStart_toStartOf="@id/gl_v_40"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:text="서울특별시 강남구 역삼동" />
-
-        <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_small_margin"
+            android:background="@drawable/tv_recomend_time_bg"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="3dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="1dp"
             android:text="@{board.appointedTime.substring(11, 16)}"
-            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintStart_toStartOf="@id/iv_profile"
-            app:layout_constraintTop_toBottomOf="@id/tv_address"
-            tools:text="07:54" />
+            tools:text="07:22" />
+
+        <TextView
+            android:id="@+id/tv_address_recommend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:maxLines="1"
+            android:paddingTop="@dimen/space_img_btn_padding"
+            android:text="@{board.address}"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_people"
+            app:layout_constraintStart_toStartOf="@id/iv_profile"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile"
+            tools:text="서울 구로구 구로동 153-3" />
 
         <TextView
             android:id="@+id/tv_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_small_margin"
-            android:drawableStart="@drawable/ic_person_16dp"
-            android:text="@{board.currentPerson+`/`+board.maxPerson}"
-            android:textColor="@color/colorHungryLightBlack"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_time"
+            android:layout_marginStart="@dimen/space_img_btn_padding"
+            android:text="@{@string/board_preview_tv_person(board.currentPerson)}"
+            android:textColor="@color/colorBtnLogoutText"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_address_recommend"
             app:layout_constraintEnd_toEndOf="@id/iv_profile"
-            app:layout_constraintTop_toTopOf="@id/tv_time"
-            tools:text="3/5" />
+            app:layout_constraintTop_toTopOf="@id/tv_address_recommend"
+            app:layout_constraintVertical_bias="1"
+            tools:text="3명 참여중" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
