@@ -42,16 +42,15 @@ public class MapSearchViewModel extends ViewModel {
     }
 
     public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
-        disposables.add(kakaoRepository.getMyAddress(data -> {
-            try {
-                JsonArray jsonArray = data.getAsJsonArray("documents");
-                JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                etKeywordHint.setValue(defaultAddress);
-            }
-        }, kakaoKey, longtitude, latitude));
+        disposables.add(kakaoRepository.getMyAddress(kakaoKey, longtitude, latitude)
+                .subscribe(data -> {
+                    JsonArray jsonArray = data.getAsJsonArray("documents");
+                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
+                    etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
+                }, e -> {
+                    e.printStackTrace();
+                    etKeywordHint.setValue(defaultAddress);
+                }));
     }
 
     public void onRecentKeywordRemoveClick() {

@@ -3,9 +3,8 @@ package com.teamdonut.eatto.data.model.kakao;
 import com.google.gson.JsonObject;
 import com.teamdonut.eatto.data.kakao.LocalKeywordSearch;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class KakaoRepository {
@@ -19,17 +18,15 @@ public class KakaoRepository {
         private static final KakaoRepository INSTANCE = new KakaoRepository();
     }
 
-    public Disposable getMyAddress(Consumer<JsonObject> subscribeConsumer, String kakaoKey, String longtitude, String latitude) {
+    public Single<JsonObject> getMyAddress(String kakaoKey, String longtitude, String latitude) {
         return service.getMyAddress(kakaoKey, longtitude, latitude)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(subscribeConsumer);
+                .subscribeOn(Schedulers.io());
     }
 
-    public Disposable getAddress(Consumer<LocalKeywordSearch> subscribeConsumer, String authorization, String query, int page, int size) {
+    public Single<LocalKeywordSearch> getAddress(String authorization, String query, int page, int size) {
         return service.getAddress(authorization, query, page, size)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

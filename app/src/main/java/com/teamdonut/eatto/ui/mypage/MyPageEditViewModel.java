@@ -28,9 +28,11 @@ public class MyPageEditViewModel extends ViewModel {
     private MutableLiveData<Boolean> isSubmitted = new MutableLiveData<>();
 
     public void submitUserInformation() {
-        disposables.add(userRepository.postUser(data -> {}, data -> {
-            isSubmitted.setValue(true);
-        }, user));
+        disposables.add(userRepository.postUser(user)
+                .doAfterSuccess(data -> {
+                    isSubmitted.setValue(true);
+                })
+                .subscribe());
     }
 
     public void onSubmitUserClick(String nickName) {

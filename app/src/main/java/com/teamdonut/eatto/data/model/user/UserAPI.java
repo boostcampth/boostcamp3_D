@@ -25,4 +25,9 @@ public interface UserAPI {
 
     @GET("home/ranking/user")
     Single<List<User>> getTopTenUsers();
+
+    @GET("home/ranking/me")
+    Single<User> getRankUser(
+            @Header("kakao_id") long kakaoId
+    );
 }
