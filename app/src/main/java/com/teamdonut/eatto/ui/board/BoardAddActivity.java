@@ -24,6 +24,7 @@ import java.util.Calendar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import io.realm.Realm;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
@@ -36,7 +37,8 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.board_add_activity);
-        mViewModel = new BoardViewModel(this);
+        mViewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
+        mViewModel.setNavigator(this);
         binding.setViewmodel(mViewModel);
 
         initToolbar();

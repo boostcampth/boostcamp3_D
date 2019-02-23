@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,7 +45,8 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.board_search_activity);
-        mViewModel = new BoardViewModel(this);
+        mViewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
+        mViewModel.setNavigator(this);
         binding.setViewmodel(mViewModel);
 
         fetch();
@@ -171,7 +173,6 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     @Override
     protected void onDestroy() {
         rxbus.resetBus();
-        mViewModel.onDestroyViewModel();
         super.onDestroy();
     }
 
