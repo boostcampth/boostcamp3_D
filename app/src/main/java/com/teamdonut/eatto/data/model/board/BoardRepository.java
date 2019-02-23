@@ -92,7 +92,7 @@ public class BoardRepository {
     }
 
     public Disposable participateBoard(Consumer<JsonObject> subscribeConsumer, JsonObject jsonObject) {
-        return service.participateBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
+        return service.postParticipateBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscribeConsumer);
