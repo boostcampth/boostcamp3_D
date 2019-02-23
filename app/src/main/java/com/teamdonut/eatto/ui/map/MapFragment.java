@@ -1,8 +1,13 @@
 package com.teamdonut.eatto.ui.map;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +24,11 @@ import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.*;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
@@ -129,10 +135,10 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                         GpsModule gpsModule = new GpsModule(new WeakReference<>(getContext()), this);
                         gpsModule.startLocationUpdates();
                     }
-                }, throwable -> {
+                }, e -> {
                 });
     }
-    
+
     @Override
     public void setMyPosition() {
         String strLatitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude");
@@ -248,10 +254,44 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         binding.mv.getMapAsync(this);
         binding.mv.onCreate(savedInstanceState);
     }
+    private Bitmap createDrawableFromView(Context context, View view) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
+
 
     private void initCluster() {
         mClusterManager = new ClusterManager<>(getActivity(), mMap);
         mPreviousCameraPosition = mMap.getCameraPosition();
+
+        mClusterManager.setRenderer(new DefaultClusterRenderer(this.getActivity(), mMap, mClusterManager){
+            @Override
+            protected void onClusterItemRendered(ClusterItem clusterItem, Marker marker) {
+                super.onClusterItemRendered(clusterItem, marker);
+                View marker_root_view = LayoutInflater.from(getContext()).inflate(R.layout.custom_marker, null);
+                marker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(getContext(), marker_root_view)));
+                return;
+            }
+
+            @Override
+            protected void onBeforeClusterItemRendered(ClusterItem item, MarkerOptions markerOptions) {
+                super.onBeforeClusterItemRendered(item, markerOptions);
+                View marker_root_view = LayoutInflater.from(getContext()).inflate(R.layout.custom_marker, null);
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(getContext(), marker_root_view)));
+                return;
+            }
+        });
 
         mClusterManager.setOnClusterItemClickListener(data -> {
             IS_MARKERCLICK = true;
@@ -260,6 +300,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             mAdapter.notifyDataSetChanged();
             binding.mapBottomSheet.rvBoard.getLayoutManager().scrollToPosition(mAdapter.getItemPosition(data));
             setBottomSheetExpand(true);
+            return true;
+        });
+
+        mClusterManager.setOnClusterClickListener(data ->{
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), mMap.getCameraPosition().zoom + 1));
             return true;
         });
 
