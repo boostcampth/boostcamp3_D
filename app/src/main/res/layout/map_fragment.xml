@@ -17,10 +17,12 @@
         android:layout_height="match_parent">
 
         <!-- Map View -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/ml_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            app:layoutDescription="@xml/map_fragment_scene01">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/gl_map_start"
@@ -93,7 +95,7 @@
                 app:srcCompat="@drawable/ic_create_24dp"
                 app:useCompatPadding="true" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <!--BottomSheet-->
         <include

@@ -1,22 +1,20 @@
 package com.teamdonut.eatto.ui.map;
 
-import androidx.databinding.ObservableBoolean;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.google.android.gms.maps.model.LatLng;
-import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.data.model.board.BoardRepository;
-import io.reactivex.disposables.CompositeDisposable;
 
 import java.util.List;
 
-public class MapViewModel extends ViewModel {
+import androidx.databinding.ObservableBoolean;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import io.reactivex.disposables.CompositeDisposable;
 
+public class MapViewModel extends ViewModel {
     private MapNavigator navigator;
 
-    RxBus rxbus = RxBus.getInstance();
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private final MutableLiveData<Board> openBoardEvent = new MutableLiveData<>();
@@ -27,19 +25,9 @@ public class MapViewModel extends ViewModel {
 
     public final ObservableBoolean isSheetExpanded = new ObservableBoolean(false);
 
-    public void loadBoards() {
-        checkBus();
+    public void loadBoards(Filter filter) {
+        this.filter = filter;
         fetchSearchBoards();
-    }
-
-    private void checkBus() {
-        rxbus.getBus()
-                .subscribe(data -> {
-                    if (data instanceof Filter) {
-                        filter = (Filter) data;
-                    }
-                })
-                .dispose();
     }
 
     public void fetchAreaBoards(LatLng leftLatLng, LatLng rightLatLng) {
@@ -70,11 +58,6 @@ public class MapViewModel extends ViewModel {
         }
     }
 
-    public void onStopViewModel() {
-        rxbus.resetBus();
-    }
-
-
     @Override
     protected void onCleared() {
         disposables.dispose();
@@ -91,10 +74,6 @@ public class MapViewModel extends ViewModel {
         if (navigator != null) {
             navigator.goToBoardAdd();
         }
-    }
-
-    public void resetFilter() {
-        this.filter = null;
     }
 
     public void onClickSetMyPosition() {
@@ -115,5 +94,9 @@ public class MapViewModel extends ViewModel {
 
     public Filter getFilter() {
         return filter;
+    }
+
+    public void resetFilter(){
+        filter = null;
     }
 }

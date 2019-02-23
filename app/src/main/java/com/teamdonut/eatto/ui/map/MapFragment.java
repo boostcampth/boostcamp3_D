@@ -11,26 +11,23 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.*;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.common.LiveBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
@@ -39,12 +36,24 @@ import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.board.preview.BoardPreviewDialog;
+import com.teamdonut.eatto.ui.main.MainActivity;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCallback {
@@ -60,7 +69,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private BoardPreviewDialog dialog;
 
-    private MapBoardAdapter mAdapter;
+    private MapBoardAdapter mapBoardAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 15;
@@ -68,6 +77,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     private final LatLng DEFAULT_LOCATION = new LatLng(37.566467, 126.978174); // 서울 시청
 
     private final String PREVIEW_TAG = "preview";
+
+    private MotionLayout motionLayout;
 
     public static MapFragment newInstance() {
         return new MapFragment();
@@ -81,8 +92,13 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
+
+        ((MainActivity)getActivity()).disableBnvClick();
+
+        initMotionLayout();
         initOpenBoardObserver();
         initBoardsObserver();
+        initSearchObserver();
         return binding.getRoot();
     }
 
@@ -97,14 +113,12 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.loadBoards();
         binding.mv.onResume();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        viewModel.onStopViewModel();
         binding.mv.onStop();
     }
 
@@ -134,6 +148,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                     if (tedPermissionResult.isGranted()) {
                         GpsModule gpsModule = new GpsModule(new WeakReference<>(getContext()), this);
                         gpsModule.startLocationUpdates();
+                        motionLayout.setTransition(R.id.start, R.id.end);
+                        motionLayout.transitionToEnd();
                     }
                 }, e -> {
                 });
@@ -145,7 +161,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         String strLongitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude");
         double latitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
         double longitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
-
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
     }
 
@@ -156,7 +171,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     @Override
-    public void goToMapSearch() {
+    public void goToMapSearch(){
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
         startActivity(intent);
     }
@@ -164,15 +179,18 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        setMyPosition();
+
+        String strLatitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude");
+        String strLongitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude");
+        double latitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
+        double longitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
+
         initCluster();
 
         map.setOnMarkerClickListener(clusterManager);
-        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                // 맵 로딩 콜백
-            }
+        map.setOnMapLoadedCallback(() -> {
+            ((MainActivity)getActivity()).enableBnvClick();
         });
     }
 
@@ -191,15 +209,15 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                         IS_MARKERCLICK = false;
                         break;
                     }
-                    default: {
+                    default:
                         return;
-                    }
                 }
             }
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                //nothing to do.
+                binding.fabBoardAdd.setRotation(slideOffset * 720);
+                binding.fabBoardAdd.setTranslationX(slideOffset * 180);
             }
         });
     }
@@ -216,7 +234,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             Filter filter = viewModel.getFilter(); //get Filter from viewModel.
 
             if (data.size() > 0) { //it could be search result / location result.
-                mAdapter.updateItems(data);
+                mapBoardAdapter.updateItems(data);
 
                 if (filter != null) { //if search result
                     setBottomSheetExpand(true);
@@ -238,22 +256,32 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
+    private void initSearchObserver() {
+        LiveBus.getInstance().getBus().observe(this, o -> {
+            if(o instanceof Filter) {
+                viewModel.loadBoards((Filter)o);
+                LiveBus.getInstance().sendBus(null);
+            }
+        });
+    }
+
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
-        mAdapter = new MapBoardAdapter(new ArrayList<>(), viewModel);
+        mapBoardAdapter = new MapBoardAdapter(new ArrayList<>(), viewModel);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.board_divider));
 
         rv.setHasFixedSize(true);
         rv.addItemDecoration(itemDecoration);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setAdapter(mAdapter);
+        rv.setAdapter(mapBoardAdapter);
     }
 
     private void initMapView(@Nullable Bundle savedInstanceState) {
         binding.mv.getMapAsync(this);
         binding.mv.onCreate(savedInstanceState);
     }
+
     private Bitmap createDrawableFromView(Context context, View view) {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -297,8 +325,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             IS_MARKERCLICK = true;
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), DEFAULT_ZOOM));
             data.setSelect(true);
-            mAdapter.notifyDataSetChanged();
-            binding.mapBottomSheet.rvBoard.getLayoutManager().scrollToPosition(mAdapter.getItemPosition(data));
+            mapBoardAdapter.notifyDataSetChanged();
+            binding.mapBottomSheet.rvBoard.getLayoutManager().scrollToPosition(mapBoardAdapter.getItemPosition(data));
             setBottomSheetExpand(true);
             return true;
         });
@@ -320,8 +348,34 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                     previousCameraPosition = map.getCameraPosition();
                 }
             }
+            motionLayout.setProgress(0);
         });
     }
+
+    private void initMotionLayout(){
+        motionLayout = binding.mlMain;
+        motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
+            @Override
+            public void onTransitionStarted(MotionLayout motionLayout, int i, int i1) {
+
+            }
+
+            @Override
+            public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v) {
+                binding.ibSetMypos.setRotation(v * 7200);
+            }
+
+            @Override
+            public void onTransitionCompleted(MotionLayout motionLayout, int i) {
+            }
+
+            @Override
+            public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
+
+            }
+        });
+    }
+
 
     public BottomSheetBehavior getBottomSheetBehavior() {
         return bottomSheetBehavior;
