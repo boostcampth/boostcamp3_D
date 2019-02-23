@@ -123,9 +123,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private void postFcmToken(String token) {
         disposables.add(
-                fcmRepository.postFCMToken(data -> {
-                    Log.d("posttoken", data.toString());
-                }, token)
+                fcmRepository.postFCMToken(token)
+                .subscribe()
         );
     }
 

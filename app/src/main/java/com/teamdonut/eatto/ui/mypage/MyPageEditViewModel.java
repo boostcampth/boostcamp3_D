@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class MyPageEditViewModel extends ViewModel {
 
-    private MyPageEditNavigator mNavigator;
+    private MyPageEditNavigator navigator;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -61,11 +61,11 @@ public class MyPageEditViewModel extends ViewModel {
     }
 
     public void onShowSelectSexDialogClick() {
-        mNavigator.showSelectSexDialog();
+        navigator.showSelectSexDialog();
     }
 
     public void onSelectPhotoClick() {
-        mNavigator.selectPhoto();
+        navigator.selectPhoto();
     }
 
     public User getUser() {
@@ -83,7 +83,7 @@ public class MyPageEditViewModel extends ViewModel {
     }
 
     public void setNavigator(MyPageEditNavigator mNavigator) {
-        this.mNavigator = mNavigator;
+        this.navigator = mNavigator;
     }
 
     public ObservableInt getUserSex() {

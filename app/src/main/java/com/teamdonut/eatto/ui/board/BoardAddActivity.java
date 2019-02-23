@@ -11,7 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TimePicker;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
@@ -21,25 +24,18 @@ import com.teamdonut.eatto.ui.board.search.BoardSearchActivity;
 
 import java.util.Calendar;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
-import io.realm.Realm;
-
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
     private BoardAddActivityBinding binding;
-    private BoardViewModel mViewModel;
+    private BoardViewModel viewModel;
     private final int BOARD_SEARCH_REQUEST = 101;
-    private Realm realm = Realm.getDefaultInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.board_add_activity);
-        mViewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
-        mViewModel.setNavigator(this);
-        binding.setViewmodel(mViewModel);
+        viewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
+        viewModel.setNavigator(this);
+        binding.setViewmodel(viewModel);
 
         initToolbar();
         editTextSetMaxLine(binding.etInputContent, 15);
@@ -109,9 +105,9 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String setTime = hourOfDay + "시 " + minute + "분";
-                mViewModel.setHourOfDay(hourOfDay);
-                mViewModel.setMinute(minute);
-                mViewModel.time.set(setTime);
+                viewModel.setHourOfDay(hourOfDay);
+                viewModel.setMinute(minute);
+                viewModel.time.set(setTime);
             }
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), DateFormat.is24HourFormat(getApplicationContext()));
 
@@ -138,14 +134,14 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
         if (inputCheck()) {
 
-            Board board = mViewModel.makeBoard(binding.etInputTitle.getText().toString());
+            Board board = viewModel.makeBoard(binding.etInputTitle.getText().toString());
 
             if (Strings.isEmptyOrWhitespace(binding.etInputContent.getText().toString())) {
                 board.setContent("");
             } else {
                 board.setContent(binding.etInputContent.getText().toString());
             }
-            mViewModel.addBoard(board);
+            viewModel.addBoard(board);
 
         } else {
             SnackBarUtil.showSnackBar(binding.rlBoardAddLayout, R.string.board_add_snack_bar);
@@ -159,12 +155,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     }
 
     @Override
-    protected void onDestroy() {
-        realm.close();
-        super.onDestroy();
-    }
-
-    @Override
     public void onBoardSearchShowClick() {
         Intent intent = new Intent(this, BoardSearchActivity.class);
         startActivityForResult(intent, BOARD_SEARCH_REQUEST);
@@ -175,11 +165,11 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
         if(resultCode == RESULT_OK) {
             switch (requestCode) {
                 case BOARD_SEARCH_REQUEST:
-                    mViewModel.getAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
-                    mViewModel.setPlaceName(data.getStringExtra("placeName"));
-                    mViewModel.setAddressName(data.getStringExtra("addressName"));
-                    mViewModel.setLongitude(data.getStringExtra("x"));
-                    mViewModel.setLatitude(data.getStringExtra("y"));
+                    viewModel.getAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
+                    viewModel.setPlaceName(data.getStringExtra("placeName"));
+                    viewModel.setAddressName(data.getStringExtra("addressName"));
+                    viewModel.setLongitude(data.getStringExtra("x"));
+                    viewModel.setLatitude(data.getStringExtra("y"));
                     break;
             }
         }

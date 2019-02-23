@@ -17,11 +17,11 @@ import io.realm.OrderedRealmCollection;
 
 public class MapKeywordAdapter extends BaseRealmRecyclerViewAdapter<Keyword, MapKeywordAdapter.ViewHolder> {
 
-    MapSearchViewModel mViewModel;
+    MapSearchViewModel viewModel;
 
     public MapKeywordAdapter(@Nullable OrderedRealmCollection<Keyword> data, boolean autoUpdate, MapSearchViewModel viewModel) {
         super(data, autoUpdate);
-        mViewModel = viewModel;
+        this.viewModel = viewModel;
     }
 
     @NonNull
@@ -32,7 +32,7 @@ public class MapKeywordAdapter extends BaseRealmRecyclerViewAdapter<Keyword, Map
         MapKeywordActionListener listener = new MapKeywordActionListener() {
             @Override
             public void onKeywordClick(Keyword keyword) {
-                mViewModel.onGoSearchClick(keyword.getContent());
+                viewModel.onGoSearchClick(keyword.getContent());
             }
         };
 

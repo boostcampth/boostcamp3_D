@@ -51,12 +51,12 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private MapFragmentBinding binding;
 
-    private MapViewModel mViewModel;
+    private MapViewModel viewModel;
     private BottomSheetBehavior bottomSheetBehavior;
 
-    private GoogleMap mMap;
-    private ClusterManager<Board> mClusterManager;
-    private CameraPosition mPreviousCameraPosition;
+    private GoogleMap map;
+    private ClusterManager<Board> clusterManager;
+    private CameraPosition previousCameraPosition;
 
     private BoardPreviewDialog dialog;
 
@@ -76,9 +76,9 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.map_fragment, container, false);
-        mViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
-        mViewModel.setNavigator(this);
-        binding.setViewmodel(mViewModel);
+        viewModel = ViewModelProviders.of(this).get(MapViewModel.class);
+        viewModel.setNavigator(this);
+        binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
         initOpenBoardObserver();
@@ -97,14 +97,14 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onResume() {
         super.onResume();
-        mViewModel.loadBoards();
+        viewModel.loadBoards();
         binding.mv.onResume();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mViewModel.onStopViewModel();
+        viewModel.onStopViewModel();
         binding.mv.onStop();
     }
 
@@ -146,7 +146,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         double latitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
         double longitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
     }
 
     @Override
@@ -163,12 +163,12 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        map = googleMap;
         setMyPosition();
         initCluster();
 
-        mMap.setOnMarkerClickListener(mClusterManager);
-        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+        map.setOnMarkerClickListener(clusterManager);
+        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
                 // 맵 로딩 콜백
@@ -183,11 +183,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
                     case BottomSheetBehavior.STATE_EXPANDED: {
-                        mViewModel.isSheetExpanded.set(true);
+                        viewModel.isSheetExpanded.set(true);
                         break;
                     }
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                        mViewModel.isSheetExpanded.set(false);
+                        viewModel.isSheetExpanded.set(false);
                         IS_MARKERCLICK = false;
                         break;
                     }
@@ -212,8 +212,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initBoardsObserver() {
-        mViewModel.getBoards().observe(this, data -> {
-            Filter filter = mViewModel.getFilter(); //get Filter from viewModel.
+        viewModel.getBoards().observe(this, data -> {
+            Filter filter = viewModel.getFilter(); //get Filter from viewModel.
 
             if (data.size() > 0) { //it could be search result / location result.
                 mAdapter.updateItems(data);
@@ -221,26 +221,26 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                 if (filter != null) { //if search result
                     setBottomSheetExpand(true);
                 }
-                mClusterManager.clearItems();
-                mClusterManager.addItems(data);
-                mClusterManager.cluster();
+                clusterManager.clearItems();
+                clusterManager.addItems(data);
+                clusterManager.cluster();
             } else if (filter != null) { //data size is 0
                 SnackBarUtil.showSnackBar(binding.colMap, R.string.board_search_can_not_find_result);
             }
 
-            mViewModel.resetFilter();
+            viewModel.resetFilter();
         });
     }
 
     private void initOpenBoardObserver() {
-        mViewModel.getOpenBoardEvent().observe(this, board -> {
+        viewModel.getOpenBoardEvent().observe(this, board -> {
             openBoardPreview(board);
         });
     }
 
     private void initRecyclerView() {
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
-        mAdapter = new MapBoardAdapter(new ArrayList<>(), mViewModel);
+        mAdapter = new MapBoardAdapter(new ArrayList<>(), viewModel);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
         itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.board_divider));
 
@@ -272,10 +272,10 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
 
     private void initCluster() {
-        mClusterManager = new ClusterManager<>(getActivity(), mMap);
-        mPreviousCameraPosition = mMap.getCameraPosition();
+        clusterManager = new ClusterManager<>(getActivity(), map);
+        previousCameraPosition = map.getCameraPosition();
 
-        mClusterManager.setRenderer(new DefaultClusterRenderer(this.getActivity(), mMap, mClusterManager){
+        clusterManager.setRenderer(new DefaultClusterRenderer(this.getActivity(), map, clusterManager){
             @Override
             protected void onClusterItemRendered(ClusterItem clusterItem, Marker marker) {
                 super.onClusterItemRendered(clusterItem, marker);
@@ -293,9 +293,9 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             }
         });
 
-        mClusterManager.setOnClusterItemClickListener(data -> {
+        clusterManager.setOnClusterItemClickListener(data -> {
             IS_MARKERCLICK = true;
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), DEFAULT_ZOOM));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), DEFAULT_ZOOM));
             data.setSelect(true);
             mAdapter.notifyDataSetChanged();
             binding.mapBottomSheet.rvBoard.getLayoutManager().scrollToPosition(mAdapter.getItemPosition(data));
@@ -303,21 +303,21 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             return true;
         });
 
-        mClusterManager.setOnClusterClickListener(data ->{
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), mMap.getCameraPosition().zoom + 1));
+        clusterManager.setOnClusterClickListener(data ->{
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), map.getCameraPosition().zoom + 1));
             return true;
         });
 
-        mMap.setOnCameraIdleListener(() -> {
+        map.setOnCameraIdleListener(() -> {
             if(!IS_MARKERCLICK) {
-                mViewModel.fetchAreaBoards(mMap.getProjection().getVisibleRegion().nearLeft, mMap.getProjection().getVisibleRegion().farRight);
-                if (mClusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
-                    ((GoogleMap.OnCameraIdleListener) mClusterManager.getRenderer()).onCameraIdle();
+                viewModel.fetchAreaBoards(map.getProjection().getVisibleRegion().nearLeft, map.getProjection().getVisibleRegion().farRight);
+                if (clusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
+                    ((GoogleMap.OnCameraIdleListener) clusterManager.getRenderer()).onCameraIdle();
                 }
 
-                CameraPosition position = mMap.getCameraPosition();
-                if (mPreviousCameraPosition == null || mPreviousCameraPosition.zoom != position.zoom) {
-                    mPreviousCameraPosition = mMap.getCameraPosition();
+                CameraPosition position = map.getCameraPosition();
+                if (previousCameraPosition == null || previousCameraPosition.zoom != position.zoom) {
+                    previousCameraPosition = map.getCameraPosition();
                 }
             }
         });

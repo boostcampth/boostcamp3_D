@@ -18,17 +18,17 @@ import gun0912.tedbottompicker.TedBottomPicker;
 public class MyPageEditActivity extends AppCompatActivity implements MyPageEditNavigator {
 
     private MypageEditActivityBinding binding;
-    private MyPageEditViewModel mViewModel;
+    private MyPageEditViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.mypage_edit_activity);
 
-        mViewModel = ViewModelProviders.of(this).get(MyPageEditViewModel.class);
-        mViewModel.setNavigator(this);
+        viewModel = ViewModelProviders.of(this).get(MyPageEditViewModel.class);
+        viewModel.setNavigator(this);
 
-        binding.setViewmodel(mViewModel);
+        binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
         initObserver();
@@ -36,7 +36,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
     }
 
     private void initObserver() {
-        mViewModel.getIsSubmitted().observe(this, isSubmitted -> {
+        viewModel.getIsSubmitted().observe(this, isSubmitted -> {
             if (isSubmitted) {
                 finish();
             }
@@ -73,7 +73,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         new AlertDialog.Builder(this)
                 .setTitle(R.string.all_sex)
                 .setItems(items, (dialog, position) -> {
-                    mViewModel.getUserSex().set(position); //integer type
+                    viewModel.getUserSex().set(position); //integer type
                 })
                 .show();
     }

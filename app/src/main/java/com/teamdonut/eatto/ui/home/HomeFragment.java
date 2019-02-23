@@ -25,10 +25,10 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements HomeNavigator {
 
     private HomeFragmentBinding binding;
-    private HomeViewModel mViewModel;
+    private HomeViewModel viewModel;
 
-    private UserRankingAdapter mRankingAdapter;
-    private BoardRecommendAdapter mRecommendAdapter;
+    private UserRankingAdapter userRankingAdapter;
+    private BoardRecommendAdapter boardRecommendAdapter;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -37,9 +37,9 @@ public class HomeFragment extends Fragment implements HomeNavigator {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
-        mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
-        binding.setViewmodel(mViewModel);
+        binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
         return binding.getRoot();
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment implements HomeNavigator {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel.setNavigator(this);
+        viewModel.setNavigator(this);
 
         initRecommendRv();
         initRankingRv();
@@ -58,9 +58,9 @@ public class HomeFragment extends Fragment implements HomeNavigator {
     }
     
     private void fetchData() {
-        mViewModel.fetchRankUsers();
-        mViewModel.fetchRankUser();
-        mViewModel.fetchRecommendBoards(
+        viewModel.fetchRankUsers();
+        viewModel.fetchRankUser();
+        viewModel.fetchRecommendBoards(
                 ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude"),
                 ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude")
         );
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment implements HomeNavigator {
 
     private void initRankingRv() {
         RecyclerView rv = binding.rvRank;
-        mRankingAdapter = new UserRankingAdapter(new ArrayList<>(0), mViewModel);
+        userRankingAdapter = new UserRankingAdapter(new ArrayList<>(0), viewModel);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext()) {
             @Override
@@ -80,12 +80,12 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         rv.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
         rv.setHasFixedSize(true);
         rv.setLayoutManager(layoutManager);
-        rv.setAdapter(mRankingAdapter);
+        rv.setAdapter(userRankingAdapter);
     }
 
     private void initRecommendRv() {
         RecyclerView rv = binding.rvRecommend;
-        mRecommendAdapter = new BoardRecommendAdapter(new ArrayList<>(0), mViewModel);
+        boardRecommendAdapter = new BoardRecommendAdapter(new ArrayList<>(0), viewModel);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false) {
             @Override
@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         };
         rv.setLayoutManager(layoutManager);
         rv.setHasFixedSize(true);
-        rv.setAdapter(mRecommendAdapter);
+        rv.setAdapter(boardRecommendAdapter);
     }
 
     @Override

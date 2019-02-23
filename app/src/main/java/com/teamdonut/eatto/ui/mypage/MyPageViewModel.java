@@ -12,7 +12,7 @@ import io.realm.Realm;
 
 public class MyPageViewModel extends ViewModel {
 
-    private MyPageNavigator mNavigator;
+    private MyPageNavigator navigator;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -37,15 +37,15 @@ public class MyPageViewModel extends ViewModel {
     }
 
     public void onJudgeClick() {
-        mNavigator.goJudge();
+        navigator.goJudge();
     }
 
     public void onProfileEditClick() {
-        mNavigator.goToProfileEdit();
+        navigator.goToProfileEdit();
     }
 
     public void onLogoutClick() {
-        mNavigator.makeUserLogout();
+        navigator.makeUserLogout();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MyPageViewModel extends ViewModel {
     }
 
     public void setNavigator(MyPageNavigator mNavigator) {
-        this.mNavigator = mNavigator;
+        this.navigator = mNavigator;
     }
 
     public ObservableField<User> getUser() {

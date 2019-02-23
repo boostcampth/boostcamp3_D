@@ -3,7 +3,8 @@ package com.teamdonut.eatto.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.User;
@@ -11,16 +12,13 @@ import com.teamdonut.eatto.databinding.RankingItemBinding;
 
 import java.util.List;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class UserRankingAdapter extends BaseRecyclerViewAdapter<User, UserRankingAdapter.ViewHolder> {
 
-    private HomeViewModel mViewModel;
+    private HomeViewModel viewModel;
 
     public UserRankingAdapter(List<User> dataSet, HomeViewModel viewMdoel) {
         super(dataSet);
-        mViewModel = viewMdoel;
+        viewModel = viewMdoel;
     }
 
     @Override

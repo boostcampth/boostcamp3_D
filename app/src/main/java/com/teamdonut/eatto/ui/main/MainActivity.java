@@ -21,16 +21,16 @@ import androidx.fragment.app.Fragment;
 public class MainActivity extends AppCompatActivity implements MainNavigator {
 
     private MainActivityBinding binding;
-    private MainViewModel mViewModel = new MainViewModel(this);
+    private MainViewModel viewModel = new MainViewModel(this);
     private final int BOARD_ADD_REQUEST = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        binding.setViewmodel(mViewModel); //set viewModel.
+        binding.setViewmodel(viewModel); //set viewModel.
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.fl_main);
-        mViewModel.postFcmToken(FirebaseInstanceId.getInstance().getToken());
+        viewModel.postFcmToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     public void startAnimation(){

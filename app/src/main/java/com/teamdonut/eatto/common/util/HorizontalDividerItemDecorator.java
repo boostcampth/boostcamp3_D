@@ -6,16 +6,16 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HorizontalDividerItemDecorator extends RecyclerView.ItemDecoration {
-    private Drawable mDivider;
-    private Double mWidthPercent;
+    private Drawable divider;
+    private Double widthPercent;
     public HorizontalDividerItemDecorator(Drawable divider, Double widthPercent) {
-        mDivider = divider;
-        mWidthPercent = widthPercent;
+        this.divider = divider;
+        this.widthPercent = widthPercent;
     }
 
     @Override
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
-        int space = (int)(parent.getWidth() * mWidthPercent);
+        int space = (int)(parent.getWidth() * widthPercent);
         int dividerLeft = space + parent.getPaddingLeft();
         int dividerRight = parent.getWidth() - parent.getPaddingRight() - space;
 
@@ -26,10 +26,10 @@ public class HorizontalDividerItemDecorator extends RecyclerView.ItemDecoration 
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
 
             int dividerTop = child.getBottom() + params.bottomMargin;
-            int dividerBottom = dividerTop + mDivider.getIntrinsicHeight();
+            int dividerBottom = dividerTop + divider.getIntrinsicHeight();
 
-            mDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
-            mDivider.draw(canvas);
+            divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom);
+            divider.draw(canvas);
         }
     }
 }

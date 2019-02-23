@@ -8,13 +8,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
-import com.teamdonut.eatto.databinding.BoardFragmentBinding;
-import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -24,6 +17,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.databinding.BoardFragmentBinding;
+import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
+
+import java.util.ArrayList;
 
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
@@ -31,10 +30,10 @@ import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 public class BoardFragment extends Fragment implements BoardNavigator {
 
     private BoardFragmentBinding binding;
-    private BoardViewModel mViewModel;
+    private BoardViewModel viewModel;
 
-    private BoardOwnAdapter mOwnBoardAdapter;
-    private BoardParticipateAdapter mParticipateBoardAdapter;
+    private BoardOwnAdapter boardOwnAdapter;
+    private BoardParticipateAdapter boardParticipateAdapter;
 
     private final int BOARD_ADD_REQUEST = 100;
 
@@ -46,8 +45,8 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
-        mViewModel.setNavigator(this);
+        viewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
+        viewModel.setNavigator(this);
 
         initOpenBoardObserve();
     }
@@ -56,7 +55,7 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.board_fragment, container, false);
-        binding.setViewmodel(mViewModel);
+        binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
         return binding.getRoot();
@@ -68,12 +67,12 @@ public class BoardFragment extends Fragment implements BoardNavigator {
 
         initRv(binding.rvOwn);
         initRv(binding.rvParticipate);
-        mViewModel.fetchOwnBoard();
-        mViewModel.fetchParticipateBoard();
+        viewModel.fetchOwnBoard();
+        viewModel.fetchParticipateBoard();
     }
 
     private void initOpenBoardObserve() {
-        mViewModel.getOpenBoardEvent().observe(this, data -> {
+        viewModel.getOpenBoardEvent().observe(this, data -> {
             Intent intent = new Intent(getContext(), BoardDetailActivity.class);
             RxBus.getInstance().sendBus(data);
             startActivity(intent);
@@ -83,14 +82,14 @@ public class BoardFragment extends Fragment implements BoardNavigator {
     private void initRv(RecyclerView rv) {
         switch (rv.getId()) {
             case R.id.rv_own: {
-                mOwnBoardAdapter = new BoardOwnAdapter(new ArrayList<>(0), mViewModel);
-                rv.setAdapter(mOwnBoardAdapter);
+                boardOwnAdapter = new BoardOwnAdapter(new ArrayList<>(0), viewModel);
+                rv.setAdapter(boardOwnAdapter);
                 setAnimation(rv);
                 break;
             }
             case R.id.rv_participate: {
-                mParticipateBoardAdapter = new BoardParticipateAdapter(new ArrayList<>(0), mViewModel);
-                rv.setAdapter(mParticipateBoardAdapter);
+                boardParticipateAdapter = new BoardParticipateAdapter(new ArrayList<>(0), viewModel);
+                rv.setAdapter(boardParticipateAdapter);
                 setAnimation(rv);
                 break;
             }

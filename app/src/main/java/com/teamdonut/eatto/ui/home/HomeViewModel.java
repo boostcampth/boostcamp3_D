@@ -18,13 +18,13 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<Integer> allBoardsSize = new MutableLiveData<>(); //총 게시글 크기.
 
     private CompositeDisposable disposables = new CompositeDisposable();
-    private HomeNavigator mNavigator;
+    private HomeNavigator navigator;
 
-    private BoardRepository mBoardRepository = BoardRepository.getInstance();
-    private UserRepository mUserRepository = UserRepository.getInstance();
+    private BoardRepository boardRepository = BoardRepository.getInstance();
+    private UserRepository userRepository = UserRepository.getInstance();
 
     public void fetchRecommendBoards(String longitude, String latitude) {
-        disposables.add(mBoardRepository.getRecommendBoards(longitude, latitude)
+        disposables.add(boardRepository.getRecommendBoards(longitude, latitude)
                 .subscribe(data -> {
                     if (data != null) {
                         allBoardsSize.postValue(data.first);
@@ -36,7 +36,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void fetchRankUsers() {
-        disposables.add(mUserRepository.getTopTenUsers()
+        disposables.add(userRepository.getTopTenUsers()
                 .subscribe(data -> {
                             if (data != null) {
                                 rankingUsers.postValue(data);
@@ -49,7 +49,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void fetchRankUser() {
-        disposables.add(mUserRepository.getRankUser()
+        disposables.add(userRepository.getRankUser()
                 .subscribe(data -> {
                             if (data != null) {
                                 user.postValue(data);
@@ -59,7 +59,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void onSearchClick() {
-        mNavigator.goToMapSearch();
+        navigator.goToMapSearch();
     }
 
     public MutableLiveData<User> getUser() {
@@ -67,7 +67,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void setNavigator(HomeNavigator navigator) {
-        this.mNavigator = navigator;
+        this.navigator = navigator;
     }
 
     @Override

@@ -18,10 +18,10 @@ import java.lang.ref.WeakReference;
 public class GpsModule {
     private LocationRequest locationRequest;
     private static final long UPDATE_INTERVAL = 15000, FASTEST_INTERVAL = 10000;
-    private FusedLocationProviderClient mFusedLocationClient;
+    private FusedLocationProviderClient fusedLocationProviderClient;
     private MapNavigator mapNavigator;
-    private final Context mContext;
-    private LocationCallback mLocationCallback = new LocationCallback(){
+    private final Context context;
+    private LocationCallback locationCallback = new LocationCallback(){
         @Override
         public void onLocationResult(LocationResult locationResult) {
             super.onLocationResult(locationResult);
@@ -30,10 +30,10 @@ public class GpsModule {
             }
             for (Location location : locationResult.getLocations()) {
                 if(location != null){
-                    ActivityUtils.saveStrValueSharedPreferences(mContext, "gps", "longitude", String.valueOf(location.getLongitude()));
-                    ActivityUtils.saveStrValueSharedPreferences(mContext, "gps", "latitude", String.valueOf(location.getLatitude()));
+                    ActivityUtils.saveStrValueSharedPreferences(context, "gps", "longitude", String.valueOf(location.getLongitude()));
+                    ActivityUtils.saveStrValueSharedPreferences(context, "gps", "latitude", String.valueOf(location.getLatitude()));
                     stopLocationUpdates();
-                    if(mContext instanceof MainActivity) {
+                    if(context instanceof MainActivity) {
                         mapNavigator.setMyPosition();
                     }
                 }
@@ -42,8 +42,8 @@ public class GpsModule {
     };
 
     public GpsModule(WeakReference<Context> context, MapNavigator mapNavigator){
-        mContext = context.get();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
+        this.context = context.get();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.context);
         this.mapNavigator = mapNavigator;
         locationRequest = new LocationRequest()
                 .setFastestInterval(FASTEST_INTERVAL)
@@ -52,13 +52,13 @@ public class GpsModule {
     }
 
     private void stopLocationUpdates(){
-        if (mFusedLocationClient != null) {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        if (fusedLocationProviderClient != null) {
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
         }
     }
 
     @SuppressLint("MissingPermission")
     public void startLocationUpdates() {
-        mFusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 }

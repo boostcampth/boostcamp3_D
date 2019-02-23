@@ -45,9 +45,8 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void postFcmToken(String token) {
         disposables.add(
-                fcmRepository.postFCMToken(data -> {
-                    Log.d("posttoken",data.toString());
-                },token)
+                fcmRepository.postFCMToken(token)
+                .subscribe()
         );
     }
 

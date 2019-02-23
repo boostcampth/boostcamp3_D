@@ -3,25 +3,22 @@ package com.teamdonut.eatto.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.RecommendBoardItemBinding;
-import com.teamdonut.eatto.ui.board.BoardViewModel;
 
 import java.util.List;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-
 public class BoardRecommendAdapter extends BaseRecyclerViewAdapter<Board, BoardRecommendAdapter.ViewHolder> {
 
-    private HomeViewModel mViewModel;
+    private HomeViewModel viewModel;
 
     public BoardRecommendAdapter(List<Board> dataSet, HomeViewModel viewModel) {
         super(dataSet);
-        this.mViewModel = viewModel;
+        this.viewModel = viewModel;
     }
 
     @Override

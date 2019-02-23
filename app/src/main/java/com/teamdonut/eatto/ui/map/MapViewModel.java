@@ -14,12 +14,12 @@ import java.util.List;
 
 public class MapViewModel extends ViewModel {
 
-    private MapNavigator mNavigator;
+    private MapNavigator navigator;
 
     RxBus rxbus = RxBus.getInstance();
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private final MutableLiveData<Board> mOpenBoardEvent = new MutableLiveData<>();
+    private final MutableLiveData<Board> openBoardEvent = new MutableLiveData<>();
     private final MutableLiveData<List<Board>> boards = new MutableLiveData<>();
 
     private BoardRepository boardRepository = BoardRepository.getInstance();
@@ -64,9 +64,9 @@ public class MapViewModel extends ViewModel {
 
     public void onScrollButtonClick() {
         if (!isSheetExpanded.get()) {
-            mNavigator.setBottomSheetExpand(true);
+            navigator.setBottomSheetExpand(true);
         } else {
-            mNavigator.setBottomSheetExpand(false);
+            navigator.setBottomSheetExpand(false);
         }
     }
 
@@ -83,13 +83,13 @@ public class MapViewModel extends ViewModel {
 
     //검색 버튼 리스너
     public void onSearchClick() {
-        mNavigator.goToMapSearch();
+        navigator.goToMapSearch();
     }
 
     //게시물 추가 리스너
     public void onClickBoardAdd() {
-        if (mNavigator != null) {
-            mNavigator.goToBoardAdd();
+        if (navigator != null) {
+            navigator.goToBoardAdd();
         }
     }
 
@@ -98,15 +98,15 @@ public class MapViewModel extends ViewModel {
     }
 
     public void onClickSetMyPosition() {
-        mNavigator.startLocationUpdates();
+        navigator.startLocationUpdates();
     }
 
     public MutableLiveData<Board> getOpenBoardEvent() {
-        return mOpenBoardEvent;
+        return openBoardEvent;
     }
 
     public void setNavigator(MapNavigator navigator) {
-        this.mNavigator = navigator;
+        this.navigator = navigator;
     }
 
     public MutableLiveData<List<Board>> getBoards() {

@@ -16,7 +16,7 @@ public class BoardDetailViewModel extends ViewModel {
     private CommentRepository commentRepository = CommentRepository.getInstance();
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    private final ObservableField<Board> mBoard = new ObservableField<>();
+    private final ObservableField<Board> board = new ObservableField<>();
     private final MutableLiveData<List<Comment>> comments = new MutableLiveData<>();
 
     public void loadComments() {
@@ -24,8 +24,8 @@ public class BoardDetailViewModel extends ViewModel {
     }
 
     private void fetchComments() {
-        if (mBoard.get() != null) {
-            disposables.add(commentRepository.getComments(mBoard.get().getId())
+        if (board.get() != null) {
+            disposables.add(commentRepository.getComments(board.get().getId())
                     .subscribe(data -> {
                         if (data != null) {
                             comments.postValue(data);
@@ -43,8 +43,8 @@ public class BoardDetailViewModel extends ViewModel {
     }
 
     public void onWriteCommentClick(String inputText) {
-        if (mBoard.get() != null) {
-            Comment comment = new Comment(mBoard.get().getId(), RealmDataHelper.getUser().getNickName(), inputText);
+        if (board.get() != null) {
+            Comment comment = new Comment(board.get().getId(), RealmDataHelper.getUser().getNickName(), inputText);
             sendComments(comment);
         }
     }
@@ -60,6 +60,6 @@ public class BoardDetailViewModel extends ViewModel {
     }
 
     public ObservableField<Board> getBoard() {
-        return mBoard;
+        return board;
     }
 }
