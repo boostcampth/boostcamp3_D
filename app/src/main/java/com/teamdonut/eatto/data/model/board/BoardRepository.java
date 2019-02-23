@@ -57,27 +57,17 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Disposable getRecommendBoardss(Consumer<List<Board>> subscribeConsumer, Consumer<List<Board>> afterConsumer, String longitude, String latitude) {
-        return service.getRecommendBoards(longitude, latitude)
+    public Single<List<Board>> getOwnBoard() {
+        return service.getOwnBoard(RealmDataHelper.getUser().getKakaoId())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doAfterSuccess(afterConsumer)
-                .subscribe(subscribeConsumer);
-    }
-
-    public Disposable getUserCreatedBoard(Consumer<List<Board>> subscribeConsumer) {
-        return service.getUserCreatedBoard(RealmDataHelper.getUser().getKakaoId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 
-    public Disposable getUserParticipatedBoard(Consumer<List<Board>> subscribeConsumer) {
-        return service.getUserParticipatedBoard(RealmDataHelper.getUser().getKakaoId())
+    public Single<List<Board>> getUserParticipatedBoard() {
+        return service.getParticipatedBoard(RealmDataHelper.getUser().getKakaoId())
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Disposable postBoard(Consumer<JsonObject> subscribeConsumer, Board board) {
@@ -101,8 +91,8 @@ public class BoardRepository {
                 .subscribe(subscribeConsumer);
     }
 
-    public Disposable joinBoard(Consumer<JsonObject> subscribeConsumer, JsonObject jsonObject) {
-        return service.joinBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
+    public Disposable participateBoard(Consumer<JsonObject> subscribeConsumer, JsonObject jsonObject) {
+        return service.participateBoard(RealmDataHelper.getUser().getKakaoId(), jsonObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscribeConsumer);

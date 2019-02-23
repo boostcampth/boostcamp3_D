@@ -24,17 +24,17 @@ public interface BoardAPI {
     );
 
     @GET("board/list/my")
-    Single<List<Board>> getUserCreatedBoard(
+    Single<List<Board>> getOwnBoard(
             @Header("kakao_id") long kakaoId
     );
 
     @GET("board/list/participation")
-    Single<List<Board>> getUserParticipatedBoard(
+    Single<List<Board>> getParticipatedBoard(
             @Header("kakao_id") long kakaoId
     );
 
     @POST("board/participation")
-    Single<JsonObject> joinBoard(
+    Single<JsonObject> participateBoard(
             @Header("kakao_id") long kakaoId,
             @Body JsonObject jsonObject
     );
