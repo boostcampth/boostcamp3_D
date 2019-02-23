@@ -8,9 +8,8 @@ import com.teamdonut.eatto.data.model.ServiceGenerator;
 
 import java.util.List;
 
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class CommentRepository {
@@ -24,19 +23,16 @@ public class CommentRepository {
         private static final CommentRepository INSTANCE = new CommentRepository();
     }
 
-    public Disposable getComments(Consumer<List<Comment>> subscribeConsumer, int boardId) {
+    public Single<List<Comment>> getComments(int boardId) {
         return service.getComments(RealmDataHelper.getUser().getKakaoId(), boardId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(subscribeConsumer);
+                .subscribeOn(Schedulers.io());
     }
 
     public Disposable postComment(Consumer<JsonObject> subscribeConsumer, Consumer<JsonObject> afterConsumer, Comment comment) {
         return service.postComments(RealmDataHelper.getUser().getKakaoId(), FirebaseInstanceId.getInstance().getToken(), comment)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .doAfterSuccess(afterConsumer)
-                .subscribe(subscribeConsumer);
+                .subscribeOn(Schedulers.io());
     }
 
 }

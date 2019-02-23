@@ -43,16 +43,22 @@ public class MapViewModel extends ViewModel {
     }
 
     public void fetchAreaBoards(LatLng leftLatLng, LatLng rightLatLng) {
-        disposables.add(boardRepository.getAreaBoards(data -> {
-            boards.setValue(data);
-        }, leftLatLng, rightLatLng));
+        disposables.add(boardRepository.getAreaBoards(leftLatLng, rightLatLng)
+                .subscribe(data -> {
+                            boards.setValue(data);
+                        }
+                        , e -> {
+                        }));
+
     }
 
     private void fetchSearchBoards() {
         if (filter != null) {
-            disposables.add(boardRepository.getSearchBoards(data -> {
-                boards.postValue(data);
-            }, filter));
+            disposables.add(boardRepository.getSearchBoards(filter)
+                    .subscribe(data -> {
+                        boards.postValue(data);
+                    }, e -> {
+                    }));
         }
     }
 

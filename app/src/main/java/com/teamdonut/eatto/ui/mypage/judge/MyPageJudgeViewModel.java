@@ -15,9 +15,10 @@ public class MyPageJudgeViewModel extends ViewModel {
     private BoardRepository boardRepository = BoardRepository.getInstance();
 
     public void fetchBoards() {
-        disposables.add(boardRepository.getJudgeBoards(data -> {
-            judgeAdapter.updateItems(data);
-        }));
+        disposables.add(boardRepository.getJudgeBoards()
+                .subscribe(data -> {
+                    judgeAdapter.updateItems(data);
+                }));
     }
 
     public void judgeBoard(long writerId, int boardId, int score) {
@@ -25,9 +26,9 @@ public class MyPageJudgeViewModel extends ViewModel {
         jsonObject.addProperty("writer_id", writerId);
         jsonObject.addProperty("board_id", boardId);
         jsonObject.addProperty("score", score);
-        disposables.add(boardRepository.putJudgeBoards(data -> {
-        }, jsonObject));
-
+        disposables.add(boardRepository.putJudgeBoards(jsonObject)
+                .subscribe(data -> {
+                }));
     }
 
     public void onDestroyViewModel() {

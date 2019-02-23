@@ -20,11 +20,12 @@ public class BoardPreviewViewModel extends ViewModel {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("board_id", boardId);
 
-        disposable.add(boardRepository.participateBoard(data -> {
-            if (data.get("code").getAsInt() == 200) {
-                isSubmitted.postValue(true);
-            }
-        }, jsonObject));
+        disposable.add(boardRepository.postParticipateBoard(jsonObject)
+                .subscribe(data -> {
+                    if (data.get("code").getAsInt() == 200) {
+                        isSubmitted.postValue(true);
+                    }
+                }));
     }
 
     public void setBoardValue(Board board) {
