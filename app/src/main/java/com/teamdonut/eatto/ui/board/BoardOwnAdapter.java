@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdapter.ViewHolder> {
 
     private BoardViewModel mViewModel;
+    private BoardItemActionListener listener;
 
     public BoardOwnAdapter(ArrayList<Board> dataSet, BoardViewModel boardViewModel) {
         super(dataSet);
@@ -26,9 +27,10 @@ public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdap
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardItemBinding binding = BoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         final ViewHolder holder = new ViewHolder(binding);
-        holder.binding.clBoardItem.setOnClickListener((v) -> {
-           mViewModel.getmNavigator().onShowMyBoardDetail(holder.getAdapterPosition());
-        });
+
+        listener = board -> mViewModel.getOpenBoardEvent().setValue(board);
+
+        holder.binding.setListener(listener);
         return holder;
     }
 
@@ -37,7 +39,8 @@ public class BoardOwnAdapter extends BaseRecyclerViewAdapter<Board, BoardOwnAdap
         holder.binding.setBoard(getItem(position));
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
         BoardItemBinding binding;
 
         ViewHolder(BoardItemBinding binding) {

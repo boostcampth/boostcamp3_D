@@ -12,21 +12,25 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BoardJoinAdapter extends BaseRecyclerViewAdapter<Board, BoardJoinAdapter.ViewHolder> {
-    private BoardViewModel mViewModel;
+public class BoardParticipateAdapter extends BaseRecyclerViewAdapter<Board, BoardParticipateAdapter.ViewHolder> {
 
-    public BoardJoinAdapter(ArrayList<Board> dataSet, BoardViewModel boardViewModel) {
+    private BoardViewModel mViewModel;
+    private BoardItemActionListener listener;
+
+    public BoardParticipateAdapter(ArrayList<Board> dataSet, BoardViewModel boardViewModel) {
         super(dataSet);
         mViewModel = boardViewModel;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardItemBinding binding = BoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         final ViewHolder holder = new ViewHolder(binding);
-        holder.binding.clBoardItem.setOnClickListener((v) -> {
-           mViewModel.getmNavigator().onShowJoinBoardDetail(holder.getAdapterPosition());
-        });
+
+        listener = board -> mViewModel.getOpenBoardEvent().setValue(board);
+
+        holder.binding.setListener(listener);
         return holder;
     }
 
@@ -35,7 +39,8 @@ public class BoardJoinAdapter extends BaseRecyclerViewAdapter<Board, BoardJoinAd
         holder.binding.setBoard(getItem(position));
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
         BoardItemBinding binding;
 
         ViewHolder(BoardItemBinding binding) {
@@ -43,5 +48,4 @@ public class BoardJoinAdapter extends BaseRecyclerViewAdapter<Board, BoardJoinAd
             this.binding = binding;
         }
     }
-
 }
