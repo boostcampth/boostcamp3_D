@@ -106,6 +106,9 @@
     <string name="mpj_tv_no_data">평가할 게시글이 없습니다.</string>
     <string name="mpj_tv_sub_title">모임을 평가해주세요.</string>
 
+    <!--Mypage item-->
+    <string name="mpj_tv_people">, %d명 참여</string>
+
     <!--Search-->
     <string name="search_tv_recent_keyword">최근 검색어</string>
     <string name="search_tv_remove_keyword">기록삭제</string>
