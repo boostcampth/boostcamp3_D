@@ -73,6 +73,13 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         }
     }
 
+    public void removeItem(T item) {
+        int position = getItemPosition(item);
+
+       dataSet.remove(position);
+       notifyItemRemoved(position);
+    }
+
     /**
      * Set items.
      */
