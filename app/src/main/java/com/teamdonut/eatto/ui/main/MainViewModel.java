@@ -27,7 +27,7 @@ import io.reactivex.disposables.CompositeDisposable;
 public class MainViewModel {
 
     private MainNavigator mNavigator;
-    CompositeDisposable disposables = new CompositeDisposable();
+    private CompositeDisposable disposables = new CompositeDisposable();
     private FCMRepository fcmRepository = FCMRepository.getInstance();
 
     MainViewModel(MainNavigator navigator) {
