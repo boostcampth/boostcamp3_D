@@ -23,20 +23,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
+                style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/white"
-                android:paddingStart="@dimen/space_medium_padding"
-                android:paddingEnd="@dimen/space_medium_padding"
-                app:popupTheme="@style/AppTheme">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/board_tv_toolbar"
-                    android:textSize="@dimen/board_detail_title_size"
-                    android:textStyle="bold" />
-            </androidx.appcompat.widget.Toolbar>
+                app:elevation="0dp"
+                app:popupTheme="@style/AppTheme"
+                app:title="@string/board_tv_toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -44,58 +36,86 @@
             android:id="@+id/nsv_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorHungryGray"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/abl_top">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_v_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.04" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_v_960"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.96" />
 
                 <TextView
-                    android:id="@+id/tv_my_board"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_own"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/space_medium_margin"
-                    android:text="@string/board_tv_my_board"
-                    android:textSize="@dimen/board_item_title_size"
+                    android:paddingTop="@dimen/space_medium_margin"
+                    android:text="@string/board_tv_own"
+                    android:textColor="@color/colorFilterSubTitle"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/rv_my_board"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/rv_own"
+                    app:layout_constraintEnd_toEndOf="@+id/gl_v_960"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@+id/gl_v_40"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_my_board"
-                    android:layout_width="match_parent"
+                    android:id="@+id/rv_own"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_large_margin"
                     android:overScrollMode="never"
-                    app:layout_constraintBottom_toTopOf="@id/tv_other_board"
-                    app:layout_constraintTop_toBottomOf="@id/tv_my_board" />
-
-                <TextView
-                    android:id="@+id/tv_other_board"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_medium_margin"
-                    android:layout_marginEnd="@dimen/space_medium_margin"
-                    android:layout_marginBottom="@dimen/space_medium_margin"
-                    android:text="@string/board_tv_joined_board"
-                    android:textSize="@dimen/board_item_title_size"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/rv_other_board"
+                    app:items="@{viewmodel.ownBoards}"
+                    app:layout_constraintBottom_toTopOf="@id/tv_participate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_my_board" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_own" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/colorHungryGray"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_participate"
+                    app:layout_constraintEnd_toEndOf="@+id/gl_v_960"
+                    app:layout_constraintStart_toStartOf="@+id/gl_v_40"
+                    app:layout_constraintTop_toBottomOf="@id/rv_own" />
+
+                <TextView
+                    android:id="@+id/tv_participate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/space_medium_margin"
+                    android:text="@string/board_tv_participate"
+                    android:textColor="@color/colorFilterSubTitle"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/rv_participate"
+                    app:layout_constraintEnd_toEndOf="@+id/gl_v_960"
+                    app:layout_constraintStart_toStartOf="@+id/gl_v_40"
+                    app:layout_constraintTop_toBottomOf="@id/rv_own" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_other_board"
+                    android:id="@+id/rv_participate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:overScrollMode="never"
+                    app:items="@{viewmodel.participateBoards}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_other_board" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_participate" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

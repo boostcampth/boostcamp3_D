@@ -242,7 +242,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         RecyclerView rv = binding.mapBottomSheet.rvBoard;
         mAdapter = new MapBoardAdapter(new ArrayList<>(), mViewModel);
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
-        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.map_board_divider));
+        itemDecoration.setDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.board_divider));
 
         rv.setHasFixedSize(true);
         rv.addItemDecoration(itemDecoration);

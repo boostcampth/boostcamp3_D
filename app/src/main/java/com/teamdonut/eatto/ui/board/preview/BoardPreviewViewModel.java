@@ -20,7 +20,7 @@ public class BoardPreviewViewModel extends ViewModel {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("board_id", boardId);
 
-        disposable.add(boardRepository.joinBoard(data -> {
+        disposable.add(boardRepository.participateBoard(data -> {
             if (data.get("code").getAsInt() == 200) {
                 isSubmitted.postValue(true);
             }

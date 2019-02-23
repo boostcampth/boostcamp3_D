@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.*;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import com.appyvet.materialrangebar.RangeBar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -14,12 +15,14 @@ import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.data.model.board.BoardRepository;
 import com.teamdonut.eatto.data.model.kakao.KakaoRepository;
 import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.realm.Realm;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @BindingMethods({
@@ -31,6 +34,7 @@ import java.util.Locale;
 })
 
 public class BoardViewModel extends ViewModel {
+
     private BoardNavigator mNavigator;
     public ObservableField<String> time = new ObservableField<>();
     public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
@@ -51,13 +55,11 @@ public class BoardViewModel extends ViewModel {
     private BoardSearchAdapter boardSearchAdapter = new BoardSearchAdapter(documents);
 
     //Board Fragment
-    private ObservableArrayList<Board> joinBoards = new ObservableArrayList<>();
-    private ObservableArrayList<Board> ownBoards = new ObservableArrayList<>();
-    private BoardOwnAdapter boardOwnAdapter = new BoardOwnAdapter(ownBoards, this);
-    private BoardJoinAdapter boardJoinAdapter = new BoardJoinAdapter(joinBoards, this);
+    private MutableLiveData<List<Board>> mOwnBoards = new MutableLiveData<>(); //own
+    private MutableLiveData<List<Board>> mParticipateBoards = new MutableLiveData<>(); //participate
+    private MutableLiveData<Board> openBoardEvent = new MutableLiveData<>(); //open board event.
 
     private Realm realm = Realm.getDefaultInstance();
-
     public ObservableField<String> mAddress = new ObservableField<>();
 
     //Board Add
@@ -67,11 +69,7 @@ public class BoardViewModel extends ViewModel {
     private KakaoRepository kakaoRepository = KakaoRepository.getInstance();
     private BoardRepository boardRepository = BoardRepository.getInstance();
 
-    public BoardViewModel(BoardNavigator navigator) {
-        mNavigator = navigator;
-    }
-
-    public void fetchEtKeywordHint(String kakaoKey, String longtitude, String latitude, String defaultAddress) {
+    public void fetchEtKeywordHint(String kakaoKey, String longitude, String latitude, String defaultAddress) {
         disposables.add(kakaoRepository.getMyAddress(data -> {
             try {
                 JsonArray jsonArray = data.getAsJsonArray("documents");
@@ -81,11 +79,7 @@ public class BoardViewModel extends ViewModel {
                 e.printStackTrace();
                 etKeywordHint.setValue(defaultAddress);
             }
-        }, kakaoKey, longtitude, latitude));
-    }
-
-    void onFragmentDestroyed() {
-        mNavigator = null;
+        }, kakaoKey, longitude, latitude));
     }
 
     public void onClickBoardAdd() {
@@ -120,19 +114,22 @@ public class BoardViewModel extends ViewModel {
     }
 
     //사용자가 생성한 게시글 불러오기
-    public void fetchOwnBoardResult() {
-        disposables.add(boardRepository.getUserCreatedBoard(data -> {
-            boardOwnAdapter.updateItems(data);
-        }));
+    public void fetchOwnBoard() {
+        disposables.add(boardRepository.getOwnBoard()
+                .subscribe(data -> {
+                    mOwnBoards.postValue(data);
+                }, e -> {
+                    e.printStackTrace();
+                }));
     }
 
     //사용자가 참여중인 게시글 불러오기
-    public void fetchJoinBoardResult() {
-        disposables.add(boardRepository.getUserParticipatedBoard(data -> {
-            boardJoinAdapter.updateItems(data);
-        }));
+    public void fetchParticipateBoard() {
+        disposables.add(boardRepository.getUserParticipatedBoard()
+                .subscribe(data -> {
+                    mParticipateBoards.postValue(data);
+                }, Throwable::printStackTrace));
     }
-
 
     public Board makeBoard(String title) {
         Date currentTime = Calendar.getInstance().getTime();
@@ -231,33 +228,6 @@ public class BoardViewModel extends ViewModel {
         this.boardSearchAdapter = boardSearchAdapter;
     }
 
-    public BoardOwnAdapter getBoardOwnAdapter() {
-        return boardOwnAdapter;
-    }
-
-    public void setBoardOwnAdapter(BoardOwnAdapter boardOwnAdapter) {
-        this.boardOwnAdapter = boardOwnAdapter;
-    }
-
-    public BoardJoinAdapter getBoardJoinAdapter() {
-        return boardJoinAdapter;
-    }
-
-    public void setBoardJoinAdapter(BoardJoinAdapter boardJoinAdapter) {
-        this.boardJoinAdapter = boardJoinAdapter;
-    }
-
-    public ObservableArrayList<Board> getJoinBoards() {
-        return joinBoards;
-    }
-
-    public void setJoinBoards(ObservableArrayList<Board> joinBoards) {
-        this.joinBoards = joinBoards;
-    }
-
-    public ObservableArrayList<Board> getOwnBoards() {
-        return ownBoards;
-    }
 
     public String getAddressName() {
         return mAddressName;
@@ -291,16 +261,7 @@ public class BoardViewModel extends ViewModel {
         this.mLatitude = mLatitude;
     }
 
-    public void onDestroyViewModel() {
-        disposables.dispose();
-        realm.close();
-    }
-
-    public BoardNavigator getmNavigator() {
-        return mNavigator;
-    }
-
-    public void setmNavigator(BoardNavigator mNavigator) {
+    public void setNavigator(BoardNavigator mNavigator) {
         this.mNavigator = mNavigator;
     }
 
@@ -318,5 +279,23 @@ public class BoardViewModel extends ViewModel {
 
     public void setMinute(int mMinute) {
         this.mMinute = mMinute;
+    }
+
+    public MutableLiveData<List<Board>> getParticipateBoards() {
+        return mParticipateBoards;
+    }
+    public MutableLiveData<List<Board>> getOwnBoards() {
+        return mOwnBoards;
+    }
+
+    @Override
+    protected void onCleared() {
+        disposables.dispose();
+        realm.close();
+        super.onCleared();
+    }
+
+    public MutableLiveData<Board> getOpenBoardEvent() {
+        return openBoardEvent;
     }
 }

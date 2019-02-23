@@ -7,6 +7,4 @@ public interface BoardNavigator {
     default void onBoardSearchShowClick() {};
     default void onShowSnackBar() {};
     default void onBoardAddFinish() {};
-    default void onShowMyBoardDetail(int position) {};
-    default void onShowJoinBoardDetail(int position) {};
 }

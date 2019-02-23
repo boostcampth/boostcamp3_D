@@ -135,7 +135,7 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
         mAdapter = new MapKeywordAdapter(mViewModel.fetchKeywords(), true, mViewModel);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(rv.getContext(), 1);
-        itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.map_board_divider));
+        itemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.board_divider));
 
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));

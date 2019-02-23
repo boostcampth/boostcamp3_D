@@ -4,12 +4,18 @@ import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.model.ServiceGenerator;
+
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UserRepository {
     private UserAPI service = ServiceGenerator.createService(UserAPI.class, ServiceGenerator.BASE);
@@ -22,12 +28,10 @@ public class UserRepository {
         private static final UserRepository INSTANCE = new UserRepository();
     }
 
-    public Disposable getUser(Consumer<User> subscribeConsumer, Consumer<User> afterConsumer) {
+    public Single<User> getUser() {
         return service.getUser(RealmDataHelper.getUser().getKakaoId())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .doAfterSuccess(afterConsumer)
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
 
@@ -40,10 +44,9 @@ public class UserRepository {
     }
 
 
-    public Disposable getTopTenUser(Consumer<List<User>> subscribeConsumer) {
+    public Single<List<User>> getTopTenUsers() {
         return service.getTopTenUsers()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(subscribeConsumer);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

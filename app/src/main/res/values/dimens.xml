@@ -11,11 +11,8 @@
 
     <!-- Board -->
     <dimen name="board_tv_text_size">13sp</dimen>
-    <dimen name="board_tv_detail">12sp</dimen>
-    <dimen name="board_tv_time_warning">11sp</dimen>
     <dimen name="space_board_item_margin">20dp</dimen>
-    <dimen name="board_item_size">100dp</dimen>
-    <dimen name="board_item_title_size">15sp</dimen>
+    <dimen name="space_board_item_size">90dp</dimen>
 
     <!-- Board_detail -->
     <dimen name="board_detail_title_size">18sp</dimen>

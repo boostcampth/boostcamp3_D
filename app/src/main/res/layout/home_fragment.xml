@@ -111,16 +111,16 @@
                     android:textColor="@color/colorHungryBlack"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    app:highlightNumber="@{viewmodel.anyBoardsSize}"
-                    app:spannableFront="@{true}"
-                    app:layout_constraintBottom_toTopOf="@id/tv_recommend_board"
+                    app:highlightNumber="@{viewmodel.allBoardSize}"
+                    app:layout_constraintBottom_toTopOf="@id/tv_recommend"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mainText="@{@string/home_tv_waiting_num}" />
+                    app:mainText="@{@string/home_tv_waiting_num}"
+                    app:spannableFront="@{true}" />
 
                 <TextView
-                    android:id="@+id/tv_recommend_board"
+                    android:id="@+id/tv_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_medium_margin"
@@ -129,13 +129,13 @@
                     android:text="@string/home_tv_recommend_board"
                     android:textColor="@color/colorHungryBlack"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@id/rv_recommend_board"
+                    app:layout_constraintBottom_toTopOf="@+id/rv_recommend"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_waiting_num" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_recommend_board"
+                    android:id="@+id/rv_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/space_large_margin"
@@ -144,10 +144,12 @@
                     android:overScrollMode="never"
                     android:paddingStart="@dimen/space_medium_padding"
                     android:paddingTop="2dp"
+                    android:paddingEnd="0dp"
                     android:paddingBottom="2dp"
-                    app:adapter="@{viewmodel.boardRecommendAdapter}"
+                    app:items="@{viewmodel.recommends}"
                     app:layout_constraintBottom_toTopOf="@id/tv_ranking"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recommend_board" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_recommend"
+                    tools:layout_editor_absoluteX="0dp" />
 
                 <TextView
                     android:id="@+id/tv_ranking"
@@ -162,7 +164,7 @@
                     app:layout_constraintBottom_toTopOf="@id/ranking_item"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_recommend_board" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_recommend" />
 
                 <include
                     android:id="@+id/ranking_item"
@@ -196,7 +198,7 @@
                     android:layout_marginEnd="@dimen/space_medium_margin"
                     android:layout_marginBottom="@dimen/space_medium_margin"
                     android:overScrollMode="never"
-                    app:adapter="@{viewmodel.userRankingAdapter}"
+                    app:items="@{viewmodel.rankings}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/v_divider" />
             </androidx.constraintlayout.widget.ConstraintLayout>
