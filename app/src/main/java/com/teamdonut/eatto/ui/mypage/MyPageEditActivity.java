@@ -3,20 +3,16 @@ package com.teamdonut.eatto.ui.mypage;
 import android.Manifest;
 import android.os.Bundle;
 import android.view.MenuItem;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.GlideApp;
-
 import com.teamdonut.eatto.databinding.MypageEditActivityBinding;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MyPageEditActivity extends AppCompatActivity implements MyPageEditNavigator {
@@ -33,6 +29,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         mViewModel.setNavigator(this);
 
         binding.setViewmodel(mViewModel);
+        binding.setLifecycleOwner(this);
 
         initObserver();
         initToolbar();
@@ -76,7 +73,7 @@ public class MyPageEditActivity extends AppCompatActivity implements MyPageEditN
         new AlertDialog.Builder(this)
                 .setTitle(R.string.all_sex)
                 .setItems(items, (dialog, position) -> {
-                    mViewModel.userSex.set(position); //integer type
+                    mViewModel.getUserSex().set(position); //integer type
                 })
                 .show();
     }

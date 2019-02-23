@@ -6,15 +6,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.ActivityUtils;
-import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
-import com.teamdonut.eatto.databinding.HomeFragmentBinding;
-import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
-
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -23,6 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.databinding.HomeFragmentBinding;
+import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements HomeNavigator {
 
@@ -52,7 +50,6 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         super.onActivityCreated(savedInstanceState);
 
         mViewModel.setNavigator(this);
-        mViewModel.getBoardFlag().setValue(0);
 
         initRecommendRv();
         initRankingRv();
