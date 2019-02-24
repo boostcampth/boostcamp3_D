@@ -3,7 +3,7 @@ package com.teamdonut.eatto.ui.splash;
 import android.Manifest;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
+
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
@@ -11,13 +11,19 @@ import com.kakao.util.helper.log.Logger;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.databinding.SplashActivityBinding;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
 
 import java.lang.ref.WeakReference;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 public class SplashActivity extends AppCompatActivity {
 
     private final int SPLASH_TIME = 2000;
+    private SplashActivityBinding binding;
+
     private ISessionCallback iSessionCallback = new ISessionCallback() {
         @Override
         public void onSessionOpened() {
@@ -35,11 +41,12 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_activity);
+        binding = DataBindingUtil.setContentView(this, R.layout.splash_activity);
 
         Session.getCurrentSession().addCallback(iSessionCallback);
 
         requestLocationPermission();
+        binding.mlMain.transitionToEnd();
     }
 
     @Override
