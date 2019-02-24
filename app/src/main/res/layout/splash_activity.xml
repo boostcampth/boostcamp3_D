@@ -3,11 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/ml_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorHungryGray"
+        app:layoutDescription="@xml/splash_activity_scene01">
+
+        <ImageView
+            android:id="@+id/iv_bottom_pointer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/splash_pointer"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/iv_center"
+            app:layout_constraintTop_toBottomOf="@id/iv_center"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <ImageView
+            android:id="@+id/iv_top_pointer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="150dp"
+            android:rotation="180"
+            android:background="@drawable/splash_pointer"
+            app:layout_constraintBottom_toTopOf="@id/iv_center"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/iv_center"
+            app:layout_constraintWidth_percent="0.2" />
+
+        <ImageView
+            android:id="@+id/iv_center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/splash_rice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.2" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>
