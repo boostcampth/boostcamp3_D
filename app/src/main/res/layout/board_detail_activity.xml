@@ -200,6 +200,7 @@
                 tools:text="하이룽 같이 먹어요 ?" />
 
             <View
+                android:id="@+id/v_comment_border"
                 android:layout_width="0dp"
                 android:layout_height="0.5dp"
                 android:background="@color/colorViewBackground"
@@ -297,6 +298,16 @@
                 app:layout_constraintStart_toStartOf="@+id/gl_v_30"
                 app:layout_constraintTop_toBottomOf="@id/et_comment"
                 tools:item="@layout/board_comment_item" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_medium_margin"
+                android:onClick="@{()->viewmodel.onCommentRefreshClick()}"
+                android:src="@drawable/ic_reset_24dp"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
