@@ -3,13 +3,7 @@ package com.teamdonut.eatto.ui.board.detail;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.KeyboardUtil;
@@ -18,6 +12,14 @@ import com.teamdonut.eatto.databinding.BoardDetailActivityBinding;
 import com.teamdonut.eatto.ui.board.BoardNavigator;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardDetailActivity extends AppCompatActivity implements BoardNavigator {
 
