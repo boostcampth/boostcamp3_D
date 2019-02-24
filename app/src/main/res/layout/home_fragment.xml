@@ -11,6 +11,10 @@
         <variable
             name="viewmodel"
             type="com.teamdonut.eatto.ui.home.HomeViewModel" />
+
+        <import
+            alias="View"
+            type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -56,8 +60,7 @@
                         android:lineSpacingExtra="3dp"
                         android:text="@string/home_tv_below_logo"
                         android:textColor="@color/colorHungryBlack"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.Toolbar
@@ -122,7 +125,8 @@
                     android:layout_marginBottom="@dimen/space_large_margin"
                     android:text="@string/home_tv_waiting_num"
                     android:textColor="@color/colorHungryLightBlack"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
                     app:highlightNumber="@{viewmodel.allBoardSize}"
                     app:layout_constraintBottom_toTopOf="@id/tv_recommend"
                     app:layout_constraintEnd_toEndOf="@+id/gl_v_960"
@@ -135,16 +139,31 @@
                     android:id="@+id/tv_recommend"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:layout_goneMarginTop="@dimen/space_small_margin"
                     android:layout_marginTop="@dimen/space_large_margin"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:maxLines="1"
                     android:text="@string/home_tv_recommend_board"
                     android:textColor="@color/colorHungryBlack"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/rv_recommend"
                     app:layout_constraintEnd_toEndOf="@id/gl_v_960"
                     app:layout_constraintStart_toStartOf="@id/gl_v_40"
                     app:layout_constraintTop_toBottomOf="@id/tv_waiting_num" />
+
+                <TextView
+                    android:id="@+id/tv_no_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_small_margin"
+                    android:text="@string/home_tv_no_recommend"
+                    android:textColor="@color/colorDeskBrown"
+                    android:textSize="12sp"
+                    android:visibility="@{viewmodel.recommends.size() == 0 ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toTopOf="@id/tv_ranking"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_recommend" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_recommend"
@@ -154,9 +173,7 @@
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
-                    android:paddingStart="@dimen/space_medium_padding"
                     android:paddingTop="2dp"
-                    android:paddingEnd="0dp"
                     android:paddingBottom="2dp"
                     app:items="@{viewmodel.recommends}"
                     app:layout_constraintBottom_toTopOf="@id/tv_ranking"
@@ -167,12 +184,12 @@
                     android:id="@+id/tv_ranking"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_medium_margin"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="@dimen/space_small_margin"
                     android:maxLines="1"
                     android:text="@string/home_tv_ranking"
                     android:textColor="@color/colorHungryBlack"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@id/ranking_item"
                     app:layout_constraintEnd_toEndOf="@id/gl_v_960"
                     app:layout_constraintStart_toStartOf="@id/gl_v_40"
@@ -201,7 +218,7 @@
                     android:id="@+id/rv_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_medium_margin"
+                    android:layout_marginBottom="@dimen/space_small_margin"
                     android:overScrollMode="never"
                     app:items="@{viewmodel.rankings}"
                     app:layout_constraintBottom_toBottomOf="parent"

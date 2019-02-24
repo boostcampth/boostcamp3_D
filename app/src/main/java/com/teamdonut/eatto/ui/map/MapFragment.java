@@ -26,8 +26,8 @@ import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.LiveBus;
+import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
@@ -36,7 +36,6 @@ import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.databinding.MapFragmentBinding;
 import com.teamdonut.eatto.ui.board.BoardAddActivity;
 import com.teamdonut.eatto.ui.board.preview.BoardPreviewDialog;
-import com.teamdonut.eatto.ui.main.MainActivity;
 import com.teamdonut.eatto.ui.map.bottomsheet.MapBoardAdapter;
 import com.teamdonut.eatto.ui.map.search.MapSearchActivity;
 import com.tedpark.tedpermission.rx2.TedRx2Permission;
@@ -91,10 +90,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         viewModel.setNavigator(this);
         binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
-
-
-        ((MainActivity)getActivity()).disableBnvClick();
-
+        
         initMotionLayout();
         initOpenBoardObserver();
         initBoardsObserver();
@@ -179,18 +175,11 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-
-        String strLatitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "latitude");
-        String strLongitude = ActivityUtils.getStrValueSharedPreferences(getActivity(), "gps", "longitude");
-        double latitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.latitude : Double.parseDouble(strLatitude));
-        double longitude = (Strings.isEmptyOrWhitespace(strLatitude) ? DEFAULT_LOCATION.longitude : Double.parseDouble(strLongitude));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), DEFAULT_ZOOM));
-
+        setMyPosition();
         initCluster();
 
         map.setOnMarkerClickListener(clusterManager);
         map.setOnMapLoadedCallback(() -> {
-            ((MainActivity)getActivity()).enableBnvClick();
         });
     }
 

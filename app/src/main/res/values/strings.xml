@@ -23,10 +23,10 @@
     <!-- Home -->
     <string name="home_tv_recommend_board">추천 모임 게시글</string>
     <string name="home_tv_ranking">유저 랭킹</string>
-    <string name="home_tv_below_logo">오늘도 혼자서 식사하실껀가요?\n같이 먹어요 고고고!</string>
+    <string name="home_tv_below_logo">오늘도 혼자서 식사하실건가요?\n같이 먹어요 고고고!</string>
     <string name="home_tv_waiting_num">개의 방에서 혼밥러들이 당신을 기다리고 있습니다.</string>
     <string name="home_tv_user_score">%d점</string>
-
+    <string name="home_tv_no_recommend">오늘의 첫 모임을 게시해주세요.</string>
     <!-- Main -->
     <string name="main_snack_bar">게시글 등록 완료</string>
 
