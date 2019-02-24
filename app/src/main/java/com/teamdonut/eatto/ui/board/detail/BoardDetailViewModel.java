@@ -1,15 +1,16 @@
 package com.teamdonut.eatto.ui.board.detail;
 
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Comment;
 import com.teamdonut.eatto.data.model.comment.CommentRepository;
-import io.reactivex.disposables.CompositeDisposable;
 
 import java.util.List;
+
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class BoardDetailViewModel extends ViewModel {
 
@@ -53,6 +54,10 @@ public class BoardDetailViewModel extends ViewModel {
     protected void onCleared() {
         disposables.dispose();
         super.onCleared();
+    }
+
+    public void onCommentRefreshClick() {
+        loadComments();
     }
 
     public MutableLiveData<List<Comment>> getComments() {
