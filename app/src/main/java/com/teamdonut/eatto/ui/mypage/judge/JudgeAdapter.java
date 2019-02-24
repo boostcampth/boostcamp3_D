@@ -2,12 +2,14 @@ package com.teamdonut.eatto.ui.mypage.judge;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MypageJudgeItemBinding;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.ViewHolder> {
 
@@ -23,11 +25,8 @@ public class JudgeAdapter extends BaseRecyclerViewAdapter<Board, JudgeAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MypageJudgeItemBinding binding = MypageJudgeItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        judgeItemActionListener = new JudgeItemActionListener() {
-            @Override
-            public void onJudgeClick(Board board, int score) {
-                viewModel.sendJudgeResult(board, score);
-            }
+        judgeItemActionListener = (board, score) -> {
+            viewModel.sendJudgeResult(board, score);
         };
 
         binding.setListener(judgeItemActionListener);

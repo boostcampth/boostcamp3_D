@@ -1,14 +1,15 @@
 package com.teamdonut.eatto.ui.home;
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.model.board.BoardRepository;
 import com.teamdonut.eatto.data.model.user.UserRepository;
-import io.reactivex.disposables.CompositeDisposable;
 
 import java.util.List;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class HomeViewModel extends ViewModel {
 
@@ -56,6 +57,10 @@ public class HomeViewModel extends ViewModel {
                             }
                         }
                 ));
+    }
+
+    public void onPreviewClick(Board board){
+        navigator.openBoardPreview(board);
     }
 
     public void onSearchClick() {

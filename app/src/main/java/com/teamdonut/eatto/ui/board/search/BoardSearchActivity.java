@@ -8,22 +8,28 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
-import com.teamdonut.eatto.common.util.*;
+import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.EndlessRecyclerViewScrollListener;
+import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.common.util.KeyboardUtil;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
 import com.teamdonut.eatto.ui.board.BoardNavigator;
 import com.teamdonut.eatto.ui.board.BoardViewModel;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class BoardSearchActivity extends AppCompatActivity implements BoardNavigator {
 
@@ -41,6 +47,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
         viewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
         viewModel.setNavigator(this);
         binding.setViewmodel(viewModel);
+        binding.setLifecycleOwner(this);
 
         fetch();
         initToolbar();
@@ -63,11 +70,8 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     public void initRxBus() {
-
         rxbus = RxBus.getInstance();
-
         rxbus.getBus().subscribe(position -> {
-
                     if (position instanceof Integer) {
                         int curPosition = (int) position;
                         Intent resultIntent = new Intent();
@@ -79,10 +83,7 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     }
-
-                }
-                ,
-                e -> e.printStackTrace()
+                }, e -> e.printStackTrace()
         );
     }
 

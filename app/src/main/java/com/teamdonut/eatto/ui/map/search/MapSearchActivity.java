@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.common.LiveBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.databinding.MapSearchActivityBinding;
 
@@ -101,7 +101,7 @@ public class MapSearchActivity extends AppCompatActivity implements MapSearchNav
      */
     private void initSearchObserver() {
         viewModel.getFilter().observe(this, data -> {
-            RxBus.getInstance().sendBus(data); //send data to mapFragment.
+            LiveBus.getInstance().sendBus(data); //send data to mapFragment.
             finish();
         });
     }
