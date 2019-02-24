@@ -8,7 +8,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.LiveBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
 import com.teamdonut.eatto.ui.home.HomeFragment;
 import com.teamdonut.eatto.ui.map.MapFragment;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setViewmodel(viewModel); //set viewModel.
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.fl_main);
+        initSearchObserver();
         viewModel.postFcmToken(FirebaseInstanceId.getInstance().getToken());
     }
 
@@ -94,15 +97,11 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         }
     }
 
-    public void enableBnvClick(){
-        for(int i = 0; i < binding.bnvMain.getMenu().size(); i++){
-            binding.bnvMain.getMenu().getItem(i).setEnabled(true);
-        }
-    }
-
-    public void disableBnvClick(){
-        for(int i = 0; i < binding.bnvMain.getMenu().size(); i++){
-            binding.bnvMain.getMenu().getItem(i).setEnabled(false);
-        }
+    private void initSearchObserver() {
+        LiveBus.getInstance().getBus().observe(this, o -> {
+            if(o instanceof Filter && binding.bnvMain.getSelectedItemId() != R.id.menu_map) {
+                binding.bnvMain.setSelectedItemId(R.id.menu_map);
+            }
+        });
     }
 }
