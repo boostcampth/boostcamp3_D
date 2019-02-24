@@ -12,9 +12,11 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/space_medium_margin">
+        android:focusable="true"
+        android:clickable="true">
 
         <ImageView
             android:id="@+id/iv_profile"

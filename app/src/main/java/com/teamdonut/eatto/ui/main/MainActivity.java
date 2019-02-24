@@ -93,4 +93,16 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
                 super.onBackPressed();
         }
     }
+
+    public void enableBnvClick(){
+        for(int i = 0; i < binding.bnvMain.getMenu().size(); i++){
+            binding.bnvMain.getMenu().getItem(i).setEnabled(true);
+        }
+    }
+
+    public void disableBnvClick(){
+        for(int i = 0; i < binding.bnvMain.getMenu().size(); i++){
+            binding.bnvMain.getMenu().getItem(i).setEnabled(false);
+        }
+    }
 }
