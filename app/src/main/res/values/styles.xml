@@ -21,14 +21,24 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!--Bottom Navigation View-->
+    <style name="BottomNavigationViewTextActive">
+        <item name="android:textSize">11dp</item>
+        <item name="android:textColor">@color/colorHungryRed</item>
+    </style>
+
+    <style name="BottomNavigationViewTextInactive">
+        <item name="android:textSize">11dp</item>
+        <item name="android:textColor">@color/colorHungryBlack</item>
+    </style>
+
     <!-- Full Screen Dialog Theme -->
     <style name="FullScreenDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsFloating">false</item>
-
         <item name="android:windowBackground">@android:color/transparent</item>
-
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
@@ -155,6 +165,14 @@
         <item name="android:paddingBottom">13dp</item>
         <item name="android:paddingTop">13dp</item>
         <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="MyPageJudgeButton">
+        <item name="android:textSize">13dp</item>
+        <item name="android:paddingTop">@dimen/space_img_btn_padding</item>
+        <item name="android:paddingBottom">@dimen/space_img_btn_padding</item>
+        <item name="android:paddingStart">@dimen/space_small_margin</item>
+        <item name="android:paddingEnd">@dimen/space_small_margin</item>
     </style>
 
 </resources>

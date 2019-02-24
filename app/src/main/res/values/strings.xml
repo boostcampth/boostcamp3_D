@@ -25,6 +25,7 @@
     <string name="home_tv_ranking">유저 랭킹</string>
     <string name="home_tv_below_logo">오늘도 혼자서 식사하실껀가요?\n같이 먹어요 고고고!</string>
     <string name="home_tv_waiting_num">개의 방에서 혼밥러들이 당신을 기다리고 있습니다.</string>
+    <string name="home_tv_user_score">%d점</string>
 
     <!-- Main -->
     <string name="main_snack_bar">게시글 등록 완료</string>
@@ -104,6 +105,9 @@
     <string name="mpj_toolbar_title">평가하기</string>\
     <string name="mpj_tv_no_data">평가할 게시글이 없습니다.</string>
     <string name="mpj_tv_sub_title">모임을 평가해주세요.</string>
+
+    <!--Mypage item-->
+    <string name="mpj_tv_people">, %d명 참여</string>
 
     <!--Search-->
     <string name="search_tv_recent_keyword">최근 검색어</string>
