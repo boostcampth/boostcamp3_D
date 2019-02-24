@@ -20,7 +20,9 @@
         android:id="@+id/cl_board_item"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_board_item_size"
-        android:background="@android:color/white"
+        android:background="@drawable/item_board_selector"
+        android:clickable="true"
+        android:focusable="true"
         android:onClick="@{() -> listener.onBoardClick(board)}"
         android:paddingTop="@dimen/space_small_margin"
         android:paddingBottom="@dimen/space_small_margin">
