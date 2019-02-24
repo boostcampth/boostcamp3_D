@@ -70,16 +70,9 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         RecyclerView rv = binding.rvRank;
         userRankingAdapter = new UserRankingAdapter(new ArrayList<>(0), viewModel);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext()) {
-            @Override
-            public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
-                lp.height = (getWidth() / 9);
-                return super.checkLayoutParams(lp);
-            }
-        };
         rv.addItemDecoration(new HorizontalDividerItemDecorator(ContextCompat.getDrawable(getContext(), R.drawable.ranking_divider), 0.03));
         rv.setHasFixedSize(true);
-        rv.setLayoutManager(layoutManager);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(userRankingAdapter);
     }
 
@@ -90,9 +83,7 @@ public class HomeFragment extends Fragment implements HomeNavigator {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false) {
             @Override
             public boolean checkLayoutParams(RecyclerView.LayoutParams lp) {
-                int dp = (int) (getResources().getDimension(R.dimen.space_medium_margin) / getResources().getDisplayMetrics().density);
-                float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp * 3, getResources().getDisplayMetrics());
-                lp.width = (getWidth() - (int) px) / 2;
+                lp.width = (getWidth()) / 2;
                 return super.checkLayoutParams(lp);
             }
         };

@@ -16,39 +16,51 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/v_bottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:0.12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/colorViewBackground" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_rank"
+            android:id="@+id/gl_v_110"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.15" />
+            app:layout_constraintGuide_percent="0.11" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_image"
+            android:id="@+id/gl_v_200"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.35" />
+            app:layout_constraintGuide_percent="0.2" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_nick_name"
+            android:id="@+id/gl_v_750"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <TextView
             android:id="@+id/tv_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{rank}"
-            android:textSize="12sp"
+            android:text="@{String.valueOf(rank)}"
+            android:textColor="@color/colorBtnLogoutText"
+            android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/gl_rank"
+            app:layout_constraintEnd_toEndOf="@id/gl_v_110"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile"
@@ -58,31 +70,38 @@
             app:imageUrl="@{user.photo}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/gl_image"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.8"
-            app:layout_constraintStart_toStartOf="@id/gl_rank"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/gl_v_200"
+            app:layout_constraintStart_toEndOf="@id/gl_v_110"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/lion" />
 
         <TextView
             android:id="@+id/tv_nick_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{user.nickName}"
-            android:textColor="@color/colorHungryBlack"
+            android:textColor="@color/colorHungryLightBlack"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/gl_nick_name"
-            app:layout_constraintStart_toStartOf="@id/gl_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/gl_v_750"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/gl_v_200"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="하이룽" />
 
         <TextView
             android:id="@+id/tv_score_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(user.scoreSum)}"
+            android:text="@{@string/home_tv_user_score(user.scoreSum)}"
+            android:textColor="@color/colorBtnLogoutText"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/gl_nick_name"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="@id/gl_v_750"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4점" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
