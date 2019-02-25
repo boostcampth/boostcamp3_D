@@ -1,17 +1,14 @@
 package com.teamdonut.eatto.ui.map.search;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.BaseRealmRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Keyword;
 import com.teamdonut.eatto.databinding.MapKeywordItemBinding;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import io.realm.OrderedRealmCollection;
 
@@ -27,17 +24,14 @@ public class MapKeywordAdapter extends BaseRealmRecyclerViewAdapter<Keyword, Map
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder holder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.map_keyword_item, parent, false));
+        MapKeywordItemBinding binding = MapKeywordItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        MapKeywordActionListener listener = new MapKeywordActionListener() {
-            @Override
-            public void onKeywordClick(Keyword keyword) {
-                viewModel.onGoSearchClick(keyword.getContent());
-            }
+        MapKeywordActionListener listener = keyword -> {
+            viewModel.onGoSearchClick(keyword.getContent());
         };
 
-        holder.binding.setListener(listener);
-        return holder;
+        binding.setListener(listener);
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -49,9 +43,9 @@ public class MapKeywordAdapter extends BaseRealmRecyclerViewAdapter<Keyword, Map
 
         MapKeywordItemBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            binding = DataBindingUtil.bind(itemView);
+        ViewHolder(MapKeywordItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

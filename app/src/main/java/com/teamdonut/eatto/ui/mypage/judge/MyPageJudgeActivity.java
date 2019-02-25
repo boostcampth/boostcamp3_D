@@ -2,6 +2,12 @@ package com.teamdonut.eatto.ui.mypage.judge;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.databinding.MypageJudgeActivityBinding;
+
+import java.util.ArrayList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -9,10 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.databinding.MypageJudgeActivityBinding;
-
-import java.util.ArrayList;
 
 public class MyPageJudgeActivity extends AppCompatActivity {
 
@@ -38,7 +40,7 @@ public class MyPageJudgeActivity extends AppCompatActivity {
     }
 
     private void initJudgeObserve() {
-        viewModel.getSubmitJudge().observe(this, data ->{
+        viewModel.getSubmitJudge().observe(this, data -> {
             judgeAdapter.removeItem(data);
         });
     }

@@ -69,9 +69,9 @@ public class LoginActivity extends AppCompatActivity implements LoginNavigator {
     @Override
     public void saveUser(long kakaoId, String name, String photo) {
         if (realm.where(User.class).count() == 0) { //if user is already existed.
-            RealmDataHelper.insertUser(realm, kakaoId, name, photo);
+            RealmDataHelper.insertUser(kakaoId, name, photo);
         } else {
-            RealmDataHelper.updateUser(realm, name, 0, photo);
+            RealmDataHelper.updateUser(name, 0, photo);
         }
     }
 }
