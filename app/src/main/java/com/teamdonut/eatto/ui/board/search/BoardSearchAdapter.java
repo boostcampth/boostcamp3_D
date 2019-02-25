@@ -1,7 +1,6 @@
 package com.teamdonut.eatto.ui.board.search;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
@@ -24,15 +23,10 @@ public class BoardSearchAdapter extends BaseRecyclerViewAdapter<Document, BoardS
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BoardSearchItemBinding binding = BoardSearchItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        final ViewHolder holder = new ViewHolder(binding);
-        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RxBus.getInstance().sendBus( holder.getAdapterPosition() );
-            }
+        binding.getRoot().setOnClickListener((view)->{
+            RxBus.getInstance().sendBus(getItemPosition(binding.getDocument()));
         });
-
-        return holder;
+        return new ViewHolder(binding);
     }
 
     @Override
