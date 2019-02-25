@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         viewModel.postFcmToken(FirebaseInstanceId.getInstance().getToken());
     }
 
-    public void startAnimation(){
+    public void startAnimation() {
         binding.vLottiebg.setVisibility(View.VISIBLE);
         binding.lav.setVisibility(View.VISIBLE);
         binding.lav.playAnimation();
     }
 
-    public void stopAnimation(){
+    public void stopAnimation() {
         binding.lav.cancelAnimation();
         binding.vLottiebg.setVisibility(View.INVISIBLE);
         binding.lav.setVisibility(View.INVISIBLE);
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     public void onBackPressed() {
         switch (binding.bnvMain.getSelectedItemId()) {
             case R.id.menu_map:
-                MapFragment mapFragment = (MapFragment)getSupportFragmentManager().findFragmentById(R.id.fl_main);
-                if(mapFragment.getBottomSheetBehavior().getState() == BottomSheetBehavior.STATE_COLLAPSED){
+                MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentById(R.id.fl_main);
+                if (mapFragment.getBottomSheetBehavior().getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     super.onBackPressed();
-                }else{
+                } else {
                     mapFragment.setBottomSheetExpand(false);
                 }
                 return;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
 
     private void initSearchObserver() {
         LiveBus.getInstance().getBus().observe(this, o -> {
-            if(o instanceof Filter && binding.bnvMain.getSelectedItemId() != R.id.menu_map) {
+            if (o instanceof Filter && binding.bnvMain.getSelectedItemId() != R.id.menu_map) {
                 binding.bnvMain.setSelectedItemId(R.id.menu_map);
             }
         });

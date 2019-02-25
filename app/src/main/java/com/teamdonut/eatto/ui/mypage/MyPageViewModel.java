@@ -1,22 +1,18 @@
 package com.teamdonut.eatto.ui.mypage;
 
-import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
-
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.model.user.UserRepository;
 
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
-import io.realm.Realm;
 
 public class MyPageViewModel extends ViewModel {
 
     private MyPageNavigator navigator;
 
     private CompositeDisposable disposables = new CompositeDisposable();
-
-    private Realm realm = Realm.getDefaultInstance();
 
     private UserRepository userRepository = UserRepository.getInstance();
 
@@ -50,7 +46,6 @@ public class MyPageViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
-        realm.close();
         disposables.dispose();
         super.onCleared();
     }
