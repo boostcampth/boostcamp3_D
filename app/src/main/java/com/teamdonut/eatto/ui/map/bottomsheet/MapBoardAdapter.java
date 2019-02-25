@@ -1,18 +1,17 @@
 package com.teamdonut.eatto.ui.map.bottomsheet;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.R;
+
 import com.teamdonut.eatto.common.BaseRecyclerViewAdapter;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.MapBoardItemBinding;
 import com.teamdonut.eatto.ui.map.MapViewModel;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdapter.ViewHolder> {
 
@@ -26,14 +25,14 @@ public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdap
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder holder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.map_board_item, parent, false));
+        MapBoardItemBinding binding = MapBoardItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
         MapBoardActionListener listener = board -> {
             viewModel.getOpenBoardEvent().setValue(board);
         };
+        binding.setListener(listener);
 
-        holder.binding.setListener(listener); //set listener
-        return holder;
+        return new ViewHolder(binding);
     }
 
     @Override
@@ -46,9 +45,9 @@ public class MapBoardAdapter extends BaseRecyclerViewAdapter<Board, MapBoardAdap
 
         MapBoardItemBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            binding = DataBindingUtil.bind(itemView);
+        ViewHolder(MapBoardItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
