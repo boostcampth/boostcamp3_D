@@ -46,7 +46,6 @@ public class SplashActivity extends AppCompatActivity {
         Session.getCurrentSession().addCallback(iSessionCallback);
 
         requestLocationPermission();
-        binding.mlMain.transitionToEnd();
     }
 
     @Override
@@ -63,6 +62,7 @@ public class SplashActivity extends AppCompatActivity {
                 .request()
                 .doAfterSuccess(tedPermissionResult -> {
                     checkLoginSessionIsValid();
+                    binding.mlMain.transitionToEnd();
                 })
                 .subscribe(tedPermissionResult -> {
                     if (tedPermissionResult.isGranted()) {
