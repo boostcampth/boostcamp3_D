@@ -50,7 +50,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.2" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_center"
+            app:layout_constraintBottom_toBottomOf="@id/iv_center"
+            app:layout_constraintEnd_toStartOf="@id/iv_center"
+            android:text="Eat"/>
 
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/iv_center"
+            app:layout_constraintBottom_toBottomOf="@id/iv_center"
+            app:layout_constraintStart_toEndOf="@id/iv_center"
+            android:text="Together"/>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

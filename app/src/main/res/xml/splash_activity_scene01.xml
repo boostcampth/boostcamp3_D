@@ -6,8 +6,10 @@
         android:id="@+id/transition01"
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@+id/start"
-        motion:duration="2000" />
-
+        motion:duration="2000">
+        <KeyFrameSet>
+        </KeyFrameSet>
+    </Transition>
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/iv_bottom_pointer"
@@ -15,7 +17,6 @@
             android:layout_height="0dp"
             android:layout_marginStart="150dp"
             android:layout_marginTop="150dp"
-            android:rotation="180"
             motion:layout_constraintDimensionRatio="1:1"
             motion:layout_constraintStart_toEndOf="@id/iv_center"
             motion:layout_constraintTop_toBottomOf="@id/iv_center"
@@ -27,11 +28,34 @@
             android:layout_height="0dp"
             android:layout_marginEnd="150dp"
             android:layout_marginBottom="150dp"
+            android:rotation="180"
             motion:layout_constraintBottom_toTopOf="@id/iv_center"
             motion:layout_constraintDimensionRatio="1:1"
             motion:layout_constraintEnd_toStartOf="@id/iv_center"
             motion:layout_constraintWidth_percent="0.2" />
 
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/iv_center"
+            motion:layout_constraintEnd_toStartOf="@id/iv_center"
+            motion:layout_constraintTop_toTopOf="@id/iv_center">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@android:color/transparent" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/iv_center"
+            motion:layout_constraintStart_toEndOf="@id/iv_center"
+            motion:layout_constraintTop_toTopOf="@id/iv_center">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@android:color/transparent" />
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -58,7 +82,28 @@
             motion:layout_constraintDimensionRatio="1:1"
             motion:layout_constraintEnd_toStartOf="@id/iv_center"
             motion:layout_constraintWidth_percent="0.2" />
-
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/iv_center"
+            motion:layout_constraintEnd_toStartOf="@id/iv_center"
+            motion:layout_constraintTop_toTopOf="@id/iv_center">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@color/colorHungryRed" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/iv_center"
+            motion:layout_constraintStart_toEndOf="@id/iv_center"
+            motion:layout_constraintTop_toTopOf="@id/iv_center">
+            <CustomAttribute
+                motion:attributeName="textColor"
+                motion:customColorValue="@color/colorHungryRed" />
+        </Constraint>
     </ConstraintSet>
 
 </MotionScene>

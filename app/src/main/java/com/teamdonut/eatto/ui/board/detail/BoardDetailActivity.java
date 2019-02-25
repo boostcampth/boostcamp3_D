@@ -1,7 +1,6 @@
 package com.teamdonut.eatto.ui.board.detail;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.teamdonut.eatto.R;
@@ -52,7 +51,6 @@ public class BoardDetailActivity extends AppCompatActivity implements BoardNavig
         RxBus.getInstance().getBus()
                 .subscribe(data -> {
                     if (data instanceof Board) {
-                        Log.d("address", ((Board) data).getAppointedTime());
                         viewModel.getBoard().set((Board) data);
                     }
                 })
