@@ -72,7 +72,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private final int BOARD_ADD_REQUEST = 100;
     private final int DEFAULT_ZOOM = 15;
-    private boolean IS_MARKERCLICK = false;
     private final LatLng DEFAULT_LOCATION = new LatLng(37.566467, 126.978174); // 서울 시청
 
     private final String PREVIEW_TAG = "preview";
@@ -195,7 +194,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                     }
                     case BottomSheetBehavior.STATE_COLLAPSED: {
                         viewModel.isSheetExpanded.set(false);
-                        IS_MARKERCLICK = false;
                         break;
                     }
                     default:
@@ -311,7 +309,6 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
 
         clusterManager.setOnClusterItemClickListener(data -> {
-            IS_MARKERCLICK = true;
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), DEFAULT_ZOOM));
             data.setSelect(true);
             mapBoardAdapter.notifyDataSetChanged();
@@ -326,7 +323,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
 
         map.setOnCameraIdleListener(() -> {
-            if(!IS_MARKERCLICK) {
+            if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                 viewModel.fetchAreaBoards(map.getProjection().getVisibleRegion().nearLeft, map.getProjection().getVisibleRegion().farRight);
                 if (clusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
                     ((GoogleMap.OnCameraIdleListener) clusterManager.getRenderer()).onCameraIdle();

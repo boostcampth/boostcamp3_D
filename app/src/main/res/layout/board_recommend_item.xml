@@ -59,11 +59,11 @@
             android:paddingTop="2dp"
             android:paddingEnd="3dp"
             android:paddingBottom="1dp"
-            android:text="@{board.appointedTime.substring(11, 16)}"
             android:textColor="@android:color/white"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintStart_toStartOf="@id/iv_profile"
+            app:transdate="@{board.appointedTime}"
             tools:text="07:22" />
 
         <TextView
