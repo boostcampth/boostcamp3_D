@@ -59,10 +59,10 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            if (remoteMessage.getData() == null) { //포그라운드 일 시 데이터가 안오게
+            //if (remoteMessage.getData() == null) { //포그라운드 일 시 데이터가 안오게
                 Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
                 sendNotification(remoteMessage.getNotification().getBody());
-            }
+           // }
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -99,7 +99,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.lion)
+                        .setSmallIcon(R.drawable.app_icon)
                         .setContentTitle("댓글을 확인해 주세요")
                         .setContentText(messageBody)
                         .setAutoCancel(true)

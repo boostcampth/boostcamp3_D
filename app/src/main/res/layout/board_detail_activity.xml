@@ -299,6 +299,14 @@
                 app:layout_constraintTop_toBottomOf="@id/et_comment"
                 tools:item="@layout/board_comment_item" />
 
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_h_900"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.9" />
+
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -308,7 +316,7 @@
                 app:fabSize="mini"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/rv_comment" />
+                app:layout_constraintTop_toTopOf="@+id/gl_h_900" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
