@@ -56,17 +56,13 @@
         <activity android:name=".ui.mypage.MyPageEditActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name=".common.FirebaseMessagingService">
+        <service android:name=".common.FirebaseMessagingService"
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".common.FirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorHungryRed" />

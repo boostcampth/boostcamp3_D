@@ -40,7 +40,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/tv_nick_name"
             app:layout_constraintTop_toTopOf="@id/tv_nick_name"
-            app:time="@{comment.writeTime}"
+            app:transdate="@{comment.writeTime}"
             tools:text="10:00 A.M" />
 
         <TextView

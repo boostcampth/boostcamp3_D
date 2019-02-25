@@ -2,16 +2,18 @@ package com.teamdonut.eatto.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+
 import com.kakao.auth.Session;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
+import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.kakao.LoginSessionCallback;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.databinding.LoginActivityBinding;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import io.realm.Realm;
 
 public class LoginActivity extends AppCompatActivity implements LoginNavigator {
@@ -53,7 +55,6 @@ public class LoginActivity extends AppCompatActivity implements LoginNavigator {
         callback = new LoginSessionCallback(this);
         Session.getCurrentSession().addCallback(callback);
     }
-
 
     @Override
     public void redirectLoginActivity() {

@@ -119,7 +119,6 @@ public class RealmDataHelper {
             user.setPhoto(u.getPhoto());
             user.setAge(u.getAge());
         });
-
         realm.close();
     }
 }
