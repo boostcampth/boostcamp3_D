@@ -166,7 +166,6 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
 
     @Override
     protected void onDestroy() {
-        rxbus.resetBus();
         super.onDestroy();
     }
 
