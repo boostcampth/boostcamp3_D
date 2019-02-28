@@ -1,4 +1,4 @@
-package com.teamdonut.eatto.ui.board;
+package com.teamdonut.eatto.ui.board.add;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -20,11 +20,14 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
+import com.teamdonut.eatto.ui.board.BoardNavigator;
+import com.teamdonut.eatto.ui.board.BoardViewModel;
 import com.teamdonut.eatto.ui.board.search.BoardSearchActivity;
 
 import java.util.Calendar;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
+
     private BoardAddActivityBinding binding;
     private BoardViewModel viewModel;
     private final int BOARD_SEARCH_REQUEST = 101;
