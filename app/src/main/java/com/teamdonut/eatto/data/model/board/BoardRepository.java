@@ -71,7 +71,7 @@ public class BoardRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single postBoard(Board board) {
+    public Single<JsonObject> postBoard(Board board) {
         return service.postBoard(board, FirebaseInstanceId.getInstance().getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
