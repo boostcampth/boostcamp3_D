@@ -250,6 +250,7 @@
                     android:gravity="top"
                     android:hint="@string/board_tv_content_hint"
                     android:lines="10"
+                    android:paddingTop="@dimen/space_small_margin"
                     android:textSize="14sp"
                     app:met_clearButton="true"
                     app:met_floatingLabel="highlight"
