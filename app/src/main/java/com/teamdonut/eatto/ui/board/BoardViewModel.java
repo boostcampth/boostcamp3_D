@@ -1,29 +1,24 @@
 package com.teamdonut.eatto.ui.board;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.*;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import com.appyvet.materialrangebar.RangeBar;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.User;
-import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.data.model.board.BoardRepository;
-import com.teamdonut.eatto.data.model.kakao.KakaoRepository;
-import com.teamdonut.eatto.ui.board.search.BoardSearchAdapter;
-
-import io.reactivex.disposables.CompositeDisposable;
-import io.realm.Realm;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.databinding.BindingMethod;
+import androidx.databinding.BindingMethods;
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import io.reactivex.disposables.CompositeDisposable;
 
 @BindingMethods({
         @BindingMethod(
@@ -37,7 +32,6 @@ public class BoardViewModel extends ViewModel {
 
     private BoardNavigator navigator;
     public ObservableField<String> time = new ObservableField<>();
-    public MutableLiveData<String> etKeywordHint = new MutableLiveData<>();
     private CompositeDisposable disposables = new CompositeDisposable();
 
     private int minAge = 15;
@@ -49,37 +43,19 @@ public class BoardViewModel extends ViewModel {
     private String longitude;
     private String latitude;
 
-    //use BoardSearch
-    @NonNull
-    private ObservableArrayList<Document> documents = new ObservableArrayList<>();
-    private BoardSearchAdapter boardSearchAdapter = new BoardSearchAdapter(documents);
-
     //Board Fragment
     private MutableLiveData<List<Board>> ownBoards = new MutableLiveData<>(); //own
     private MutableLiveData<List<Board>> participateBoards = new MutableLiveData<>(); //participate
     private MutableLiveData<Board> openBoardEvent = new MutableLiveData<>(); //open board event.
 
-    private Realm realm = Realm.getDefaultInstance();
     public ObservableField<String> address = new ObservableField<>();
 
     //Board Add
     private ObservableInt boardAddMaxPerson = new ObservableInt(2);
     private ObservableInt boardAddBudget = new ObservableInt(5000);
 
-    private KakaoRepository kakaoRepository = KakaoRepository.getInstance();
     private BoardRepository boardRepository = BoardRepository.getInstance();
 
-    public void fetchEtKeywordHint(String kakaoKey, String longitude, String latitude, String defaultAddress) {
-        disposables.add(kakaoRepository.getMyAddress(kakaoKey, longitude, latitude)
-                .subscribe(data -> {
-                    JsonArray jsonArray = data.getAsJsonArray("documents");
-                    JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                    etKeywordHint.setValue(jsonObject.get("address_name").getAsString());
-                }, e -> {
-                    e.printStackTrace();
-                    etKeywordHint.setValue(defaultAddress);
-                }));
-    }
 
     public void onClickBoardAdd() {
         navigator.onAddBoardClick();
@@ -99,20 +75,6 @@ public class BoardViewModel extends ViewModel {
         maxAge = Integer.parseInt(rightPinValue);
     }
 
-    //카카오 REST API - 키워드로 장소검색
-    public void fetchAddressResult(String authorization, String query, int page, int size) {
-        disposables.add(kakaoRepository.getAddress(authorization, query, page, size)
-                .subscribe(data -> {
-                    if (data.getDocuments().size() == 0) {
-                        navigator.onShowSnackBar();
-                    } else {
-                        if ((double) (data.getMeta().getPageableCount() / 10) >= page - 1) {
-                            boardSearchAdapter.addItems(data.getDocuments());
-                        }
-                    }
-                }));
-    }
-
     //사용자가 생성한 게시글 불러오기
     public void fetchOwnBoard() {
         disposables.add(boardRepository.getOwnBoard()
@@ -128,7 +90,9 @@ public class BoardViewModel extends ViewModel {
         disposables.add(boardRepository.getUserParticipatedBoard()
                 .subscribe(data -> {
                     participateBoards.postValue(data);
-                }, Throwable::printStackTrace));
+                }, e -> {
+                    e.printStackTrace();
+                }));
     }
 
     public Board makeBoard(String title) {
@@ -146,8 +110,8 @@ public class BoardViewModel extends ViewModel {
                 boardAddMaxPerson.get(),
                 minAge,
                 maxAge,
-                Float.parseFloat(longitude),
-                Float.parseFloat(latitude),
+                Double.parseDouble(longitude),
+                Double.parseDouble(latitude),
                 user.getKakaoId(),
                 user.getPhoto(),
                 user.getNickName()
@@ -190,12 +154,14 @@ public class BoardViewModel extends ViewModel {
             boardAddBudget.set(boardAddBudget.get() - 5000);
     }
 
-    public ObservableInt getBoardAddMaxPerson() {
-        return boardAddMaxPerson;
+    @Override
+    protected void onCleared() {
+        disposables.dispose();
+        super.onCleared();
     }
 
-    public void setBoardAddMaxPerson(ObservableInt boardAddMaxPerson) {
-        this.boardAddMaxPerson = boardAddMaxPerson;
+    public ObservableInt getBoardAddMaxPerson() {
+        return boardAddMaxPerson;
     }
 
     public ObservableInt getBoardAddBudget() {
@@ -217,20 +183,6 @@ public class BoardViewModel extends ViewModel {
     public void setAddress(ObservableField<String> mAddress) {
         this.address = mAddress;
     }
-
-    @NonNull
-    public ObservableArrayList<Document> getDocuments() {
-        return documents;
-    }
-
-    public BoardSearchAdapter getBoardSearchAdapter() {
-        return boardSearchAdapter;
-    }
-
-    public void setBoardSearchAdapter(BoardSearchAdapter boardSearchAdapter) {
-        this.boardSearchAdapter = boardSearchAdapter;
-    }
-
 
     public String getAddressName() {
         return addressName;
@@ -290,13 +242,6 @@ public class BoardViewModel extends ViewModel {
 
     public MutableLiveData<List<Board>> getOwnBoards() {
         return ownBoards;
-    }
-
-    @Override
-    protected void onCleared() {
-        disposables.dispose();
-        realm.close();
-        super.onCleared();
     }
 
     public MutableLiveData<Board> getOpenBoardEvent() {
