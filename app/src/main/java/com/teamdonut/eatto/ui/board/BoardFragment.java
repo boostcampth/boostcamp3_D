@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.databinding.BoardFragmentBinding;
+import com.teamdonut.eatto.ui.board.add.BoardAddActivity;
 import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
 
 import java.util.ArrayList;

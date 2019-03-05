@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.EndlessRecyclerViewScrollListener;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
@@ -20,7 +19,6 @@ import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
 import com.teamdonut.eatto.ui.board.BoardNavigator;
-import com.teamdonut.eatto.ui.board.BoardViewModel;
 
 import java.util.ArrayList;
 
@@ -34,65 +32,68 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BoardSearchActivity extends AppCompatActivity implements BoardNavigator {
 
     private BoardSearchActivityBinding binding;
-    private BoardViewModel viewModel;
+    private BoardSearchViewModel viewModel;
 
     private EndlessRecyclerViewScrollListener scrollListener;
 
-    private RxBus rxbus;
+    private BoardSearchAdapter searchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.board_search_activity);
-        viewModel = ViewModelProviders.of(this).get(BoardViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(BoardSearchViewModel.class);
         viewModel.setNavigator(this);
+
         binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
 
-        fetch();
         initToolbar();
         initSearchResultRv();
         initObserver();
-        initRxBus();
+        initSearchObserver();
         initKeyboardSearchListener();
+
+        fetchHint();
     }
 
-    public void fetch() {
+    public void fetchHint() {
         String longitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "longitude");
         String latitude = ActivityUtils.getStrValueSharedPreferences(getApplicationContext(), "gps", "latitude");
         viewModel.fetchEtKeywordHint(getResources().getString(R.string.kakao_rest_api_key), longitude, latitude, getResources().getString(R.string.all_default_address));
     }
 
-    public void initObserver() {
-        viewModel.etKeywordHint.observe(this, (hint) -> {
-            binding.etInputSearchKeyword.setHint(hint);
+    public void initSearchObserver() {
+        viewModel.getDocuments().observe(this, data -> {
+            if (data.size() == 0) {
+                SnackBarUtil.showSnackBar(binding.rvBoardSearch, R.string.board_search_can_not_find_result);
+            } else {
+                searchAdapter.addItems(data.subList(searchAdapter.getItemCount(), data.size()));
+            }
         });
     }
 
-    public void initRxBus() {
-        rxbus = RxBus.getInstance();
-        rxbus.getBus().subscribe(position -> {
-                    if (position instanceof Integer) {
-                        int curPosition = (int) position;
-                        Intent resultIntent = new Intent();
-                        Document document = viewModel.getBoardSearchAdapter().getItem(curPosition);
-                        resultIntent.putExtra("placeName", document.getPlaceName());
-                        resultIntent.putExtra("addressName", document.getAddressName());
-                        resultIntent.putExtra("x", document.getX());
-                        resultIntent.putExtra("y", document.getY());
-                        setResult(RESULT_OK, resultIntent);
-                        finish();
-                    }
-                }, e -> e.printStackTrace()
-        );
+    public void initObserver() {
+        viewModel.getEtKeywordHint().observe(this, data -> {
+            binding.etInputSearchKeyword.setHint(data);
+        });
+    }
+
+    @Override
+    public void sendDocument(Document document) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("placeName", document.getPlaceName());
+        resultIntent.putExtra("addressName", document.getAddressName());
+        resultIntent.putExtra("x", document.getX());
+        resultIntent.putExtra("y", document.getY());
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 
     public void initToolbar() {
-        //setting Toolbar
         setSupportActionBar(binding.tbBoardSearch);
 
-        //Toolbar nav button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);  //Toolbar nav button
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
@@ -117,13 +118,14 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     public void search() {
-        if (Strings.isEmptyOrWhitespace(binding.etInputSearchKeyword.getText().toString())) {
+        String input = binding.etInputSearchKeyword.getText().toString();
+
+        if (Strings.isEmptyOrWhitespace(input)) {
             SnackBarUtil.showSnackBar(getCurrentFocus(), R.string.board_search_please_insert);
         } else {
-            viewModel.setBoardSearchAdapter(new BoardSearchAdapter(new ArrayList<>()));
-            binding.rvBoardSearch.setAdapter(viewModel.getBoardSearchAdapter());
+            searchAdapter.removeAllItems();
             scrollListener.resetState();
-            viewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), 1, 10);
+            viewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), input, 1, 15);
         }
         KeyboardUtil.hideSoftKeyboard(getCurrentFocus(), getApplicationContext());
     }
@@ -142,38 +144,30 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
     }
 
     private void initSearchResultRv() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        linearLayoutManager.setSmoothScrollbarEnabled(true);
-        linearLayoutManager.setItemPrefetchEnabled(true);
-        binding.rvBoardSearch.setLayoutManager(linearLayoutManager);
-        binding.rvBoardSearch.addItemDecoration(new HorizontalDividerItemDecorator
-                (ContextCompat.getDrawable(getApplicationContext(), R.drawable.ranking_divider), 0.03));
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+        RecyclerView rv = binding.rvBoardSearch;
+        searchAdapter = new BoardSearchAdapter(new ArrayList<>(), viewModel);
+        searchAdapter.setHasStableIds(true);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setSmoothScrollbarEnabled(true);
+        layoutManager.setItemPrefetchEnabled(true);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
-                viewModel.fetchAddressResult(getResources().getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), page, 10);
+                if (!viewModel.isEndDocuments()) {
+                    viewModel.fetchAddressResult(getText(R.string.kakao_rest_api_key).toString(), binding.etInputSearchKeyword.getText().toString(), page, 15);
+                }
             }
         };
-        // Adds the scroll listener to RecyclerView
-        binding.rvBoardSearch.addOnScrollListener(scrollListener);
 
-        binding.rvBoardSearch.setAdapter(viewModel.getBoardSearchAdapter());
-
+        rv.addOnScrollListener(scrollListener);
+        rv.setLayoutManager(layoutManager);
+        rv.setHasFixedSize(true);
+        rv.addItemDecoration(new HorizontalDividerItemDecorator
+                (ContextCompat.getDrawable(getApplicationContext(), R.drawable.ranking_divider), 0.03));
+        rv.setAdapter(searchAdapter);
     }
-
-    @Override
-    protected void onDestroy() {
-        rxbus.resetBus();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onShowSnackBar() {
-        SnackBarUtil.showSnackBar(binding.rvBoardSearch, R.string.board_search_can_not_find_result);
-    }
-
-
 }

@@ -12,14 +12,7 @@ public class RxBus {
     }
 
     public static RxBus getInstance() {
-        if(mSubject !=null && mSubject.hasComplete()) {
-            mSubject = BehaviorSubject.create();
-        }
         return LazyInit.INSTANCE;
-    }
-
-    public static void resetBus() {
-        mSubject.onComplete();
     }
 
     private static class LazyInit {

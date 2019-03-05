@@ -14,12 +14,6 @@
     <dimen name="space_board_item_margin">20dp</dimen>
     <dimen name="space_board_item_size">90dp</dimen>
 
-    <!-- Board_detail -->
-    <dimen name="board_detail_title_size">18sp</dimen>
-
-    <!-- Board_Search -->
-    <dimen name="board_search_item_size">80dp</dimen>
-
     <!-- Board_Add -->
     <dimen name="board_add_btn_height">36dp</dimen>
     <dimen name="board_add_btn_size">55dp</dimen>
