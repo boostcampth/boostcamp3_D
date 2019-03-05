@@ -14,17 +14,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_board_add"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/design_default_color_on_primary"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:elevation="4dp"
+            android:minHeight="?android:actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/board_add_title" />
+            app:title="@string/board_add_title"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -33,21 +36,21 @@
             <RelativeLayout
                 android:id="@+id/rl_board_add_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/space_small_margin">
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_input_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_title"
-                    android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_small_margin"
-                    android:elevation="@dimen/space_filter_title_padding"
+                    android:layout_marginTop="@dimen/space_medium_margin"
                     android:hint="@string/board_add_title_hint"
                     android:maxLength="20"
                     android:singleLine="true"
                     android:textColor="@color/colorHungryLightBlack"
+                    android:textSize="15sp"
                     app:met_clearButton="true"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelText="@string/board_tv_title"
@@ -57,43 +60,41 @@
                     app:met_primaryColor="@color/colorHungryRed"
                     app:met_singleLineEllipsis="true" />
 
-
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_input_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/et_input_title"
-                    android:layout_marginEnd="@dimen/space_small_margin"
                     android:focusableInTouchMode="false"
                     android:hint="@string/board_add_tv_search_address"
                     android:onClick="@{() -> viewmodel.onBoardSearchShowClick()}"
                     android:text="@{viewmodel.address}"
                     android:textColor="@color/colorHungryLightBlack"
                     android:textColorHint="@color/colorHungryRed"
+                    android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelText="@string/board_tv_address"
                     app:met_iconLeft="@drawable/ic_place_24dp"
                     app:met_iconPadding="0dp" />
-
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/tv_input_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_input_address"
-                    android:layout_marginEnd="@dimen/space_small_margin"
+                    android:layout_marginTop="@dimen/space_medium_margin"
                     android:focusableInTouchMode="false"
                     android:hint="@string/board_tv_time_hint"
                     android:onClick="@{() -> viewmodel.onTimePickerClicked()}"
                     android:text="@{viewmodel.time}"
                     android:textColor="@color/colorHungryLightBlack"
                     android:textColorHint="@color/colorHungryRed"
+                    android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelText="@string/board_tv_time"
-                    app:met_iconLeft="@drawable/ic_alarm_add_24dp"
+                    app:met_iconLeft="@drawable/ic_alarm_24dp"
                     app:met_iconPadding="0dp"
                     app:met_primaryColor="@color/colorHungryRed" />
-
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_input_max_person"
@@ -106,11 +107,11 @@
                     android:focusableInTouchMode="false"
                     android:hint="@string/board_tv_max_person"
                     android:inputType="numberDecimal"
-                    android:maxLength="3"
+                    android:maxLength="2"
                     android:singleLine="true"
                     android:textColor="@color/colorHungryLightBlack"
                     android:textColorHint="@color/colorHungryLightBlack"
-                    android:textSize="@dimen/board_tv_text_size"
+                    android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelText="@string/board_tv_max_person"
                     app:met_iconLeft="@drawable/ic_group_24dp"
@@ -120,21 +121,22 @@
 
                 <ImageButton
                     android:id="@+id/ib_person_down"
-                    android:layout_width="@dimen/board_add_btn_size"
-                    android:layout_height="@dimen/board_add_btn_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/tv_input_time"
                     android:layout_marginStart="@dimen/space_small_margin"
                     android:layout_marginTop="@dimen/space_medium_margin"
                     android:layout_toEndOf="@+id/et_input_max_person"
                     android:background="@android:color/transparent"
-                    android:elevation="4dp"
                     android:onClick="@{()->viewmodel.onPersonUpClick()}"
-                    android:src="@drawable/up_button" />
+                    android:paddingStart="@dimen/space_img_btn_padding"
+                    android:paddingEnd="@dimen/space_small_margin"
+                    app:srcCompat="@drawable/ic_up_32dp" />
 
                 <ImageButton
                     android:id="@+id/ib_person_up"
-                    android:layout_width="@dimen/board_add_btn_size"
-                    android:layout_height="@dimen/board_add_btn_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/tv_input_time"
                     android:layout_alignBaseline="@id/et_input_max_person"
                     android:layout_marginStart="@dimen/space_small_margin"
@@ -142,9 +144,9 @@
                     android:layout_toEndOf="@id/et_input_max_person"
                     android:background="@android:color/transparent"
                     android:onClick="@{()->viewmodel.onPersonDownClick()}"
-                    android:rotation="180"
-                    android:src="@drawable/up_button" />
-
+                    android:paddingStart="@dimen/space_img_btn_padding"
+                    android:paddingEnd="@dimen/space_small_margin"
+                    app:srcCompat="@drawable/ic_down_32dp" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/et_input_budget"
@@ -161,52 +163,51 @@
                     android:maxLength="7"
                     android:singleLine="true"
                     android:textColor="@color/colorHungryLightBlack"
-                    android:textSize="@dimen/board_tv_text_size"
+                    android:textSize="14sp"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelText="@string/board_detail_tv_budget"
-                    app:met_iconLeft="@drawable/krw"
+                    app:met_iconLeft="@drawable/ic_krw_24dp"
                     app:met_iconPadding="0dp"
                     app:met_primaryColor="@color/colorHungryRed"
                     app:met_singleLineEllipsis="true" />
 
-
                 <ImageButton
                     android:id="@+id/ib_budget_up"
-                    android:layout_width="@dimen/board_add_btn_size"
-                    android:layout_height="@dimen/board_add_btn_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/tv_input_time"
                     android:layout_marginStart="@dimen/space_small_margin"
                     android:layout_marginTop="@dimen/space_medium_margin"
                     android:layout_toEndOf="@+id/et_input_budget"
                     android:background="@android:color/transparent"
                     android:onClick="@{()->viewmodel.onBudgetUpClick()}"
-                    android:src="@drawable/up_button" />
-
+                    android:paddingStart="@dimen/space_img_btn_padding"
+                    android:paddingEnd="@dimen/space_small_margin"
+                    app:srcCompat="@drawable/ic_up_32dp" />
 
                 <ImageButton
                     android:id="@+id/ib_budget_down"
-                    android:layout_width="@dimen/board_add_btn_size"
-                    android:layout_height="@dimen/board_add_btn_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/tv_input_time"
                     android:layout_alignBaseline="@id/et_input_budget"
                     android:layout_marginStart="@dimen/space_small_margin"
                     android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_small_margin"
                     android:layout_toEndOf="@id/et_input_budget"
                     android:background="@android:color/transparent"
                     android:onClick="@{()->viewmodel.onBudgetDownClick()}"
-                    android:rotation="180"
-                    android:src="@drawable/up_button" />
-
+                    android:paddingStart="@dimen/space_img_btn_padding"
+                    android:paddingEnd="@dimen/space_small_margin"
+                    app:srcCompat="@drawable/ic_down_32dp" />
 
                 <TextView
                     android:id="@+id/tv_age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/et_input_max_person"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
+                    android:layout_marginStart="@dimen/space_medium_margin"
                     android:layout_marginTop="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:layout_marginEnd="@dimen/space_medium_margin"
                     android:text="@string/board_tv_age"
                     android:textSize="@dimen/board_tv_text_size"
                     android:textStyle="bold" />
@@ -216,8 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_age"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:layout_marginStart="@dimen/space_medium_margin"
                     android:text="@string/board_tv_age_hint"
                     android:textSize="@dimen/board_tv_text_size" />
 
@@ -228,10 +228,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_age_hint"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:layout_marginStart="@dimen/space_medium_margin"
+                    android:layout_marginEnd="@dimen/space_small_margin"
                     app:mrb_temporaryPins="false"
-
                     app:mrb_tickEnd="80"
                     app:mrb_tickStart="15" />
 
@@ -247,24 +246,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/v_start_of_content"
-                    android:layout_marginStart="@dimen/space_board_item_margin"
-                    android:layout_marginEnd="@dimen/space_board_item_margin"
+                    android:layout_marginStart="@dimen/space_medium_padding"
+                    android:layout_marginEnd="@dimen/space_small_padding"
                     android:gravity="top"
                     android:hint="@string/board_tv_content_hint"
                     android:lines="10"
-                    android:padding="@dimen/space_medium_padding"
-                    android:textSize="@dimen/board_tv_text_size"
+                    android:paddingTop="@dimen/space_small_margin"
+                    android:textSize="14sp"
                     app:met_clearButton="true"
                     app:met_floatingLabel="highlight"
                     app:met_floatingLabelText="@string/board_tv_content"
                     app:met_hideUnderline="true"
                     app:met_primaryColor="@color/colorHungryRed" />
 
-
             </RelativeLayout>
-
         </ScrollView>
-
     </LinearLayout>
-
 </layout>
