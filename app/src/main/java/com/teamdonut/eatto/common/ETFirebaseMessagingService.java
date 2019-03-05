@@ -19,7 +19,7 @@ import com.teamdonut.eatto.ui.main.MainActivity;
 import androidx.core.app.NotificationCompat;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class MyFirebaseMessagingService  extends FirebaseMessagingService {
+public class ETFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FirebaseMsgService";
     CompositeDisposable disposables = new CompositeDisposable();
