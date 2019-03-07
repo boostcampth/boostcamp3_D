@@ -44,12 +44,11 @@ public class BoardSearchViewModel extends ViewModel {
     public void fetchAddressResult(String authorization, String query, int page, int size) {
         disposables.add(kakaoRepository.getAddress(authorization, query, page, size)
                 .subscribe(data -> {
-                    if (data.getMeta().isEnd()) {
-                        isEndDocuments = true;
-                    }
+                    boolean isEnd = data.getMeta().isEnd();
+
+                    isEndDocuments = isEnd;
 
                     if (page == 1) {
-                        isEndDocuments = false;
                         documents.postValue(data.getDocuments());
                     } else {
                         documents.getValue().addAll(data.getDocuments());
