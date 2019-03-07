@@ -119,4 +119,6 @@ ext {
     //FireBase Cloud Messaging
     fcmVersion = '17.3.4'
 
+    //Livebus
+    liveBusVersion = '0.0.2'
 }
