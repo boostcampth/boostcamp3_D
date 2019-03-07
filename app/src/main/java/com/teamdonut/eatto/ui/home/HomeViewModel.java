@@ -55,11 +55,13 @@ public class HomeViewModel extends ViewModel {
                             if (data != null) {
                                 user.postValue(data);
                             }
+                        }, e -> {
+                            e.printStackTrace();
                         }
                 ));
     }
 
-    public void onPreviewClick(Board board){
+    public void onPreviewClick(Board board) {
         navigator.openBoardPreview(board);
     }
 

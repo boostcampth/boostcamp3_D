@@ -2,7 +2,6 @@ package com.teamdonut.eatto.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,8 @@ import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.HomeFragmentBinding;
 import com.teamdonut.eatto.ui.board.preview.BoardPreviewDialog;
@@ -56,12 +57,16 @@ public class HomeFragment extends Fragment implements HomeNavigator {
 
         viewModel.setNavigator(this);
 
-        initRecommendRv();
-        initRankingRv();
+        if (NetworkCheckUtil.networkCheck(getContext().getApplicationContext())) {
+            initRecommendRv();
+            initRankingRv();
 
-        fetchData();
+            fetchData();
+        } else {
+            SnackBarUtil.showSnackBar(binding.rvRank, R.string.all_network_check);
+        }
     }
-    
+
     private void fetchData() {
         viewModel.fetchRankUsers();
         viewModel.fetchRankUser();
