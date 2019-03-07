@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.util.Strings;
+import com.ro0opf.livebus.livebus.LiveBus;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
@@ -105,10 +107,14 @@ public class HomeFragment extends Fragment implements HomeNavigator {
 
     @Override
     public void openBoardPreview(Board board) {
-        final String PREVIEW_TAG = "preview";
-        BoardPreviewDialog dialog = BoardPreviewDialog.newInstance(board);
-        dialog.show(getChildFragmentManager(), PREVIEW_TAG);
+        Object flag = LiveBus.getInstance().getBus("BoardDialog").getValue();
+        if(flag == null || !(boolean)flag) {
+            LiveBus.getInstance().sendBus("BoardDialog", true);
+            final String PREVIEW_TAG = "preview";
+            BoardPreviewDialog dialog = BoardPreviewDialog.newInstance(board);
+            dialog.show(getChildFragmentManager(), PREVIEW_TAG);
 
-        RxBus.getInstance().sendBus(board); //send bus
+            RxBus.getInstance().sendBus(board); //send bus
+        }
     }
 }

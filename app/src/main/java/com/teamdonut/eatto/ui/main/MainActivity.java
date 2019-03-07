@@ -2,13 +2,16 @@ package com.teamdonut.eatto.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.ro0opf.livebus.livebus.LiveBus;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.LiveBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     private MainActivityBinding binding;
     private MainViewModel viewModel = new MainViewModel(this);
     private final int BOARD_ADD_REQUEST = 100;
-
+    private String newToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,11 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         binding.setViewmodel(viewModel); //set viewModel.
         ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.fl_main);
         initSearchObserver();
-        viewModel.postFcmToken(FirebaseInstanceId.getInstance().getToken());
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, (instanceIdResult)->{
+            newToken = instanceIdResult.getToken();
+        });
+        viewModel.postFcmToken(newToken);
     }
 
     public void startAnimation() {
@@ -98,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
     }
 
     private void initSearchObserver() {
-        LiveBus.getInstance().getBus().observe(this, o -> {
+        LiveBus.getInstance().getBus("filter").observe(this, o -> {
             if (o instanceof Filter && binding.bnvMain.getSelectedItemId() != R.id.menu_map) {
                 binding.bnvMain.setSelectedItemId(R.id.menu_map);
             }
