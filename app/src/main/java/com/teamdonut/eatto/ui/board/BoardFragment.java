@@ -8,6 +8,16 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.RxBus;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
+import com.teamdonut.eatto.databinding.BoardFragmentBinding;
+import com.teamdonut.eatto.ui.board.add.BoardAddActivity;
+import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
+
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -17,13 +27,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.RxBus;
-import com.teamdonut.eatto.databinding.BoardFragmentBinding;
-import com.teamdonut.eatto.ui.board.add.BoardAddActivity;
-import com.teamdonut.eatto.ui.board.detail.BoardDetailActivity;
-
-import java.util.ArrayList;
 
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
@@ -68,8 +71,12 @@ public class BoardFragment extends Fragment implements BoardNavigator {
 
         initRv(binding.rvOwn);
         initRv(binding.rvParticipate);
-        viewModel.fetchOwnBoard();
-        viewModel.fetchParticipateBoard();
+        if (NetworkCheckUtil.networkCheck(getContext().getApplicationContext())) {
+            viewModel.fetchOwnBoard();
+            viewModel.fetchParticipateBoard();
+        } else {
+            SnackBarUtil.showSnackBar(binding.rvOwn, R.string.all_network_check);
+        }
     }
 
     private void initOpenBoardObserve() {

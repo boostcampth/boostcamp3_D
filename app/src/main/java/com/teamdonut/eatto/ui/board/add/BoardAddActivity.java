@@ -11,12 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardAddActivityBinding;
@@ -25,6 +23,11 @@ import com.teamdonut.eatto.ui.board.BoardViewModel;
 import com.teamdonut.eatto.ui.board.search.BoardSearchActivity;
 
 import java.util.Calendar;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 public class BoardAddActivity extends AppCompatActivity implements BoardNavigator {
 
@@ -76,7 +79,6 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -92,7 +94,11 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
                 break;
             case R.id.menu_write:
                 //게시글 추가
-                addBoardProcess();
+                if (NetworkCheckUtil.networkCheck(getApplicationContext())) {
+                    addBoardProcess();
+                } else {
+                    SnackBarUtil.showSnackBar(getCurrentFocus(), R.string.all_network_check);
+                }
                 break;
         }
         return true;
@@ -165,10 +171,10 @@ public class BoardAddActivity extends AppCompatActivity implements BoardNavigato
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case BOARD_SEARCH_REQUEST:
-                    viewModel.getAddress().set( "("+data.getStringExtra("placeName")+") "+data.getStringExtra("addressName"));
+                    viewModel.getAddress().set("(" + data.getStringExtra("placeName") + ") " + data.getStringExtra("addressName"));
                     viewModel.setPlaceName(data.getStringExtra("placeName"));
                     viewModel.setAddressName(data.getStringExtra("addressName"));
                     viewModel.setLongitude(data.getStringExtra("x"));
