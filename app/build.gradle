@@ -106,6 +106,9 @@ dependencies {
 
     //Firebase Cloud Messaing
     implementation "com.google.firebase:firebase-messaging:$fcmVersion"
+
+    //LiveBus
+    implementation "ro0opf.lifeinus:livebus:$liveBusVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

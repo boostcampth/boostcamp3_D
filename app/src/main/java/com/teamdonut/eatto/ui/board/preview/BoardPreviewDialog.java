@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.ro0opf.livebus.livebus.LiveBus;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.databinding.BoardPreviewDialogBinding;
@@ -43,8 +44,8 @@ public class BoardPreviewDialog extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.FullScreenDialog);
-
         initJoinObserver();
+
         viewModel = ViewModelProviders.of(this).get(BoardPreviewViewModel.class);
         viewModel.getIsSubmitted().observe(this, joinObserver);
     }
@@ -62,6 +63,7 @@ public class BoardPreviewDialog extends DialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         viewModel.getIsSubmitted().removeObserver(joinObserver);
+        LiveBus.getInstance().sendBus("BoardDialog", false);
         super.onDismiss(dialog);
     }
 

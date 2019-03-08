@@ -25,8 +25,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+import com.ro0opf.livebus.livebus.LiveBus;
 import com.teamdonut.eatto.R;
-import com.teamdonut.eatto.common.LiveBus;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
@@ -216,10 +216,14 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void openBoardPreview(Board board) {
-        dialog = BoardPreviewDialog.newInstance(board);
-        dialog.show(getChildFragmentManager(), PREVIEW_TAG);
+        Object flag = LiveBus.getInstance().getBus("BoardDialog").getValue();
+        if(flag == null || !(boolean)flag) {
+            LiveBus.getInstance().sendBus("BoardDialog", true);
+            dialog = BoardPreviewDialog.newInstance(board);
+            dialog.show(getChildFragmentManager(), PREVIEW_TAG);
 
-        RxBus.getInstance().sendBus(board); //send bus
+            RxBus.getInstance().sendBus(board); //send bus
+        }
     }
 
     private void initBoardsObserver() {
@@ -250,10 +254,10 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     private void initSearchObserver() {
-        LiveBus.getInstance().getBus().observe(this, o -> {
-            if (o instanceof Filter) {
-                viewModel.loadBoards((Filter) o);
-                LiveBus.getInstance().sendBus(null);
+        LiveBus.getInstance().getBus("filter").observe(this, o -> {
+            if(o instanceof Filter) {
+                viewModel.loadBoards((Filter)o);
+                LiveBus.getInstance().sendBus("filter", null);
             }
         });
     }
