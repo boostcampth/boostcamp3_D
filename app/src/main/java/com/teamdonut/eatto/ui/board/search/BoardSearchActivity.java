@@ -15,6 +15,7 @@ import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.EndlessRecyclerViewScrollListener;
 import com.teamdonut.eatto.common.util.HorizontalDividerItemDecorator;
 import com.teamdonut.eatto.common.util.KeyboardUtil;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.kakao.Document;
 import com.teamdonut.eatto.databinding.BoardSearchActivityBinding;
@@ -111,7 +112,12 @@ public class BoardSearchActivity extends AppCompatActivity implements BoardNavig
                 finish();
                 break;
             case R.id.menu_search:
-                search();
+                if (NetworkCheckUtil.networkCheck(getApplicationContext())) {
+                    search();
+                } else {
+                    KeyboardUtil.hideSoftKeyboard(getCurrentFocus(), getApplicationContext());
+                    SnackBarUtil.showSnackBar(binding.rvBoardSearch, R.string.all_network_check);
+                }
                 break;
         }
         return true;

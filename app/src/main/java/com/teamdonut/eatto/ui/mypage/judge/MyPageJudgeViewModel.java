@@ -24,6 +24,8 @@ public class MyPageJudgeViewModel extends ViewModel {
         disposables.add(boardRepository.getJudgeBoards()
                 .subscribe(data -> {
                     judgeBoards.postValue(data);
+                }, e -> {
+                    e.printStackTrace();
                 }));
     }
 

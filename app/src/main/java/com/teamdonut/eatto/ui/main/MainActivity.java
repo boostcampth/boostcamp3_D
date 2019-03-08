@@ -13,6 +13,8 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.ro0opf.livebus.livebus.LiveBus;
 import com.teamdonut.eatto.R;
 import com.teamdonut.eatto.common.util.ActivityUtils;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Filter;
 import com.teamdonut.eatto.databinding.MainActivityBinding;
 import com.teamdonut.eatto.ui.home.HomeFragment;
@@ -40,7 +42,14 @@ public class MainActivity extends AppCompatActivity implements MainNavigator {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, (instanceIdResult)->{
             newToken = instanceIdResult.getToken();
         });
-        viewModel.postFcmToken(newToken);
+      
+
+        if (NetworkCheckUtil.networkCheck(getApplicationContext())) {
+            viewModel.postFcmToken(newToken);
+        } else {
+            SnackBarUtil.showSnackBar(binding.flMain, R.string.all_network_check);
+        }
+
     }
 
     public void startAnimation() {
