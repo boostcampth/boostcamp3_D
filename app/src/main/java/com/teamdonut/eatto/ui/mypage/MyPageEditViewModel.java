@@ -1,12 +1,13 @@
 package com.teamdonut.eatto.ui.mypage;
 
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.google.android.gms.common.util.Strings;
 import com.teamdonut.eatto.common.helper.RealmDataHelper;
 import com.teamdonut.eatto.data.User;
 import com.teamdonut.eatto.data.model.user.UserRepository;
+
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MyPageEditViewModel extends ViewModel {
@@ -30,7 +31,11 @@ public class MyPageEditViewModel extends ViewModel {
                 .doAfterSuccess(data -> {
                     isSubmitted.setValue(true);
                 })
-                .subscribe());
+                .subscribe((data) -> {
+
+                }, e -> {
+                    e.printStackTrace();
+                }));
     }
 
     public void onSubmitUserClick(String nickName) {

@@ -62,7 +62,10 @@ public class MainViewModel {
     public void postFcmToken(String token) {
         disposables.add(
                 fcmRepository.postFCMToken(token)
-                        .subscribe()
+                        .subscribe(data -> {
+                        }, e -> {
+                            e.printStackTrace();
+                        })
         );
     }
 }

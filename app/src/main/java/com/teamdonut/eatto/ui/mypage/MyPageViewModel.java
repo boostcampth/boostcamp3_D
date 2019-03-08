@@ -25,6 +25,8 @@ public class MyPageViewModel extends ViewModel {
                     if (data != null) {
                         user.set(data);
                     }
+                }, e -> {
+                    e.printStackTrace();
                 }));
     }
 

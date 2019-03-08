@@ -13,6 +13,7 @@
     <string name="all_default_address">서울특별시 강남구 역삼동</string>
     <string name="all_unlimit">무제한</string>
     <string name="all_won">원</string>
+    <string name="all_network_check">네트워크 상태를 확인해주세요</string>
 
     <!--Main BottomNavigationView-->
     <string name="bnv_title_home">홈</string>

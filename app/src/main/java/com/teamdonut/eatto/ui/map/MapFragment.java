@@ -30,6 +30,7 @@ import com.teamdonut.eatto.common.LiveBus;
 import com.teamdonut.eatto.common.RxBus;
 import com.teamdonut.eatto.common.util.ActivityUtils;
 import com.teamdonut.eatto.common.util.GpsModule;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
 import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.data.Board;
 import com.teamdonut.eatto.data.Filter;
@@ -89,11 +90,15 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         viewModel.setNavigator(this);
         binding.setViewmodel(viewModel);
         binding.setLifecycleOwner(this);
-        
+
         initMotionLayout();
         initOpenBoardObserver();
         initBoardsObserver();
-        initSearchObserver();
+        if (NetworkCheckUtil.networkCheck(getContext().getApplicationContext())) {
+            initSearchObserver();
+        } else {
+            SnackBarUtil.showSnackBar(binding.colMap, R.string.all_network_check);
+        }
         return binding.getRoot();
     }
 
@@ -147,6 +152,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
                         motionLayout.transitionToEnd();
                     }
                 }, e -> {
+                    e.printStackTrace();
                 });
     }
 
@@ -166,7 +172,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
     }
 
     @Override
-    public void goToMapSearch(){
+    public void goToMapSearch() {
         Intent intent = new Intent(getActivity(), MapSearchActivity.class);
         startActivity(intent);
     }
@@ -245,8 +251,8 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
 
     private void initSearchObserver() {
         LiveBus.getInstance().getBus().observe(this, o -> {
-            if(o instanceof Filter) {
-                viewModel.loadBoards((Filter)o);
+            if (o instanceof Filter) {
+                viewModel.loadBoards((Filter) o);
                 LiveBus.getInstance().sendBus(null);
             }
         });
@@ -290,7 +296,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         clusterManager = new ClusterManager<>(getActivity(), map);
         previousCameraPosition = map.getCameraPosition();
 
-        clusterManager.setRenderer(new DefaultClusterRenderer(this.getActivity(), map, clusterManager){
+        clusterManager.setRenderer(new DefaultClusterRenderer(this.getActivity(), map, clusterManager) {
             @Override
             protected void onClusterItemRendered(ClusterItem clusterItem, Marker marker) {
                 super.onClusterItemRendered(clusterItem, marker);
@@ -317,13 +323,13 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
             return true;
         });
 
-        clusterManager.setOnClusterClickListener(data ->{
+        clusterManager.setOnClusterClickListener(data -> {
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(data.getPosition(), map.getCameraPosition().zoom + 1));
             return true;
         });
 
         map.setOnCameraIdleListener(() -> {
-            if(bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                 viewModel.fetchAreaBoards(map.getProjection().getVisibleRegion().nearLeft, map.getProjection().getVisibleRegion().farRight);
                 if (clusterManager.getRenderer() instanceof GoogleMap.OnCameraIdleListener) {
                     ((GoogleMap.OnCameraIdleListener) clusterManager.getRenderer()).onCameraIdle();
@@ -338,7 +344,7 @@ public class MapFragment extends Fragment implements MapNavigator, OnMapReadyCal
         });
     }
 
-    private void initMotionLayout(){
+    private void initMotionLayout() {
         motionLayout = binding.mlMain;
         motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
             @Override

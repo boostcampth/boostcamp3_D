@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.teamdonut.eatto.R;
+import com.teamdonut.eatto.common.util.NetworkCheckUtil;
+import com.teamdonut.eatto.common.util.SnackBarUtil;
 import com.teamdonut.eatto.databinding.MypageJudgeActivityBinding;
 
 import java.util.ArrayList;
@@ -36,7 +38,13 @@ public class MyPageJudgeActivity extends AppCompatActivity {
         initJudgeRv();
         initToolbar();
         initJudgeObserve();
-        viewModel.fetchJudgeBoards();
+
+        if(NetworkCheckUtil.networkCheck(getApplicationContext())) {
+            viewModel.fetchJudgeBoards();
+        } else {
+            SnackBarUtil.showSnackBar(binding.rvJudge, R.string.all_network_check);
+        }
+
     }
 
     private void initJudgeObserve() {
